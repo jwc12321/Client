@@ -20,9 +20,32 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:support-v13:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:percent:$rootProject.ext.supportLibraryVersion"
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //dagger2
+    compile "com.google.dagger:dagger:$rootProject.ext.dagger2Version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2Version"
+    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2ConverterGsonVersion"
+    //    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofit2AdapterRxJavaVersion"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.ext.retrofit2AdapterRxJava2Version"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpLoggingInterceptorVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJava2Version"
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroid2Version"
+
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
 }

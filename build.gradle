@@ -25,3 +25,24 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext{
+    compileSdkVersion = 25
+    buildToolVersion = '25.0.0'
+    minSdkVersion = 16
+    targetSdkVersion = 25
+
+    espressoVersion = '3.0.1'
+    supportLibraryVersion = '26.1.0'
+
+    dagger2Version = '2.9'
+    retrofit2Version = '2.1.0'
+    retrofit2ConverterGsonVersion = '2.1.0'
+    //this adapter use rxJava 1.x, conflict with rxJava 2.x
+    //    retrofit2AdapterRxJavaVersion = '2.1.0'
+    retrofit2AdapterRxJava2Version = '1.0.0'
+    okHttpLoggingInterceptorVersion = '3.6.0'
+    rxJava2Version = '2.0.5'
+    rxAndroid2Version = '2.0.1'
+    butterknifeVersion='8.5.1'
+    junitVersion = '4.12'
+}
