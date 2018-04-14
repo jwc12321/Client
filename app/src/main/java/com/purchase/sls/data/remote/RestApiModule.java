@@ -33,10 +33,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class RestApiModule {
+
     public static final long DEFAULT_CONNECTION_TIMEOUT_SEC = 30;
     public static final long DEFAULT_HTTP_CACHE_MB = 10;
     public static final long DEFAULT_READ_TIMEOUT_SEC = 30;
-    public static final String API_BASE_URL = "http://a.365neng.com/api/home/";
+    public static final String API_BASE_URL = "http://ceshi.365neng.com/api/home/";
 
 
     public RestApiModule() {

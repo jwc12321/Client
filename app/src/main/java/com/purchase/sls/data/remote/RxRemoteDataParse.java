@@ -2,7 +2,6 @@ package com.purchase.sls.data.remote;
 
 
 
-import com.purchase.sls.data.Meta;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.Ignore;

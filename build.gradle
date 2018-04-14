@@ -1,14 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -26,8 +26,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext{
-    compileSdkVersion = 25
-    buildToolVersion = '25.0.0'
+    compileSdkVersion = 26
+    buildToolVersion = '26.0.0'
     minSdkVersion = 16
     targetSdkVersion = 25
 
@@ -45,4 +45,16 @@ ext{
     rxAndroid2Version = '2.0.1'
     butterknifeVersion='8.5.1'
     junitVersion = '4.12'
+    glideVersion = '3.7.0'
+    bottomBarVersion = '2.1.1'
+    circleImageVersion = '2.1.0'
+    //第三方AppBarLayout, 官方fling有bug,问题很多(support版本25.1.1)
+    smoothAppBarVersion = '25.1.0.0'
+    gsonVersion = '2.8.0'
+    ormliteAndroidVersion = '5.0'
+    greenDaoVersion = '3.2.0'
+    roundedimageviewVersion='2.2.1'
+    analyticsVersion='latest.integration'
+    eventbusVersion='3.0.0'
+    greendao="3.2.2"
 }
