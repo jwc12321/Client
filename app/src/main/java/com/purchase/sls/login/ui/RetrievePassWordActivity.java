@@ -32,6 +32,11 @@ public class RetrievePassWordActivity extends BaseActivity implements LoginContr
     Button button;
 
     @Override
+    public View getSnackBarHolderView() {
+        return null;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_password);

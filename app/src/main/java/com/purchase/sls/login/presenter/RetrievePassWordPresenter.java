@@ -41,7 +41,7 @@ public class RetrievePassWordPresenter implements LoginContract.RetrievePassWord
     }
     @Override
     public void sendCaptcha(String phone) {
-        CaptchaRequest request = new CaptchaRequest("18238806099","123456","");
+        CaptchaRequest request = new CaptchaRequest("18238806099","code","12fdfdfdfdfdfdfdfd3456","");
         Disposable disposable = mApiService.sendCaptcha(request)
                 .flatMap(new RxRemoteDataParse<CeshiResponse>())
                 .compose(new RxSchedulerTransformer<CeshiResponse>())

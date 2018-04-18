@@ -2,10 +2,12 @@ package com.purchase.sls.data.remote;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.data.EntitySerializer;
 import com.purchase.sls.data.GsonSerializer;
 
@@ -37,7 +39,7 @@ public class RestApiModule {
     public static final long DEFAULT_CONNECTION_TIMEOUT_SEC = 30;
     public static final long DEFAULT_HTTP_CACHE_MB = 10;
     public static final long DEFAULT_READ_TIMEOUT_SEC = 30;
-    public static final String API_BASE_URL = "http://ceshi.365neng.com/api/home/";
+    public static final String API_BASE_URL = "http://192.168.100.190/ng/index.php/";
 
 
     public RestApiModule() {
@@ -96,23 +98,24 @@ public class RestApiModule {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-                if (original.body() instanceof FormBody) {
-                    FormBody srcBody = (FormBody) original.body();
-                    FormBody.Builder builder = new FormBody.Builder();
-                    for (int i = 0; i < srcBody.size(); i++) {
-                        builder.addEncoded(srcBody.encodedName(i), srcBody.encodedValue(i));
-                    }
-                    builder.addEncoded(PARAM_KEY, PARAM_VALUE);
-                    FormBody dstBody = builder.build();
+//                if (original.body() instanceof FormBody) {
+//                    FormBody srcBody = (FormBody) original.body();
+//                    FormBody.Builder builder = new FormBody.Builder();
+//                    for (int i = 0; i < srcBody.size(); i++) {
+//                        builder.addEncoded(srcBody.encodedName(i), srcBody.encodedValue(i));
+//                    }
+//                    builder.addEncoded(PARAM_KEY, PARAM_VALUE);
+//                    FormBody dstBody = builder.build();
                     Request request = original.newBuilder()
                             //content-length need re calc
-                            .header("Content-Length", String.valueOf(dstBody.contentLength()))
-                            .method(original.method(), dstBody)
+//                            .header("Content-Length", String.valueOf(dstBody.contentLength()))
+//                            .header("Token", TokenManager.getToken()+"")
+//                            .method(original.method(), original.body())
                             .build();
                     return chain.proceed(request);
-                } else {
-                    return chain.proceed(original);
-                }
+//                } else {
+//                    return chain.proceed(original);
+//                }
             }
         };
     }

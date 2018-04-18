@@ -9,8 +9,14 @@ import com.purchase.sls.BaseView;
  */
 
 public interface LoginContract {
-    int CAPTCHA_PASSWORD = 2;
 
+    interface LoginPresenter extends BasePresenter{
+       void login(String username,String type,String code,String password);
+    }
+
+    interface LoginView extends BaseView<LoginPresenter>{
+        void success();
+    }
     interface RetrievePassWordPresenter extends BasePresenter {
         void sendCaptcha(String phone);
     }

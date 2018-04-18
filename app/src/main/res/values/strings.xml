@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">能购</string>
+    <!--权限-->
+    <string name="common_request_permission">该操作需要开通权限</string>
+    <string name="common_allow_permission">允许</string>
+    <!--登录模块-->
+    <string name="input_account_number">请输入账号</string>
+    <string name="input_password">请输入密码</string>
+    <string name="login_in">登录</string>
+    <string name="forget_password">忘记密码?</string>
+    <string name="immediate_registration">立即注册</string>
+    <string name="other_login_in">其他登入方式</string>
+    <string name="check_network">网络不给力，稍后再试试吧</string>
+    <string name="invalid_account_input">请输入正确的手机号</string>
+    <string name="empty_account">用户名不能为空</string>
+    <string name="empty_password">密码不能为空</string>
 </resources>

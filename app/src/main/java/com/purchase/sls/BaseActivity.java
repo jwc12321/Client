@@ -1,8 +1,18 @@
 package com.purchase.sls;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 import com.purchase.sls.MainApplication;
 
@@ -11,6 +21,11 @@ import com.purchase.sls.MainApplication;
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements LoadDataView {
+    /**
+     * snack bar holder view
+     * 用于显示snack bar, 基于activity本身或者fragment调用统一使用该函数,方便处理一些视图的偏移,fab等.
+     */
+    public abstract View getSnackBarHolderView();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +37,51 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
     public ApplicationComponent getApplicationComponent() {
         return ((MainApplication) getApplication()).getApplicationComponent();
     }
+
+
+    //权限
+    public boolean requestRuntimePermissions(final String[] permissions, final int requestCode) {
+        boolean ret = true;
+        for (String permission : permissions) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                ret &= (PermissionChecker.checkSelfPermission(BaseActivity.this, permission) == PermissionChecker.PERMISSION_GRANTED);
+            else
+                ret &= (ContextCompat.checkSelfPermission(BaseActivity.this, permission) == PackageManager.PERMISSION_GRANTED);
+        }
+        if (ret) {
+            return true;
+        }
+        boolean rationale = false;
+        for (String permission : permissions) {
+            rationale |= ActivityCompat.shouldShowRequestPermissionRationale(BaseActivity.this,permission);
+
+        }
+        if (rationale) {
+            makePrimaryColorSnackBar(R.string.common_request_permission, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_allow_permission, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ActivityCompat.requestPermissions(BaseActivity.this,permissions, requestCode);
+                        }
+                    })
+                    .show();
+
+        } else {
+            ActivityCompat.requestPermissions(BaseActivity.this,permissions, requestCode);
+
+        }
+        return false;
+    }
+
+    public Snackbar makeColorSnackBar(@StringRes int resId, int duration, @ColorInt int colorId) {
+        Snackbar snackbar = Snackbar.make(getSnackBarHolderView(), resId, duration);
+        snackbar.getView().setBackgroundColor(colorId);
+        return snackbar;
+    }
+    public Snackbar makePrimaryColorSnackBar(@StringRes int resId, int duration) {
+        return makeColorSnackBar(resId, duration, getResources().getColor(R.color.colorPrimary));
+    }
+
 
     @Override
     public void showMessage(String msg) {
@@ -41,6 +101,12 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
     @Override
     public void dismissLoading() {
 
+    }
+
+    public void showError(String errMsg) {
+        if(getApplicationContext()!=null) {
+            Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

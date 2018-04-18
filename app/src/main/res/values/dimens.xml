@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="common_margin_left_right">15dp</dimen>
+    <dimen name="login_button_left_right">30dp</dimen>
+    <dimen name="login_forget_password_left">35dp</dimen>
+</resources>
