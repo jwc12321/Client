@@ -8,5 +8,11 @@
     <!--字体颜色，也可以是边框颜色-->
     <color name="appText1">#FFFFFF</color>
     <color name="appText2">#999999</color>
-    <color name="appText3">#FF5000</color>
+    <color name="appText3">#ff6528</color>
+    <color name="appText4">#0c0c0c</color>
+    <color name="appText5">#333333</color>
+    <color name="appText6">#838383</color>
+
+    <color name="backGround1">#f4f4f4</color>
+    <color name="backGround2">#f4f4f4</color>
 </resources>

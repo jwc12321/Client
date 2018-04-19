@@ -2,7 +2,7 @@ package com.purchase.sls.login;
 
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
-import com.purchase.sls.login.ui.LoginActivity;
+import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RetrievePassWordActivity;
 
 import dagger.Component;
@@ -13,6 +13,6 @@ import dagger.Component;
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class, modules = {LoginModule.class})
 public interface LoginComponent {
-    void inject(LoginActivity loginActivity);
+    void inject(AccountLoginActivity accountLoginActivity);
     void inject(RetrievePassWordActivity retrievePassWordActivity);
 }

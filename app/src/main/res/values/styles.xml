@@ -11,9 +11,23 @@
     <style name="login_forget_number_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/appText2</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appText4</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <style name="title_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText5</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="title_text_right_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText5</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:layout_alignParentRight">true</item>
     </style>
 
 </resources>

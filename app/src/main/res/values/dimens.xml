@@ -1,5 +1,10 @@
 <resources>
     <dimen name="common_margin_left_right">15dp</dimen>
-    <dimen name="login_button_left_right">30dp</dimen>
-    <dimen name="login_forget_password_left">35dp</dimen>
+    <dimen name="login_button_left_right">50dp</dimen>
+    <dimen name="login_button_height">25dp</dimen>
+    <dimen name="login_forget_password_left">65dp</dimen>
+    <dimen name="auth_code_button_width">80dp</dimen>
+    <dimen name="auth_code_button_height">30dp</dimen>
+    <dimen name="title_height">44dp</dimen>
+    <dimen name="set_password_height">44dp</dimen>
 </resources>

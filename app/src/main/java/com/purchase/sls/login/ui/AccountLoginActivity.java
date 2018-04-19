@@ -1,6 +1,7 @@
 package com.purchase.sls.login.ui;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,7 +38,7 @@ import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
  * Created by JWC on 2018/4/17.
  */
 
-public class LoginActivity extends BaseActivity implements LoginContract.LoginView {
+public class AccountLoginActivity extends BaseActivity implements LoginContract.LoginView {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.login_account_number_et)
@@ -73,10 +74,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
         return null;
     }
 
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, AccountLoginActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_account_login);
         ButterKnife.bind(this);
     }
 
@@ -89,7 +96,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
                 .inject(this);
     }
 
-    @OnClick({R.id.clean_account_number,R.id.clean_password,R.id.hidden_password,R.id.login_in,R.id.sms_login})
+    @OnClick({R.id.clean_account_number,R.id.clean_password,R.id.hidden_password,R.id.login_in,R.id.sms_login,R.id.forget_password,R.id.immediate_registration})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.clean_account_number:
@@ -105,8 +112,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
                 login();
                 break;
             case R.id.sms_login:
-                Intent intent=new Intent(LoginActivity.this,RetrievePassWordActivity.class);
-                startActivity(intent);
+                SmsLoginActivity.start(this);
+                break;
+            case R.id.forget_password:
+                SetPasswordActivity.start(this);
+                break;
+            case R.id.immediate_registration:
+                SetPasswordActivity.start(this);
                 break;
                 default:
         }
@@ -138,10 +150,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
     private void login(){
         String accountNumber=loginAccountNumberEt.getText().toString();
         String passWord=loginPasswordEt.getText().toString();
-//        if (!NetUtils.isConnected()) {
-//            showMessage(getString(R.string.check_network));
-//            return;
-//        }
+        if (!NetUtils.isConnected()) {
+            showMessage(getString(R.string.check_network));
+            return;
+        }
         if (!isAccountValid(accountNumber)) {
             showError(getString(R.string.invalid_account_input));
             return;

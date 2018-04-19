@@ -35,6 +35,14 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
     public void setupListener() {
         loginView.setPresenter(this);
     }
+
+    /**
+     * 密码登录和短信登录
+     * @param username
+     * @param type
+     * @param code
+     * @param password
+     */
     @Override
     public void login(String username, String type, String code, String password) {
         LoginRequest loginRequest=new LoginRequest(username,type,code,password);
@@ -53,8 +61,8 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                     }
                 });
         mDisposableList.add(disposable);
-
     }
+
 
 
     @Override

@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'walle'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolVersion
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.purchase.sls"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -65,7 +65,7 @@ walle {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
@@ -83,11 +83,13 @@ dependencies {
     compile "de.hdodenhof:circleimageview:$rootProject.ext.circleImageVersion"
     compile "me.henrytao:smooth-app-bar-layout:$rootProject.ext.smoothAppBarVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     //dagger2
     compile "com.google.dagger:dagger:$rootProject.ext.dagger2Version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2Version"
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2ConverterGsonVersion"
+
     //    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofit2AdapterRxJavaVersion"
     compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.ext.retrofit2AdapterRxJava2Version"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpLoggingInterceptorVersion"

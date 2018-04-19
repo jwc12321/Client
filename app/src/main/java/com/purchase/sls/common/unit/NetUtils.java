@@ -31,28 +31,40 @@ public class NetUtils extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        Network[] networkInfos = connectivityManager.getAllNetworks();
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        NetworkInfo mobile = null;
-        NetworkInfo wifi = null;
-        NetworkInfo networkInfo1;
-        for (Network network : networkInfos){
-            networkInfo1 = connectivityManager.getNetworkInfo(network);
-            if (networkInfo1 != null && networkInfo1.getType() == ConnectivityManager.TYPE_MOBILE )
-                mobile = networkInfo1;
-            if (networkInfo1 != null && networkInfo1.getType() == ConnectivityManager.TYPE_WIFI)
-                wifi = networkInfo1;
+        boolean curStat = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Network[] networkInfos = connectivityManager.getAllNetworks();
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            NetworkInfo mobile = null;
+            NetworkInfo wifi = null;
+            NetworkInfo networkInfo1;
+            for (Network network : networkInfos){
+                networkInfo1 = connectivityManager.getNetworkInfo(network);
+                if (networkInfo1 != null && networkInfo1.getType() == ConnectivityManager.TYPE_MOBILE )
+                    mobile = networkInfo1;
+                if (networkInfo1 != null && networkInfo1.getType() == ConnectivityManager.TYPE_WIFI)
+                    wifi = networkInfo1;
+            }
+            curStat = (mobile!=null&&mobile.isConnected()) || (wifi!=null&&wifi.isConnected()) || (networkInfo != null && networkInfo.isConnectedOrConnecting());
+        }else {
+            NetworkInfo[] info = connectivityManager.getAllNetworkInfo();
+            if (info != null) {
+                for (NetworkInfo anInfo : info) {
+                    if (anInfo.getState() == NetworkInfo.State.CONNECTED) {
+                        curStat=true;
+                    }
+                }
+            }
         }
-        boolean changed;
-        boolean curStat = (mobile!=null&&mobile.isConnected()) || (wifi!=null&&wifi.isConnected()) || (networkInfo != null && networkInfo.isConnectedOrConnecting());
-        changed = (curStat != isConnected);
+//        boolean changed;
+//        changed = (curStat != isConnected);
         if (curStat) {
             isConnected = true;
         } else {
             isConnected = false;
         }
 
-        castIfChanged(changed);
+//        castIfChanged(changed);
     }
     private void castIfChanged(boolean changed) {
         if (!changed)return;

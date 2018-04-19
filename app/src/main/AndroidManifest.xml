@@ -54,7 +54,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.ui.LoginActivity">
+        <activity android:name=".login.ui.AccountLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,6 +70,10 @@
 
 
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".login.ui.SmsLoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".login.ui.SetPasswordActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".login.ui.RetrievePassWordActivity"
             android:screenOrientation="portrait"/>
