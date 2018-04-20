@@ -37,7 +37,7 @@ import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
  * 注册页面和修改密码
  */
 
-public class RegisterSecondActivity extends BaseActivity implements LoginContract.LoginView{
+public class RegisterSecondActivity extends BaseActivity implements LoginContract.LoginView {
 
     @BindView(R.id.back)
     ImageView back;
@@ -59,6 +59,8 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     ImageView overIv;
 
     private String type;
+    private String passwordStr;
+    private String passwordAgain;
     @Inject
     LoginPresenter loginPresenter;
 
@@ -94,16 +96,16 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 .inject(this);
     }
 
-    @OnClick({R.id.back,R.id.next})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.back, R.id.next})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.next:
-                next();
+                loginPresenter.registerPassword(passwordStr, passwordAgain, "", type);
                 break;
-                default:
+            default:
         }
     }
 
@@ -113,19 +115,9 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     @OnTextChanged({R.id.set_password_et, R.id.set_password_again_et})
     public void checkLoginEnable() {
         next.setEnabled(true);
-        String passwordStr = setPasswordET.getText().toString();
-        String passwordAgain=setPasswordAgainET.getText().toString();
+        passwordStr = setPasswordET.getText().toString();
+        passwordAgain = setPasswordAgainET.getText().toString();
         next.setEnabled(!(TextUtils.isEmpty(passwordStr) || TextUtils.isEmpty(passwordAgain)));
-    }
-
-    private void next(){
-        String passwordStr = setPasswordET.getText().toString();
-        String passwordAgain=setPasswordAgainET.getText().toString();
-//        if (!NetUtils.isConnected()) {
-//            showMessage(getString(R.string.check_network));
-//            return;
-//        }
-        loginPresenter.registerPassword(passwordStr,passwordAgain,"",type);
     }
 
     @Override

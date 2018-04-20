@@ -72,6 +72,8 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
     LinearLayout registrationAgreementLl;
 
     private String type;
+    private String phoneNumberStr;
+    private String phoneCodeStr;
     @Inject
     LoginPresenter loginPresenter;
 
@@ -128,14 +130,14 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
     @OnTextChanged({R.id.login_phone_number_et, R.id.phone_code_et})
     public void checkLoginEnable() {
         next.setEnabled(true);
-        String phomeNumber = loginPhoneNumberEt.getText().toString().trim();
-        String phoneCode = phoneCodeEt.getText().toString().trim();
-        sendAuthCode.setEnabled(!TextUtils.isEmpty(phomeNumber) && AccountUtils.isAccountValid(phomeNumber));
+        phoneNumberStr = loginPhoneNumberEt.getText().toString().trim();
+        phoneCodeStr = phoneCodeEt.getText().toString().trim();
+        sendAuthCode.setEnabled(!TextUtils.isEmpty(phoneNumberStr) && AccountUtils.isAccountValid(phoneNumberStr));
         loginPhoneNumberEt.setFocusable(!sendAuthCode.isCounting());
         if (TextUtils.equals(StaticData.REGISTER, type)) {
-            next.setEnabled(!(TextUtils.isEmpty(phomeNumber) || TextUtils.isEmpty(phoneCode) || !agreementCheck.isChecked()));
+            next.setEnabled(!(TextUtils.isEmpty(phoneNumberStr) || TextUtils.isEmpty(phoneCodeStr) || !agreementCheck.isChecked()));
         } else {
-            next.setEnabled(!(TextUtils.isEmpty(phomeNumber) || TextUtils.isEmpty(phoneCode)));
+            next.setEnabled(!(TextUtils.isEmpty(phoneNumberStr) || TextUtils.isEmpty(phoneCodeStr)));
         }
     }
 
@@ -159,7 +161,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
                 sendCode();
                 break;
             case R.id.next:
-                next();
+                loginPresenter.checkCode(phoneNumberStr, phoneCodeStr, type);
                 break;
 
         }
@@ -169,7 +171,6 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
      * 发送验证码
      */
     private void sendCode() {
-        String phoneNumberStr = loginPhoneNumberEt.getText().toString();
         if (!isAccountValid(phoneNumberStr)) {
             showError(getString(R.string.invalid_account_input));
             return;
@@ -180,16 +181,6 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
         sendAuthCode.startCold();
         loginPresenter.sendCode(phoneNumberStr, type);
         sendAuthCode.setOnResetListener(this);
-    }
-
-    private void next() {
-        String phoneNumberStr = loginPhoneNumberEt.getText().toString();
-        String codeStr = phoneCodeEt.getText().toString();
-//        if (!NetUtils.isConnected()) {
-//            showMessage(getString(R.string.check_network));
-//            return;
-//        }
-        loginPresenter.checkCode(phoneNumberStr, codeStr, type);
     }
 
     @Override
