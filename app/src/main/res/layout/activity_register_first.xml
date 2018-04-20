@@ -17,17 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
-            android:paddingLeft="@dimen/common_margin_left_right"
-            android:paddingRight="@dimen/common_margin_left_right"
+            android:paddingLeft="@dimen/common_text_left"
+            android:paddingRight="@dimen/common_text_left"
             android:src="@mipmap/return_gray" />
 
         <TextView
             android:id="@+id/title"
             style="@style/title_text_style" />
-
-        <TextView
-            android:id="@+id/complete"
-            style="@style/title_text_right_style" />
     </RelativeLayout>
 
     <LinearLayout
@@ -45,19 +41,9 @@
 
             <EditText
                 android:id="@+id/login_phone_number_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="11dp"
+                style="@style/phone_number_et_style"
                 android:layout_toLeftOf="@+id/view"
-                android:background="@null"
-                android:hint="@string/input_phone_number"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:textColor="@color/appText6"
-                android:textColorHint="@color/appText6"
-                android:textSize="13sp" />
+                android:hint="@string/input_phone_number" />
 
             <View
                 android:id="@+id/view"
@@ -73,7 +59,7 @@
                 android:layout_height="@dimen/auth_code_button_height"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="11dp"
+                android:layout_marginRight="@dimen/common_text_left"
                 android:background="@color/appText1"
                 android:gravity="center"
                 android:text="@string/button_send_auth_code"
@@ -88,66 +74,13 @@
             android:background="@color/appText1">
 
             <EditText
-                android:id="@+id/login_sms_password_et"
+                android:id="@+id/phone_code_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="11dp"
                 android:background="@null"
                 android:hint="@string/input_sms_verificationcode"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:textColor="@color/appText6"
-                android:textColorHint="@color/appText6"
-                android:textSize="13sp" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/second"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title_rel"
-        android:layout_marginTop="27dp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/set_password_height"
-            android:background="@color/appText1">
-
-            <EditText
-                android:id="@+id/set_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="11dp"
-                android:background="@null"
-                android:hint="@string/input_password"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:textColor="@color/appText6"
-                android:textColorHint="@color/appText6"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/set_password_height"
-            android:layout_marginTop="1dp"
-            android:background="@color/appText1">
-
-            <EditText
-                android:id="@+id/set_password_again"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="11dp"
-                android:background="@null"
-                android:hint="@string/input_password_again"
                 android:inputType="phone"
                 android:maxLength="11"
                 android:maxLines="1"
@@ -166,9 +99,11 @@
         android:layout_marginTop="146dp"
         android:background="@drawable/login_button_background"
         android:text="下一步"
-        android:textColor="@color/appText1" />
+        android:textColor="@color/appText1"
+        android:enabled="false"/>
 
     <LinearLayout
+        android:id="@+id/registration_agreement_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/next"
@@ -181,7 +116,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/checkbox"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:checked="true"/>
 
         <TextView
             android:id="@+id/agreement"
@@ -195,11 +131,4 @@
             android:textColor="#FF888888"
             android:textSize="14sp" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/over"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
 </RelativeLayout>

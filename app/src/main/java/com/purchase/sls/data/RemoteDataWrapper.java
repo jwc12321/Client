@@ -11,27 +11,30 @@ import com.google.gson.annotations.SerializedName;
 public class RemoteDataWrapper<T> {
 
     public static final String CODE_SUCCESS = "0";
-    @SerializedName("code")
-    public String code;
-    @SerializedName("message")
-    public String message;
-
+    @SerializedName("errorCode")
+    public String errorCode;
+    @SerializedName("errorStr")
+    public String errorStr;
+    @SerializedName("resultCount")
+    public String resultCount;
+    @SerializedName("results")
+    public String results;
     @Nullable
-    @SerializedName("res")
+    @SerializedName("extraInfo")
     public T data;
 
     public String getErrorCode() {
-        return code;
+        return errorCode;
     }
 
     public String getErrorStr() {
-        return code;
+        return errorCode;
     }
 
     /**
      * 判断请求数据是否成功
      */
     public boolean isSuccess() {
-        return code.equals(CODE_SUCCESS);
+        return errorCode.equals(CODE_SUCCESS);
     }
 }

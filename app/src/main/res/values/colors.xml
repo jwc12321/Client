@@ -12,7 +12,8 @@
     <color name="appText4">#0c0c0c</color>
     <color name="appText5">#333333</color>
     <color name="appText6">#838383</color>
+    <color name="appText7">#616161</color>
 
     <color name="backGround1">#f4f4f4</color>
-    <color name="backGround2">#f4f4f4</color>
+    <color name="backGround2">#dadada</color>
 </resources>

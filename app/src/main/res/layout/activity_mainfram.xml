@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_select_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/homepage_rl"
+            style="@style/bottom_RelativeLayout_style">
+
+            <ImageView
+                android:id="@+id/homepage_iv"
+                style="@style/bottom_imageView_style"
+                android:src="@drawable/homepage_select" />
+
+            <TextView
+                android:id="@+id/homepage_tt"
+                style="@style/bottom_textView_style"
+                android:text="@string/homepage" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nearby_rl"
+            style="@style/bottom_RelativeLayout_style">
+
+            <ImageView
+                android:id="@+id/nearby_iv"
+                style="@style/bottom_imageView_style"
+                android:src="@drawable/nearby_select" />
+
+            <TextView
+                android:id="@+id/nearby_tt"
+                style="@style/bottom_textView_style"
+                android:text="@string/nearby" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/shoppingmall_rl"
+            style="@style/bottom_RelativeLayout_style">
+
+            <TextView
+                android:id="@+id/shoppingmall_tt"
+                style="@style/bottom_textView_style"
+                android:text="@string/shoppingmall" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/energy_rl"
+            style="@style/bottom_RelativeLayout_style">
+
+            <ImageView
+                android:id="@+id/energy_iv"
+                style="@style/bottom_imageView_style"
+                android:src="@drawable/energy_select" />
+
+            <TextView
+                android:id="@+id/energy_tt"
+                style="@style/bottom_textView_style"
+                android:text="@string/energy" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mine_rl"
+            style="@style/bottom_RelativeLayout_style">
+
+            <ImageView
+                android:id="@+id/mine_iv"
+                style="@style/bottom_imageView_style"
+                android:src="@drawable/mine_select" />
+
+            <TextView
+                android:id="@+id/mine_tt"
+                style="@style/bottom_textView_style"
+                android:text="@string/mine" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/shoppingmall_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:src="@drawable/shopping_mall_select" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/bottom_select_height"
+        android:background="@color/appText4" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_select_height" />
+</RelativeLayout>

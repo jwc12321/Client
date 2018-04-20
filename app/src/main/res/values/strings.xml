@@ -3,6 +3,8 @@
     <!--权限-->
     <string name="common_request_permission">该操作需要开通权限</string>
     <string name="common_allow_permission">允许</string>
+
+    <string name="snack_bar_exception_msg">请基于BaseActivity和BaseFragment来设计</string>
     <!--登录模块-->
     <string name="input_account_number">请输入账号</string>
     <string name="input_password">请输入密码</string>
@@ -21,4 +23,12 @@
     <string name="input_sms_verificationcode">请输入手机验证码</string>
     <string name="input_password_again">请再次输入密码</string>
     <string name="registration_agreement">我已阅读并同意《能购用户协议》</string>
+    <string name="register">注册</string>
+
+    <!--主框架-->
+    <string name="homepage">首页</string>
+    <string name="nearby">附近</string>
+    <string name="shoppingmall">商城</string>
+    <string name="energy">能量</string>
+    <string name="mine">我的</string>
 </resources>

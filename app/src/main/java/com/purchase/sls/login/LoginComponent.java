@@ -3,7 +3,10 @@ package com.purchase.sls.login;
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.login.ui.AccountLoginActivity;
+import com.purchase.sls.login.ui.RegisterFirstActivity;
+import com.purchase.sls.login.ui.RegisterSecondActivity;
 import com.purchase.sls.login.ui.RetrievePassWordActivity;
+import com.purchase.sls.login.ui.SmsLoginActivity;
 
 import dagger.Component;
 
@@ -14,5 +17,9 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {LoginModule.class})
 public interface LoginComponent {
     void inject(AccountLoginActivity accountLoginActivity);
+    void inject(SmsLoginActivity smsLoginActivity);
+    void inject(RegisterFirstActivity registerFirstActivity);
+    void inject(RegisterSecondActivity registerSecondActivity);
     void inject(RetrievePassWordActivity retrievePassWordActivity);
+
 }

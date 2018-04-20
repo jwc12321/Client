@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/appText1"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:paddingLeft="@dimen/common_text_left"
+            android:paddingRight="@dimen/common_text_left"
+            android:src="@mipmap/return_gray" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style" />
+
+        <TextView
+            android:id="@+id/complete"
+            style="@style/title_text_right_style" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/password_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_rel"
+        android:layout_marginTop="27dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/set_password_height"
+            android:background="@color/appText1">
+
+            <EditText
+                android:id="@+id/set_password_et"
+                style="@style/phone_number_et_style"
+                android:hint="@string/input_password" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/set_password_height"
+            android:layout_marginTop="1dp"
+            android:background="@color/appText1">
+
+            <EditText
+                android:id="@+id/set_password_again_et"
+                style="@style/phone_number_et_style"
+                android:hint="@string/input_password_again" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="325dp"
+        android:layout_height="43dp"
+        android:layout_below="@+id/title_rel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="146dp"
+        android:background="@drawable/login_button_background"
+        android:text="下一步"
+        android:textColor="@color/appText1" />
+
+    <ImageView
+        android:id="@+id/over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

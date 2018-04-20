@@ -39,7 +39,7 @@ public class RestApiModule {
     public static final long DEFAULT_CONNECTION_TIMEOUT_SEC = 30;
     public static final long DEFAULT_HTTP_CACHE_MB = 10;
     public static final long DEFAULT_READ_TIMEOUT_SEC = 30;
-    public static final String API_BASE_URL = "http://192.168.100.190/ng/index.php/";
+    public static final String API_BASE_URL = "http://www.365nengs.com/api/home/";
 
 
     public RestApiModule() {
@@ -109,7 +109,7 @@ public class RestApiModule {
                     Request request = original.newBuilder()
                             //content-length need re calc
 //                            .header("Content-Length", String.valueOf(dstBody.contentLength()))
-//                            .header("Token", TokenManager.getToken()+"")
+                            .header("Token", TokenManager.getToken())
 //                            .method(original.method(), original.body())
                             .build();
                     return chain.proceed(request);

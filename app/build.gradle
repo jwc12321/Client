@@ -13,6 +13,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        buildConfigField "long", "DEFAULT_CONNECTION_TIMEOUT_SEC", "30"
+        buildConfigField "long", "DEFAULT_READ_TIMEOUT_SEC", "30"
+        buildConfigField "long", "DEFAULT_HTTP_CACHE_MB", "10"
 
         //greendao sql
         buildConfigField "String", "GREEN_DAO_DB_NAME", "\"neon_greendao.db\""
@@ -40,6 +43,7 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            buildConfigField "String", "API_BASE_URL", "\"http://www.365nengs.com/api/home/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug

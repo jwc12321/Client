@@ -30,4 +30,42 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+    <!--首页底部LinearLayout-->
+    <style name="bottom_RelativeLayout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <!--首页底部图片-->
+    <style name="bottom_imageView_style">
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_width">22dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+    <!--首页底部文字-->
+    <style name="bottom_textView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/bottom_text_select</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+    <style name="phone_number_et_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/common_text_left</item>
+        <item name="android:background">@null</item>
+        <item name="android:inputType">phone</item>
+        <item name="android:maxLength">11</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/appText6</item>
+        <item name="android:textColorHint">@color/appText6</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

@@ -9,17 +9,14 @@ import com.google.gson.annotations.SerializedName;
 public class LoginRequest {
     @SerializedName("username")
     private String username;
-    @SerializedName("type")
-    private String type;
-    @SerializedName("code")
-    private String code;
-    @SerializedName("password")
-    private String password;
+    @SerializedName("pwd")
+    private String pwd;
+    @SerializedName("clientid")
+    private String clientid;
 
-    public LoginRequest(String username, String type, String code, String password) {
+    public LoginRequest(String username, String pwd, String clientid) {
         this.username = username;
-        this.type = type;
-        this.code = code;
-        this.password = password;
+        this.pwd = pwd;
+        this.clientid = clientid;
     }
 }

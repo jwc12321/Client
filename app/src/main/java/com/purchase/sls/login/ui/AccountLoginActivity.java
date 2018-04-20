@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
+import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.PermissionUtil;
+import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.DaggerLoginComponent;
 import com.purchase.sls.login.LoginContract;
 import com.purchase.sls.login.LoginModule;
@@ -36,6 +38,7 @@ import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
 
 /**
  * Created by JWC on 2018/4/17.
+ * 密码登录
  */
 
 public class AccountLoginActivity extends BaseActivity implements LoginContract.LoginView {
@@ -115,10 +118,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 SmsLoginActivity.start(this);
                 break;
             case R.id.forget_password:
-                SetPasswordActivity.start(this);
+                RegisterFirstActivity.start(this, StaticData.CHANGEPWD);
                 break;
             case R.id.immediate_registration:
-                SetPasswordActivity.start(this);
+                RegisterFirstActivity.start(this, StaticData.REGISTER);
                 break;
                 default:
         }
@@ -150,10 +153,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     private void login(){
         String accountNumber=loginAccountNumberEt.getText().toString();
         String passWord=loginPasswordEt.getText().toString();
-        if (!NetUtils.isConnected()) {
-            showMessage(getString(R.string.check_network));
-            return;
-        }
+//        if (!NetUtils.isConnected()) {
+//            showMessage(getString(R.string.check_network));
+//            return;
+//        }
         if (!isAccountValid(accountNumber)) {
             showError(getString(R.string.invalid_account_input));
             return;
@@ -167,7 +170,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         List<String> groups = new ArrayList<>();
         groups.add(Manifest.permission_group.PHONE);
         if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups, null), REQUEST_PHONE_STATE)) {
-            loginPresenter.login(accountNumber, "password", "", passWord);
+            loginPresenter.accountLogin(accountNumber,passWord, "");
         }
     }
 
@@ -176,8 +179,9 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
 
     }
 
-    @Override
-    public void success() {
 
+    @Override
+    public void accountSuccess(PersionInfoResponse persionInfoResponse) {
+        finish();
     }
 }

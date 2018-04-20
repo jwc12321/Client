@@ -7,4 +7,7 @@
     <dimen name="auth_code_button_height">30dp</dimen>
     <dimen name="title_height">44dp</dimen>
     <dimen name="set_password_height">44dp</dimen>
+
+    <dimen name="bottom_select_height">50dp</dimen>
+    <dimen name="common_text_left">11dp</dimen>
 </resources>
