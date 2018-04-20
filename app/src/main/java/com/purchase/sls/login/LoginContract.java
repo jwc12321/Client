@@ -20,7 +20,10 @@ public interface LoginContract {
     }
 
     interface LoginView extends BaseView<LoginPresenter>{
-        void accountSuccess(PersionInfoResponse persionInfoResponse);
+        void accountLoginSuccess(PersionInfoResponse persionInfoResponse);
+        void codeSuccess();
+        void checkCodeSuccess();
+        void setPasswordSuccess();
     }
     interface RetrievePassWordPresenter extends BasePresenter {
         void sendCaptcha(String phone);

@@ -181,7 +181,22 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
 
 
     @Override
-    public void accountSuccess(PersionInfoResponse persionInfoResponse) {
+    public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
         finish();
+    }
+
+    @Override
+    public void codeSuccess() {
+
+    }
+
+    @Override
+    public void checkCodeSuccess() {
+
+    }
+
+    @Override
+    public void setPasswordSuccess() {
+
     }
 }

@@ -71,12 +71,14 @@
         android:layout_marginTop="146dp"
         android:background="@drawable/login_button_background"
         android:text="下一步"
-        android:textColor="@color/appText1" />
+        android:textColor="@color/appText1"
+        android:enabled="false"/>
 
     <ImageView
-        android:id="@+id/over"
+        android:id="@+id/over_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:src="@mipmap/app_icon"/>
 </RelativeLayout>

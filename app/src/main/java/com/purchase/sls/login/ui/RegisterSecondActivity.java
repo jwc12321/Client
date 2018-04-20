@@ -55,8 +55,8 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     LinearLayout passwordLl;
     @BindView(R.id.next)
     Button next;
-    @BindView(R.id.over)
-    ImageView over;
+    @BindView(R.id.over_iv)
+    ImageView overIv;
 
     private String type;
     @Inject
@@ -139,7 +139,24 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     }
 
     @Override
-    public void accountSuccess(PersionInfoResponse persionInfoResponse) {
+    public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
 
+    }
+
+    @Override
+    public void codeSuccess() {
+
+    }
+
+    @Override
+    public void checkCodeSuccess() {
+
+    }
+
+    @Override
+    public void setPasswordSuccess() {
+        passwordLl.setVisibility(View.GONE);
+        next.setVisibility(View.GONE);
+        overIv.setVisibility(View.VISIBLE);
     }
 }

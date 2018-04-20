@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
 
@@ -55,6 +56,9 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
 
     @Inject
     LoginPresenter loginPresenter;
+
+    private String phoneNumberStr;
+    private String phoneCodeStr;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SmsLoginActivity.class);
@@ -91,6 +95,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
             case R.id.hidden_verificationcode:
                 break;
             case R.id.login_in:
+                loginPresenter.phoneLogin(phoneNumberStr,phoneCodeStr);
                 break;
             case R.id.account_login:
                 AccountLoginActivity.start(this);
@@ -100,7 +105,6 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
     }
 
     private void sendCode(){
-        String phoneNumberStr=loginPhoneNumberEt.getText().toString();
         if (!isAccountValid(phoneNumberStr)) {
             showError(getString(R.string.invalid_account_input));
             return;
@@ -110,6 +114,17 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         }
         loginPresenter.sendCode(phoneNumberStr,"login");
         sendAuthCode.startCold();
+    }
+
+    /**
+     * 监听输入框
+     */
+    @OnTextChanged({R.id.login_phone_number_et, R.id.login_verificationcode_et})
+    public void checkLoginEnable() {
+        loginIn.setEnabled(true);
+        phoneNumberStr = loginPhoneNumberEt.getText().toString();
+        phoneCodeStr=loginVerificationcodeEt.getText().toString();
+        loginIn.setEnabled(!(TextUtils.isEmpty(phoneNumberStr) || TextUtils.isEmpty(phoneCodeStr)));
     }
 
     @Override
@@ -126,12 +141,28 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
 
     }
 
+
     @Override
-    public void accountSuccess(PersionInfoResponse persionInfoResponse) {
+    public void onReset() {
+    }
+
+    @Override
+    public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
 
     }
 
     @Override
-    public void onReset() {
+    public void codeSuccess() {
+        showMessage(getString(R.string.login_auth_code_sent));
+    }
+
+    @Override
+    public void checkCodeSuccess() {
+
+    }
+
+    @Override
+    public void setPasswordSuccess() {
+
     }
 }

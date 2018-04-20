@@ -4,7 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -98,11 +103,24 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
         if (TextUtils.equals(StaticData.REGISTER, type)) {
             title.setText(getString(R.string.register));
             registrationAgreementLl.setVisibility(View.VISIBLE);
+            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.appText3));
+            SpannableString spannableString = new SpannableString(getString(R.string.registration_agreement));
+            spannableString.setSpan(foregroundColorSpan, 7, 15, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            spannableString.setSpan(protocolSpan, 7, 15, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            agreement.setMovementMethod(LinkMovementMethod.getInstance());
+            agreement.setLinksClickable(true);
+            agreement.setText(spannableString);
         } else {
             title.setText(getString(R.string.forget_password));
             registrationAgreementLl.setVisibility(View.GONE);
         }
     }
+
+    private ClickableSpan protocolSpan = new ClickableSpan() {
+        @Override
+        public void onClick(View widget) {
+        }
+    };
 
     /**
      * 监听输入框
@@ -115,23 +133,23 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
         sendAuthCode.setEnabled(!TextUtils.isEmpty(phomeNumber) && AccountUtils.isAccountValid(phomeNumber));
         loginPhoneNumberEt.setFocusable(!sendAuthCode.isCounting());
         if (TextUtils.equals(StaticData.REGISTER, type)) {
-            next.setEnabled(!(TextUtils.isEmpty(phomeNumber) ||TextUtils.isEmpty(phoneCode) ||!agreementCheck.isChecked()));
+            next.setEnabled(!(TextUtils.isEmpty(phomeNumber) || TextUtils.isEmpty(phoneCode) || !agreementCheck.isChecked()));
         } else {
             next.setEnabled(!(TextUtils.isEmpty(phomeNumber) || TextUtils.isEmpty(phoneCode)));
         }
     }
 
     @OnCheckedChanged({R.id.agreement_check})
-    public void agreementCheck(boolean checked){
+    public void agreementCheck(boolean checked) {
         String phomeNumber = loginPhoneNumberEt.getText().toString().trim();
         String phoneCode = phoneCodeEt.getText().toString().trim();
         if (TextUtils.equals(StaticData.REGISTER, type)) {
-            next.setEnabled(!(TextUtils.isEmpty(phomeNumber) ||TextUtils.isEmpty(phoneCode) ||!agreementCheck.isChecked()));
+            next.setEnabled(!(TextUtils.isEmpty(phomeNumber) || TextUtils.isEmpty(phoneCode) || !agreementCheck.isChecked()));
         }
     }
 
 
-    @OnClick({R.id.back, R.id.send_auth_code})
+    @OnClick({R.id.back, R.id.send_auth_code,R.id.next})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -185,12 +203,27 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
     }
 
     @Override
-    public void accountSuccess(PersionInfoResponse persionInfoResponse) {
+    public void onReset() {
 
     }
 
     @Override
-    public void onReset() {
+    public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
+
+    }
+
+    @Override
+    public void codeSuccess() {
+        showMessage(getString(R.string.login_auth_code_sent));
+    }
+
+    @Override
+    public void checkCodeSuccess() {
+        RegisterSecondActivity.start(this,type);
+    }
+
+    @Override
+    public void setPasswordSuccess() {
 
     }
 }

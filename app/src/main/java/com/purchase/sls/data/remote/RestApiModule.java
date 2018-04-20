@@ -109,7 +109,7 @@ public class RestApiModule {
                     Request request = original.newBuilder()
                             //content-length need re calc
 //                            .header("Content-Length", String.valueOf(dstBody.contentLength()))
-                            .header("Token", TokenManager.getToken())
+//                            .header("Token", TokenManager.getToken())
 //                            .method(original.method(), original.body())
                             .build();
                     return chain.proceed(request);

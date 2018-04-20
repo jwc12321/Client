@@ -54,12 +54,12 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<PersionInfoResponse>() {
                     @Override
                     public void accept(PersionInfoResponse persionInfoResponse) throws Exception {
-
+                        loginView.accountLoginSuccess(persionInfoResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        loginView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -79,12 +79,12 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
-
+                        loginView.codeSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        loginView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -109,7 +109,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        loginView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -131,12 +131,12 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
-
+                        loginView.setPasswordSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        loginView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -157,12 +157,12 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
-
+                        loginView.checkCodeSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        loginView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

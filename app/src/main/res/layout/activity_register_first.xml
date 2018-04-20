@@ -128,7 +128,7 @@
             android:autoLink="all"
             android:gravity="center_vertical"
             android:text="@string/registration_agreement"
-            android:textColor="#FF888888"
+            android:textColor="@color/appText6"
             android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>

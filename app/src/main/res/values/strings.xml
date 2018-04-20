@@ -24,6 +24,7 @@
     <string name="input_password_again">请再次输入密码</string>
     <string name="registration_agreement">我已阅读并同意《能购用户协议》</string>
     <string name="register">注册</string>
+    <string name="login_auth_code_sent">验证码已发送至您的手机,请注意查收</string>
 
     <!--主框架-->
     <string name="homepage">首页</string>
