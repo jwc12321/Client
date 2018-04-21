@@ -5,4 +5,5 @@ package com.purchase.sls.energy;
  */
 
 public interface EnergyContract {
+
 }

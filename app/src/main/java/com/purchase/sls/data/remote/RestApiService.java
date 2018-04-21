@@ -6,15 +6,19 @@ import com.purchase.sls.data.entity.CeshiResponse;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.LikeStoreResponse;
+import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.request.CaptchaRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
+import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Body;
@@ -47,6 +51,9 @@ public interface RestApiService {
     //获取首页猜你喜欢
     @POST("index/getLikeStore")
     Flowable<RemoteDataWrapper<LikeStoreResponse>> getLikeStoreInfo(@Body LikeStoreRequest likeStoreRequest);
+    //获取附近地图中的数据
+    @POST("nearby")
+    Flowable<RemoteDataWrapper<List<NearbyInfoResponse>>> getNearbyInfo(@Body NearbyInfoRequest nearbyInfoRequest);
     /**
      * send captcha
      */
