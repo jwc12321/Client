@@ -10,4 +10,17 @@
 
     <dimen name="bottom_select_height">50dp</dimen>
     <dimen name="common_text_left">11dp</dimen>
+
+    <!--刷新控件参数-->
+    <dimen name="refresh_view_height">300dp</dimen>
+    <dimen name="pull_refresh_text_size">12dp</dimen>
+    <dimen name="pull_refresh_vertical_space">16dp</dimen>
+    <dimen name="pull_refresh_vertical_offset">8dp</dimen>
+    <dimen name="pull_refresh_horizontal_space">100dp</dimen>
+    <dimen name="top_pull_fresh_vertical_move_space">40dp</dimen>
+
+    <!--首页-->
+    <dimen name="space_bootom">16dp</dimen>
+    <dimen name="like_adapter_marginTop">12dp</dimen>
+    <dimen name="like_adapter_icon">106dp</dimen>
 </resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/shop_icon"
+        android:layout_width="@dimen/like_adapter_icon"
+        android:layout_height="@dimen/like_adapter_icon"
+        android:layout_marginBottom="@dimen/common_margin_left_right"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginTop="@dimen/common_margin_left_right"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:textColor="@color/appText4"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/like_adapter_marginTop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText3"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/like_adapter_marginTop"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/shop_name"
+                style="@style/like_adapter_text_style" />
+
+            <TextView
+                android:id="@+id/shop_city"
+                style="@style/like_adapter_text_style" />
+
+            <TextView
+                android:id="@+id/shop_distance"
+                style="@style/like_adapter_text_style" />
+
+            <TextView
+                android:id="@+id/shop_consumption"
+                style="@style/like_adapter_text_style" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_text_left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/return_energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText4"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

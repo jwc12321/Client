@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.purchase.sls.BuildConfig;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.data.EntitySerializer;
 import com.purchase.sls.data.GsonSerializer;
@@ -36,10 +37,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RestApiModule {
 
-    public static final long DEFAULT_CONNECTION_TIMEOUT_SEC = 30;
-    public static final long DEFAULT_HTTP_CACHE_MB = 10;
-    public static final long DEFAULT_READ_TIMEOUT_SEC = 30;
-    public static final String API_BASE_URL = "http://www.365nengs.com/api/home/";
+//    public static final long DEFAULT_CONNECTION_TIMEOUT_SEC = 30;
+//    public static final long DEFAULT_HTTP_CACHE_MB = 10;
+//    public static final long DEFAULT_READ_TIMEOUT_SEC = 30;
+//    public static final String API_BASE_URL = "http://www.365nengs.com/api/home/";
 
 
     public RestApiModule() {
@@ -109,7 +110,7 @@ public class RestApiModule {
                     Request request = original.newBuilder()
                             //content-length need re calc
 //                            .header("Content-Length", String.valueOf(dstBody.contentLength()))
-//                            .header("Token", TokenManager.getToken())
+                            .header("Token",TokenManager.getToken()+"")
 //                            .method(original.method(), original.body())
                             .build();
                     return chain.proceed(request);
@@ -123,7 +124,7 @@ public class RestApiModule {
     @Singleton
     @Provides
     Cache provideCache(Context context) {
-        long cacheSize = DEFAULT_HTTP_CACHE_MB * 1024 * 1024;
+        long cacheSize = BuildConfig.DEFAULT_HTTP_CACHE_MB * 1024 * 1024;
         return new Cache(context.getCacheDir(), cacheSize);
     }
 
@@ -133,8 +134,8 @@ public class RestApiModule {
     OkHttpClient provideOkHttpClient(@Named("AddFormData") Interceptor addFormData,
                                      @Named("HttpLogging") Interceptor httpLogging) {
         return new OkHttpClient.Builder()
-                .connectTimeout(DEFAULT_CONNECTION_TIMEOUT_SEC, TimeUnit.SECONDS)
-                .readTimeout(DEFAULT_READ_TIMEOUT_SEC, TimeUnit.SECONDS)
+                .connectTimeout(BuildConfig.DEFAULT_CONNECTION_TIMEOUT_SEC, TimeUnit.SECONDS)
+                .readTimeout(BuildConfig.DEFAULT_READ_TIMEOUT_SEC, TimeUnit.SECONDS)
                 .addNetworkInterceptor(addFormData)
                 .addNetworkInterceptor(httpLogging)
                 .build();
@@ -145,7 +146,7 @@ public class RestApiModule {
     Retrofit provideRetrofit(@Named("NoCache") OkHttpClient okHttpClient, Gson gson) {
         if (TextUtils.isEmpty(url)) {
             return new Retrofit.Builder()
-                    .baseUrl(API_BASE_URL)
+                    .baseUrl(BuildConfig.API_BASE_URL)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

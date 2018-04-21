@@ -20,6 +20,7 @@ import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.AccountUtils;
 import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.PermissionUtil;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.DaggerLoginComponent;
 import com.purchase.sls.login.LoginContract;
@@ -155,7 +156,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     /**
      * 监听输入框
      */
-    @OnTextChanged({R.id.login_phone_number_et, R.id.login_password_et})
+    @OnTextChanged({R.id.login_account_number_et, R.id.login_password_et})
     public void checkLoginEnable() {
         loginIn.setEnabled(true);
         accountNumber = loginAccountNumberEt.getText().toString().trim();
@@ -186,6 +187,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
 
     @Override
     public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
+        TokenManager.saveToken(persionInfoResponse.getToken());
         finish();
     }
 

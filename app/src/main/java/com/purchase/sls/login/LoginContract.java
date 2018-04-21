@@ -6,7 +6,7 @@ import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 
 /**
- * Created by Administrator on 2017/12/27.
+ * Created by JWC on 2017/12/27.
  */
 
 public interface LoginContract {

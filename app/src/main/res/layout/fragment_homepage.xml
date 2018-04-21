@@ -1,9 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="首页"/>
-</android.support.constraint.ConstraintLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/appText3"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/choice_city"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/common_text_left"
+            android:paddingRight="@dimen/common_text_left"
+            android:text="杭州"
+            android:textColor="@color/appText1" />
+
+        <ImageView
+            android:id="@+id/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/common_text_left"
+            android:paddingRight="@dimen/common_text_left"
+            android:src="@mipmap/home_sweep" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@id/scan"
+            android:layout_toRightOf="@id/choice_city"
+            android:background="@drawable/login_edittext_bg">
+
+            <TextView
+                android:id="@+id/search_tt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/common_text_left"
+                android:layout_marginStart="@dimen/common_text_left"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:cursorVisible="false"
+                android:drawableLeft="@mipmap/search"
+                android:drawablePadding="7dp"
+                android:drawableStart="@mipmap/search"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:text="@string/choice_shop"
+                android:textColor="@color/appText8"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.purchase.sls.common.refreshview.HeaderViewLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refreshMode="LIST_LOAD">
+
+        <com.purchase.sls.common.widget.ReboundScrollView
+            android:id="@+id/scroll_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backGround1"
+                android:orientation="vertical">
+
+                <com.purchase.sls.common.widget.Banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:indicator_drawable_selected="@drawable/selected_radius"
+                    app:indicator_drawable_unselected="@drawable/unselected_radius" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/hot_search_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:nestedScrollingEnabled="false"
+                    android:padding="25dp"
+                    app:layoutManager="@string/layoutManager_Gridlayout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="猜你喜欢" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/like_store_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
+            </LinearLayout>
+        </com.purchase.sls.common.widget.ReboundScrollView>
+
+
+    </com.purchase.sls.common.refreshview.HeaderViewLayout>
+</LinearLayout>

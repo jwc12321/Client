@@ -54,6 +54,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--高德地图-->
+        <service android:name="com.amap.api.location.APSService"></service>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="4fa5cf480a40e2e6bc4680c349aaa2c1"/>
+
+
         <activity android:name=".mainframe.ui.MainFrameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,6 +88,10 @@
         <activity android:name=".login.ui.RegisterSecondActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".login.ui.RetrievePassWordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homepage.ui.ChoiceCityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homepage.ui.QrCodeScanActivity"
             android:screenOrientation="portrait"/>
     </application>
 

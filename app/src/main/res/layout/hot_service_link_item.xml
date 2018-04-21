@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/backGround3"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/client_v330_ic_homepage_more_white" />
+
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/appText6"
+        android:textSize="12sp"
+        tools:text="深度清洁" />
+</LinearLayout>

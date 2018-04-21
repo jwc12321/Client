@@ -11,7 +11,7 @@ import com.purchase.sls.login.ui.SmsLoginActivity;
 import dagger.Component;
 
 /**
- * Created by Administrator on 2017/12/27.
+ * Created by JWC on 2017/12/27.
  */
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class, modules = {LoginModule.class})

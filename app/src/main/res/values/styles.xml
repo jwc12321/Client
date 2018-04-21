@@ -68,4 +68,11 @@
         <item name="android:textColorHint">@color/appText6</item>
         <item name="android:textSize">13sp</item>
     </style>
+    <!--猜你喜欢的文字-->
+    <style name="like_adapter_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/appText6</item>
+    </style>
 </resources>

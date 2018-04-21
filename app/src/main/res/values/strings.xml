@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">能购</string>
+    <!--recyclerView Layout-->
+    <string name="layoutManager_Gridlayout">GridLayoutManager</string>
+    <string name="layoutManager_LinearLayout">LinearLayoutManager</string>
     <!--权限-->
     <string name="common_request_permission">该操作需要开通权限</string>
     <string name="common_allow_permission">允许</string>
@@ -32,4 +35,15 @@
     <string name="shoppingmall">商城</string>
     <string name="energy">能量</string>
     <string name="mine">我的</string>
+
+    <!--刷新-->
+    <string name="bottom_pull_refresh_content">刷新并查看服务项目</string>
+    <string name="top_pull_refresh_content">松开刷新</string>
+    <string name="top_pull_go_home_content">松开回到首页</string>
+
+    <!--首页-->
+    <string name="guess_like">猜你喜欢</string>
+    <string name="choice_city">选择城市</string>
+    <string name="choice_shop">搜索商家，店铺</string>
+    <string name="scan_qr_code">扫描二维码</string>
 </resources>

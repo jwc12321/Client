@@ -3,11 +3,14 @@ package com.purchase.sls.data.remote;
 
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.CeshiResponse;
+import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.Ignore;
-import com.purchase.sls.data.entity.LoginTokenResponse;
+import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.request.CaptchaRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
+import com.purchase.sls.data.request.BannerHotRequest;
+import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
@@ -38,6 +41,12 @@ public interface RestApiService {
     //验证验证码
     @POST("login/checkCode")
     Flowable<RemoteDataWrapper<Ignore>> checkCode(@Body CheckCodeRequest checkCodeRequest);
+    //获取首页banner数据和热门数据
+    @POST("index/address")
+    Flowable<RemoteDataWrapper<BannerHotResponse>> getBannerHotInfo(@Body BannerHotRequest bannerHotRequest);
+    //获取首页猜你喜欢
+    @POST("index/getLikeStore")
+    Flowable<RemoteDataWrapper<LikeStoreResponse>> getLikeStoreInfo(@Body LikeStoreRequest likeStoreRequest);
     /**
      * send captcha
      */

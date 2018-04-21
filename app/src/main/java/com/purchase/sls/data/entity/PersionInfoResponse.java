@@ -57,6 +57,8 @@ public class PersionInfoResponse {
     private String address;
     @SerializedName("qrcode")
     private String qrcode;
+    @SerializedName("token")
+    private String token;
 
     public String getId() {
         return id;
@@ -256,5 +258,13 @@ public class PersionInfoResponse {
 
     public void setQrcode(String qrcode) {
         this.qrcode = qrcode;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

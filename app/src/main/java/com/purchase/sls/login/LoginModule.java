@@ -4,7 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by Administrator on 2017/12/27.
+ * Created by JWC on 2017/12/27.
  */
 @Module
 public class LoginModule {
