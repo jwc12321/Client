@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.energy.ui.EnergyFragment;
 import com.purchase.sls.homepage.ui.HomePageFragment;
 import com.purchase.sls.mainframe.adapter.MainPagerAdapter;
@@ -60,7 +61,7 @@ public class MainFrameActivity extends BaseActivity {
     @BindView(R.id.shoppingmall_iv)
     ImageView shoppingmallIv;
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    ViewPagerSlide viewPager;
 
 
     private RelativeLayout[] relativeLayouts;
@@ -109,7 +110,7 @@ public class MainFrameActivity extends BaseActivity {
         adapter = new MainPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(onPageChangeListener);
-        viewPager.setCurrentItem(3);
+        viewPager.setCurrentItem(0);
 
 
     }

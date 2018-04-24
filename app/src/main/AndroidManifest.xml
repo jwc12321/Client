@@ -87,11 +87,11 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".login.ui.RegisterSecondActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".login.ui.RetrievePassWordActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".homepage.ui.ChoiceCityActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".homepage.ui.QrCodeScanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homepage.ui.ScreeningListActivity"
             android:screenOrientation="portrait"/>
     </application>
 

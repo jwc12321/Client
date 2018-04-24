@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.DaoMaster;
 import com.purchase.sls.DaoSession;
+import com.purchase.sls.UserInfoDao;
 import com.purchase.sls.data.EntitySerializer;
 
 import javax.inject.Named;
@@ -54,8 +55,8 @@ public class GreenDaoModule {
         return new NoSqlHelper(daoSession, entitySerializer);
     }
 
-//    @Provides
-//    UserInfoDao provideUserInfoDao(DaoSession daoSession) {
-//        return daoSession.getUserInfoDao();
-//    }
+    @Provides
+    UserInfoDao provideUserInfoDao(DaoSession daoSession) {
+        return daoSession.getUserInfoDao();
+    }
 }

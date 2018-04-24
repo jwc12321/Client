@@ -87,7 +87,7 @@
                 <com.purchase.sls.common.widget.Banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="160dp"
                     app:indicator_drawable_selected="@drawable/selected_radius"
                     app:indicator_drawable_unselected="@drawable/unselected_radius" />
 

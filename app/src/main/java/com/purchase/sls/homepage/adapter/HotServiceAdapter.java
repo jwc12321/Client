@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -48,13 +48,19 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.Ho
 
     @Override
     public void onBindViewHolder(HotServiceView holder, int position) {
-        BannerHotResponse.StorecateInfo storecateInfo = storecateInfos.get(holder.getAdapterPosition());
+        final BannerHotResponse.StorecateInfo storecateInfo = storecateInfos.get(holder.getAdapterPosition());
         holder.bindData(storecateInfo);
+        holder.hotItemLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHotItemClickListener.hotItemClickListener(storecateInfo);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return storecateInfos==null?0:storecateInfos.size();
+        return storecateInfos == null ? 0 : storecateInfos.size();
     }
 
     public static class HotServiceView extends RecyclerView.ViewHolder {
@@ -62,7 +68,8 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.Ho
         RoundedImageView icon;
         @BindView(R.id.text)
         TextView text;
-
+        @BindView(R.id.hot_item_ll)
+        LinearLayout hotItemLl;
         public HotServiceView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -73,4 +80,15 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.Ho
             text.setText(storecateInfo.getName());
         }
     }
+
+    public interface OnHotItemClickListener {
+        void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo);
+    }
+
+    private OnHotItemClickListener onHotItemClickListener;
+
+    public void setOnHotItemClickListener(OnHotItemClickListener onHotItemClickListener) {
+        this.onHotItemClickListener = onHotItemClickListener;
+    }
+
 }

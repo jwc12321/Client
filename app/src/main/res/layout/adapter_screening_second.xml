@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:id="@+id/choice_second_rl">
+
+    <ImageView
+        android:id="@+id/choice_image_second"
+        style="@style/adapter_screen_choice_iv"
+        android:src="@mipmap/logon_educational_choose" />
+
+    <TextView
+        android:id="@+id/choice_type_second"
+        style="@style/adapter_screen_choice_tt"
+        android:layout_toRightOf="@id/choice_image_second"/>
+</RelativeLayout>

@@ -5,7 +5,6 @@ import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterFirstActivity;
 import com.purchase.sls.login.ui.RegisterSecondActivity;
-import com.purchase.sls.login.ui.RetrievePassWordActivity;
 import com.purchase.sls.login.ui.SmsLoginActivity;
 
 import dagger.Component;
@@ -20,6 +19,5 @@ public interface LoginComponent {
     void inject(SmsLoginActivity smsLoginActivity);
     void inject(RegisterFirstActivity registerFirstActivity);
     void inject(RegisterSecondActivity registerSecondActivity);
-    void inject(RetrievePassWordActivity retrievePassWordActivity);
 
 }

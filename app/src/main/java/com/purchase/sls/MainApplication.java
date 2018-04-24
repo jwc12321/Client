@@ -1,6 +1,8 @@
 package com.purchase.sls;
 
 import android.app.Application;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.ApplicationModule;
@@ -13,7 +15,7 @@ import com.purchase.sls.data.local.GreenDaoModule;
  * Created by Administrator on 2017/12/15.
  */
 
-public class MainApplication extends Application {
+public class MainApplication  extends MultiDexApplication {
     private static ApplicationComponent mApplicationComponent;
     @Override
     public void onCreate() {

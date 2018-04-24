@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@color/backGround3"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/hot_item_ll">
 
 
     <com.makeramen.roundedimageview.RoundedImageView

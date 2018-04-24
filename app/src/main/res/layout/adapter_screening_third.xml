@@ -2,23 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minWidth="70dp"
+    android:minWidth="60dp"
+    android:minHeight="26dp"
     android:orientation="vertical"
-    android:id="@+id/munu_ll"
+    android:background="@drawable/screen_third_item_bg"
+    android:id="@+id/item_ll"
     android:gravity="center_horizontal">
 
     <TextView
-        android:id="@+id/munu_name"
+        android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@drawable/bottom_text_select"
         android:textSize="12sp"
-        android:layout_marginTop="@dimen/common_margin_left_right" />
-
-    <View
-        android:id="@+id/underline"
-        android:layout_width="30dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/common_margin_left_right"
-        android:background="@drawable/nearby_munu_view" />
+        android:padding="8dp"/>
 </LinearLayout>

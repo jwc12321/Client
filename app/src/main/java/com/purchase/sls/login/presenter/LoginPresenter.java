@@ -1,9 +1,11 @@
 package com.purchase.sls.login.presenter;
 
+import com.purchase.sls.UserInfoDao;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.LoginTokenResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
+import com.purchase.sls.data.entity.UserInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.CheckCodeRequest;
@@ -28,11 +30,13 @@ import io.reactivex.functions.Consumer;
 public class LoginPresenter implements LoginContract.LoginPresenter {
     private LoginContract.LoginView loginView;
     private RestApiService restApiService;
+    private UserInfoDao mUserInfoDao;
     private List<Disposable> mDisposableList = new ArrayList<>();
     @Inject
-    public LoginPresenter(LoginContract.LoginView loginView, RestApiService restApiService) {
+    public LoginPresenter(LoginContract.LoginView loginView, RestApiService restApiService,UserInfoDao mUserInfoDao) {
         this.loginView = loginView;
         this.restApiService = restApiService;
+        this.mUserInfoDao=mUserInfoDao;
     }
 
 
@@ -55,6 +59,10 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                     @Override
                     public void accept(PersionInfoResponse persionInfoResponse) throws Exception {
                         loginView.accountLoginSuccess(persionInfoResponse);
+                        UserInfo userInfo = new UserInfo();
+                        userInfo.setPhone("");
+                        userInfo.setPassword("");
+                        mUserInfoDao.insertOrReplace(userInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

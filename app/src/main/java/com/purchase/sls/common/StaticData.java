@@ -13,4 +13,10 @@ public class StaticData {
     public static final String CHANGEPWD="changepwd";
     //选择地址
     public static final String CHOICE_CITY="choiceCity";
+    //商家的cid
+    public static final String BUSINESS_CID="bussinessCid";
+    //商家名字
+    public static final String BUSINESS_NAME="bussinessName";
+    //商家sum
+    public static final String BUSINESS_SUM="businessSum";
 }

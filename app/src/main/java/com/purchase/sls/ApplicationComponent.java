@@ -18,4 +18,5 @@ public interface ApplicationComponent {
     void inject(BaseActivity activity);
     RestApiService getRestApiService();
     DaoSession daoSession();
+    UserInfoDao userInfoDao();
 }

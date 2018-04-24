@@ -1,11 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="我的" />
-</android.support.constraint.ConstraintLayout>
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_rel"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/appText3"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/title_height">
+
+                    <ImageView
+                        android:id="@+id/setting_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/common_margin_left_right"
+                        android:paddingRight="@dimen/common_margin_left_right"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/btn_setting_pressed" />
+
+                    <ImageView
+                        android:id="@+id/information_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/common_margin_left_right"
+                        android:paddingRight="@dimen/common_margin_left_right"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/btn_setting_pressed" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/photo"
+                        style="@style/PhotoStyle"
+                        android:layout_width="@dimen/personal_photo_size"
+                        android:layout_height="@dimen/personal_photo_size"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/photo_bottom"
+                        android:layout_marginLeft="@dimen/persion_marleft"
+                        android:layout_marginTop="@dimen/photo_top"
+                        app:riv_oval="true"
+                        tools:background="@null"
+                        tools:src="@mipmap/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/persion_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/appText1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/persion_image_account_style"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        style="@style/persion_text_account_style"
+                        android:text="@string/collection" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/persion_image_account_style"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        style="@style/persion_text_account_style"
+                        android:text="@string/collection" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/persion_image_account_style"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        style="@style/persion_text_account_style"
+                        android:text="@string/collection" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/item_my_account"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="@dimen/common_text_left">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_type"
+                    android:drawableStart="@mipmap/my_type"
+                    android:text="@string/energy" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_voucher"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_type"
+                    android:drawableStart="@mipmap/my_type"
+                    android:text="@string/voucher" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_browse_records"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="@dimen/common_text_left">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_type"
+                    android:drawableStart="@mipmap/my_type"
+                    android:text="@string/browse_records" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_customer_service_center"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_type"
+                    android:drawableStart="@mipmap/my_type"
+                    android:text="@string/customer_service_center" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_want_cooperate"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_type"
+                    android:drawableStart="@mipmap/my_type"
+                    android:text="@string/want_cooperate" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_about_neng"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_type"
+                    android:drawableStart="@mipmap/my_type"
+                    android:text="@string/about_neng" />
+            </FrameLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

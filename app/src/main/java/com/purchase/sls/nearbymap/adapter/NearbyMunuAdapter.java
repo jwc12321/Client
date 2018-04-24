@@ -2,10 +2,12 @@ package com.purchase.sls.nearbymap.adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
@@ -51,11 +53,7 @@ public class NearbyMunuAdapter extends RecyclerView.Adapter<NearbyMunuAdapter.Ne
         NearbyInfoResponse nearbyInfoResponse = nearbyInfoResponses.get(holder.getAdapterPosition());
         holder.munuName.setText(nearbyInfoResponse.getName());
         holder.munuName.setSelected(selectPosition == position);
-        if(position==selectPosition){
-            holder.underline.setBackgroundResource(R.color.appText3);
-        }else {
-            holder.underline.setBackgroundResource(R.color.appText5);
-        }
+        holder.underline.setSelected(selectPosition == position);
         holder.munuLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

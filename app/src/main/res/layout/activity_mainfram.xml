@@ -43,6 +43,10 @@
             android:id="@+id/shoppingmall_rl"
             style="@style/bottom_RelativeLayout_style">
 
+            <ImageView
+                android:id="@+id/shoppingmall_iv"
+                style="@style/bottom_imageView_style"
+                android:src="@drawable/shopping_mall_select" />
             <TextView
                 android:id="@+id/shoppingmall_tt"
                 style="@style/bottom_textView_style"
@@ -80,15 +84,6 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/shoppingmall_iv"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="19dp"
-        android:src="@drawable/shopping_mall_select" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -96,7 +91,7 @@
         android:layout_marginBottom="@dimen/bottom_select_height"
         android:background="@color/appText4" />
 
-    <android.support.v4.view.ViewPager
+    <com.purchase.sls.common.widget.ViewPagerSlide
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -2,13 +2,12 @@ package com.purchase.sls.data.remote;
 
 
 import com.purchase.sls.data.RemoteDataWrapper;
-import com.purchase.sls.data.entity.CeshiResponse;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
-import com.purchase.sls.data.request.CaptchaRequest;
+import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
@@ -16,6 +15,7 @@ import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
+import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
 
 import java.util.List;
@@ -54,11 +54,9 @@ public interface RestApiService {
     //获取附近地图中的数据
     @POST("nearby")
     Flowable<RemoteDataWrapper<List<NearbyInfoResponse>>> getNearbyInfo(@Body NearbyInfoRequest nearbyInfoRequest);
-    /**
-     * send captcha
-     */
-    @POST("logining/jj")
-    Flowable<RemoteDataWrapper<CeshiResponse>> sendCaptcha1(@Body CaptchaRequest request);
+    //获取选择首页几个图片跳转页面的额数据
+    @POST("index/appGetCate")
+    Flowable<RemoteDataWrapper<ScreeningListResponse>> getScreeningListInfo(@Body ScreeningListRequest request);
 
 
 }

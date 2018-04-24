@@ -2,6 +2,7 @@ package com.purchase.sls.shoppingmall.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,5 +35,23 @@ public class ShoppingMallFragment extends BaseFragment {
         View rootview=inflater.inflate(R.layout.fragment_shopping_mall,container,false);
         ButterKnife.bind(this, rootview);
         return rootview;
+    }
+
+    private boolean isFirstLoad = true;
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isFirstLoad) {
+            if (getUserVisibleHint()) {
+                isFirstLoad = false;
+            }
+        }
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

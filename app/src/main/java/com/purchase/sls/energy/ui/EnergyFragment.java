@@ -2,6 +2,7 @@ package com.purchase.sls.energy.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,14 @@ import butterknife.ButterKnife;
  * 能量
  */
 
-public class EnergyFragment extends BaseFragment{
+public class EnergyFragment extends BaseFragment {
+    private boolean isFirstLoad = true;
+
     public EnergyFragment() {
     }
-    public static EnergyFragment newInstance(){
-        EnergyFragment energyFragment=new EnergyFragment();
+
+    public static EnergyFragment newInstance() {
+        EnergyFragment energyFragment = new EnergyFragment();
         return energyFragment;
     }
 
@@ -32,7 +36,7 @@ public class EnergyFragment extends BaseFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootview=inflater.inflate(R.layout.fragment_energy,container,false);
+        View rootview = inflater.inflate(R.layout.fragment_energy, container, false);
         ButterKnife.bind(this, rootview);
         return rootview;
     }
@@ -45,5 +49,21 @@ public class EnergyFragment extends BaseFragment{
     @Override
     protected void initializeInjector() {
         super.initializeInjector();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isFirstLoad) {
+            if (getUserVisibleHint()) {
+                isFirstLoad = false;
+            }
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

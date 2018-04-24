@@ -35,6 +35,7 @@ import com.purchase.sls.homepage.HomePageContract;
 import com.purchase.sls.homepage.HomePageModule;
 import com.purchase.sls.homepage.adapter.HotServiceAdapter;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
+import com.purchase.sls.homepage.adapter.ScreeningFirstAdapter;
 import com.purchase.sls.homepage.presenter.HomePagePresenter;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView {
+public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
@@ -119,7 +120,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         hotService();
         likeStore();
         homePagePresenter.getLikeStore();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     //设置热门
@@ -128,6 +133,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         int space = getResources().getDimensionPixelSize(R.dimen.space_bootom);
         hotSearchLink.addItemDecoration(new GridSpacesItemDecoration(space, false));
         hotServiceAdapter = new HotServiceAdapter(getActivity());
+        hotServiceAdapter.setOnHotItemClickListener(this);
         hotSearchLink.setAdapter(hotServiceAdapter);
     }
 
@@ -175,7 +181,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-//            homePagePresenter.getBannerHotInfo("杭州");
+            homePagePresenter.getBannerHotInfo("杭州");
             homePagePresenter.getLikeStore();
         }
 
@@ -188,6 +194,18 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         public void onModeChanged(@HeaderViewLayout.Mode int mode) {
         }
     };
+
+    private boolean isFirstLoad = true;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isFirstLoad) {
+            if (getUserVisibleHint()) {
+                isFirstLoad = false;
+            }
+        }
+    }
 
 
     @Override
@@ -231,7 +249,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void moreLikeStroeInfo(List<LikeStoreResponse.likeInfo> likeInfos) {
         refreshLayout.stopRefresh();
-        if ( likeInfos!=null&&likeInfos.size() > 0) {
+        if (likeInfos != null && likeInfos.size() > 0) {
             refreshLayout.setCanLoadMore(true);
             likeStoreAdapter.addMore(likeInfos);
         } else {
@@ -315,4 +333,15 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
         }
     }
+
+    /**
+     * 点击热门
+     *
+     * @param storecateInfo
+     */
+    @Override
+    public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
+        ScreeningListActivity.start(getActivity(),city,storecateInfo.getId(),storecateInfo.getName(),storecateInfo.getSum());
+    }
+
 }

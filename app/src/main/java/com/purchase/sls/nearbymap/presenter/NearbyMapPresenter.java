@@ -1,8 +1,6 @@
 package com.purchase.sls.nearbymap.presenter;
 
-import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.RxSchedulerTransformer;
-import com.purchase.sls.data.entity.CeshiResponse;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
@@ -25,6 +23,7 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
     private NearbyMapContract.NearbyView nearbyView;
+
     @Inject
     public NearbyMapPresenter(RestApiService restApiService, NearbyMapContract.NearbyView nearbyView) {
         this.restApiService = restApiService;

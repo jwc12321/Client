@@ -46,4 +46,13 @@
     <string name="choice_city">选择城市</string>
     <string name="choice_shop">搜索商家，店铺</string>
     <string name="scan_qr_code">扫描二维码</string>
+    <!--我的-->
+    <string name="collection">收藏</string>
+    <string name="comment">点评</string>
+    <string name="account">账单</string>
+    <string name="voucher">抵用券</string>
+    <string name="browse_records">浏览记录</string>
+    <string name="customer_service_center">客服中心</string>
+    <string name="want_cooperate">我要合作</string>
+    <string name="about_neng">关于能购</string>
 </resources>

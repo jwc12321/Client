@@ -7,6 +7,7 @@ package com.purchase.sls.homepage;
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.homepage.ui.HomePageFragment;
+import com.purchase.sls.homepage.ui.ScreeningListActivity;
 
 import dagger.Component;
 
@@ -14,4 +15,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {HomePageModule.class})
 public interface HomePageComponent {
     void inject(HomePageFragment homePageFragment);
+    void inject(ScreeningListActivity screeningListActivity);
 }

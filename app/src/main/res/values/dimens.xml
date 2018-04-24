@@ -23,4 +23,11 @@
     <dimen name="space_bootom">16dp</dimen>
     <dimen name="like_adapter_marginTop">12dp</dimen>
     <dimen name="like_adapter_icon">106dp</dimen>
+
+    <!--我的-->
+    <dimen name="personal_photo_size">70dp</dimen>
+    <dimen name="persion_marleft">23dp</dimen>
+    <dimen name="photo_top">8dp</dimen>
+    <dimen name="photo_bottom">23dp</dimen>
+    <dimen name="account_icon">21dp</dimen>
 </resources>

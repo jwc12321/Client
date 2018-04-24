@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by JWC on 2018/4/19.
  */
 
-public class NearbyMapFragment extends BaseFragment implements NearbyMapContract.NearbyView, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener,LocationSource,AMapLocationListener {
+public class NearbyMapFragment extends BaseFragment implements NearbyMapContract.NearbyView, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener, LocationSource, AMapLocationListener {
 
     @BindView(R.id.map)
     MapView mapView;
@@ -53,8 +53,6 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     RecyclerView nearbyItemRy;
     @BindView(R.id.nearby_ll)
     LinearLayout nearbyLl;
-    @BindView(R.id.button)
-    Button button;
 
     //地图
     private AMap aMap;
@@ -102,6 +100,19 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         initMap();
     }
 
+    private boolean isFirstLoad = true;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isFirstLoad) {
+            if (getUserVisibleHint()) {
+                isFirstLoad=false;
+            }
+        }
+    }
+
+
     private void initView() {
         nearbyMunuAdapter = new NearbyMunuAdapter();
         nearbyMunuAdapter.setOnMenuItemClickListener(this);
@@ -109,20 +120,15 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         nearbyItemAdapter = new NearbyItemAdapter();
         nearbyItemAdapter.setOnItemClickListener(this);
         nearbyItemRy.setAdapter(nearbyItemAdapter);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nearbyMapPresenter.getNearbyInfo("杭州");
-            }
-        });
     }
 
-    private void initMap(){
+    private void initMap() {
         if (aMap == null) {
             aMap = mapView.getMap();
             setUpMap();
         }
     }
+
     /**
      * 设置一些amap的属性
      */
@@ -132,7 +138,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         setupLocationStyle();
     }
-    private void setupLocationStyle(){
+
+    private void setupLocationStyle() {
         // 自定义系统定位蓝点
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         // 自定义定位蓝点图标
@@ -148,6 +155,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         aMap.setMyLocationStyle(myLocationStyle);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -159,7 +167,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         super.onPause();
         super.onDestroy();
         mapView.onDestroy();
-        if(null != mlocationClient){
+        if (null != mlocationClient) {
             mlocationClient.onDestroy();
         }
     }
@@ -189,10 +197,13 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
 
     @Override
     public void nearbyInfo(List<NearbyInfoResponse> nearbyInfoResponses) {
-        this.nearbyInfoResponses=nearbyInfoResponses;
-        if(nearbyInfoResponses!=null&&nearbyInfoResponses.size()>0) {
+        this.nearbyInfoResponses = nearbyInfoResponses;
+        if (nearbyInfoResponses != null && nearbyInfoResponses.size() > 0) {
+            nearbyLl.setVisibility(View.VISIBLE);
             nearbyMunuAdapter.setMunuList(nearbyInfoResponses);
             nearbyItemAdapter.setItemList(nearbyInfoResponses.get(0).getCateInfos());
+        } else {
+            nearbyLl.setVisibility(View.GONE);
         }
     }
 
@@ -202,22 +213,21 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     }
 
     @Override
-    public void itemClickListener(NearbyInfoResponse.CateInfo cateInfo,int itemPosition) {
-        nearbyItemAdapter.setPosittion(itemLastPosition,itemPosition);
-        itemLastPosition=itemPosition;
+    public void itemClickListener(NearbyInfoResponse.CateInfo cateInfo, int itemPosition) {
+        nearbyItemAdapter.setPosittion(itemLastPosition, itemPosition);
+        itemLastPosition = itemPosition;
     }
 
     @Override
     public void menuItemClickListener(int menuPosition) {
-        nearbyMunuAdapter.setPosittion(munuLastPosition,menuPosition);
-        munuLastPosition=menuPosition;
+        nearbyMunuAdapter.setPosittion(munuLastPosition, menuPosition);
+        munuLastPosition = menuPosition;
         nearbyItemAdapter.setItemList(nearbyInfoResponses.get(menuPosition).getCateInfos());
     }
 
 
-
-
     //地图
+
     /**
      * 定位成功后回调函数
      */
@@ -226,17 +236,20 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null
                     && amapLocation.getErrorCode() == 0) {
-
-                Log.d("jjj0","精度和纬度"+amapLocation.getLatitude()+"====="+amapLocation.getLongitude());
+                if (!TextUtils.isEmpty(amapLocation.getCity())) {
+                    nearbyMapPresenter.getNearbyInfo(amapLocation.getCity());
+                }
+                Log.d("jjj0", "精度和纬度" + amapLocation.getLatitude() + "=====" + amapLocation.getLongitude());
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
                 aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
             } else {
-                String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
-                Log.e("AmapErr",errText);
+                String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
+                Log.e("AmapErr", errText);
 
             }
         }
     }
+
     /**
      * 激活定位
      */
