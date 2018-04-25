@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
@@ -54,8 +55,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
 
     @Override
     public void onBindViewHolder(LikeStoreView holder, int position) {
-        LikeStoreResponse.likeInfo likeInfo = likeInfos.get(holder.getAdapterPosition());
+        final LikeStoreResponse.likeInfo likeInfo = likeInfos.get(holder.getAdapterPosition());
         holder.bindData(likeInfo);
+        holder.likestoreLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onLikeStoreClickListener!=null){
+                    onLikeStoreClickListener.likeStoreClickListener(likeInfo.getId());
+                }
+            }
+        });
 
     }
 
@@ -65,6 +74,8 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
     }
 
     public class LikeStoreView extends RecyclerView.ViewHolder {
+        @BindView(R.id.likestore_ll)
+        LinearLayout likestoreLl;
         @BindView(R.id.shop_icon)
         ImageView shopIcon;
         @BindView(R.id.store_name)
@@ -77,6 +88,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
         TextView shopDistance;
         @BindView(R.id.shop_consumption)
         TextView shopConsumption;
+
         public LikeStoreView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -85,8 +97,18 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
         public void bindData(LikeStoreResponse.likeInfo likeInfo) {
             GlideHelper.load((Activity) context, likeInfo.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
             storeName.setText(likeInfo.getTitle());
-            LikeStoreResponse.likeInfo.BcateInfo bcateInfo=likeInfo.getBcateInfo();
+            LikeStoreResponse.likeInfo.BcateInfo bcateInfo = likeInfo.getBcateInfo();
             shopName.setText(bcateInfo.getName());
         }
+    }
+
+    public interface OnLikeStoreClickListener {
+        void likeStoreClickListener(String storeid);
+    }
+
+    private OnLikeStoreClickListener onLikeStoreClickListener;
+
+    public void setOnLikeStoreClickListener(OnLikeStoreClickListener onLikeStoreClickListener) {
+        this.onLikeStoreClickListener = onLikeStoreClickListener;
     }
 }

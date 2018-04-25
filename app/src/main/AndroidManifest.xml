@@ -62,7 +62,10 @@
             android:value="4fa5cf480a40e2e6bc4680c349aaa2c1"/>
 
 
-        <activity android:name=".mainframe.ui.MainFrameActivity">
+        <activity android:name=".splash.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,8 +78,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
-
+        <activity android:name=".mainframe.ui.MainFrameActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".login.ui.AccountLoginActivity"
@@ -92,6 +96,8 @@
         <activity android:name=".homepage.ui.QrCodeScanActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".homepage.ui.ScreeningListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shopdetailbuy.ui.ShopDetailActivity"
             android:screenOrientation="portrait"/>
     </application>
 

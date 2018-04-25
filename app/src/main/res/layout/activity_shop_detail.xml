@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:id="@+id/scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backGround2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/shop_detail_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+
+                <com.purchase.sls.common.widget.Banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:indicator_drawable_selected="@drawable/selected_radius"
+                    app:indicator_drawable_unselected="@drawable/unselected_radius" />
+
+                <RelativeLayout
+                    android:id="@+id/shop_info_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/popularity_ll"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:background="@color/appText3"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="月均人气"
+                            android:textColor="@color/appText1"
+                            android:textSize="9sp" />
+
+                        <View
+                            android:layout_width="30dp"
+                            android:layout_height="1dp"
+                            android:background="@color/appText1" />
+
+                        <TextView
+                            android:id="@+id/popularity_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/appText1"
+                            android:textSize="9sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toLeftOf="@id/popularity_ll">
+
+                        <TextView
+                            android:id="@+id/shop_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/appText4"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/shop_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/backGround2"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View style="@style/fengexian_style" />
+
+                <RelativeLayout
+                    android:id="@+id/back_energy_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <TextView
+                        android:id="@+id/back_energy_tt"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:background="@color/appText3"
+                        android:gravity="center"
+                        android:text="@string/back_energy"
+                        android:textColor="@color/appText1"
+                        android:textSize="9dp" />
+
+                    <TextView
+                        android:id="@+id/back_energy_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/back_energy_tt"
+                        android:textColor="@color/appText4"
+                        android:textSize="9dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/arrow_indicator" />
+                </RelativeLayout>
+
+                <View style="@style/fengexian_style" />
+
+                <RelativeLayout
+                    android:id="@+id/local_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/local_iv"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:src="@mipmap/nearby_no_select" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_text_left"
+                        android:layout_marginRight="@dimen/common_text_left"
+                        android:layout_toLeftOf="@id/fenge_vi"
+                        android:layout_toRightOf="@id/local_iv"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/backGround2" />
+
+                    <LinearLayout
+                        android:id="@+id/call_ll"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/phone" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="电话"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/fenge_vi"
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/call_ll"
+                        android:background="@color/backGround2" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/evaluate_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="网友评论"
+                    android:layout_marginTop="@dimen/common_text_left"
+                    android:layout_marginBottom="@dimen/common_text_left"
+                    android:layout_marginLeft="@dimen/common_margin_left_right"/>
+                <View
+                    style="@style/fengexian_style"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/evaluate_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
+                <RelativeLayout
+                    android:id="@+id/look_all_comment_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="查看全部评论"
+                        android:textColor="@color/appText3"
+                        android:layout_centerVertical="true"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/arrow_indicator" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/more_shop_ll"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/appText1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="@string/more_shop"
+                    android:layout_marginTop="@dimen/common_text_left"
+                    android:layout_marginBottom="@dimen/common_text_left"
+                    android:layout_marginLeft="@dimen/common_margin_left_right"/>
+                <View
+                    style="@style/fengexian_style"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/more_shop_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</RelativeLayout>

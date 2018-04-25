@@ -55,4 +55,8 @@
     <string name="customer_service_center">客服中心</string>
     <string name="want_cooperate">我要合作</string>
     <string name="about_neng">关于能购</string>
+    
+    <!--商品详情-->
+    <string name="back_energy">返能量</string>
+    <string name="more_shop">更多商家</string>
 </resources>

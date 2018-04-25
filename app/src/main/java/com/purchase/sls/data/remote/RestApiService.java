@@ -8,6 +8,7 @@ import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
+import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
@@ -17,6 +18,7 @@ import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
 import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
+import com.purchase.sls.data.request.ShopDetailsRequest;
 
 import java.util.List;
 
@@ -57,6 +59,9 @@ public interface RestApiService {
     //获取选择首页几个图片跳转页面的额数据
     @POST("index/appGetCate")
     Flowable<RemoteDataWrapper<ScreeningListResponse>> getScreeningListInfo(@Body ScreeningListRequest request);
+    //获取店铺详情
+    @POST("index/getstoreinfo")
+    Flowable<RemoteDataWrapper<ShopDetailsInfo>> getShopDetailsInfo(@Body ShopDetailsRequest shopDetailsRequest);
 
 
 }

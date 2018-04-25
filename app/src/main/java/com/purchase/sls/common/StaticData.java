@@ -19,4 +19,7 @@ public class StaticData {
     public static final String BUSINESS_NAME="bussinessName";
     //商家sum
     public static final String BUSINESS_SUM="businessSum";
+    //
+    public static final String STOREID="storeid";
+
 }

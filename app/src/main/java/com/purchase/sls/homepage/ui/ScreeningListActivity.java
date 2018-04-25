@@ -32,6 +32,7 @@ import com.purchase.sls.homepage.adapter.ScreeningFirstAdapter;
 import com.purchase.sls.homepage.adapter.ScreeningSecondAdapter;
 import com.purchase.sls.homepage.adapter.ScreeningThirdAdapter;
 import com.purchase.sls.homepage.presenter.ScreeningListPresenter;
+import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ import butterknife.OnClick;
  * 首页筛选列表
  */
 
-public class ScreeningListActivity extends BaseActivity implements HomePageContract.ScreeningListView, ScreeningFirstAdapter.OnFirstItemOnClickListener, ScreeningSecondAdapter.OnSecondItemOnClickListener, ScreeningThirdAdapter.OnThirdItemOnClickListener {
+public class ScreeningListActivity extends BaseActivity implements HomePageContract.ScreeningListView, ScreeningFirstAdapter.OnFirstItemOnClickListener, ScreeningSecondAdapter.OnSecondItemOnClickListener, ScreeningThirdAdapter.OnThirdItemOnClickListener,LikeStoreAdapter.OnLikeStoreClickListener {
 
 
     @BindView(R.id.back)
@@ -177,6 +178,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
 
     private void likeStore() {
         likeStoreAdapter = new LikeStoreAdapter(this);
+        likeStoreAdapter.setOnLikeStoreClickListener(this);
         choiceShopRv.setAdapter(likeStoreAdapter);
     }
 
@@ -411,5 +413,10 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         screeningThirdAdapter.setPosittion(choiceThirdInt,itemPosition);
         choiceThirdInt=itemPosition;
         businessScreen=String.valueOf(itemPosition);
+    }
+
+    @Override
+    public void likeStoreClickListener(String storeid) {
+        ShopDetailActivity.start(this,storeid);
     }
 }

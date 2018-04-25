@@ -7,6 +7,15 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@mipmap/splash</item>
+    </style>
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
     <!--登录页忘记密码-->
     <style name="login_forget_number_style">
         <item name="android:layout_width">wrap_content</item>
@@ -149,6 +158,11 @@
         <item name="android:layout_marginLeft">@dimen/common_text_left</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@drawable/bottom_text_select</item>
+    </style>
+    <style name="fengexian_style">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/backGround2</item>
     </style>
 
 </resources>

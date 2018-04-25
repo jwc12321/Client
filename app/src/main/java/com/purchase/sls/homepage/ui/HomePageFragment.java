@@ -35,7 +35,6 @@ import com.purchase.sls.homepage.HomePageContract;
 import com.purchase.sls.homepage.HomePageModule;
 import com.purchase.sls.homepage.adapter.HotServiceAdapter;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
-import com.purchase.sls.homepage.adapter.ScreeningFirstAdapter;
 import com.purchase.sls.homepage.presenter.HomePagePresenter;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener {
+public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener,LikeStoreAdapter.OnLikeStoreClickListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
@@ -140,6 +139,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     //添加猜你喜欢列表
     private void likeStore() {
         likeStoreAdapter = new LikeStoreAdapter(getActivity());
+        likeStoreAdapter.setOnLikeStoreClickListener(this);
         likeStoreRv.setAdapter(likeStoreAdapter);
     }
 
@@ -344,4 +344,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         ScreeningListActivity.start(getActivity(),city,storecateInfo.getId(),storecateInfo.getName(),storecateInfo.getSum());
     }
 
+    @Override
+    public void likeStoreClickListener(String storeid) {
+
+    }
 }

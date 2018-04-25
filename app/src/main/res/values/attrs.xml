@@ -26,4 +26,16 @@
         <attr name="headerView" format="reference" />
         <attr name="targetView" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="StarView">
+        <attr name="mImageWidth" format="dimension"/>
+        <attr name="mImageHeight" format="dimension"/>
+        <attr name="mDefaultImageId" format="reference"/>
+        <attr name="mClickImageId" format="reference"/>
+        <attr name="mHalfImageId" format="reference"/>
+        <attr name="mMargin" format="dimension"/>
+        <attr name="mStarNum" format="integer"/>
+        <attr name="mStarChoose" format="integer"/>
+        <attr name="mScope" format="float"/>
+    </declare-styleable>
 </resources>
