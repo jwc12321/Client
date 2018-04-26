@@ -22,7 +22,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/appText4</item>
         <item name="android:textSize">11sp</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:padding">14dp</item>
     </style>
 
     <style name="title_text_style">
@@ -95,8 +95,8 @@
     </style>
 
     <style name="persion_image_account_style">
-        <item name="android:layout_height">@dimen/account_icon</item>
-        <item name="android:layout_width">@dimen/account_icon</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:scaleType">fitXY</item>
     </style>
 
@@ -122,7 +122,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/appText4</item>
     </style>
 

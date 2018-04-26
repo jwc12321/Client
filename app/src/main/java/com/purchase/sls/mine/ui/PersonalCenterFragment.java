@@ -2,16 +2,23 @@ package com.purchase.sls.mine.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.GlideHelper;
+import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 
 import butterknife.BindView;
@@ -24,6 +31,7 @@ import butterknife.OnClick;
  */
 
 public class PersonalCenterFragment extends BaseFragment {
+
     @BindView(R.id.setting_iv)
     ImageView settingIv;
     @BindView(R.id.information_iv)
@@ -32,8 +40,16 @@ public class PersonalCenterFragment extends BaseFragment {
     RoundedImageView photo;
     @BindView(R.id.persion_name)
     TextView persionName;
-    @BindView(R.id.item_my_account)
-    FrameLayout itemMyAccount;
+    @BindView(R.id.psersoin_homepage_ll)
+    LinearLayout psersoinHomepageLl;
+    @BindView(R.id.collection_ll)
+    LinearLayout collectionLl;
+    @BindView(R.id.comment_ll)
+    LinearLayout commentLl;
+    @BindView(R.id.account_ll)
+    LinearLayout accountLl;
+    @BindView(R.id.item_energy)
+    FrameLayout itemEnergy;
     @BindView(R.id.item_voucher)
     FrameLayout itemVoucher;
     @BindView(R.id.item_browse_records)
@@ -45,6 +61,11 @@ public class PersonalCenterFragment extends BaseFragment {
     @BindView(R.id.item_about_neng)
     FrameLayout itemAboutNeng;
     private boolean isFirstLoad = true;
+
+    private CommonAppPreferences commonAppPreferences;
+    private String persionInfoStr;
+    private PersionInfoResponse persionInfoResponse;
+    private Gson gson;
 
     public PersonalCenterFragment() {
     }
@@ -64,6 +85,7 @@ public class PersonalCenterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_persional_center, container, false);
         ButterKnife.bind(this, rootview);
+        commonAppPreferences=new CommonAppPreferences(getActivity());
         return rootview;
     }
 
@@ -86,18 +108,30 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        initVeiw();
+    }
+
+    private void initVeiw(){
+        persionInfoStr=commonAppPreferences.getPersionInfo();
+        gson=new Gson();
+        if(persionInfoStr!=null&& !TextUtils.isEmpty(persionInfoStr)) {
+            persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
+            GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
+            persionName.setText(persionInfoResponse.getUsername());
+        }
     }
 
 
     @OnClick({R.id.setting_iv})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.setting_iv:
                 AccountLoginActivity.start(getActivity());
                 break;
-                default:
+            default:
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

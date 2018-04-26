@@ -22,6 +22,6 @@
     <color name="backGround4">#ffb1b7be</color>
     <color name="backGround5">#ffa8adb3</color>
     <color name="backGround6">#FFE0E0E0</color>
-    <!--<color name="backGround8">#ffdcce</color>-->
     <color name="backGround7">#ffdcce</color>
+    <color name="backGround8">#dc521c</color>
 </resources>

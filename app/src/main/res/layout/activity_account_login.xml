@@ -17,28 +17,23 @@
 
             <ImageView
                 android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:paddingLeft="@dimen/common_margin_left_right"
-                android:paddingRight="@dimen/common_margin_left_right"
-                android:src="@mipmap/return_gray" />
+                style="@style/title_left_back_style" />
 
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="83dp"
-            android:layout_height="83dp"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
             android:layout_below="@+id/title_rel"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/login_button_height"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@mipmap/app_icon" />
 
         <RelativeLayout
             android:id="@+id/input_number_rel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_below="@+id/icon"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/login_button_left_right"
@@ -51,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_toLeftOf="@+id/clean_account_number"
                 android:background="@null"
                 android:hint="@string/input_account_number"
@@ -68,15 +63,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="10dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/si_calean" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/input_password_rel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_below="@+id/input_number_rel"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/login_button_left_right"
@@ -89,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_toLeftOf="@+id/clean_password"
                 android:background="@null"
                 android:hint="@string/input_password"
@@ -123,8 +121,8 @@
 
         <Button
             android:id="@+id/login_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_below="@+id/input_password_rel"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/login_button_left_right"
@@ -155,10 +153,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/forget_password"
-            android:layout_marginTop="41dp">
+            android:layout_marginTop="36dp">
 
             <TextView
-                style="@style/login_forget_number_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText2"
+                android:textSize="12sp"
                 android:layout_centerHorizontal="true"
                 android:text="@string/other_login_in" />
         </RelativeLayout>
@@ -171,11 +172,11 @@
 
             <ImageView
                 android:id="@+id/sms_login"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@null"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/verification_login" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

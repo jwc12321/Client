@@ -48,10 +48,11 @@
                         android:paddingLeft="@dimen/common_margin_left_right"
                         android:paddingRight="@dimen/common_margin_left_right"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/btn_setting_pressed" />
+                        android:src="@mipmap/news" />
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/psersoin_homepage_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -72,12 +73,37 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/persion_name"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/appText1"
+                            android:textSize="17sp" />
+
+                        <LinearLayout
+                            android:layout_width="85dp"
+                            android:layout_height="23dp"
+                            android:background="@drawable/persion_homepage_bg"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/homepage_select" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="@string/persion_homepage"
+                                android:textColor="@color/appText1" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -91,22 +117,20 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/collection_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         style="@style/persion_image_account_style"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/persion_text_account_style"
-                        android:text="@string/collection" />
+                        android:src="@mipmap/collection" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/comment_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -115,14 +139,11 @@
 
                     <ImageView
                         style="@style/persion_image_account_style"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/persion_text_account_style"
-                        android:text="@string/collection" />
+                        android:src="@mipmap/comment" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/account_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -131,23 +152,19 @@
 
                     <ImageView
                         style="@style/persion_image_account_style"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/persion_text_account_style"
-                        android:text="@string/collection" />
+                        android:src="@mipmap/account" />
                 </LinearLayout>
             </LinearLayout>
 
             <FrameLayout
-                android:id="@+id/item_my_account"
+                android:id="@+id/item_energy"
                 style="@style/persion_item_fl_style"
                 android:layout_marginTop="@dimen/common_text_left">
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/my_type"
-                    android:drawableStart="@mipmap/my_type"
+                    android:drawableLeft="@mipmap/energy"
+                    android:drawableStart="@mipmap/energy"
                     android:text="@string/energy" />
             </FrameLayout>
 
@@ -158,8 +175,8 @@
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/my_type"
-                    android:drawableStart="@mipmap/my_type"
+                    android:drawableLeft="@mipmap/voucher"
+                    android:drawableStart="@mipmap/voucher"
                     android:text="@string/voucher" />
             </FrameLayout>
 
@@ -170,8 +187,8 @@
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/my_type"
-                    android:drawableStart="@mipmap/my_type"
+                    android:drawableLeft="@mipmap/browse_records"
+                    android:drawableStart="@mipmap/browse_records"
                     android:text="@string/browse_records" />
             </FrameLayout>
 
@@ -182,8 +199,8 @@
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/my_type"
-                    android:drawableStart="@mipmap/my_type"
+                    android:drawableLeft="@mipmap/customer_service_center"
+                    android:drawableStart="@mipmap/customer_service_center"
                     android:text="@string/customer_service_center" />
             </FrameLayout>
 
@@ -194,8 +211,8 @@
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/my_type"
-                    android:drawableStart="@mipmap/my_type"
+                    android:drawableLeft="@mipmap/want_cooperate"
+                    android:drawableStart="@mipmap/want_cooperate"
                     android:text="@string/want_cooperate" />
             </FrameLayout>
 
@@ -206,8 +223,8 @@
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/my_type"
-                    android:drawableStart="@mipmap/my_type"
+                    android:drawableLeft="@mipmap/about_neng"
+                    android:drawableStart="@mipmap/about_neng"
                     android:text="@string/about_neng" />
             </FrameLayout>
         </LinearLayout>

@@ -21,5 +21,14 @@ public class StaticData {
     public static final String BUSINESS_SUM="businessSum";
     //
     public static final String STOREID="storeid";
+    //存储的sharedPreferences的key
+    public static final String SPF_NAME="spfNengName";
+    //维度
+    public static String LATITUDE="latitude";
+    //经度
+    public static String LONGITUDE="longitude";
+    //个人信息
+    public static String PERSION_INFO="persionInfo";
+
 
 }

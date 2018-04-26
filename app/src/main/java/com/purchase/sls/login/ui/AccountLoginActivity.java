@@ -14,10 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.AccountUtils;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.PermissionUtil;
 import com.purchase.sls.common.unit.TokenManager;
@@ -71,6 +73,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     //密码是否显示
     private boolean isPassWordVisible = false;
     private static final int REQUEST_PHONE_STATE = 0x01;
+    private CommonAppPreferences commonAppPreferences;
 
     private String accountNumber;
     private String loginPassword;
@@ -94,6 +97,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
         ButterKnife.bind(this);
+        commonAppPreferences=new CommonAppPreferences(this);
     }
 
     @Override
@@ -105,7 +109,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 .inject(this);
     }
 
-    @OnClick({R.id.clean_account_number, R.id.clean_password, R.id.hidden_password, R.id.login_in, R.id.sms_login, R.id.forget_password, R.id.immediate_registration})
+    @OnClick({R.id.clean_account_number, R.id.clean_password, R.id.hidden_password, R.id.login_in, R.id.sms_login, R.id.forget_password, R.id.immediate_registration,R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.clean_account_number:
@@ -128,6 +132,9 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 break;
             case R.id.immediate_registration:
                 RegisterFirstActivity.start(this, StaticData.REGISTER);
+                break;
+            case R.id.back:
+                finish();
                 break;
             default:
         }
@@ -188,6 +195,9 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     @Override
     public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
         TokenManager.saveToken(persionInfoResponse.getToken());
+        Gson gson=new Gson();
+        String persionInfoResponseStr=gson.toJson(persionInfoResponse);
+        commonAppPreferences.setPersionInfo(persionInfoResponseStr);
         finish();
     }
 

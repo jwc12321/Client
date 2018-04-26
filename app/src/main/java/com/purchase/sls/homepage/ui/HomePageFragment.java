@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseFragment;
@@ -28,6 +29,7 @@ import com.purchase.sls.common.unit.PermissionUtil;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
+import com.purchase.sls.common.widget.LimitScrollerView;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
@@ -51,7 +53,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener,LikeStoreAdapter.OnLikeStoreClickListener {
+public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
@@ -67,6 +69,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     TextView choiceCity;
     @BindView(R.id.like_store_rv)
     RecyclerView likeStoreRv;
+    @BindView(R.id.limitScroll)
+    LimitScrollerView limitScroll;
 
 
     private LocationHelper mLocationHelper;
@@ -75,6 +79,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private List<String> bannerImages;
     private HotServiceAdapter hotServiceAdapter;
     private LikeStoreAdapter likeStoreAdapter;
+    private MyLimitScrollAdapter myLimitScrollAdapter;
 
     private static final int REQUEST_PERMISSION_LOCATION = 1;
     private static final int REFRESS_LOCATION_SCAN = 2;
@@ -117,6 +122,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         mapLocal();
         bannerInitialization();
         hotService();
+        scrollerUpDown();
         likeStore();
         homePagePresenter.getLikeStore();
     }
@@ -124,6 +130,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void onResume() {
         super.onResume();
+        limitScroll.startScroll();
     }
 
     //设置热门
@@ -176,6 +183,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
             }
         });
+    }
+
+    //设置上下轮播图
+    private void scrollerUpDown(){
+        //API:1、设置数据适配器
+        myLimitScrollAdapter = new MyLimitScrollAdapter();
+        limitScroll.setDataAdapter(myLimitScrollAdapter);
     }
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
@@ -236,6 +250,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
             bannerImages.add(bannerInfo.getBanner());
         }
         banner.setImages(bannerImages);
+        myLimitScrollAdapter.setDatas(bannerHotResponse.getArticleInfo().getDatainfos());
         hotServiceAdapter.setData(bannerHotResponse.getStorecateInfos());
     }
 
@@ -341,11 +356,44 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
-        ScreeningListActivity.start(getActivity(),city,storecateInfo.getId(),storecateInfo.getName(),storecateInfo.getSum());
+        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum());
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
 
+    }
+    //TODO 修改适配器绑定数据
+    class MyLimitScrollAdapter implements LimitScrollerView.LimitScrollAdapter{
+
+        private List<BannerHotResponse.ArticleInfo.Datainfo> datas;
+        public void setDatas(List<BannerHotResponse.ArticleInfo.Datainfo> datas){
+            this.datas = datas;
+            //API:2、开始滚动
+            limitScroll.startScroll();
+        }
+        @Override
+        public int getCount() {
+            return datas==null?0:datas.size();
+        }
+
+        @Override
+        public View getView(int index) {
+            View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.limit_scroller_item, null, false);
+            ImageView iv_icon = (ImageView)itemView.findViewById(R.id.iv_icon);
+            TextView tv_text = (TextView)itemView.findViewById(R.id.tv_text);
+
+            //绑定数据
+            BannerHotResponse.ArticleInfo.Datainfo data = datas.get(index);
+            itemView.setTag(data);
+            tv_text.setText(data.getTitle());
+            return itemView;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        limitScroll.cancel();
     }
 }
