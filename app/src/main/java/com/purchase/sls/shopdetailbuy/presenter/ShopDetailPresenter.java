@@ -1,9 +1,11 @@
 package com.purchase.sls.shopdetailbuy.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 
@@ -44,7 +46,34 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
                 .subscribe(new Consumer<ShopDetailsInfo>() {
                     @Override
                     public void accept(ShopDetailsInfo shopDetailsInfo) throws Exception {
-                        shopDetailView.ShopDetailInfo(shopDetailsInfo);
+                        shopDetailView.shopDetailInfo(shopDetailsInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        shopDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    /**
+     * 收藏的增加和删除
+     *
+     * @param storeid
+     * @param type
+     * @param fidArray
+     */
+    @Override
+    public void addRemoveCollection(String storeid, String type, String[] fidArray) {
+        AddRemoveCollectionRequest addRemoveCollectionRequest = new AddRemoveCollectionRequest(storeid, type, fidArray);
+        Disposable disposable = restApiService.addRemoveCollection(addRemoveCollectionRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        shopDetailView.addRemoveSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

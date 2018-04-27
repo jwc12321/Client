@@ -99,6 +99,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".shopdetailbuy.ui.ShopDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".collection.ui.CollectionListActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

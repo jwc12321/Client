@@ -39,6 +39,8 @@
         <item name="android:textColor">@color/appText5</item>
         <item name="android:textSize">17sp</item>
         <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">@dimen/common_text_left</item>
     </style>
 
     <!--首页底部LinearLayout-->

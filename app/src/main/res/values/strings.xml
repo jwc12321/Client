@@ -60,4 +60,7 @@
     <!--商品详情-->
     <string name="back_energy">返能量</string>
     <string name="more_shop">更多商家</string>
+
+    <!--收藏-->
+    <string name="my_collection">我的收藏</string>
 </resources>

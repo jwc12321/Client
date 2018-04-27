@@ -1,5 +1,7 @@
 package com.purchase.sls.data.entity;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -11,10 +13,11 @@ import java.util.List;
 public class StoreInfo {
     @SerializedName("id")
     private String id;
-    @SerializedName("pics")
-    private List<String> pics;
-    @SerializedName("hj_pics")
-    private List<String> hjPics ;
+    @Nullable
+//    @SerializedName("pics")
+//    private List<String> pics;
+//    @SerializedName("hj_pics")
+//    private List<String> hjPics ;
     @SerializedName("z_pics")
     private String zPics;
     @SerializedName("title")
@@ -53,10 +56,10 @@ public class StoreInfo {
     private String regionid;
     @SerializedName("cityname")
     private String cityname;
-    @SerializedName("bipoinamed")
-    private String bpoinameid;
-    @SerializedName("tj_pics")
-    private List<String> tjPics;
+    @SerializedName("poiname")
+    private String poiname;
+//    @SerializedName("tj_pics")
+//    private List<String> tjPics;
     @SerializedName("rank")
     private String rank;
     @SerializedName("average")
@@ -67,8 +70,27 @@ public class StoreInfo {
     private String addressX;
     @SerializedName("address_y")
     private String addressY;
+    //是否已经收藏  1：收藏
+    @SerializedName("favo")
+    private String favo;
     @SerializedName("bcate")
     private BcateInfo bcateInfo;
+
+    public String getFavo() {
+        return favo;
+    }
+
+    public void setFavo(String favo) {
+        this.favo = favo;
+    }
+
+    public String getPoiname() {
+        return poiname;
+    }
+
+    public void setPoiname(String poiname) {
+        this.poiname = poiname;
+    }
 
     public String getId() {
         return id;
@@ -78,21 +100,21 @@ public class StoreInfo {
         this.id = id;
     }
 
-    public List<String> getPics() {
-        return pics;
-    }
-
-    public void setPics(List<String> pics) {
-        this.pics = pics;
-    }
-
-    public List<String> getHjPics() {
-        return hjPics;
-    }
-
-    public void setHjPics(List<String> hjPics) {
-        this.hjPics = hjPics;
-    }
+//    public List<String> getPics() {
+//        return pics;
+//    }
+//
+//    public void setPics(List<String> pics) {
+//        this.pics = pics;
+//    }
+//
+//    public List<String> getHjPics() {
+//        return hjPics;
+//    }
+//
+//    public void setHjPics(List<String> hjPics) {
+//        this.hjPics = hjPics;
+//    }
 
     public String getzPics() {
         return zPics;
@@ -246,21 +268,15 @@ public class StoreInfo {
         this.cityname = cityname;
     }
 
-    public String getBpoinameid() {
-        return bpoinameid;
-    }
 
-    public void setBpoinameid(String bpoinameid) {
-        this.bpoinameid = bpoinameid;
-    }
 
-    public List<String> getTjPics() {
-        return tjPics;
-    }
-
-    public void setTjPics(List<String> tjPics) {
-        this.tjPics = tjPics;
-    }
+//    public List<String> getTjPics() {
+//        return tjPics;
+//    }
+//
+//    public void setTjPics(List<String> tjPics) {
+//        this.tjPics = tjPics;
+//    }
 
     public String getRank() {
         return rank;

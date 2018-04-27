@@ -11,8 +11,10 @@ import com.purchase.sls.data.entity.ShopDetailsInfo;
 public interface ShopDetailBuyContract {
     interface ShopDetailPresenter extends BasePresenter{
         void getShopDetail(String storeid);
+        void addRemoveCollection(String storeid, String type, String[] fidArray );
     }
     interface ShopDetailView extends BaseView<ShopDetailPresenter>{
-        void ShopDetailInfo(ShopDetailsInfo shopDetailsInfo);
+        void shopDetailInfo(ShopDetailsInfo shopDetailsInfo);
+        void addRemoveSuccess();
     }
 }

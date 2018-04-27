@@ -1,16 +1,20 @@
 package com.purchase.sls.data.remote;
 
 
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.BannerHotResponse;
+import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
+import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
+import com.purchase.sls.data.request.CollectionListRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
@@ -62,6 +66,12 @@ public interface RestApiService {
     //获取店铺详情
     @POST("index/getstoreinfo")
     Flowable<RemoteDataWrapper<ShopDetailsInfo>> getShopDetailsInfo(@Body ShopDetailsRequest shopDetailsRequest);
+    //获取收藏列表
+    @POST("storefavo/getlist")
+    Flowable<RemoteDataWrapper<CollectionListResponse>> getCollectionListInfo(@Body CollectionListRequest collectionListRequest);
+    //删除和增加收藏
+    @POST("storefavo/favorite")
+    Flowable<RemoteDataWrapper<Ignore>> addRemoveCollection(@Body AddRemoveCollectionRequest addRemoveCollectionRequest);
 
 
 }

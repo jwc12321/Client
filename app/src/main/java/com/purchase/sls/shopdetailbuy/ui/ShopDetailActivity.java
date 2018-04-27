@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,13 +31,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JWC on 2018/4/24.
  * 商品详情页面
  */
 
-public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView,LikeStoreAdapter.OnLikeStoreClickListener {
+public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener {
 
     @BindView(R.id.banner)
     Banner banner;
@@ -80,6 +82,14 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     LinearLayout moreShopLl;
     @BindView(R.id.scroll_content)
     ReboundScrollView scrollContent;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.collection)
+    ImageView collection;
+    @BindView(R.id.title_rel)
+    RelativeLayout titleRel;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -87,6 +97,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private StoreInfo storeInfo;
     private LikeStoreAdapter likeStoreAdapter;
     private EvaluateAdapter evaluateAdapter;
+    private int collectionType=0;
 
     public static void start(Context context, String storeid) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
@@ -130,8 +141,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         moreShopRv.setAdapter(likeStoreAdapter);
     }
 
-    private void evaluateAdapter(){
-        evaluateAdapter=new EvaluateAdapter(this);
+    private void evaluateAdapter() {
+        evaluateAdapter = new EvaluateAdapter(this);
         evaluateRv.setAdapter(evaluateAdapter);
     }
 
@@ -157,22 +168,29 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     @Override
-    public void ShopDetailInfo(ShopDetailsInfo shopDetailsInfo) {
-        if(shopDetailsInfo!=null) {
+    public void shopDetailInfo(ShopDetailsInfo shopDetailsInfo) {
+        if (shopDetailsInfo != null) {
             if (shopDetailsInfo.getStoreInfo() != null) {
                 storeInfo = shopDetailsInfo.getStoreInfo();
-                banner.setImages(storeInfo.getPics());
+//                banner.setImages(storeInfo.getPics());
                 shopName.setText(storeInfo.getTitle());
                 shopDescription.setText(storeInfo.getDescription());
                 popularityNumber.setText(storeInfo.getBuzz());
                 address.setText(storeInfo.getAddress());
                 backEnergyNumber.setText(storeInfo.getRebate());
+                if(TextUtils.equals("1",storeInfo.getFavo())){
+                    collection.setSelected(true);
+                    collectionType=1;
+                }else {
+                    collection.setSelected(false);
+                }
+
             }
-            if(shopDetailsInfo.getEvaluateResult()!=null&&shopDetailsInfo.getEvaluateResult().getEvaluateInfo()!=null
-                    &&shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos()!=null){
+            if (shopDetailsInfo.getEvaluateResult() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo() != null
+                    && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null) {
                 evaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
             }
-            if(shopDetailsInfo.getLikeStoreResponse()!=null&&shopDetailsInfo.getLikeStoreResponse().getLikeInfos()!=null){
+            if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getLikeInfos() != null) {
                 likeStoreAdapter.setLikeInfos(shopDetailsInfo.getLikeStoreResponse().getLikeInfos());
             }
         }
@@ -180,7 +198,32 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     @Override
+    public void addRemoveSuccess() {
+
+    }
+
+    @Override
     public void likeStoreClickListener(String storeid) {
 
+    }
+
+    @OnClick({R.id.back, R.id.collection})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.collection:
+                collectionType += 1;
+                if (collectionType % 2 == 0) {
+                    collection.setSelected(false);
+                    shopDetailPresenter.addRemoveCollection("161","2",null);
+                }else {
+                    collection.setSelected(true);
+                    shopDetailPresenter.addRemoveCollection("161","1",null);
+                }
+                break;
+            default:
+        }
     }
 }

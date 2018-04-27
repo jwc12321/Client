@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -122,11 +123,14 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv})
+    @OnClick({R.id.setting_iv,R.id.collection_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv:
                 AccountLoginActivity.start(getActivity());
+                break;
+            case R.id.collection_ll:
+                CollectionListActivity.start(getActivity());
                 break;
             default:
         }
