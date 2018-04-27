@@ -167,4 +167,12 @@
         <item name="android:background">@color/backGround2</item>
     </style>
 
+    <style name="SlsStyleDialog" parent="android:Theme.Holo.Light.Dialog">
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+
+    </style>
+
 </resources>

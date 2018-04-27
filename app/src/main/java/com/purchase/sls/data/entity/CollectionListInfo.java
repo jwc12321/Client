@@ -18,7 +18,7 @@ public class CollectionListInfo {
     @SerializedName("updated_at")
     private String updated_at;
     @SerializedName("store")
-    private StoreInfo storeInfo;
+    private CollectionStoreInfo collectionStoreInfo;
 
     public String getId() {
         return id;
@@ -60,11 +60,11 @@ public class CollectionListInfo {
         this.updated_at = updated_at;
     }
 
-    public StoreInfo getStoreInfo() {
-        return storeInfo;
+    public CollectionStoreInfo getCollectionStoreInfo() {
+        return collectionStoreInfo;
     }
 
-    public void setStoreInfo(StoreInfo storeInfo) {
-        this.storeInfo = storeInfo;
+    public void setCollectionStoreInfo(CollectionStoreInfo collectionStoreInfo) {
+        this.collectionStoreInfo = collectionStoreInfo;
     }
 }

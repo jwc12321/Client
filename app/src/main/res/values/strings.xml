@@ -60,7 +60,13 @@
     <!--商品详情-->
     <string name="back_energy">返能量</string>
     <string name="more_shop">更多商家</string>
+    <string name="pay_order">支付订单</string>
+    <string name="store_cash_reel">店铺现金抵用券</string>
 
     <!--收藏-->
     <string name="my_collection">我的收藏</string>
+
+    <string name="cancel">取消</string>
+    <string name="action_confirm">确定</string>
+    <string name="service_phone_number">4008–262–056</string>
 </resources>

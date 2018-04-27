@@ -38,6 +38,7 @@ import com.purchase.sls.homepage.HomePageModule;
 import com.purchase.sls.homepage.adapter.HotServiceAdapter;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.homepage.presenter.HomePagePresenter;
+import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -361,7 +362,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
     @Override
     public void likeStoreClickListener(String storeid) {
-
+        ShopDetailActivity.start(getActivity(),storeid);
     }
     //TODO 修改适配器绑定数据
     class MyLimitScrollAdapter implements LimitScrollerView.LimitScrollAdapter{

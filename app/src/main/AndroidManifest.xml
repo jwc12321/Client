@@ -98,8 +98,13 @@
         <activity android:name=".homepage.ui.ScreeningListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".shopdetailbuy.ui.ShopDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity android:name=".collection.ui.CollectionListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".webview.ui.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shopdetailbuy.ui.PaymentOrderActivity"
             android:screenOrientation="portrait"/>
     </application>
 

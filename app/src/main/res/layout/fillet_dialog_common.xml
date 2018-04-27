@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:id="@+id/container"
+                  android:background="@drawable/round_layout"
+                  android:gravity="center_horizontal"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:divider="@drawable/layout_vertical_divider"
+                  android:orientation="vertical"
+                  android:showDividers="middle">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+        <TextView
+            android:paddingTop="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/title"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/appText5"
+            android:text="拨打电话"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:textColor="@color/appText10"
+            android:layout_gravity="center"
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            tools:text="Are you sure to Exit current account，and the relative records will be delete forever util next login,but won.t be recovery entirely!"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/layout_horizontal_divider"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/appText9"
+                android:text="@string/cancel"
+                android:id="@+id/button_cancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/appText9"
+                android:text="@string/action_confirm"
+                android:id="@+id/button_confirm"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+</LinearLayout>

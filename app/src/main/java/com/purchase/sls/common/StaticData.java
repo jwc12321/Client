@@ -29,6 +29,10 @@ public class StaticData {
     public static String LONGITUDE="longitude";
     //个人信息
     public static String PERSION_INFO="persionInfo";
+    //webview回调
+    public static final int CALLBACK_DATA=101;
+    //向webview传递数据
+    public static final String WEBVIEW_DETAILINFO="webViewDetailInfo";
 
 
 }

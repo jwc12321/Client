@@ -13,11 +13,10 @@ import java.util.List;
 public class StoreInfo {
     @SerializedName("id")
     private String id;
-    @Nullable
-//    @SerializedName("pics")
-//    private List<String> pics;
-//    @SerializedName("hj_pics")
-//    private List<String> hjPics ;
+    @SerializedName("pics")
+    private List<String> pics;
+    @SerializedName("hj_pics")
+    private List<String> hjPics ;
     @SerializedName("z_pics")
     private String zPics;
     @SerializedName("title")
@@ -58,8 +57,8 @@ public class StoreInfo {
     private String cityname;
     @SerializedName("poiname")
     private String poiname;
-//    @SerializedName("tj_pics")
-//    private List<String> tjPics;
+    @SerializedName("tj_pics")
+    private List<String> tjPics;
     @SerializedName("rank")
     private String rank;
     @SerializedName("average")
@@ -100,21 +99,21 @@ public class StoreInfo {
         this.id = id;
     }
 
-//    public List<String> getPics() {
-//        return pics;
-//    }
-//
-//    public void setPics(List<String> pics) {
-//        this.pics = pics;
-//    }
-//
-//    public List<String> getHjPics() {
-//        return hjPics;
-//    }
-//
-//    public void setHjPics(List<String> hjPics) {
-//        this.hjPics = hjPics;
-//    }
+    public List<String> getPics() {
+        return pics;
+    }
+
+    public void setPics(List<String> pics) {
+        this.pics = pics;
+    }
+
+    public List<String> getHjPics() {
+        return hjPics;
+    }
+
+    public void setHjPics(List<String> hjPics) {
+        this.hjPics = hjPics;
+    }
 
     public String getzPics() {
         return zPics;
@@ -270,13 +269,13 @@ public class StoreInfo {
 
 
 
-//    public List<String> getTjPics() {
-//        return tjPics;
-//    }
-//
-//    public void setTjPics(List<String> tjPics) {
-//        this.tjPics = tjPics;
-//    }
+    public List<String> getTjPics() {
+        return tjPics;
+    }
+
+    public void setTjPics(List<String> tjPics) {
+        this.tjPics = tjPics;
+    }
 
     public String getRank() {
         return rank;

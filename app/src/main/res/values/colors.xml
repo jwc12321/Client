@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="black_overlay">#66000000</color>
+    <!-- 用于分隔条-->
+    <color name="colorDivider">#dfdbdb</color>
 
 
     <!--字体颜色，也可以是边框颜色-->
@@ -15,6 +17,8 @@
     <color name="appText6">#838383</color>
     <color name="appText7">#616161</color>
     <color name="appText8">#373433</color>
+    <color name="appText9">#56C9FF</color>
+    <color name="appText10">#666666</color>
 
     <color name="backGround1">#f4f4f4</color>
     <color name="backGround2">#dadada</color>

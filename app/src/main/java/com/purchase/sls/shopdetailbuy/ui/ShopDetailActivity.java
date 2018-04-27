@@ -1,8 +1,11 @@
 package com.purchase.sls.shopdetailbuy.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,14 +21,17 @@ import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.ReboundScrollView;
+import com.purchase.sls.common.widget.dialog.CallDialogFragment;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.StoreInfo;
+import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
 import com.purchase.sls.shopdetailbuy.adapter.EvaluateAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.ShopDetailPresenter;
+import com.purchase.sls.webview.ui.WebViewActivity;
 
 import javax.inject.Inject;
 
@@ -90,6 +96,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     ImageView collection;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
+    @BindView(R.id.address_rl)
+    RelativeLayout addressRl;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -97,7 +105,13 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private StoreInfo storeInfo;
     private LikeStoreAdapter likeStoreAdapter;
     private EvaluateAdapter evaluateAdapter;
-    private int collectionType=0;
+    private int collectionType = 0;
+    private String phoneNumber;
+    private WebViewDetailInfo webViewDetailInfo;
+    private String url;
+    private String addressXY;
+    private String addressX;
+    private String addressY;
 
     public static void start(Context context, String storeid) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
@@ -129,7 +143,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void OnBannerClick(View view, int position) {
-
+                url = "http://www.365nengs.com/api/home/index/storeAlbum?storeid=" + storeid;
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("商家相册");
+                webViewDetailInfo.setUrl(url);
+                WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
             }
         });
     }
@@ -172,16 +190,18 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         if (shopDetailsInfo != null) {
             if (shopDetailsInfo.getStoreInfo() != null) {
                 storeInfo = shopDetailsInfo.getStoreInfo();
-//                banner.setImages(storeInfo.getPics());
+                banner.setImages(storeInfo.getPics());
+                phoneNumber = storeInfo.getTelephone();
                 shopName.setText(storeInfo.getTitle());
                 shopDescription.setText(storeInfo.getDescription());
                 popularityNumber.setText(storeInfo.getBuzz());
                 address.setText(storeInfo.getAddress());
                 backEnergyNumber.setText(storeInfo.getRebate());
-                if(TextUtils.equals("1",storeInfo.getFavo())){
+                addressXY=storeInfo.getAddressXy();
+                if (TextUtils.equals("1", storeInfo.getFavo())) {
                     collection.setSelected(true);
-                    collectionType=1;
-                }else {
+                    collectionType = 1;
+                } else {
                     collection.setSelected(false);
                 }
 
@@ -204,10 +224,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     public void likeStoreClickListener(String storeid) {
-
+        ShopDetailActivity.start(this, storeid);
     }
 
-    @OnClick({R.id.back, R.id.collection})
+    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -217,13 +237,68 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 collectionType += 1;
                 if (collectionType % 2 == 0) {
                     collection.setSelected(false);
-                    shopDetailPresenter.addRemoveCollection("161","2",null);
-                }else {
+                    shopDetailPresenter.addRemoveCollection("161", "2", null);
+                } else {
                     collection.setSelected(true);
-                    shopDetailPresenter.addRemoveCollection("161","1",null);
+                    shopDetailPresenter.addRemoveCollection("161", "1", null);
+                }
+                break;
+            case R.id.call_ll:
+                if (!TextUtils.isEmpty(phoneNumber)) {
+                    dial(phoneNumber, "联系客户");
+                }
+                break;
+            case R.id.shop_info_rl:
+                url = "http://www.365nengs.com/api/home/index/storeDetails?storeid=" + storeid;
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("商家介绍");
+                webViewDetailInfo.setUrl(url);
+                WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
+                break;
+            case R.id.address_rl:
+                if(!TextUtils.isEmpty(addressXY)) {
+                    String[] addressStr = addressXY.split(",");
+                    addressX = addressStr[0];
+                    addressY = addressStr[1];
+                    url = "http://uri.amap.com/navigation?from=%"+addressX+",%"+addressY+",start&to=%"+addressX+",%"+addressY+",end&mode=car&policy=1&callnative=1";
+                    webViewDetailInfo = new WebViewDetailInfo();
+                    webViewDetailInfo.setTitle("地图");
+                    webViewDetailInfo.setUrl(url);
+                    WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
                 }
                 break;
             default:
+        }
+    }
+
+    private static final int REQUEST_PERMISSION_CALL_AND_CALL_LOG = 3;
+    private String mCallingPhone;
+    private String mTitle;
+
+    // 拨打电话
+    private void dial(String phone, String title) {
+        boolean ret = requestRuntimePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_CALL_LOG}, REQUEST_PERMISSION_CALL_AND_CALL_LOG);
+        if (ret) {
+            CallDialogFragment serviceFragment = CallDialogFragment.newInstance(phone, title);
+            serviceFragment.show(getSupportFragmentManager(), null);
+        } else {
+            mCallingPhone = phone;
+            mTitle = title;
+            requestRuntimePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_CALL_LOG}, REQUEST_PERMISSION_CALL_AND_CALL_LOG);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION_CALL_AND_CALL_LOG:
+                for (int gra : grantResults) {
+                    if (gra != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                }
+                dial(mCallingPhone, mTitle);
+                break;
         }
     }
 }

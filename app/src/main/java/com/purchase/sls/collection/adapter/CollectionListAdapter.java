@@ -17,6 +17,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.data.entity.BcateInfo;
 import com.purchase.sls.data.entity.CollectionListInfo;
+import com.purchase.sls.data.entity.CollectionStoreInfo;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
     private LayoutInflater layoutInflater;
     private List<CollectionListInfo> collectionListInfos;
     private static Context context;
-    private String behavior="1";//1：正常状态2：有选中删除选项
+    private String behavior = "1";//1：正常状态2：有选中删除选项
 
     public CollectionListAdapter(Context context) {
         this.context = context;
@@ -70,10 +71,10 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
         holder.choiceItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(onCollectionItemClickListener!=null){
-                    if(isChecked){
+                if (onCollectionItemClickListener != null) {
+                    if (isChecked) {
                         onCollectionItemClickListener.addItem(collectionListInfo.getId());
-                    }else {
+                    } else {
                         onCollectionItemClickListener.removeItem(collectionListInfo.getId());
                     }
                 }
@@ -113,15 +114,16 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
         public void bindData(CollectionListInfo collectionListInfo) {
             choiceItem.setVisibility(TextUtils.equals("1", behavior) ? View.GONE : View.VISIBLE);
-            GlideHelper.load((Activity) context, collectionListInfo.getStoreInfo().getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
-            storeName.setText(collectionListInfo.getStoreInfo().getTitle());
-            BcateInfo bcateInfo = collectionListInfo.getStoreInfo().getBcateInfo();
-            shopName.setText(bcateInfo.getName());
+            CollectionStoreInfo collectionStoreInfo = collectionListInfo.getCollectionStoreInfo();
+            GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
+            storeName.setText(collectionStoreInfo.getTitle());
+            shopName.setText(collectionStoreInfo.getName());
         }
     }
 
     public interface OnCollectionItemClickListener {
         void addItem(String storeId);
+
         void removeItem(String storeId);
     }
 

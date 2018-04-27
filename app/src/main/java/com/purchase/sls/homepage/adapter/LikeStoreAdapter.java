@@ -98,7 +98,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
             GlideHelper.load((Activity) context, likeInfo.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
             storeName.setText(likeInfo.getTitle());
             LikeStoreResponse.likeInfo.BcateInfo bcateInfo = likeInfo.getBcateInfo();
-            shopName.setText(bcateInfo.getName());
+//            shopName.setText(bcateInfo.getName());
         }
     }
 
