@@ -6,6 +6,7 @@ package com.purchase.sls.shopdetailbuy;
 
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
+import com.purchase.sls.shopdetailbuy.ui.PaymentOrderActivity;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import dagger.Component;
@@ -14,4 +15,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {ShopDetailBuyModule.class})
 public interface ShopDetailBuyComponent {
     void inject(ShopDetailActivity shopDetailActivity);
+    void inject(PaymentOrderActivity paymentOrderActivity);
 }

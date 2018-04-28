@@ -87,17 +87,17 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/set_password_et"
+                    android:id="@+id/money_et"
                     style="@style/phone_number_et_style"
                     android:layout_height="50dp" />
             </LinearLayout>
 
             <View style="@style/fengexian_style" />
 
-            <TextView
-                android:id="@+id/transfer_to_people"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/add_notes_et"
+                style="@style/phone_number_et_style"
+                android:hint="@string/add_note" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -120,6 +120,7 @@
                     android:src="@mipmap/arrow_indicator" />
 
                 <TextView
+                    android:id="@+id/reel_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -142,18 +143,25 @@
 
             <View style="@style/fengexian_style" />
 
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/item_energy"
                 style="@style/persion_item_fl_style">
 
-                <TextView
-                    android:id="@+id/energy_number"
-                    style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/energy"
-                    android:drawableStart="@mipmap/energy" />
-            </FrameLayout>
+                <ImageView
+                    android:id="@+id/energy_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/energy" />
+
+                <EditText
+                    android:id="@+id/add_energy_et"
+                    style="@style/phone_number_et_style"
+                    android:layout_toRightOf="@id/energy_icon" />
+            </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/zhifubao_rl"
                 style="@style/persion_item_fl_style"
                 android:layout_marginTop="10dp">
 
@@ -175,13 +183,16 @@
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
 
-            <RelativeLayout style="@style/persion_item_fl_style">
+            <RelativeLayout
+                android:id="@+id/weixin_rl"
+                style="@style/persion_item_fl_style">
+
 
                 <TextView
                     style="@style/persion_item_text_style"
                     android:drawableLeft="@mipmap/energy"
                     android:drawableStart="@mipmap/energy"
-                    android:text="支付宝" />
+                    android:text="微信" />
 
                 <ImageView
                     android:id="@+id/weixin_pay"
@@ -194,6 +205,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/pay_details"
                 android:layout_width="wrap_content"
@@ -201,15 +213,53 @@
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
+
     <Button
-        android:id="@+id/next"
+        android:id="@+id/confirm_pay_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/login_button_background"
-        android:text="买单"
-        android:textColor="@color/appText1"
         android:enabled="false"
-        android:layout_alignParentBottom="true"/>
+        android:text="@string/confirm_payment"
+        android:textColor="@color/appText1" />
 
+    <RelativeLayout
+        android:id="@+id/coupon_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/coupon_text"
+            android:layout_above="@id/coupon_rv_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/coupon"
+            android:layout_centerHorizontal="true"
+            android:background="@color/appText1"
+            android:gravity="center_horizontal"/>
+        <LinearLayout
+            android:id="@+id/coupon_rv_ll"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/coupon_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appText1"
+                app:layoutManager="@string/layoutManager_LinearLayout" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_above="@id/coupon_text"
+            android:id="@+id/coupon_black_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/appText4"
+            android:orientation="horizontal" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -31,7 +31,7 @@ import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.common.widget.LimitScrollerView;
 import com.purchase.sls.data.entity.BannerHotResponse;
-import com.purchase.sls.data.entity.LikeStoreResponse;
+import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
 import com.purchase.sls.homepage.HomePageContract;
 import com.purchase.sls.homepage.HomePageModule;
@@ -256,18 +256,18 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     @Override
-    public void likeStroeInfo(List<LikeStoreResponse.likeInfo> likeInfos) {
+    public void likeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos) {
         refreshLayout.stopRefresh();
         refreshLayout.setCanLoadMore(true);
-        likeStoreAdapter.setLikeInfos(likeInfos);
+        likeStoreAdapter.setLikeInfos(collectionStoreInfos);
     }
 
     @Override
-    public void moreLikeStroeInfo(List<LikeStoreResponse.likeInfo> likeInfos) {
+    public void moreLikeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos) {
         refreshLayout.stopRefresh();
-        if (likeInfos != null && likeInfos.size() > 0) {
+        if (collectionStoreInfos != null && collectionStoreInfos.size() > 0) {
             refreshLayout.setCanLoadMore(true);
-            likeStoreAdapter.addMore(likeInfos);
+            likeStoreAdapter.addMore(collectionStoreInfos);
         } else {
             refreshLayout.setCanLoadMore(false);
         }

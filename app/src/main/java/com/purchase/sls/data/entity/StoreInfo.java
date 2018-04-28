@@ -1,6 +1,5 @@
 package com.purchase.sls.data.entity;
 
-import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 

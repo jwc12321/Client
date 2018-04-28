@@ -106,6 +106,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".shopdetailbuy.ui.PaymentOrderActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".shopdetailbuy.ui.PaySuccessActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

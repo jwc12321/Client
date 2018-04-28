@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
+import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 
 import java.util.List;
@@ -26,21 +27,21 @@ import butterknife.ButterKnife;
 public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.LikeStoreView> {
 
     private LayoutInflater layoutInflater;
-    private List<LikeStoreResponse.likeInfo> likeInfos;
+    private List<CollectionStoreInfo> collectionStoreInfos;
     private static Context context;
 
     public LikeStoreAdapter(Context context) {
         this.context = context;
     }
 
-    public void setLikeInfos(List<LikeStoreResponse.likeInfo> likeInfos) {
-        this.likeInfos = likeInfos;
+    public void setLikeInfos(List<CollectionStoreInfo> collectionStoreInfos) {
+        this.collectionStoreInfos = collectionStoreInfos;
         notifyDataSetChanged();
     }
 
-    public void addMore(List<LikeStoreResponse.likeInfo> moreList) {
-        int pos = likeInfos.size();
-        likeInfos.addAll(moreList);
+    public void addMore(List<CollectionStoreInfo> moreList) {
+        int pos = collectionStoreInfos.size();
+        collectionStoreInfos.addAll(moreList);
         notifyItemRangeInserted(pos, moreList.size());
     }
 
@@ -55,13 +56,13 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
 
     @Override
     public void onBindViewHolder(LikeStoreView holder, int position) {
-        final LikeStoreResponse.likeInfo likeInfo = likeInfos.get(holder.getAdapterPosition());
-        holder.bindData(likeInfo);
+        final CollectionStoreInfo collectionStoreInfo = collectionStoreInfos.get(holder.getAdapterPosition());
+        holder.bindData(collectionStoreInfo);
         holder.likestoreLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(onLikeStoreClickListener!=null){
-                    onLikeStoreClickListener.likeStoreClickListener(likeInfo.getId());
+                    onLikeStoreClickListener.likeStoreClickListener(collectionStoreInfo.getId());
                 }
             }
         });
@@ -70,7 +71,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
 
     @Override
     public int getItemCount() {
-        return likeInfos == null ? 0 : likeInfos.size();
+        return collectionStoreInfos == null ? 0 : collectionStoreInfos.size();
     }
 
     public class LikeStoreView extends RecyclerView.ViewHolder {
@@ -94,11 +95,10 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData(LikeStoreResponse.likeInfo likeInfo) {
-            GlideHelper.load((Activity) context, likeInfo.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
-            storeName.setText(likeInfo.getTitle());
-            LikeStoreResponse.likeInfo.BcateInfo bcateInfo = likeInfo.getBcateInfo();
-//            shopName.setText(bcateInfo.getName());
+        public void bindData(CollectionStoreInfo collectionStoreInfo) {
+            GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
+            storeName.setText(collectionStoreInfo.getTitle());
+            shopName.setText(collectionStoreInfo.getName());
         }
     }
 

@@ -20,6 +20,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
+import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.ComprehensiveInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.MealsNumberInfo;
@@ -281,8 +282,8 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         refreshLayout.stopRefresh();
         refreshLayout.setCanLoadMore(true);
         if (screeningListResponse != null) {
-            if (screeningListResponse.getLikeStoreResponse() != null && screeningListResponse.getLikeStoreResponse().getLikeInfos() != null) {
-                likeStoreAdapter.setLikeInfos(screeningListResponse.getLikeStoreResponse().getLikeInfos());
+            if (screeningListResponse.getLikeStoreResponse() != null && screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos() != null) {
+                likeStoreAdapter.setLikeInfos(screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos());
             }
             if (screeningListResponse.getCateInfos() != null && screeningListResponse.getCateInfos().size() > 0) {
                 List<ScreeningListResponse.CateInfo> cateInfos = screeningListResponse.getCateInfos();
@@ -299,8 +300,8 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     @Override
     public void moreScreeningListInfo(ScreeningListResponse screeningListResponse) {
         refreshLayout.stopRefresh();
-        if (screeningListResponse != null && screeningListResponse.getLikeStoreResponse() != null && screeningListResponse.getLikeStoreResponse().getLikeInfos() != null) {
-            List<LikeStoreResponse.likeInfo> likeInfos = screeningListResponse.getLikeStoreResponse().getLikeInfos();
+        if (screeningListResponse != null && screeningListResponse.getLikeStoreResponse() != null && screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos() != null) {
+            List<CollectionStoreInfo> likeInfos = screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos();
             if (likeInfos != null && likeInfos.size() > 0) {
                 refreshLayout.setCanLoadMore(true);
                 likeStoreAdapter.addMore(likeInfos);

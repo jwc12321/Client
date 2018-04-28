@@ -88,7 +88,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 .subscribe(new Consumer<LikeStoreResponse>() {
                     @Override
                     public void accept(LikeStoreResponse likeStoreResponse) throws Exception {
-                        homepageView.likeStroeInfo(likeStoreResponse.getLikeInfos());
+                        homepageView.likeStroeInfo(likeStoreResponse.getCollectionStoreInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -110,7 +110,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 .subscribe(new Consumer<LikeStoreResponse>() {
                     @Override
                     public void accept(LikeStoreResponse likeStoreResponse) throws Exception {
-                        homepageView.moreLikeStroeInfo(likeStoreResponse.getLikeInfos());
+                        homepageView.moreLikeStroeInfo(likeStoreResponse.getCollectionStoreInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

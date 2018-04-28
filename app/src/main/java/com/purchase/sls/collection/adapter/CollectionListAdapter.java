@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
-import com.purchase.sls.data.entity.BcateInfo;
 import com.purchase.sls.data.entity.CollectionListInfo;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 

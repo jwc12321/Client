@@ -97,7 +97,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         super.onViewCreated(view, savedInstanceState);
         initView();
         mapView.onCreate(savedInstanceState);// 此方法必须重写
-        initMap();
+//        initMap();
     }
 
     private boolean isFirstLoad = true;
@@ -159,17 +159,16 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+//        mapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        super.onDestroy();
-        mapView.onDestroy();
-        if (null != mlocationClient) {
-            mlocationClient.onDestroy();
-        }
+//        mapView.onDestroy();
+//        if (null != mlocationClient) {
+//            mlocationClient.onDestroy();
+//        }
     }
 
     /**
@@ -178,7 +177,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
+//        mapView.onSaveInstanceState(outState);
     }
 
     @Override

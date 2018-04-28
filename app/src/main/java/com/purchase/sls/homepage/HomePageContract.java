@@ -3,6 +3,7 @@ package com.purchase.sls.homepage;
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.BannerHotResponse;
+import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 
@@ -24,9 +25,9 @@ public interface HomePageContract {
     interface HomepageView extends BaseView<HomepagePresenter> {
         void bannerHotInfo(BannerHotResponse bannerHotResponse);
 
-        void likeStroeInfo(List<LikeStoreResponse.likeInfo> likeInfos);
+        void likeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos);
 
-        void moreLikeStroeInfo(List<LikeStoreResponse.likeInfo> likeInfos);
+        void moreLikeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos);
     }
 
     interface ScreeningListPresenter extends BasePresenter {

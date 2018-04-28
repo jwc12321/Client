@@ -9,7 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -98,6 +100,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     RelativeLayout titleRel;
     @BindView(R.id.address_rl)
     RelativeLayout addressRl;
+    @BindView(R.id.check_bg)
+    Button checkBg;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -115,7 +119,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     public static void start(Context context, String storeid) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
-        intent.putExtra(StaticData.STOREID, storeid);
+        intent.putExtra(StaticData.BUSINESS_STOREID, storeid);
         context.startActivity(intent);
     }
 
@@ -128,11 +132,23 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void initView() {
-        storeid = getIntent().getStringExtra(StaticData.STOREID);
+        storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         bannerInitialization();
         evaluateAdapter();
         moreStore();
-        shopDetailPresenter.getShopDetail("161");
+        shopDetailPresenter.getShopDetail(storeid);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("111","数据是onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("111","数据是onResume");
     }
 
     //初始化banner
@@ -172,7 +188,6 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     protected void initializeInjector() {
-        super.initializeInjector();
         DaggerShopDetailBuyComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .shopDetailBuyModule(new ShopDetailBuyModule(this))
@@ -197,7 +212,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 popularityNumber.setText(storeInfo.getBuzz());
                 address.setText(storeInfo.getAddress());
                 backEnergyNumber.setText(storeInfo.getRebate());
-                addressXY=storeInfo.getAddressXy();
+                addressXY = storeInfo.getAddressXy();
                 if (TextUtils.equals("1", storeInfo.getFavo())) {
                     collection.setSelected(true);
                     collectionType = 1;
@@ -210,8 +225,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null) {
                 evaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
             }
-            if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getLikeInfos() != null) {
-                likeStoreAdapter.setLikeInfos(shopDetailsInfo.getLikeStoreResponse().getLikeInfos());
+            if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos() != null) {
+                likeStoreAdapter.setLikeInfos(shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos());
             }
         }
 
@@ -227,7 +242,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         ShopDetailActivity.start(this, storeid);
     }
 
-    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl})
+    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl,R.id.check_bg})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -256,15 +271,20 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
                 break;
             case R.id.address_rl:
-                if(!TextUtils.isEmpty(addressXY)) {
+                if (!TextUtils.isEmpty(addressXY)) {
                     String[] addressStr = addressXY.split(",");
                     addressX = addressStr[0];
                     addressY = addressStr[1];
-                    url = "http://uri.amap.com/navigation?from=%"+addressX+",%"+addressY+",start&to=%"+addressX+",%"+addressY+",end&mode=car&policy=1&callnative=1";
+                    url = "http://uri.amap.com/navigation?from=%" + addressX + ",%" + addressY + ",start&to=%" + addressX + ",%" + addressY + ",end&mode=car&policy=1&callnative=1";
                     webViewDetailInfo = new WebViewDetailInfo();
                     webViewDetailInfo.setTitle("地图");
                     webViewDetailInfo.setUrl(url);
                     WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
+                }
+                break;
+            case R.id.check_bg:
+                if(storeInfo!=null){
+                    PaymentOrderActivity.start(this,storeInfo.getTitle(),storeInfo.getzPics(),storeid);
                 }
                 break;
             default:

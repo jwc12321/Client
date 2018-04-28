@@ -19,6 +19,36 @@ public class CollectionStoreInfo {
     private String addressXy;
     @SerializedName("name")
     private String name;
+    @SerializedName("average")
+    private String average;
+    @SerializedName("rebate")
+    private String rebate;
+    @SerializedName("cid")
+    private String cid;
+
+    public String getAverage() {
+        return average;
+    }
+
+    public void setAverage(String average) {
+        this.average = average;
+    }
+
+    public String getRebate() {
+        return rebate;
+    }
+
+    public void setRebate(String rebate) {
+        this.rebate = rebate;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
 
     public String getId() {
         return id;

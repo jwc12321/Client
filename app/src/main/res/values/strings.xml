@@ -62,6 +62,11 @@
     <string name="more_shop">更多商家</string>
     <string name="pay_order">支付订单</string>
     <string name="store_cash_reel">店铺现金抵用券</string>
+    <string name="add_note">添加备注（20字以内）</string>
+    <string name="confirm_payment">确认支付</string>
+    <string name="coupon">优惠券</string>
+    <string name="pay_result">支付结果</string>
+    <string name="complete">完成</string>
 
     <!--收藏-->
     <string name="my_collection">我的收藏</string>

@@ -296,4 +296,14 @@
             </LinearLayout>
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
+    <Button
+        android:id="@+id/check_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/login_button_background"
+        android:text="买单"
+        android:textColor="@color/appText1"
+        android:enabled="true"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

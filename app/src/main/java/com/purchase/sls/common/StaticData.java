@@ -19,8 +19,10 @@ public class StaticData {
     public static final String BUSINESS_NAME="bussinessName";
     //商家sum
     public static final String BUSINESS_SUM="businessSum";
+    //商家图片
+    public static final String BUSINESS_ZPICS="businessZpics";
     //
-    public static final String STOREID="storeid";
+    public static final String BUSINESS_STOREID="businessStoreid";
     //存储的sharedPreferences的key
     public static final String SPF_NAME="spfNengName";
     //维度
