@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/hot_item_ll"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/backGround3"
     android:gravity="center"
-    android:orientation="vertical"
-    android:id="@+id/hot_item_ll">
+    android:orientation="vertical">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -27,6 +27,5 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/appText6"
-        android:textSize="12sp"
-        tools:text="深度清洁" />
+        android:textSize="12sp" />
 </LinearLayout>

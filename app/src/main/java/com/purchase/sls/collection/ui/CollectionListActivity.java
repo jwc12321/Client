@@ -33,6 +33,7 @@ import butterknife.OnClick;
 
 /**
  * Created by JWC on 2018/4/27.
+ * 收藏列表
  */
 
 public class CollectionListActivity extends BaseActivity implements CollectionContract.CollectionView, CollectionListAdapter.OnCollectionItemClickListener {
@@ -132,6 +133,7 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
             emptyView.setVisibility(View.GONE);
             collectionRv.setVisibility(View.VISIBLE);
             collectionListAdapter.setData(collectionListResponse.getCollectionInfos());
+            refreshLayout.setCanLoadMore(true);
         } else {
             collectionRv.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -140,6 +142,7 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
             collectionListAdapter.setType("1");
             deleteBg.setVisibility(View.GONE);
             removeList.clear();
+            refreshLayout.setCanLoadMore(false);
         }
     }
 

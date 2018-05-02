@@ -154,11 +154,18 @@ public class FormatUtil {
     }
 
 
-    private static String formatDateTime(String timestamp) {
+
+    public static String formatDateTime(String timestamp) {
         long time = Long.parseLong(timestamp);
         String pattern = "yyyy-MM";
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         return format.format(new Date(time * 1000));
+    }
+
+    public static String formatDateMonth(long time) {
+        String pattern = "yyyy年MM月";
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        return format.format(new Date(time));
     }
 
 

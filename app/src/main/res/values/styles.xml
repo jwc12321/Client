@@ -13,6 +13,7 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@mipmap/splash</item>
     </style>
+
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
@@ -128,6 +129,12 @@
         <item name="android:textColor">@color/appText4</item>
     </style>
 
+    <style name="title_rl_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:background">@color/appText1</item>
+    </style>
+
     <!--title最左边的返回-->
     <style name="title_left_back_style">
         <item name="android:layout_width">wrap_content</item>
@@ -154,6 +161,7 @@
         <item name="android:layout_marginLeft">@dimen/common_text_left</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
+
     <style name="adapter_screen_choice_tt">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -161,6 +169,7 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@drawable/bottom_text_select</item>
     </style>
+
     <style name="fengexian_style">
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -172,7 +181,32 @@
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
+    </style>
 
+    <style name="account_detail_left_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText6</item>
+        <item name="android:layout_marginLeft">@dimen/common_margin_left_right</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="account_detail_right_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText4</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">@dimen/common_margin_left_right</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="go_arrow">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:src">@mipmap/arrow_indicator</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">@dimen/common_margin_left_right</item>
+        <item name="android:layout_alignParentRight">true</item>
     </style>
 
 </resources>

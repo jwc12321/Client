@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="290dp"
+    android:background="@color/appText1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/backGround9">
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_alignParentLeft="true"
+            android:text="取消"
+            android:paddingLeft="@dimen/common_margin_left_right"
+            android:paddingRight="@dimen/common_margin_left_right"
+            android:paddingTop="@dimen/common_text_left"
+            android:paddingBottom="@dimen/common_text_left"
+            android:layout_centerVertical="true"
+            android:textColor="@color/appText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@color/appText1"
+            android:text="选择日期"/>
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_alignParentRight="true"
+            android:text="确定"
+            android:paddingLeft="@dimen/common_margin_left_right"
+            android:paddingRight="@dimen/common_margin_left_right"
+            android:paddingTop="@dimen/common_text_left"
+            android:paddingBottom="@dimen/common_text_left"
+            android:layout_centerVertical="true"
+            android:textColor="@color/appText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.purchase.sls.common.widget.chooseTime.WheelView
+            android:id="@+id/year_wv"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            />
+        <com.purchase.sls.common.widget.chooseTime.WheelView
+            android:id="@+id/month_wv"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            />
+        <com.purchase.sls.common.widget.chooseTime.WheelView
+            android:id="@+id/day_wv"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+</LinearLayout>

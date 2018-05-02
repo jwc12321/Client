@@ -108,6 +108,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".shopdetailbuy.ui.PaySuccessActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".account.ui.AccountListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".account.ui.AccountDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".account.ui.IntercourseRecordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".account.ui.AccountChooseTimeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:id="@+id/item_rl">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/photo"
+        style="@style/PhotoStyle"
+        android:layout_width="@dimen/account_list_photo"
+        android:layout_height="@dimen/account_list_photo"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/persion_marleft"
+        app:riv_oval="true"
+        tools:background="@null"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/business_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginRight="@dimen/common_text_left"
+        android:layout_toLeftOf="@id/business_price"
+        android:layout_toRightOf="@id/photo"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/business_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/business_nama"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginRight="@dimen/common_text_left"
+        android:layout_toLeftOf="@id/business_price"
+        android:layout_toRightOf="@id/photo" />
+
+    <TextView
+        android:id="@+id/business_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/business_nama"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/common_text_left" />
+</RelativeLayout>

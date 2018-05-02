@@ -30,4 +30,9 @@
     <dimen name="photo_top">8dp</dimen>
     <dimen name="photo_bottom">23dp</dimen>
     <dimen name="account_icon">21dp</dimen>
+
+    <!--账单-->
+    <dimen name="account_list_photo">40dp</dimen>
+    <dimen name="account_detail_height">31dp</dimen>
+
 </resources>

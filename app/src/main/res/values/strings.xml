@@ -74,4 +74,16 @@
     <string name="cancel">取消</string>
     <string name="action_confirm">确定</string>
     <string name="service_phone_number">4008–262–056</string>
+    <!--账单-->
+    <string name="account_detail">账单详情</string>
+    <string name="screen">筛选</string>
+    <string name="payment_method">付款方式</string>
+    <string name="commodity_description">商品说明</string>
+    <string name="created_at">创建时间</string>
+    <string name="order_number">订单号</string>
+    <string name="merchant_order_number">商户订单号</string>
+    <string name="see_intercourse_record">查看来往记录</string>
+    <string name="successful_trade">交易成功</string>
+
+
 </resources>

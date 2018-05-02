@@ -35,6 +35,7 @@ public class StaticData {
     public static final int CALLBACK_DATA=101;
     //向webview传递数据
     public static final String WEBVIEW_DETAILINFO="webViewDetailInfo";
-
+    //去订单详情传入的billid
+    public static final String BILLID="billid";
 
 }
