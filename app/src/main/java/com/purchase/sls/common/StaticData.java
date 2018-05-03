@@ -37,5 +37,11 @@ public class StaticData {
     public static final String WEBVIEW_DETAILINFO="webViewDetailInfo";
     //去订单详情传入的billid
     public static final String BILLID="billid";
+    //选择时间回调的chooseTimeType
+    public static final String CHOOSE_TIME_TYPE="chooseTimeType";
+    //回调的时间第一个
+    public static final String CHOOSE_TIME_FIRST="chooseTimeFirst";
+    //回调的时间第二个
+    public static final String CHOOSE_TIME_SECOND="chooseTimeSecond";
 
 }

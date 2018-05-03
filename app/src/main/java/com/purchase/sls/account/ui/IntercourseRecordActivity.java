@@ -52,12 +52,14 @@ public class IntercourseRecordActivity extends BaseActivity implements AccountCo
 
     private IntercourseRecordAdapter intercourseRecordAdapter;
     private String storeid;
+    private String businessName;
     @Inject
     IntercourseRecordPresenter intercourseRecordPresenter;
 
-    public static void start(Context context, String storeid) {
+    public static void start(Context context, String storeid,String businessName) {
         Intent intent = new Intent(context, IntercourseRecordActivity.class);
         intent.putExtra(StaticData.BUSINESS_STOREID, storeid);
+        intent.putExtra(StaticData.BUSINESS_NAME,businessName);
         context.startActivity(intent);
     }
 
@@ -72,13 +74,14 @@ public class IntercourseRecordActivity extends BaseActivity implements AccountCo
 
     private void initView() {
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
+        businessName=getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         addAdapter();
         intercourseRecordPresenter.getIntercourseRecordInfo(storeid);
     }
 
     private void addAdapter() {
-        intercourseRecordAdapter = new IntercourseRecordAdapter();
+        intercourseRecordAdapter = new IntercourseRecordAdapter(businessName);
         irRv.setAdapter(intercourseRecordAdapter);
     }
 

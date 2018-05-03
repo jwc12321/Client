@@ -1,11 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<Button
-    android:id="@+id/button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="点击我啊"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/choose_time" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_rel"
+        android:layout_marginTop="1dp"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/appText1">
+
+            <LinearLayout
+                android:id="@+id/choose_type_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_left_right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/monthly_bt"
+                    android:layout_width="102dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="@dimen/common_margin_left_right"
+                    android:background="@drawable/choose_time_type"
+                    android:text="月度查询"
+                    android:textColor="@color/appText4" />
+
+                <Button
+                    android:id="@+id/phase_bt"
+                    android:layout_width="102dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="@dimen/common_text_left"
+                    android:background="@drawable/choose_time_type"
+                    android:text="阶段查询"
+                    android:textColor="@color/appText4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/monthly_query_ll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/auth_code_button_height"
+                android:layout_below="@id/choose_type_ll"
+                android:layout_marginTop="35dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_margin_left_right"
+                    android:text="月度查询" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/common_margin_left_right"
+                    android:layout_marginRight="@dimen/common_margin_left_right"
+                    android:background="@drawable/common_frame_bg">
+
+                    <TextView
+                        android:id="@+id/monthly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+
+                    <ImageView style="@style/go_arrow" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phase_query_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_type_ll"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/start_date_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/auth_code_button_height"
+                    android:layout_marginTop="35dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:text="开始日期" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:background="@drawable/common_frame_bg">
+
+                        <TextView
+                            android:id="@+id/start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true" />
+
+                        <ImageView style="@style/go_arrow" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/end_date_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/auth_code_button_height"
+                    android:layout_marginTop="@dimen/common_margin_left_right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:text="结束日期" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:background="@drawable/common_frame_bg">
+
+                        <TextView
+                            android:id="@+id/end_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true" />
+
+                        <ImageView style="@style/go_arrow" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/ok_button"
+                style="@style/common_ok_button_style"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="250dp"
+                android:text="@string/action_confirm"
+                android:enabled="true"/>
+        </RelativeLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
 </LinearLayout>

@@ -1,11 +1,13 @@
 package com.purchase.sls.account.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,6 +20,7 @@ import com.purchase.sls.account.AccountModule;
 import com.purchase.sls.account.DaggerAccountComponent;
 import com.purchase.sls.account.adapter.AccountListAdapter;
 import com.purchase.sls.account.presenter.AccountListPresenter;
+import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.data.entity.AccountListInfo;
@@ -57,8 +60,13 @@ public class AccountListActivity extends BaseActivity implements AccountContract
     private AccountListAdapter accountListAdapter;
     private String totalSum;
     private String totalPower;
+    private String chooseTimeType;
+    private String monthlyTime;
+    private String startTime;
+    private String endTime;
     @Inject
     AccountListPresenter accountListPresenter;
+    private static final int CHOOSETIME = 0x00f0;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AccountListActivity.class);
@@ -89,12 +97,24 @@ public class AccountListActivity extends BaseActivity implements AccountContract
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            accountListPresenter.getAccountList("", "");
+            if (TextUtils.isEmpty(chooseTimeType)) {
+                accountListPresenter.getAccountList("", "");
+            } else if (TextUtils.equals("1", chooseTimeType)) {
+                accountListPresenter.getAccountList(monthlyTime, "");
+            } else {
+                accountListPresenter.getAccountList(startTime, endTime);
+            }
         }
 
         @Override
         public void onLoadMore() {
-            accountListPresenter.getMoreAccountList("", "");
+            if (TextUtils.isEmpty(chooseTimeType)) {
+                accountListPresenter.getMoreAccountList("", "");
+            } else if (TextUtils.equals("1", chooseTimeType)) {
+                accountListPresenter.getMoreAccountList(monthlyTime, "");
+            } else {
+                accountListPresenter.getMoreAccountList(startTime, endTime);
+            }
         }
 
         @Override
@@ -162,16 +182,40 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         AccountDetailActivity.start(this, billid);
     }
 
-    @OnClick({R.id.back,R.id.screen_iv})
+    @OnClick({R.id.back, R.id.screen_iv})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.screen_iv:
-                AccountChooseTimeActivity.start(this);
+                Intent intent = new Intent(this, AccountChooseTimeActivity.class);
+                startActivityForResult(intent, CHOOSETIME);
                 break;
             default:
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case CHOOSETIME:
+                    chooseTimeType = data.getStringExtra(StaticData.CHOOSE_TIME_TYPE);
+                    if (TextUtils.equals("1", chooseTimeType)) {
+                        monthlyTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);
+                        accountListPresenter.getAccountList(monthlyTime, "");
+                        accountData.setText(monthlyTime);
+                    } else {
+                        startTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);
+                        endTime = data.getStringExtra(StaticData.CHOOSE_TIME_SECOND);
+                        accountListPresenter.getAccountList(startTime, endTime);
+                        accountData.setText(startTime+"到"+endTime);
+                    }
+                    return;
+            }
+        }
+    }
+
 }

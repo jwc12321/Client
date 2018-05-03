@@ -84,6 +84,7 @@
     <string name="merchant_order_number">商户订单号</string>
     <string name="see_intercourse_record">查看来往记录</string>
     <string name="successful_trade">交易成功</string>
+    <string name="choose_time">选择时间</string>
 
 
 </resources>

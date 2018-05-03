@@ -209,4 +209,14 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+    <style name="common_ok_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:background">@drawable/login_button_background</item>
+        <item name="android:layout_marginLeft">@dimen/common_text_left</item>
+        <item name="android:layout_marginRight">@dimen/common_margin_left_right</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textColor">@color/appText1</item>
+    </style>
+
 </resources>

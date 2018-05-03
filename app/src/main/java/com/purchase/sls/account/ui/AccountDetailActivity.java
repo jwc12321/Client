@@ -62,6 +62,7 @@ public class AccountDetailActivity extends BaseActivity implements AccountContra
     RelativeLayout goRecodeRl;
     private String billid;
     private String storeid;
+    private String titleStr;
     @Inject
     AccountDetailPresenter accountDetailPresenter;
 
@@ -107,6 +108,7 @@ public class AccountDetailActivity extends BaseActivity implements AccountContra
     public void accountDetail(AccountDetailInfo accountDetailInfo) {
         if (accountDetailInfo != null) {
             storeid=accountDetailInfo.getStoreid();
+            titleStr=accountDetailInfo.getTitle();
             GlideHelper.load(this, accountDetailInfo.getzPics(), R.mipmap.app_icon, photo);
             businessName.setText(accountDetailInfo.getTitle());
             price.setText("-" + accountDetailInfo.getAllprice());
@@ -133,7 +135,7 @@ public class AccountDetailActivity extends BaseActivity implements AccountContra
                 break;
             case R.id.go_recode_rl:
                 if(!TextUtils.isEmpty(storeid)){
-                    IntercourseRecordActivity.start(this,storeid);
+                    IntercourseRecordActivity.start(this,storeid,titleStr);
                 }
                 break;
             default:

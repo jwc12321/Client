@@ -1,6 +1,7 @@
 package com.purchase.sls.account.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,11 @@ import butterknife.ButterKnife;
 public class IntercourseRecordAdapter extends RecyclerView.Adapter<IntercourseRecordAdapter.IntercourseRecordView> {
     private LayoutInflater layoutInflater;
     private List<IntercourseRecordInfo.IRItemInfo> irItemInfos;
+    private String title;
+
+    public IntercourseRecordAdapter(String title) {
+        this.title = title;
+    }
 
     public void setData(List<IntercourseRecordInfo.IRItemInfo> irItemInfos) {
         this.irItemInfos = irItemInfos;
@@ -70,8 +76,14 @@ public class IntercourseRecordAdapter extends RecyclerView.Adapter<IntercourseRe
         }
 
         public void bindData(IntercourseRecordInfo.IRItemInfo irItemInfo) {
+            businessName.setText(title);
             time.setText(FormatUtil.formatDateByLine(irItemInfo.getCreatedAt()));
             price.setText(irItemInfo.getAllprice());
+            if(TextUtils.equals("1",irItemInfo.getStatus())){
+                state.setText("交易成功");
+            }else {
+                state.setText("交易失败");
+            }
         }
     }
 }
