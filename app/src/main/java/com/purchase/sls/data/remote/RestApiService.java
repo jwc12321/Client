@@ -6,6 +6,7 @@ import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.CollectionListResponse;
+import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
@@ -21,6 +22,7 @@ import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.CollectionListRequest;
+import com.purchase.sls.data.request.CouponListRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
@@ -112,5 +114,9 @@ public interface RestApiService {
     //来往记录
     @POST("home/bill/suBill")
     Flowable<RemoteDataWrapper<IntercourseRecordInfo>> getIntercourseRecordInfo(@Body IntercourseRecordRequest intercourseRecordRequest);
+
+    //获取优惠券列表
+    @POST("home/quan/getlist")
+    Flowable<RemoteDataWrapper<CouponListInfo>> getCouponListInfo(@Body CouponListRequest couponListRequest);
 
 }

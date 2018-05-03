@@ -1,6 +1,8 @@
 package com.purchase.sls.mainframe.ui;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -69,6 +71,11 @@ public class MainFrameActivity extends BaseActivity {
     private ImageView[] imageViews;
     private TextView[] textViews;
     private MainPagerAdapter adapter;
+
+    public static void start(Context context){
+        Intent intent=new Intent(context,MainFrameActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -116,6 +116,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".account.ui.AccountChooseTimeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".coupon.ui.CouponListActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ import com.purchase.sls.account.ui.AccountListActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 
@@ -124,17 +125,20 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll})
+    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll,R.id.item_voucher})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.setting_iv:
+            case R.id.setting_iv://
                 AccountLoginActivity.start(getActivity());
                 break;
-            case R.id.collection_ll:
+            case R.id.collection_ll://收藏
                 CollectionListActivity.start(getActivity());
                 break;
-            case R.id.account_ll:
+            case R.id.account_ll://账单
                 AccountListActivity.start(getActivity());
+                break;
+            case R.id.item_voucher://优惠券
+                CouponListActivity.start(getActivity());
                 break;
             default:
         }

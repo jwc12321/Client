@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginRight="@dimen/common_text_left"
+        android:layout_marginTop="@dimen/common_margin_left_right"
+        android:background="@drawable/common_button_bound">
+
+        <LinearLayout
+            android:id="@+id/price_ll"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/coupon_select_price"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText1"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/least_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText1"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/price_ll" />
+
+        <TextView
+            android:id="@+id/business_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/business_name"
+            android:layout_toRightOf="@id/price_ll" />
+
+        <Button
+            android:id="@+id/use_bt"
+            android:layout_width="55dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_text_left"
+            android:background="@drawable/common_coupon_bt"
+            android:enabled="true"
+            android:text="立即使用"
+            android:textColor="@color/appText3"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</LinearLayout>

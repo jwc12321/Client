@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.purchase.sls.common.refreshview.HeaderViewLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/appText1"
+            android:visibility="gone"
+            app:layoutManager="@string/layoutManager_LinearLayout" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backGround1"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/empty_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/photo_top"
+                    android:textColor="@color/appText10"
+                    tools:drawableTop="@mipmap/ic_launcher"
+                    tools:text="当前没有订单，赶快去看看需要什么服务吧" />
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
+
+</com.purchase.sls.common.refreshview.HeaderViewLayout>
