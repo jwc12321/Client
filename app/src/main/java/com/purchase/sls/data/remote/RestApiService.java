@@ -7,6 +7,7 @@ import com.purchase.sls.data.entity.AccountListInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
+import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
@@ -23,6 +24,7 @@ import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.CollectionListRequest;
 import com.purchase.sls.data.request.CouponListRequest;
+import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
@@ -118,5 +120,9 @@ public interface RestApiService {
     //获取优惠券列表
     @POST("home/quan/getlist")
     Flowable<RemoteDataWrapper<CouponListInfo>> getCouponListInfo(@Body CouponListRequest couponListRequest);
+
+    //获取能量
+    @POST("home/userLogController/userLogHistory")
+    Flowable<RemoteDataWrapper<EnergyInfo>> getEnergyInfo(@Body EnergyInfoRequest energyInfoRequest);
 
 }

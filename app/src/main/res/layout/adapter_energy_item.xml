@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp">
+
+    <TextView
+        android:id="@+id/business_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@id/number"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/appText4"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/business_name"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_toRightOf="@id/number"
+        android:textColor="@color/appText6"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/common_text_left"
+        android:textColor="@color/appText11" />
+</RelativeLayout>

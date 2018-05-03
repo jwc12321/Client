@@ -15,13 +15,10 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
-import com.purchase.sls.common.widget.list.BaseListFragment;
 import com.purchase.sls.coupon.CouponContract;
 import com.purchase.sls.coupon.CouponModule;
 import com.purchase.sls.coupon.DaggerCouponComponent;
 import com.purchase.sls.data.entity.CouponInfo;
-import com.purchase.sls.data.entity.CouponListInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 

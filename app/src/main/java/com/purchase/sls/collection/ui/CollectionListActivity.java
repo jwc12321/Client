@@ -81,10 +81,10 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
     private void initView() {
         removeList = new ArrayList<>();
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
-        collectionListPresenter.getCollectionListInfo();
         collectionListAdapter = new CollectionListAdapter(this);
         collectionListAdapter.setOnCollectionItemClickListener(this);
         collectionRv.setAdapter(collectionListAdapter);
+        collectionListPresenter.getCollectionListInfo();
 
     }
 

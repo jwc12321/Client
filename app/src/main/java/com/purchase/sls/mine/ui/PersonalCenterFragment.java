@@ -22,6 +22,7 @@ import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
+import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 
 import butterknife.BindView;
@@ -125,7 +126,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll,R.id.item_voucher})
+    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll,R.id.item_energy,R.id.item_voucher})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://
@@ -136,6 +137,9 @@ public class PersonalCenterFragment extends BaseFragment {
                 break;
             case R.id.account_ll://账单
                 AccountListActivity.start(getActivity());
+                break;
+            case R.id.item_energy://能量
+                EnergyInfoActivity.start(getActivity());
                 break;
             case R.id.item_voucher://优惠券
                 CouponListActivity.start(getActivity());

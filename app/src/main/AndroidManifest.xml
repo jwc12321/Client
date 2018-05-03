@@ -59,10 +59,11 @@
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="4fa5cf480a40e2e6bc4680c349aaa2c1"/>
+            android:value="4fa5cf480a40e2e6bc4680c349aaa2c1" />
 
 
-        <activity android:name=".splash.SplashActivity"
+        <activity
+            android:name=".splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme">
@@ -78,46 +79,69 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <activity android:name=".mainframe.ui.MainFrameActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".login.ui.AccountLoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".login.ui.SmsLoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".login.ui.RegisterFirstActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".login.ui.RegisterSecondActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".homepage.ui.ChoiceCityActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".homepage.ui.QrCodeScanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".homepage.ui.ScreeningListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".shopdetailbuy.ui.ShopDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
-        <activity android:name=".collection.ui.CollectionListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".webview.ui.WebViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".shopdetailbuy.ui.PaymentOrderActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".shopdetailbuy.ui.PaySuccessActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".account.ui.AccountListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".account.ui.AccountDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".account.ui.IntercourseRecordActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".account.ui.AccountChooseTimeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".coupon.ui.CouponListActivity"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".mainframe.ui.MainFrameActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.ui.AccountLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.ui.SmsLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.ui.RegisterFirstActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.ui.RegisterSecondActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homepage.ui.ChoiceCityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homepage.ui.QrCodeScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homepage.ui.ScreeningListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shopdetailbuy.ui.ShopDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".collection.ui.CollectionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".webview.ui.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shopdetailbuy.ui.PaymentOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shopdetailbuy.ui.PaySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.ui.AccountListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.ui.AccountDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.ui.IntercourseRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.ui.AccountChooseTimeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coupon.ui.CouponListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".energy.ui.EnergyInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
