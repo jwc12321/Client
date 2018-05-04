@@ -3,6 +3,7 @@ package com.purchase.sls.mine.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -22,11 +23,14 @@ import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.common.widget.chooseTime.ChooseTimePicker;
+import com.purchase.sls.common.widget.customeview.ActionSheet;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.mine.DaggerPersonalCenterComponent;
 import com.purchase.sls.mine.PersonalCenterContract;
 import com.purchase.sls.mine.PersonalCenterModule;
 import com.purchase.sls.mine.presenter.PersonalImPresenter;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -39,7 +43,7 @@ import butterknife.OnClick;
  * 个人信息
  */
 
-public class PersonalInformationActivity extends BaseActivity implements PersonalCenterContract.PersonalImView {
+public class PersonalInformationActivity extends BaseActivity implements PersonalCenterContract.PersonalImView,ActionSheet.OnPictureChoseListener {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -104,6 +108,9 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
 
     private static final int CHANGE_NIKENAME = 199;
 
+    private ActionSheet actionSheet;
+    private String headPhone;
+
 
 
     public static void start(Context context) {
@@ -166,6 +173,11 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
             case R.id.preservation:
                 break;
             case R.id.item_head_portrait:
+                if (actionSheet == null) {
+                    actionSheet = ActionSheet.newInstance(true, photo.getWidth(), photo.getHeight());
+                    actionSheet.setOnPictureChoseListener(PersonalInformationActivity.this);
+                }
+                actionSheet.show(this);
                 break;
             case R.id.item_nickname:
                 Intent intent = new Intent(this, ChangeNickNameActivity.class);
@@ -238,8 +250,10 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     }
 
     @Override
-    public void changeHeadPortraitSuccess() {
-
+    public void changeHeadPortraitSuccess(String phoneUrl) {
+        persionInfoResponse.setAvatar(phoneUrl);
+        persionInfoStr=gson.toJson(persionInfoResponse);
+        commonAppPreferences.setPersionInfo(persionInfoStr);
     }
 
     @Override
@@ -263,5 +277,13 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
                 nickname.setText(persionInfoResponse.getNickname());
             }
         }
+    }
+
+    @Override
+    public void onPictureChose(File filePath) {
+        actionSheet.dismiss();
+        headPhone = filePath.getAbsolutePath();
+        photo.setImageBitmap(BitmapFactory.decodeFile(headPhone));
+        personalImPresenter.changeHeadPortrait(headPhone);
     }
 }

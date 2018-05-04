@@ -13,9 +13,28 @@ public interface PersonalCenterContract {
         void changeUserInfo(String nickname, String sex, String birthday);
     }
     interface PersonalImView extends BaseView<PersonalImPresenter>{
-        void changeHeadPortraitSuccess();
+        void changeHeadPortraitSuccess(String phoneUrl);
         void changeUserInfoSuccess();
     }
 
+    interface ShiftHandsetPresenter extends BasePresenter{
+        void sendOldVcode(String tel, String dostr );
+        void checkOldCode(String tel, String code, String type);
+        void sendNewVCode(String newtel);
+        void checkNewCode(String newtel,String code);
+    }
 
+    interface ShiftHandsetView extends BaseView<ShiftHandsetPresenter>{
+        void oldVcodeSuccess();
+        void checkOldCodeSuccess();
+        void newVcodeSuccess();
+        void checkNewCodeSuccess();
+    }
+
+    interface SettingPresenter extends BasePresenter{
+        void detectionVersion(String edition, String type);
+    }
+    interface SettingView extends BaseView<SettingPresenter>{
+        void detectionSuccess();
+    }
 }

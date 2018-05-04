@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.purchase.sls.MainApplication;
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements LoadDataView {
+    private Toast toast;
     /**
      * snack bar holder view
      * 用于显示snack bar, 基于activity本身或者fragment调用统一使用该函数,方便处理一些视图的偏移,fab等.
@@ -85,7 +87,11 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
 
     @Override
     public void showMessage(String msg) {
-
+        if(getApplicationContext()!=null) {
+            toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 
     @Override

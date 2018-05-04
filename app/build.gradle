@@ -21,6 +21,7 @@ android {
         buildConfigField "String", "GREEN_DAO_DB_NAME", "\"neon_greendao.db\""
         buildConfigField "int", "GREEN_DAO_DB_VERSION", "1"
 
+        buildConfigField("String", "PICTURE_PATH", "\"/Sls/Pictures\"")
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"

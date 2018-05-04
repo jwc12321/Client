@@ -151,8 +151,12 @@
         <activity
             android:name=".mine.ui.PersonalInformationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".mine.ui.ChangeNickNameActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mine.ui.ChangeNickNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mine.ui.ShiftHandsetActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -104,10 +104,6 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
 
     }
 
-    @Override
-    public void changeHeadPortraitSuccess() {
-
-    }
 
     @Override
     protected void initializeInjector() {
@@ -116,6 +112,11 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
                 .personalCenterModule(new PersonalCenterModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    public void changeHeadPortraitSuccess(String phoneUrl) {
+
     }
 
     @Override

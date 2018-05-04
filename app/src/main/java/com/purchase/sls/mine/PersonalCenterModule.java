@@ -10,12 +10,31 @@ import dagger.Provides;
 @Module
 public class PersonalCenterModule {
     private PersonalCenterContract.PersonalImView personalImView;
+    private PersonalCenterContract.ShiftHandsetView shiftHandsetView;
+    private PersonalCenterContract.SettingView settingView;
 
     public PersonalCenterModule(PersonalCenterContract.PersonalImView personalImView) {
         this.personalImView = personalImView;
     }
+
+    public PersonalCenterModule(PersonalCenterContract.ShiftHandsetView shiftHandsetView) {
+        this.shiftHandsetView = shiftHandsetView;
+    }
+
+    public PersonalCenterModule(PersonalCenterContract.SettingView settingView) {
+        this.settingView = settingView;
+    }
+
     @Provides
     PersonalCenterContract.PersonalImView providePersonalImView(){
         return personalImView;
+    }
+    @Provides
+    PersonalCenterContract.ShiftHandsetView provideShiftHandsetView(){
+        return shiftHandsetView;
+    }
+    @Provides
+    PersonalCenterContract.SettingView provideSettingView(){
+        return settingView;
     }
 }

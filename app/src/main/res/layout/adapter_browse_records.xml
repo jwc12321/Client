@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:button="@drawable/checkbox"
         android:padding="5dp"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/common_text_left"/>
     <ImageView
         android:id="@+id/shop_icon"
         android:layout_width="@dimen/like_adapter_icon"

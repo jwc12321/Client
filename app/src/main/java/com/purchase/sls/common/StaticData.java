@@ -43,4 +43,6 @@ public class StaticData {
     public static final String CHOOSE_TIME_FIRST="chooseTimeFirst";
     //回调的时间第二个
     public static final String CHOOSE_TIME_SECOND="chooseTimeSecond";
+    //手机号
+    public static final String PHONE_NUMBER="phoneNumber";
 }

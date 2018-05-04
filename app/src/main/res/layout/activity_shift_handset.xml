@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/shift_handset" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/set_password_height"
+                    android:background="@color/appText1">
+
+                    <EditText
+                        android:id="@+id/photo_number_et"
+                        style="@style/phone_number_et_style"
+                        android:layout_toLeftOf="@+id/view"
+                        android:hint="@string/input_phone_number" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="1dp"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/send_auth_code"
+                        android:background="@color/appText5" />
+
+                    <com.purchase.sls.common.widget.ColdDownButton
+                        android:id="@+id/send_auth_code"
+                        android:layout_width="@dimen/auth_code_button_width"
+                        android:layout_height="@dimen/auth_code_button_height"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_text_left"
+                        android:background="@color/appText1"
+                        android:gravity="center"
+                        android:text="@string/button_send_auth_code"
+                        android:textColor="@color/appText3"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/set_password_height"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/appText1">
+
+                    <EditText
+                        android:id="@+id/phone_code_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="11dp"
+                        android:background="@null"
+                        android:hint="@string/input_sms_verificationcode"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:maxLines="1"
+                        android:textColor="@color/appText6"
+                        android:textColorHint="@color/appText6"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/ok_button"
+                style="@style/common_ok_button_style"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:text="验证" />
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

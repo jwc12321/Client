@@ -9,6 +9,7 @@ import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.mine.ui.ChangeNickNameActivity;
 import com.purchase.sls.mine.ui.PersonalInformationActivity;
 import com.purchase.sls.mine.ui.SettingActivity;
+import com.purchase.sls.mine.ui.ShiftHandsetActivity;
 
 import dagger.Component;
 
@@ -18,4 +19,5 @@ public interface PersonalCenterComponent {
     void inject(SettingActivity settingActivity);
     void inject(PersonalInformationActivity personalInformationActivity);
     void inject(ChangeNickNameActivity changeNickNameActivity);
+    void inject(ShiftHandsetActivity shiftHandsetActivity);
 }

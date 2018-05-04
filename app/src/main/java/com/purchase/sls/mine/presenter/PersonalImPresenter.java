@@ -1,19 +1,27 @@
 package com.purchase.sls.mine.presenter;
 
+import android.support.v4.util.ArrayMap;
+
+import com.google.gson.Gson;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
+import com.purchase.sls.data.request.HeadPhoneRequest;
 import com.purchase.sls.mine.PersonalCenterContract;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * Created by JWC on 2018/5/4.
@@ -55,7 +63,30 @@ public class PersonalImPresenter implements PersonalCenterContract.PersonalImPre
 
     @Override
     public void changeHeadPortrait(String photoUrl) {
-
+        HeadPhoneRequest headPhoneRequest=new HeadPhoneRequest(photoUrl);
+        Gson gson = new Gson();
+        Map<String, RequestBody> requestBodyMap = new ArrayMap<>();
+        File file = new File(photoUrl);
+        String fileName = file.getName();
+        RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        requestBodyMap.put("file\"; filename=\"" + fileName, photo);
+        RequestBody json = RequestBody.create(MediaType.parse("application/json"), gson.toJson(headPhoneRequest));
+        requestBodyMap.put("json_data", json);
+        Disposable disposable = restApiService.changeAvatar(requestBodyMap)
+                .flatMap(new RxRemoteDataParse<String>())
+                .compose(new RxSchedulerTransformer<String>())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) throws Exception {
+                        personalImView.changeHeadPortraitSuccess(string);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        personalImView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
     }
 
     @Override

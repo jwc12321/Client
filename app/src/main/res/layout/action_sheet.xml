@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/outer_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="0dp">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/round_layout"
+        android:divider="@drawable/vertical_divider_normal"
+        android:dividerPadding="1dp"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/take_photo"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:padding="@dimen/padding_small"
+            android:text="拍照"
+            android:textColor="@color/appText3"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/gallery_choose"
+            android:layout_width="300dp"
+
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:padding="@dimen/padding_small"
+            android:text="从相册选择"
+            android:textColor="@color/appText3"
+            android:textSize="17sp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_layout"
+        android:gravity="center"
+        android:padding="@dimen/padding_small"
+        android:text="取消"
+        android:textColor="@color/appText3"
+        android:textSize="17sp" />
+</LinearLayout>

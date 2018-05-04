@@ -81,6 +81,14 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
 
             }
         });
+        holder.collectionItemLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onBrowseItemClickListener!=null){
+                    onBrowseItemClickListener.goShopDetail(browseItemInfo.getStore().getId());
+                }
+            }
+        });
 
     }
 
@@ -125,6 +133,7 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
         void addItem(String storeId);
 
         void removeItem(String storeId);
+        void goShopDetail(String storeid);
     }
 
     private OnBrowseItemClickListener onBrowseItemClickListener;

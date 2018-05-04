@@ -22,6 +22,8 @@ import com.purchase.sls.browse.presenter.BrowsePresenter;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.data.entity.BrowseInfo;
+import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -162,6 +164,11 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
         } else {
             deleteBg.setEnabled(false);
         }
+    }
+
+    @Override
+    public void goShopDetail(String storeid) {
+        ShopDetailActivity.start(this,storeid);
     }
 
     @Override

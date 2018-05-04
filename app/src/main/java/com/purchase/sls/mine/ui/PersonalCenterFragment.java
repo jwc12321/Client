@@ -75,6 +75,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
     private WebViewDetailInfo webViewDetailInfo;
+    private String phoneNumber;
 
     public PersonalCenterFragment() {
     }
@@ -127,6 +128,7 @@ public class PersonalCenterFragment extends BaseFragment {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
             GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
             persionName.setText(persionInfoResponse.getUsername());
+            phoneNumber=persionInfoResponse.getTel();
         }
     }
 
@@ -135,7 +137,7 @@ public class PersonalCenterFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://
-                AccountLoginActivity.start(getActivity());
+               SettingActivity.start(getActivity(),phoneNumber);
                 break;
             case R.id.item_persion_im://个人主页
                 PersonalInformationActivity.start(getActivity());

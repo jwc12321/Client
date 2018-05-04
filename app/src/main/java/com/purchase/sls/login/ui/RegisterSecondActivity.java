@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -59,13 +61,15 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     ImageView overIv;
 
     private String type;
+    private String phoneNumber;
     private String passwordStr;
     private String passwordAgain;
     @Inject
     LoginPresenter loginPresenter;
 
-    public static void start(Context context, String type) {
+    public static void start(Context context, String type,String phoneNumber) {
         Intent intent = new Intent(context, RegisterSecondActivity.class);
+        intent.putExtra(StaticData.PHONE_NUMBER,phoneNumber);
         intent.putExtra(StaticData.TYPE, type);
         context.startActivity(intent);
     }
@@ -80,11 +84,8 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
 
     private void initView() {
         type = getIntent().getStringExtra(StaticData.TYPE);
-        if (TextUtils.equals(StaticData.REGISTER, type)) {
-            title.setText(getString(R.string.register));
-        } else {
-            title.setText(getString(R.string.forget_password));
-        }
+        phoneNumber=getIntent().getStringExtra(StaticData.PHONE_NUMBER);
+        title.setText(getString(R.string.set_passwrod));
     }
 
     @Override
@@ -96,14 +97,21 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 .inject(this);
     }
 
-    @OnClick({R.id.back, R.id.next})
+    @OnClick({R.id.back, R.id.next,R.id.complete})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.next:
-                loginPresenter.registerPassword(passwordStr, passwordAgain, "", type);
+                if(TextUtils.equals(passwordStr,passwordAgain)){
+                    loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type);
+                }else {
+                    showMessage("两次输入得密码不一样");
+                }
+                break;
+            case R.id.complete:
+                finish();
                 break;
             default:
         }
@@ -150,5 +158,39 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
         passwordLl.setVisibility(View.GONE);
         next.setVisibility(View.GONE);
         overIv.setVisibility(View.VISIBLE);
+        complete.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
     }
 }

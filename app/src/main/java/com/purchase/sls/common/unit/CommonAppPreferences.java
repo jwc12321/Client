@@ -48,4 +48,10 @@ public class CommonAppPreferences {
         return sharedPreferences.getString(StaticData.PERSION_INFO, "");
     }
 
+    public void clean(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }

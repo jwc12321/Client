@@ -34,5 +34,6 @@
     <!--账单-->
     <dimen name="account_list_photo">40dp</dimen>
     <dimen name="account_detail_height">31dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
 
 </resources>

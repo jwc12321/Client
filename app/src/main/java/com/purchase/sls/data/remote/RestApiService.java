@@ -1,6 +1,7 @@
 package com.purchase.sls.data.remote;
 
 
+import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
@@ -24,8 +25,10 @@ import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
+import com.purchase.sls.data.request.CheckNewCodeRequest;
 import com.purchase.sls.data.request.CollectionListRequest;
 import com.purchase.sls.data.request.CouponListRequest;
+import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
@@ -38,14 +41,19 @@ import com.purchase.sls.data.request.RegisterPasswordRequest;
 import com.purchase.sls.data.request.RemoveBrowseRequest;
 import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
+import com.purchase.sls.data.request.SendNewVCodeRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 
 /**
  * Created by Administrator on 2017/12/27.
@@ -140,5 +148,24 @@ public interface RestApiService {
     //修改个人信息
     @POST("home/login/changeuserinfo")
     Flowable<RemoteDataWrapper<Ignore>> changeUserInfo(@Body ChangeUserInfoRequest changeUserInfoRequest);
+
+    //发送新手机的验证码
+    @POST("home/login/smsNewTel")
+    Flowable<RemoteDataWrapper<Ignore>> sendNewVcode(@Body SendNewVCodeRequest sendNewVCodeRequest);
+    //修改手机号
+    @POST("home/login/changeNewTel")
+    Flowable<RemoteDataWrapper<Ignore>> checkNewCode(@Body CheckNewCodeRequest checkNewCodeRequest);
+    //上传头像
+    /**
+     * 修改头像
+     */
+    @Multipart
+    @POST("home/login/changeAvatar")
+    Flowable<RemoteDataWrapper<String>> changeAvatar(@PartMap Map<String, RequestBody> multipartParams);
+
+    //版本检测
+    @POST("home/changeApp")
+    Flowable<RemoteDataWrapper<String>> changeApp(@Body DetectionVersionRequest detectionVersionRequest);
+
 
 }
