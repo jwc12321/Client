@@ -54,7 +54,8 @@
                     android:layout_marginLeft="@dimen/common_text_left"
                     android:background="@drawable/choose_time_type"
                     android:text="阶段查询"
-                    android:textColor="@color/appText4" />
+                    android:textColor="@color/appText4"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

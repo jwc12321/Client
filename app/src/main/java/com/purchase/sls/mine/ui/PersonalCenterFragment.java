@@ -3,7 +3,6 @@ package com.purchase.sls.mine.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,13 +66,15 @@ public class PersonalCenterFragment extends BaseFragment {
     FrameLayout itemWantCooperate;
     @BindView(R.id.item_about_neng)
     FrameLayout itemAboutNeng;
+    @BindView(R.id.item_persion_im)
+    LinearLayout itemPersionIm;
     private boolean isFirstLoad = true;
 
     private CommonAppPreferences commonAppPreferences;
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
-    private  WebViewDetailInfo webViewDetailInfo;
+    private WebViewDetailInfo webViewDetailInfo;
 
     public PersonalCenterFragment() {
     }
@@ -93,7 +94,7 @@ public class PersonalCenterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_persional_center, container, false);
         ButterKnife.bind(this, rootview);
-        commonAppPreferences=new CommonAppPreferences(getActivity());
+        commonAppPreferences = new CommonAppPreferences(getActivity());
         return rootview;
     }
 
@@ -119,10 +120,10 @@ public class PersonalCenterFragment extends BaseFragment {
         initVeiw();
     }
 
-    private void initVeiw(){
-        persionInfoStr=commonAppPreferences.getPersionInfo();
-        gson=new Gson();
-        if(persionInfoStr!=null&& !TextUtils.isEmpty(persionInfoStr)) {
+    private void initVeiw() {
+        persionInfoStr = commonAppPreferences.getPersionInfo();
+        gson = new Gson();
+        if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
             GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
             persionName.setText(persionInfoResponse.getUsername());
@@ -130,11 +131,14 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll,R.id.item_energy,R.id.item_voucher,R.id.item_browse_records,R.id.item_want_cooperate,R.id.item_about_neng})
+    @OnClick({R.id.setting_iv, R.id.collection_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng,R.id.item_persion_im})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://
                 AccountLoginActivity.start(getActivity());
+                break;
+            case R.id.item_persion_im://个人主页
+                PersonalInformationActivity.start(getActivity());
                 break;
             case R.id.collection_ll://收藏
                 CollectionListActivity.start(getActivity());
@@ -155,13 +159,13 @@ public class PersonalCenterFragment extends BaseFragment {
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("我要合作");
                 webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/admission");
-                WebViewActivity.start(getActivity(),webViewDetailInfo);
+                WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_about_neng://关于我们
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("关于能购");
                 webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/androidAbout");
-                WebViewActivity.start(getActivity(),webViewDetailInfo);
+                WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             default:
         }

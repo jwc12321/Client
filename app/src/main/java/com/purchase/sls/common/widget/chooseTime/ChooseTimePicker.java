@@ -98,15 +98,15 @@ public class ChooseTimePicker extends ActionSheet {
         sheetView = getSheetView();
         ButterKnife.bind(this, sheetView);
         Bundle bundle = getArguments();
-        chooseType=bundle.getString(KEY_TYPE_SELECT);
+        chooseType = bundle.getString(KEY_TYPE_SELECT);
         nowYearId = bundle.getInt(KEY_YEAR_SELECT);
         nowMonthId = bundle.getInt(KEY_MONTH_SELECT);
         nowDayId = bundle.getInt(KEY_DAY_SELECT);
         monthAll = false;
         yearAll = false;
-        if(TextUtils.equals("1",chooseType)){
+        if (TextUtils.equals("1", chooseType)) {
             mDayWheelView.setVisibility(View.GONE);
-        }else {
+        } else {
             mDayWheelView.setVisibility(View.VISIBLE);
         }
         initData();
@@ -144,10 +144,10 @@ public class ChooseTimePicker extends ActionSheet {
         }, 100);
     }
 
-    public void setTime(int nowYearId,int nowMonthId,int nowDayId){
-        this.nowYearId=nowYearId;
-        this.nowMonthId=nowMonthId;
-        this.nowDayId=nowDayId;
+    public void setTime(int nowYearId, int nowMonthId, int nowDayId) {
+        this.nowYearId = nowYearId;
+        this.nowMonthId = nowMonthId;
+        this.nowDayId = nowDayId;
         initNowData();
     }
 
@@ -158,8 +158,8 @@ public class ChooseTimePicker extends ActionSheet {
         Calendar nowCalendar = Calendar.getInstance();
         int nowYear = nowCalendar.get(Calendar.YEAR);
         arry_year.clear();
-        for (int i = 0; i <= 5; i++) {
-            int year = nowYear - 2 + i;
+        for (int i = 0; i <= 200; i++) {
+            int year = nowYear - 100 + i;
             arry_year.add(year + "年");
             if (year == nowYear) {
                 nowYearPosition = arry_year.size() - 1;
@@ -291,26 +291,22 @@ public class ChooseTimePicker extends ActionSheet {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
                 backYearSelect = wheel.getCurrentItem();
-                if (wheel.getCurrentItem() > nowYearPosition) {
-                    mYearWheelView.setCurrentItem(nowYearPosition);
+                String currentText = (String) mYearAdapter.getItemText(wheel.getCurrentItem());
+                setTextViewStyle(currentText, mYearAdapter);
+                mYearStr = arry_year.get(wheel.getCurrentItem()) + "";
+                if (TextUtils.equals("2月", mMonthStr)) {
+                    yearAll = false;
+                    monthAll = false;
+                    selectYearInt = getYearMonth(mYearStr, "年");
+                    setDay(selectYearInt, 2);
+                    mDayAdapter.setList(arry_day);
+                    mDayWheelView.setViewAdapter(mDayAdapter);
+                    mDayWheelView.setCurrentItem(0);
+                    mMonthWheelView.setCanScroll(true);
                 } else {
-                    String currentText = (String) mYearAdapter.getItemText(wheel.getCurrentItem());
-                    setTextViewStyle(currentText, mYearAdapter);
-                    mYearStr = arry_year.get(wheel.getCurrentItem()) + "";
-                    if (TextUtils.equals("2月", mMonthStr)) {
-                        yearAll = false;
-                        monthAll = false;
-                        selectYearInt = getYearMonth(mYearStr, "年");
-                        setDay(selectYearInt, 2);
-                        mDayAdapter.setList(arry_day);
-                        mDayWheelView.setViewAdapter(mDayAdapter);
-                        mDayWheelView.setCurrentItem(0);
-                        mMonthWheelView.setCanScroll(true);
-                    } else {
-                        yearAll = false;
-                        monthAll = false;
-                        mMonthWheelView.setCanScroll(true);
-                    }
+                    yearAll = false;
+                    monthAll = false;
+                    mMonthWheelView.setCanScroll(true);
                 }
             }
         });
@@ -545,8 +541,8 @@ public class ChooseTimePicker extends ActionSheet {
         int daySelect;
         String chooseTimeType;
 
-        public Builder chooseTypeGet(String chooseTimeType){
-            this.chooseTimeType=chooseTimeType;
+        public Builder chooseTypeGet(String chooseTimeType) {
+            this.chooseTimeType = chooseTimeType;
             return this;
         }
 
@@ -568,7 +564,7 @@ public class ChooseTimePicker extends ActionSheet {
 
         public ChooseTimePicker build() {
             Bundle args = new Bundle();
-            args.putString(KEY_TYPE_SELECT,chooseTimeType);
+            args.putString(KEY_TYPE_SELECT, chooseTimeType);
             args.putInt(KEY_YEAR_SELECT, yearSelect);
             args.putInt(KEY_MONTH_SELECT, monthSelect);
             args.putInt(KEY_DAY_SELECT, daySelect);
@@ -626,7 +622,7 @@ public class ChooseTimePicker extends ActionSheet {
             case R.id.confirm:
                 if (listener != null) {
                     Log.d(TAG, "mYearStr:" + mYearStr + "mMonthStr:" + mMonthStr + "mDayStr:" + mDayStr);
-                    listener.onConfirmServiceTime(strTimeToDateFormat(mYearStr, mMonthStr, mDayStr, TextUtils.equals("1",chooseType)?2:3), backYearSelect, backMonthSelect, backDaySelect);
+                    listener.onConfirmServiceTime(strTimeToDateFormat(mYearStr, mMonthStr, mDayStr, TextUtils.equals("1", chooseType) ? 2 : 3), backYearSelect, backMonthSelect, backDaySelect);
                     dismiss();
                 }
                 break;

@@ -1,6 +1,8 @@
 package com.purchase.sls.data.entity;
 
+import android.os.Parcel;
 import com.google.gson.annotations.SerializedName;
+
 
 /**
  * Created by JWC on 2018/4/19.
@@ -267,4 +269,5 @@ public class PersionInfoResponse {
     public void setToken(String token) {
         this.token = token;
     }
+
 }

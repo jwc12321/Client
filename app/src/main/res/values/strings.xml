@@ -88,5 +88,19 @@
     <!--优惠券-->
     <!--能量-->
     <string name="energy_income_detail">能量收支明细</string>
+    <!--设置-->
+    <string name="setting">设置</string>
+    <string name="shift_handset">换绑手机</string>
+    <string name="user_password">用户密码</string>
+    <string name="user_protocol">用户协议</string>
+    <string name="new_version_detection">新版本检测</string>
+    <string name="login_out">退出当前账号</string>
+    <string name="persional_im">个人信息</string>
+    <string name="head_portrait">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="sex">性别</string>
+    <string name="birthday">生日</string>
+    <string name="change_nickname">修改用户名</string>
+    <string name="add_new_nickname">请输入新昵称</string>
 
 </resources>

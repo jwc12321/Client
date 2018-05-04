@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/setting" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/item_shift_handset"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/shift_handset" />
+
+                <ImageView style="@style/go_arrow" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_user_password"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/user_password" />
+
+                <ImageView style="@style/go_arrow" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_user_protocol"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/user_protocol" />
+
+                <ImageView style="@style/go_arrow" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_new_version_detection"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/new_version_detection" />
+
+                <ImageView style="@style/go_arrow" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/login_out"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height"
+                android:layout_marginTop="@dimen/common_margin_left_right"
+                android:background="@drawable/common_button_bound"
+                android:text="@string/login_out" />
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

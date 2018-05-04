@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/change_nickname" />
+
+        <TextView
+            android:id="@+id/preservation"
+            style="@style/title_text_right_style"
+            android:text="保存" />
+    </RelativeLayout>
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_rel"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/nickname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nickname"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_text_left"/>
+            <EditText
+                android:id="@+id/nickname_et"
+                style="@style/nickname_et_style"
+                android:layout_toLeftOf="@+id/clean_iv"
+                android:hint="@string/add_new_nickname"
+                android:layout_toRightOf="@id/nickname_tv" />
+
+            <ImageView
+                android:id="@+id/clean_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/si_calean" />
+        </RelativeLayout>
+
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,11 +16,13 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.data.entity.EnergyInfo;
+import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
 import com.purchase.sls.energy.EnergyContract;
 import com.purchase.sls.energy.EnergyModule;
 import com.purchase.sls.energy.adapter.EnergyItemAdapter;
 import com.purchase.sls.energy.presenter.EnergyInfoPresente;
+import com.purchase.sls.webview.ui.WebViewActivity;
 
 import javax.inject.Inject;
 
@@ -48,11 +51,14 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
     NestedScrollView emptyView;
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
+    @BindView(R.id.energy_explain)
+    Button energyExplain;
 
     @Inject
     EnergyInfoPresente energyInfoPresente;
 
     private EnergyItemAdapter energyItemAdapter;
+    private WebViewDetailInfo webViewDetailInfo;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, EnergyInfoActivity.class);
@@ -142,11 +148,17 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         }
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.back, R.id.energy_explain})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
+                break;
+            case R.id.energy_explain:
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("能量明细");
+                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/power/powerInfo");
+                WebViewActivity.start(this, webViewDetailInfo);
                 break;
             default:
         }

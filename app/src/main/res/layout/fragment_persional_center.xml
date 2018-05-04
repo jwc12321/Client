@@ -10,7 +10,6 @@
     <com.purchase.sls.common.widget.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_rel"
         android:fadingEdge="none"
         android:overScrollMode="never">
 
@@ -86,6 +85,7 @@
                             android:textSize="17sp" />
 
                         <LinearLayout
+                            android:id="@+id/item_persion_im"
                             android:layout_width="85dp"
                             android:layout_height="23dp"
                             android:background="@drawable/persion_homepage_bg"

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/persional_im" />
+
+        <TextView
+            android:id="@+id/preservation"
+            style="@style/title_text_right_style"
+            android:text="保存"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_rel"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@color/appText1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/item_head_portrait"
+                android:layout_width="match_parent"
+                android:layout_height="54dp">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/head_portrait" />
+
+                <ImageView
+                    android:id="@+id/arrow_first"
+                    style="@style/go_arrow" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/photo"
+                    style="@style/PhotoStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_text_left"
+                    android:layout_toLeftOf="@id/arrow_first"
+                    app:riv_oval="true"
+                    tools:background="@null"
+                    tools:src="@mipmap/ic_launcher" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_nickname"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/nickname" />
+
+                <ImageView
+                    android:id="@+id/arrow_second"
+                    style="@style/go_arrow" />
+
+                <TextView
+                    android:id="@+id/nickname"
+                    style="@style/persional_im_tv"
+                    android:layout_toLeftOf="@id/arrow_second" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_sex"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/sex" />
+
+                <ImageView
+                    android:id="@+id/arrow_third"
+                    style="@style/go_arrow" />
+
+                <TextView
+                    android:id="@+id/sex"
+                    style="@style/persional_im_tv"
+                    android:layout_toLeftOf="@id/arrow_third" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_birthday"
+                style="@style/setting_rl_style">
+
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/birthday" />
+
+                <ImageView
+                    android:id="@+id/arrow_fourth"
+                    style="@style/go_arrow" />
+
+                <TextView
+                    android:id="@+id/birthday"
+                    style="@style/persional_im_tv"
+                    android:layout_toLeftOf="@id/arrow_fourth" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/choose_sex_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/common_button_bound"
+            android:text="取消" />
+
+        <View
+            android:id="@+id/view_first"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_above="@id/cancel"
+            android:background="@color/backGround1" />
+
+        <Button
+            android:id="@+id/female"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:layout_above="@id/view_first"
+            android:background="@drawable/common_button_bound"
+            android:text="女" />
+
+        <View
+            android:id="@+id/view_second"
+            style="@style/fengexian_style"
+            android:layout_above="@id/female" />
+
+        <Button
+            android:id="@+id/male"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:layout_above="@id/view_second"
+            android:background="@drawable/common_button_bound"
+            android:text="男" />
+
+        <LinearLayout
+            android:id="@+id/black_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/male"
+            android:background="@color/appText4"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+</RelativeLayout>

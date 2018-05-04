@@ -306,4 +306,20 @@ public class FormatUtil {
         }
         return sb.toString();
     }
+
+    public static int nowYear(){
+        Calendar nowCalendar = Calendar.getInstance();
+        int nowYear = nowCalendar.get(Calendar.YEAR);
+        return nowYear;
+    }
+    public static int nowMonth(){
+        Calendar nowCalendar = Calendar.getInstance();
+        int nowMonth = nowCalendar.get(Calendar.MONTH);
+        return nowMonth;
+    }
+    public static int nowDay(){
+        Calendar nowCalendar = Calendar.getInstance();
+        int nowDay = nowCalendar.get(Calendar.DAY_OF_MONTH);
+        return nowDay;
+    }
 }

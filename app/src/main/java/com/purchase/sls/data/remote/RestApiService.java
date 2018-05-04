@@ -21,6 +21,7 @@ import com.purchase.sls.data.entity.UserpowerInfo;
 import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
+import com.purchase.sls.data.request.ChangeUserInfoRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.CollectionListRequest;
@@ -135,5 +136,9 @@ public interface RestApiService {
     //删除浏览记录
     @POST("home/index/deleteUserLog")
     Flowable<RemoteDataWrapper<Ignore>> removeBrowse(@Body RemoveBrowseRequest removeBrowseRequest);
+
+    //修改个人信息
+    @POST("home/login/changeuserinfo")
+    Flowable<RemoteDataWrapper<Ignore>> changeUserInfo(@Body ChangeUserInfoRequest changeUserInfoRequest);
 
 }

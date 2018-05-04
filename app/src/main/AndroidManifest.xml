@@ -142,7 +142,16 @@
         <activity
             android:name=".energy.ui.EnergyInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".browse.ui.BrowseRecordsActivity"
+        <activity
+            android:name=".browse.ui.BrowseRecordsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mine.ui.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mine.ui.PersonalInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".mine.ui.ChangeNickNameActivity"
             android:screenOrientation="portrait"/>
     </application>
 
