@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JWC on 2018/5/3.
@@ -138,6 +139,16 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
             refreshLayout.setCanLoadMore(true);
         } else {
             refreshLayout.setCanLoadMore(false);
+        }
+    }
+
+    @OnClick({R.id.back})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            default:
         }
     }
 }

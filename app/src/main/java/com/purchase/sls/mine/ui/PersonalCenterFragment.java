@@ -17,13 +17,16 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.account.ui.AccountListActivity;
+import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
+import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.login.ui.AccountLoginActivity;
+import com.purchase.sls.webview.ui.WebViewActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,6 +73,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
+    private  WebViewDetailInfo webViewDetailInfo;
 
     public PersonalCenterFragment() {
     }
@@ -126,7 +130,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll,R.id.item_energy,R.id.item_voucher})
+    @OnClick({R.id.setting_iv,R.id.collection_ll,R.id.account_ll,R.id.item_energy,R.id.item_voucher,R.id.item_browse_records,R.id.item_want_cooperate,R.id.item_about_neng})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://
@@ -143,6 +147,21 @@ public class PersonalCenterFragment extends BaseFragment {
                 break;
             case R.id.item_voucher://优惠券
                 CouponListActivity.start(getActivity());
+                break;
+            case R.id.item_browse_records://浏览记录
+                BrowseRecordsActivity.start(getActivity());
+                break;
+            case R.id.item_want_cooperate://我要合作
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("我要合作");
+                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/admission");
+                WebViewActivity.start(getActivity(),webViewDetailInfo);
+                break;
+            case R.id.item_about_neng://关于我们
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("关于能购");
+                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/androidAbout");
+                WebViewActivity.start(getActivity(),webViewDetailInfo);
                 break;
             default:
         }

@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="65dp">
 
+    <View style="@style/fengexian_style" />
+
     <TextView
         android:id="@+id/business_name"
         android:layout_width="wrap_content"

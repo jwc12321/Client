@@ -5,6 +5,7 @@ import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
+import com.purchase.sls.data.entity.BrowseInfo;
 import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
@@ -30,8 +31,10 @@ import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
+import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
+import com.purchase.sls.data.request.RemoveBrowseRequest;
 import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
@@ -124,5 +127,13 @@ public interface RestApiService {
     //获取能量
     @POST("home/userLogController/userLogHistory")
     Flowable<RemoteDataWrapper<EnergyInfo>> getEnergyInfo(@Body EnergyInfoRequest energyInfoRequest);
+
+    //获取访问记录
+    @POST("home/index/getUserLog")
+    Flowable<RemoteDataWrapper<BrowseInfo>> getBrowseInfo(@Body PageRequest request);
+
+    //删除浏览记录
+    @POST("home/index/deleteUserLog")
+    Flowable<RemoteDataWrapper<Ignore>> removeBrowse(@Body RemoveBrowseRequest removeBrowseRequest);
 
 }
