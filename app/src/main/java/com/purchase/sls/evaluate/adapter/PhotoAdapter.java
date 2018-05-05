@@ -50,7 +50,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
             holder.photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onPictureOnClickListener.zomm(holder.getAdapterPosition());
+                    onPictureOnClickListener.zomm(holder.getAdapterPosition(),photoList);
                 }
             });
         }
@@ -71,7 +71,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
     }
 
     public interface OnPictureOnClickListener {
-        void zomm(int position);
+        void zomm(int position, List<String> photos);
     }
 
     private OnPictureOnClickListener onPictureOnClickListener;

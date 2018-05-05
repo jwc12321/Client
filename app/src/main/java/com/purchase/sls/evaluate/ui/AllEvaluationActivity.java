@@ -15,12 +15,15 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.widget.dialog.PhotoPreviewDialog;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.evaluate.DaggerEvaluateComponent;
 import com.purchase.sls.evaluate.EvaluateContract;
 import com.purchase.sls.evaluate.EvaluateModule;
 import com.purchase.sls.evaluate.adapter.AllEvaluateAdapter;
 import com.purchase.sls.evaluate.presenter.AllEvaluationPresenter;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -32,7 +35,7 @@ import butterknife.OnClick;
  * Created by JWC on 2018/5/5.
  */
 
-public class AllEvaluationActivity extends BaseActivity implements EvaluateContract.AllEvaluationView {
+public class AllEvaluationActivity extends BaseActivity implements EvaluateContract.AllEvaluationView,AllEvaluateAdapter.OnPictureOnClickListener {
 
     @BindView(R.id.back)
     ImageView back;
@@ -75,6 +78,7 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
         storeId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         allEvaluateAdapter = new AllEvaluateAdapter(this);
+        allEvaluateAdapter.setOnPictureOnClickListener(this);
         evaluationRv.setAdapter(allEvaluateAdapter);
         allEvaluationPresenter.getAllEvaluation(storeId);
     }
@@ -153,5 +157,15 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
                 break;
             default:
         }
+    }
+
+    @Override
+    public void zoom(int position, List<String> photos) {
+        PhotoPreviewDialog previewDialog = new PhotoPreviewDialog.Builder()
+                .index(position)
+                .path(photos)
+                .build();
+        previewDialog.setIndex(position);
+        previewDialog.show(getSupportFragmentManager(), null);
     }
 }

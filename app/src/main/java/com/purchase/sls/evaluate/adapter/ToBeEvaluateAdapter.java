@@ -76,7 +76,7 @@ public class ToBeEvaluateAdapter extends RecyclerView.Adapter<ToBeEvaluateAdapte
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.goEvaluate(toBeEvaluationItem.getStoreid(),toBeEvaluationItem.getOrderid());
+                    onItemClickListener.goEvaluate(toBeEvaluationItem.getStoreid(),toBeEvaluationItem.getOrderid(),toBeEvaluationItem.getTitle());
                 }
             }
         });
@@ -118,7 +118,7 @@ public class ToBeEvaluateAdapter extends RecyclerView.Adapter<ToBeEvaluateAdapte
     }
 
     public interface OnItemClickListener {
-        void goEvaluate(String storeId,String orderId);
+        void goEvaluate(String storeId,String orderId,String businessName);
     }
 
     private OnItemClickListener onItemClickListener;

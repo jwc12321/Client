@@ -136,10 +136,13 @@ dependencies {
     //搜索功能
     compile 'com.amap.api:search:latest.integration'
     implementation files('libs/pinyin4j-2.5.0.jar')
+
     //扫描
     compile "com.google.zxing:core:$rootProject.ext.zxingVersion"
     compile "cn.bingoogolapple:bga-qrcodecore:$rootProject.ext.bingoogolappleVersion"
     compile "cn.bingoogolapple:bga-zxing:$rootProject.ext.bingoogolappleVersion"
+
     //解决method ID not in [0, 0xffff]: 65536
     compile "com.android.support:multidex:$rootProject.ext.multidexVersion"
+    implementation files('libs/classes.jar')
 }

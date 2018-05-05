@@ -79,14 +79,16 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     private String storeId;
     private String orderId;
     private String starts;
+    private String businessName;
 
     @Inject
     SubmitEvaluatePresenter submitEvaluatePresenter;
 
-    public static void start(Context context, String storeId,String orderId) {
+    public static void start(Context context, String storeId,String orderId,String businessName) {
         Intent intent = new Intent(context, SubmitEvaluateActivity.class);
         intent.putExtra(StaticData.BUSINESS_STOREID, storeId);
         intent.putExtra(StaticData.ORDER_ID,orderId);
+        intent.putExtra(StaticData.BUSINESS_NAME,businessName);
         context.startActivity(intent);
     }
 
@@ -102,6 +104,8 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         typeAnonymous = "1";
         storeId= getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         orderId=getIntent().getStringExtra(StaticData.ORDER_ID);
+        businessName=getIntent().getStringExtra(StaticData.BUSINESS_NAME);
+        title.setText(businessName);
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

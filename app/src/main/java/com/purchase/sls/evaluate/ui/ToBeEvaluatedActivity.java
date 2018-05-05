@@ -138,8 +138,8 @@ public class ToBeEvaluatedActivity extends BaseActivity implements EvaluateContr
     }
 
     @Override
-    public void goEvaluate(String storeId,String orderId) {
-        SubmitEvaluateActivity.start(this,storeId,orderId);
+    public void goEvaluate(String storeId,String orderId,String businessName) {
+        SubmitEvaluateActivity.start(this,storeId,orderId,businessName);
     }
 
     @OnClick({R.id.back})

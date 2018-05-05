@@ -2,6 +2,7 @@ package com.purchase.sls.evaluate.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,7 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
         return evaluateItemInfos == null ? 0 : evaluateItemInfos.size();
     }
 
-    public static class AllEvaluateView extends RecyclerView.ViewHolder {
+    public class AllEvaluateView extends RecyclerView.ViewHolder implements PhotoAdapter.OnPictureOnClickListener{
 
 
         @BindView(R.id.people_icon)
@@ -89,6 +90,8 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
             super(itemView);
             ButterKnife.bind(this, itemView);
             photoAdapter=new PhotoAdapter(context);
+            photoAdapter.setOnPictureOnClickListener(this);
+//            photoRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
             photoRecyclerView.setAdapter(photoAdapter);
         }
 
@@ -108,5 +111,20 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
                 photoRecyclerView.setVisibility(View.GONE);
             }
         }
+
+        @Override
+        public void zomm(int position, List<String> photos) {
+            if ( onPictureOnClickListener != null )
+                onPictureOnClickListener.zoom(position, photos);
+        }
+    }
+
+    public interface OnPictureOnClickListener{
+        void zoom(int position, List<String> photos);
+    }
+    private OnPictureOnClickListener onPictureOnClickListener;
+
+    public void setOnPictureOnClickListener(OnPictureOnClickListener onPictureOnClickListener) {
+        this.onPictureOnClickListener = onPictureOnClickListener;
     }
 }

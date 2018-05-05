@@ -2,8 +2,6 @@ package com.purchase.sls.data.request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by JWC on 2018/5/5.
  */
