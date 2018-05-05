@@ -1,10 +1,10 @@
 package com.purchase.sls.data.remote;
 
 
-import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
+import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.BrowseInfo;
 import com.purchase.sls.data.entity.CollectionListResponse;
@@ -18,6 +18,7 @@ import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
+import com.purchase.sls.data.entity.ToBeEvaluationInfo;
 import com.purchase.sls.data.entity.UserpowerInfo;
 import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
@@ -43,6 +44,8 @@ import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
 import com.purchase.sls.data.request.SendNewVCodeRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
+import com.purchase.sls.data.request.StoreIdPageRequest;
+import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
 
 import java.util.List;
@@ -167,5 +170,15 @@ public interface RestApiService {
     @POST("home/changeApp")
     Flowable<RemoteDataWrapper<String>> changeApp(@Body DetectionVersionRequest detectionVersionRequest);
 
+    //获取评价列表
+    @POST("home/business/getEvaluate")
+    Flowable<RemoteDataWrapper<AllEvaluationInfo>> getAllEvaluation(@Body StoreIdPageRequest storeIdPageRequest);
+    //待评价列表
+    @POST("home/consume/waitevaluate")
+    Flowable<RemoteDataWrapper<ToBeEvaluationInfo>> getToBeEvaluation(@Body PageRequest pageRequest);
+    //提交评价
+    @POST("home/index/evaluate")
+    @Multipart
+    Flowable<RemoteDataWrapper<String>> submitEvalute(@PartMap Map<String, RequestBody> multipartParams);
 
 }

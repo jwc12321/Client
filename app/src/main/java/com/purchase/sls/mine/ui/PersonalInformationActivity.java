@@ -174,9 +174,9 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
                 break;
             case R.id.item_head_portrait:
                 if (actionSheet == null) {
-                    actionSheet = ActionSheet.newInstance(true, photo.getWidth(), photo.getHeight());
-                    actionSheet.setOnPictureChoseListener(PersonalInformationActivity.this);
-                }
+                actionSheet = ActionSheet.newInstance(true, photo.getWidth(), photo.getHeight());
+                actionSheet.setOnPictureChoseListener(PersonalInformationActivity.this);
+            }
                 actionSheet.show(this);
                 break;
             case R.id.item_nickname:

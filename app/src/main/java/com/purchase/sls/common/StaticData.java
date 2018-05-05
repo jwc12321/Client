@@ -45,4 +45,8 @@ public class StaticData {
     public static final String CHOOSE_TIME_SECOND="chooseTimeSecond";
     //手机号
     public static final String PHONE_NUMBER="phoneNumber";
+    //主页面到第一页
+    public static final String GO_FIRST="goFirst";
+    //商品的orderId
+    public static final String ORDER_ID="orderId";
 }

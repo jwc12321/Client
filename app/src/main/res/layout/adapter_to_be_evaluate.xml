@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_rl"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/photo"
+        style="@style/PhotoStyle"
+        android:layout_width="@dimen/personal_photo_size"
+        android:layout_height="@dimen/personal_photo_size"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/common_text_left"
+        app:riv_oval="true"
+        tools:background="@null"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/business_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginTop="@dimen/common_text_left"
+        android:layout_toRightOf="@id/photo" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/business_name"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_toRightOf="@id/photo" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginRight="@dimen/common_text_left"
+        android:layout_toRightOf="@id/photo"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_toRightOf="@id/photo" />
+
+    <Button
+        android:id="@+id/use_bt"
+        android:layout_width="55dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/common_text_left"
+        android:layout_marginRight="@dimen/common_text_left"
+        android:background="@drawable/common_coupon_bt"
+        android:enabled="true"
+        android:text="@string/evaluation"
+        android:textColor="@color/appText3"
+        android:textSize="10sp" />
+
+    <View style="@style/fengexian_style" />
+</RelativeLayout>

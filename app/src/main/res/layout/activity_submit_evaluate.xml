@@ -1,0 +1,166 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style" />
+
+        <TextView
+            android:id="@+id/submit"
+            style="@style/title_text_right_style"
+            android:text="发布" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/common_text_left"
+                    android:gravity="center"
+                    android:text="评分" />
+
+                <RatingBar
+                    android:id="@+id/ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:stepSize="1.0"
+                    android:layout_marginLeft="@dimen/common_text_left" />
+            </LinearLayout>
+            <View style="@style/fengexian_style" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_text_left"
+                android:background="@drawable/fill_in_reason">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_margin="@dimen/margin_small"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/appText2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:text="/200"
+                        android:textColor="@color/appText2" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/evaluate_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/null_bg"
+                    android:gravity="left|top"
+                    android:hint="您的评价对其他会员都是很重要的参考"
+                    android:maxEms="200"
+                    android:maxLength="200"
+                    android:minHeight="98.5dp"
+                    android:padding="@dimen/padding_small"
+                    android:textColorHint="@color/appText2"
+                    android:textSize="14sp" />
+            </FrameLayout>
+            <FrameLayout
+                android:background="@drawable/bottom_line"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/padding_small"
+                android:layout_height="45dp">
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:text="上传图片（最多8张）"
+                    android:textColor="@color/appText4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/add_photo"
+                    android:src="@mipmap/ic_launcher"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+            <!--照片-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/phone_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_line"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
+                android:visibility="gone"
+                app:layoutManager="@string/layoutManager_LinearLayout"
+                tools:listitem="@layout/list_item" />
+            <LinearLayout
+                android:id="@+id/registration_agreement_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/agreement_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/checkbox"
+                    android:padding="5dp"
+                    android:checked="true"
+                    android:layout_marginLeft="@dimen/common_text_left"/>
+
+                <TextView
+                    android:id="@+id/agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
+                    android:autoLink="all"
+                    android:gravity="center_vertical"
+                    android:text="匿名评价"
+                    android:textColor="@color/appText6"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

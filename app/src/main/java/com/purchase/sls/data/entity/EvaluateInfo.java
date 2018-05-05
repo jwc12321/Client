@@ -41,7 +41,7 @@ public class EvaluateInfo {
         @SerializedName("starts")
         private String starts;
         @SerializedName("pics")
-        private String pics;
+        private List<String> pics;
         @SerializedName("zans")
         private String zans;
         @SerializedName("created_at")
@@ -87,11 +87,11 @@ public class EvaluateInfo {
             this.starts = starts;
         }
 
-        public String getPics() {
+        public List<String> getPics() {
             return pics;
         }
 
-        public void setPics(String pics) {
+        public void setPics(List<String> pics) {
             this.pics = pics;
         }
 

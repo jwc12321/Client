@@ -7,6 +7,7 @@
     <dimen name="auth_code_button_height">30dp</dimen>
     <dimen name="title_height">44dp</dimen>
     <dimen name="set_password_height">44dp</dimen>
+    <dimen name="margin_small">7dp</dimen>
 
     <dimen name="bottom_select_height">50dp</dimen>
     <dimen name="common_text_left">11dp</dimen>
@@ -35,5 +36,7 @@
     <dimen name="account_list_photo">40dp</dimen>
     <dimen name="account_detail_height">31dp</dimen>
     <dimen name="padding_small">8dp</dimen>
+    <!--评价-->
+    <dimen name="evaltion_phone_size">91dp</dimen>
 
 </resources>

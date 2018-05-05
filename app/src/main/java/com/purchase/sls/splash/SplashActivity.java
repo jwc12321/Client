@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
+import com.purchase.sls.common.StaticData;
 import com.purchase.sls.mainframe.ui.MainFrameActivity;
 
 import butterknife.BindView;
@@ -83,10 +84,10 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                    Intent intent = new Intent(SplashActivity.this, MainFrameActivity.class);
-                    if (bundle != null)
-                        intent.putExtras(bundle);
-                    startActivity(intent);
+                Intent intent = new Intent(SplashActivity.this, MainFrameActivity.class);
+                if (bundle != null)
+                    intent.putExtras(bundle);
+                startActivity(intent);
 
                 SplashActivity.this.finish();
             }

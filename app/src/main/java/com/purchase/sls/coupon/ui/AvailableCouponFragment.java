@@ -15,7 +15,6 @@ import com.purchase.sls.coupon.DaggerCouponComponent;
 import com.purchase.sls.coupon.adapter.CouponListAdapter;
 import com.purchase.sls.coupon.presenter.CouponPresenter;
 import com.purchase.sls.data.entity.CouponInfo;
-import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.mainframe.ui.MainFrameActivity;
 
 import java.util.List;

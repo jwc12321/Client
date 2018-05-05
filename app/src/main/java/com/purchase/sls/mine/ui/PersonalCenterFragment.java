@@ -24,6 +24,7 @@ import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
+import com.purchase.sls.evaluate.ui.ToBeEvaluatedActivity;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.webview.ui.WebViewActivity;
 
@@ -133,7 +134,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv, R.id.collection_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng,R.id.item_persion_im})
+    @OnClick({R.id.setting_iv, R.id.collection_ll,R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng,R.id.item_persion_im})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://
@@ -144,6 +145,9 @@ public class PersonalCenterFragment extends BaseFragment {
                 break;
             case R.id.collection_ll://收藏
                 CollectionListActivity.start(getActivity());
+                break;
+            case R.id.comment_ll://点评
+                ToBeEvaluatedActivity.start(getActivity());
                 break;
             case R.id.account_ll://账单
                 AccountListActivity.start(getActivity());

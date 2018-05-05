@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:myrating="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/people_icon"
+            style="@style/PhotoStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            app:riv_oval="true"
+            tools:background="@null"
+            tools:src="@mipmap/ic_launcher"
+            android:layout_marginLeft="@dimen/common_text_left"/>
+
+        <TextView
+            android:id="@+id/people_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/people_icon"
+            android:layout_marginLeft="@dimen/common_text_left"
+            android:layout_marginTop="@dimen/common_margin_left_right"/>
+
+        <com.purchase.sls.common.widget.MyRatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/people_name"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/people_icon"
+            myrating:mClickImageId="@mipmap/star"
+            myrating:mDefaultImageId="@mipmap/star2"
+            myrating:mHalfImageId="@mipmap/star3"
+            myrating:mImageHeight="10dp"
+            myrating:mImageWidth="10dp"
+            myrating:mMargin="1px"
+            myrating:mScope="2.3"
+            myrating:mStarChoose="0"
+            myrating:mStarNum="5"
+            android:layout_marginLeft="@dimen/common_text_left"/>
+
+        <TextView
+            android:id="@+id/people_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_text_left"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/evaluate_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginRight="@dimen/common_text_left"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/photo_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/appText1"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layoutManager="@string/layoutManager_LinearLayout" />
+</LinearLayout>

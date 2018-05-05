@@ -157,6 +157,18 @@
         <activity
             android:name=".mine.ui.ShiftHandsetActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".evaluate.ui.AllEvaluationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".evaluate.ui.ToBeEvaluatedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".evaluate.ui.SubmitEvaluateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".evaluate.ui.EvaluateSuccessActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

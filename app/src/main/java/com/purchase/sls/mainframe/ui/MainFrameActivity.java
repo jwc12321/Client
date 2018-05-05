@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.energy.ui.EnergyFragment;
 import com.purchase.sls.homepage.ui.HomePageFragment;
@@ -72,6 +75,7 @@ public class MainFrameActivity extends BaseActivity {
     private TextView[] textViews;
     private MainPagerAdapter adapter;
 
+    private String goFirst;
     public static void start(Context context){
         Intent intent=new Intent(context,MainFrameActivity.class);
         context.startActivity(intent);
@@ -119,7 +123,6 @@ public class MainFrameActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(onPageChangeListener);
         viewPager.setCurrentItem(0);
 
-
     }
 
 
@@ -148,5 +151,21 @@ public class MainFrameActivity extends BaseActivity {
     @Override
     public View getSnackBarHolderView() {
         return null;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        goFirst=getIntent().getStringExtra(StaticData.GO_FIRST);
+        if(TextUtils.equals("1",goFirst)){
+            viewPager.setCurrentItem(0);
+            goFirst="2";
+        }
+    }
+
+    private String goFirst1;
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

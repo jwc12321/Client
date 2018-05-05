@@ -114,6 +114,7 @@ public class MyRatingBar extends LinearLayout {
             imageView.setLayoutParams(layoutParams);
             this.addView(imageView);
             imageView.setImageResource(mDefaultImageId);
+            //可以用
 //            setStarOnClick(imageView, i);
         }
         setCurrentChoose(mStarChoose);  //设置当前选择

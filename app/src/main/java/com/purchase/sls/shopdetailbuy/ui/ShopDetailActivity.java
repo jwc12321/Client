@@ -27,6 +27,7 @@ import com.purchase.sls.common.widget.dialog.CallDialogFragment;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.StoreInfo;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
+import com.purchase.sls.evaluate.ui.AllEvaluationActivity;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
@@ -242,7 +243,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         ShopDetailActivity.start(this, storeid);
     }
 
-    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl,R.id.check_bg})
+    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl,R.id.check_bg,R.id.look_all_comment_rl})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -286,6 +287,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 if(storeInfo!=null){
                     PaymentOrderActivity.start(this,storeInfo.getTitle(),storeInfo.getzPics(),storeid);
                 }
+                break;
+            case R.id.look_all_comment_rl://查看全部评论
+                AllEvaluationActivity.start(this,storeid);
                 break;
             default:
         }
