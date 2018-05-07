@@ -115,6 +115,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     private String businessSort;
     private String businessSum;
     private String businessScreen;
+    private String storename;
 
     private String allCid;
     private String allName;
@@ -139,12 +140,13 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     @Inject
     ScreeningListPresenter screeningListPresenter;
 
-    public static void start(Context context, String city, String cid, String name, String sum) {
+    public static void start(Context context, String city, String cid, String name, String sum,String storename) {
         Intent intent = new Intent(context, ScreeningListActivity.class);
         intent.putExtra(StaticData.CHOICE_CITY, city);
         intent.putExtra(StaticData.BUSINESS_CID, cid);
         intent.putExtra(StaticData.BUSINESS_NAME, name);
         intent.putExtra(StaticData.BUSINESS_SUM, sum);
+        intent.putExtra(StaticData.STORE_NAME,storename);
         context.startActivity(intent);
     }
 
@@ -164,6 +166,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         allCid = getIntent().getStringExtra(StaticData.BUSINESS_CID);
         allName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         allSum = getIntent().getStringExtra(StaticData.BUSINESS_SUM);
+        storename=getIntent().getStringExtra(StaticData.STORE_NAME);
         bussinessCid = allCid;
         bussinessName = allName;
         businessSum = allSum;
@@ -174,7 +177,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         screenFirst();
         screenSecond();
         screenThird();
-        screeningListPresenter.getScreeningList(city, bussinessCid, "", "");
+        screeningListPresenter.getScreeningList(city, bussinessCid, "", "",storename);
     }
 
     private void likeStore() {
@@ -233,9 +236,9 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         @Override
         public void onRefresh() {
             if (TextUtils.equals("1", choiceType) || TextUtils.equals("0", choiceType)) {
-                screeningListPresenter.getScreeningList(city, bussinessCid, "", "");
+                screeningListPresenter.getScreeningList(city, bussinessCid, "", "",storename);
             } else if (TextUtils.equals("2", choiceType)) {
-                screeningListPresenter.getScreeningList(city, allCid, businessSort, "");
+                screeningListPresenter.getScreeningList(city, allCid, businessSort, "",storename);
             } else {
 
             }
@@ -244,9 +247,9 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         @Override
         public void onLoadMore() {
             if (TextUtils.equals("1", choiceType) || TextUtils.equals("0", choiceType)) {
-                screeningListPresenter.getMoreScreeningList(city, bussinessCid, "", "");
+                screeningListPresenter.getMoreScreeningList(city, bussinessCid, "", "",storename);
             } else if (TextUtils.equals("2", choiceType)) {
-                screeningListPresenter.getMoreScreeningList(city, allCid, businessSort, "");
+                screeningListPresenter.getMoreScreeningList(city, allCid, businessSort, "",storename);
             } else {
 
             }
@@ -282,8 +285,15 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         refreshLayout.stopRefresh();
         refreshLayout.setCanLoadMore(true);
         if (screeningListResponse != null) {
-            if (screeningListResponse.getLikeStoreResponse() != null && screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos() != null) {
+            if (screeningListResponse.getLikeStoreResponse() != null && screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos() != null&&screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos().size()>0) {
                 likeStoreAdapter.setLikeInfos(screeningListResponse.getLikeStoreResponse().getCollectionStoreInfos());
+                refreshLayout.setCanLoadMore(true);
+                choiceShopRv.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
+            }else {
+                refreshLayout.setCanLoadMore(false);
+                choiceShopRv.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
             }
             if (screeningListResponse.getCateInfos() != null && screeningListResponse.getCateInfos().size() > 0) {
                 List<ScreeningListResponse.CateInfo> cateInfos = screeningListResponse.getCateInfos();
@@ -294,6 +304,10 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
                 cateInfos.add(0, cateInfo);
                 screeningFirstAdapter.setData(cateInfos);
             }
+        }else {
+            refreshLayout.setCanLoadMore(false);
+            choiceShopRv.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -372,7 +386,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
                 break;
             case R.id.ok_bg:
                 chooseTypeThirdLl.setVisibility(View.GONE);
-                screeningListPresenter.getScreeningList(city, allCid, "", businessScreen);
+                screeningListPresenter.getScreeningList(city, allCid, "", businessScreen,storename);
                 break;
             default:
         }
@@ -397,7 +411,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         bussinessCid = id;
         chooseTypeFirstLl.setVisibility(View.GONE);
         choiceFirstInt = position;
-        screeningListPresenter.getScreeningList(city, bussinessCid, "", "");
+        screeningListPresenter.getScreeningList(city, bussinessCid, "", "",storename);
     }
 
     @Override
@@ -405,7 +419,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         businessSort = sort;
         chooseTypeSecondLl.setVisibility(View.GONE);
         choiceSecondInt = position;
-        screeningListPresenter.getScreeningList(city, allCid, businessSort, "");
+        screeningListPresenter.getScreeningList(city, allCid, businessSort, "",storename);
     }
 
     @Override

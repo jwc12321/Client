@@ -3,6 +3,7 @@ package com.purchase.sls.shopdetailbuy;
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
+import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.UserpowerInfo;
 
@@ -27,5 +28,12 @@ public interface ShopDetailBuyContract {
     interface PaymentOrderView extends BaseView<PaymentOrderPresenter>{
         void userpowerInfo(UserpowerInfo userpowerInfo);
         void generatingOrderSuccess(GeneratingOrderInfo generatingOrderInfo);
+    }
+
+    interface OrderDetailPresenter extends BasePresenter{
+        void getOrderDetailInfo(String orderno);
+    }
+    interface OrderDetailView extends BaseView<OrderDetailPresenter>{
+        void renderOrderDetail(OrderDetailInfo orderDetailInfo);
     }
 }

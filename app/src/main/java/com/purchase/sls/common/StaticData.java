@@ -49,4 +49,8 @@ public class StaticData {
     public static final String GO_FIRST="goFirst";
     //商品的orderId
     public static final String ORDER_ID="orderId";
+    //订单的orderno
+    public static final String ORDER_NO="orderno";
+    //搜索的名字
+    public static final String STORE_NAME ="storename";
 }

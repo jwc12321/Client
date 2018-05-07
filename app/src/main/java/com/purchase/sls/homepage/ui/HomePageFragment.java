@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -71,6 +72,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     RecyclerView likeStoreRv;
     @BindView(R.id.limitScroll)
     LimitScrollerView limitScroll;
+    @BindView(R.id.search_ll)
+    LinearLayout searchLl;
 
 
     private LocationHelper mLocationHelper;
@@ -186,7 +189,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     //设置上下轮播图
-    private void scrollerUpDown(){
+    private void scrollerUpDown() {
         //API:1、设置数据适配器
         myLimitScrollAdapter = new MyLimitScrollAdapter();
         limitScroll.setDataAdapter(myLimitScrollAdapter);
@@ -272,7 +275,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         }
     }
 
-    @OnClick({R.id.choice_city, R.id.scan})
+    @OnClick({R.id.choice_city, R.id.scan,R.id.search_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choice_city:
@@ -281,6 +284,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 break;
             case R.id.scan:
                 scan();
+                break;
+            case R.id.search_ll:
+                SearchShopActivity.start(getActivity());
                 break;
             default:
         }
@@ -356,32 +362,35 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
-        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum());
+        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(),"");
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
-        ShopDetailActivity.start(getActivity(),storeid);
+        ShopDetailActivity.start(getActivity(), storeid);
     }
+
     //TODO 修改适配器绑定数据
-    class MyLimitScrollAdapter implements LimitScrollerView.LimitScrollAdapter{
+    class MyLimitScrollAdapter implements LimitScrollerView.LimitScrollAdapter {
 
         private List<BannerHotResponse.ArticleInfo.Datainfo> datas;
-        public void setDatas(List<BannerHotResponse.ArticleInfo.Datainfo> datas){
+
+        public void setDatas(List<BannerHotResponse.ArticleInfo.Datainfo> datas) {
             this.datas = datas;
             //API:2、开始滚动
             limitScroll.startScroll();
         }
+
         @Override
         public int getCount() {
-            return datas==null?0:datas.size();
+            return datas == null ? 0 : datas.size();
         }
 
         @Override
         public View getView(int index) {
             View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.limit_scroller_item, null, false);
-            ImageView iv_icon = (ImageView)itemView.findViewById(R.id.iv_icon);
-            TextView tv_text = (TextView)itemView.findViewById(R.id.tv_text);
+            ImageView iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
+            TextView tv_text = (TextView) itemView.findViewById(R.id.tv_text);
 
             //绑定数据
             BannerHotResponse.ArticleInfo.Datainfo data = datas.get(index);

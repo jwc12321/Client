@@ -20,6 +20,7 @@ import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
@@ -125,20 +126,22 @@ public class PersonalCenterFragment extends BaseFragment {
     private void initVeiw() {
         persionInfoStr = commonAppPreferences.getPersionInfo();
         gson = new Gson();
-        if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
+        if (!TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
             GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
             persionName.setText(persionInfoResponse.getUsername());
-            phoneNumber=persionInfoResponse.getTel();
+            phoneNumber = persionInfoResponse.getTel();
+        } else {
+            AccountLoginActivity.start(getActivity());
         }
     }
 
 
-    @OnClick({R.id.setting_iv, R.id.collection_ll,R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng,R.id.item_persion_im})
+    @OnClick({R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://
-               SettingActivity.start(getActivity(),phoneNumber);
+                SettingActivity.start(getActivity(), phoneNumber);
                 break;
             case R.id.item_persion_im://个人主页
                 PersonalInformationActivity.start(getActivity());

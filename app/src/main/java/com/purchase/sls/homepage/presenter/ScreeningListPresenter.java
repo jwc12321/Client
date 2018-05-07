@@ -63,9 +63,9 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
      * @param screen
      */
     @Override
-    public void getScreeningList(String address, String cid, String sort,  String screen) {
+    public void getScreeningList(String address, String cid, String sort,  String screen,String storename) {
         currentIndex = 1;
-        ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen);
+        ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen,storename);
         Disposable disposable=restApiService.getScreeningListInfo(screeningListRequest)
                 .flatMap(new RxRemoteDataParse<ScreeningListResponse>())
                 .compose(new RxSchedulerTransformer<ScreeningListResponse>())
@@ -84,9 +84,9 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
     }
 
     @Override
-    public void getMoreScreeningList(String address, String cid, String sort, String screen) {
+    public void getMoreScreeningList(String address, String cid, String sort, String screen,String storename) {
         currentIndex = currentIndex+1;
-        ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen);
+        ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen,storename);
         Disposable disposable=restApiService.getScreeningListInfo(screeningListRequest)
                 .flatMap(new RxRemoteDataParse<ScreeningListResponse>())
                 .compose(new RxSchedulerTransformer<ScreeningListResponse>())

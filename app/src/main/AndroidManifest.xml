@@ -89,7 +89,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.ui.AccountLoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".login.ui.SmsLoginActivity"
             android:screenOrientation="portrait" />
@@ -168,6 +169,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".evaluate.ui.EvaluateSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homepage.ui.SearchShopActivity"
             android:screenOrientation="portrait" />
     </application>
 

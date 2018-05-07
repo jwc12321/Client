@@ -31,9 +31,9 @@ public interface HomePageContract {
     }
 
     interface ScreeningListPresenter extends BasePresenter {
-        void getScreeningList(String address, String cid, String sort, String screen);
+        void getScreeningList(String address, String cid, String sort, String screen,String storename);
 
-        void getMoreScreeningList(String address, String cid, String sort, String screen);
+        void getMoreScreeningList(String address, String cid, String sort, String screen,String storename);
     }
 
     interface ScreeningListView extends BaseView<ScreeningListPresenter> {

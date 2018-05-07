@@ -101,16 +101,6 @@ public class BaseFragment extends Fragment implements LoadDataView{
                 ((BaseActivity) getActivity()).showError(e);
             }
         }
-//        if (e instanceof RemoteDataException) {
-//            if (((RemoteDataException)e).isAuthFailed()){
-//                //跳转到登录页面
-//                LoginActivity.startAndClearTask(getActivity());
-//            } else {
-//                showMessage(e.getMessage());
-//            }
-//        } else {
-//            showMessage(e.getMessage());
-//        }
     }
 
     @Override

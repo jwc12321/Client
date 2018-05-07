@@ -13,7 +13,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -126,6 +128,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     private BigDecimal energyDecimal;//能量
     private BigDecimal couponDecimal;//优惠券
     private BigDecimal maxEnergyDecial;//最大的优惠金额
+    private BigDecimal totalStCdDecimal;//输入的价格减去优惠券金额
 
 
     @Override
@@ -225,17 +228,19 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     }
 
     private void fillNumber() {
-        if (!TextUtils.isEmpty(addEnergyEt.getText().toString()) && !TextUtils.isEmpty(userpowerInfo.getPersionInfoResponse().getPower())&&!TextUtils.isEmpty(moneyEt.getText().toString())) {
+        if (!TextUtils.isEmpty(addEnergyEt.getText().toString()) && !TextUtils.isEmpty(userpowerInfo.getPersionInfoResponse().getPower()) && !TextUtils.isEmpty(moneyEt.getText().toString())) {
             maxEnergyDecial = new BigDecimal(userpowerInfo.getPersionInfoResponse().getPower()).setScale(2, RoundingMode.HALF_UP);
             energyDecimal = new BigDecimal(addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
-            totalPriceBigDecimal= new BigDecimal(moneyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
+            totalPriceBigDecimal = new BigDecimal(moneyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
+            couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
+            totalStCdDecimal = totalPriceBigDecimal.subtract(couponDecimal);
             if (energyDecimal.compareTo(maxEnergyDecial) > 0) {
                 toast("最大优惠能量" + userpowerInfo.getPersionInfoResponse().getPower());
                 addEnergyEt.setText(userpowerInfo.getPersionInfoResponse().getPower());
             }
-            if(totalPriceBigDecimal.compareTo(energyDecimal)<0){
-                toast("能量只需要填写" + totalPriceBigDecimal.toString());
-                addEnergyEt.setText(totalPriceBigDecimal.toString());
+            if (totalStCdDecimal.compareTo(energyDecimal) < 0) {
+                toast("能量只需要填写" + totalStCdDecimal);
+                addEnergyEt.setText(totalStCdDecimal.toString());
             }
         }
     }
@@ -296,7 +301,8 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
     @Override
     public void generatingOrderSuccess(GeneratingOrderInfo generatingOrderInfo) {
-        PaySuccessActivity.start(this,businessName);
+        PaySuccessActivity.start(this, businessName, generatingOrderInfo.getOrderno());
+        this.finish();
     }
 
     @OnClick({R.id.back, R.id.reel_rl, R.id.coupon_black_background, R.id.confirm_pay_bg, R.id.zhifubao_rl, R.id.weixin_rl})
@@ -343,6 +349,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         reelNumber.setText("-¥" + couponInfo.getQuanInfo().getPrice());
         couponId = couponInfo.getId();
         couponMoney = couponInfo.getQuanInfo().getPrice();
+        fillNumber();
         CalculateEachPayment();
     }
 
@@ -360,5 +367,38 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
             }
             payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
         }
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
     }
 }

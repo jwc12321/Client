@@ -15,6 +15,7 @@ import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
+import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
@@ -36,6 +37,7 @@ import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
+import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
@@ -183,4 +185,8 @@ public interface RestApiService {
     @Multipart
     @POST("home/index/uploadFile")
     Flowable<RemoteDataWrapper<String>> uploadFile(@PartMap Map<String, RequestBody> multipartParams);
+
+    //订单详情
+    @POST("home/quan/present")
+    Flowable<RemoteDataWrapper<OrderDetailInfo>> getOrderDetailInfo(@Body OrderDetailRequest orderDetailRequest);
 }

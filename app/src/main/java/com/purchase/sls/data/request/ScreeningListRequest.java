@@ -18,12 +18,15 @@ public class ScreeningListRequest {
     private String page;
     @SerializedName("screen")
     private String screen;
+    @SerializedName("storename")
+    private String storename;
 
-    public ScreeningListRequest(String address, String cid, String sort, String page, String screen) {
+    public ScreeningListRequest(String address, String cid, String sort, String page, String screen, String storename) {
         this.address = address;
         this.cid = cid;
         this.sort = sort;
         this.page = page;
         this.screen = screen;
+        this.storename = storename;
     }
 }

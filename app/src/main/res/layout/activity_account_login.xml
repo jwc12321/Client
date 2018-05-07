@@ -17,7 +17,8 @@
 
             <ImageView
                 android:id="@+id/back"
-                style="@style/title_left_back_style" />
+                style="@style/title_left_back_style"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
