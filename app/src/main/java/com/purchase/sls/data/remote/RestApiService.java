@@ -178,7 +178,9 @@ public interface RestApiService {
     Flowable<RemoteDataWrapper<ToBeEvaluationInfo>> getToBeEvaluation(@Body PageRequest pageRequest);
     //提交评价
     @POST("home/index/evaluate")
+    Flowable<RemoteDataWrapper<String>> submitEvalute(@Body SubmitEvaluateRequest submitEvaluateRequest);
+    //上传图片(阿里云图片上传)
     @Multipart
-    Flowable<RemoteDataWrapper<String>> submitEvalute(@PartMap Map<String, RequestBody> multipartParams);
-
+    @POST("home/index/uploadFile")
+    Flowable<RemoteDataWrapper<String>> uploadFile(@PartMap Map<String, RequestBody> multipartParams);
 }

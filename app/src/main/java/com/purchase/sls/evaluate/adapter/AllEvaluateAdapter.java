@@ -91,7 +91,7 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
             ButterKnife.bind(this, itemView);
             photoAdapter=new PhotoAdapter(context);
             photoAdapter.setOnPictureOnClickListener(this);
-//            photoRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+            photoRecyclerView.setLayoutManager(new GridLayoutManager(context, 3));
             photoRecyclerView.setAdapter(photoAdapter);
         }
 

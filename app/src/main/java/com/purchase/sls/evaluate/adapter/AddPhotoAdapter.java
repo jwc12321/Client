@@ -115,6 +115,7 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.Holder
                         @Override
                         public void onClick(View v) {
                             paths.remove(getAdapterPosition());
+                            photoListener.removePhoto(getAdapterPosition());
                             notifyItemRemoved(getAdapterPosition());
                         }
                     });
@@ -136,5 +137,6 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.Holder
     public interface AddPhotoListener {
 
         void startAddPhoto();
+        void removePhoto(int position);
     }
 }

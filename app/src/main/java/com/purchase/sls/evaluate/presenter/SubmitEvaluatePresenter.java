@@ -4,10 +4,10 @@ import android.support.v4.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.purchase.sls.data.RxSchedulerTransformer;
-import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
+import com.purchase.sls.data.request.UploadFileRequest;
 import com.purchase.sls.evaluate.EvaluateContract;
 
 import java.io.File;
@@ -61,20 +61,42 @@ public class SubmitEvaluatePresenter implements EvaluateContract.SubmitEvaluateP
         }
     }
 
+    /**
+     * 上传阿里云图片
+     *
+     * @param photoUrl
+     */
     @Override
-    public void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest) {
+    public void uploadFile(String photoUrl) {
+        UploadFileRequest headPhoneRequest = new UploadFileRequest(photoUrl);
         Gson gson = new Gson();
         Map<String, RequestBody> requestBodyMap = new ArrayMap<>();
-        for (int i = 0; i < submitEvaluateRequest.getPics().length; i++) {
-            String filePath = submitEvaluateRequest.getPics()[i];
-            File file = new File(filePath);
-            String fileName = file.getName();
-            RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            requestBodyMap.put("file\"; filename=\"" + fileName, photo);
-        }
-        RequestBody json = RequestBody.create(MediaType.parse("application/json"), gson.toJson(submitEvaluateRequest));
+        File file = new File(photoUrl);
+        String fileName = file.getName();
+        RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        requestBodyMap.put("file\"; filename=\"" + fileName, photo);
+        RequestBody json = RequestBody.create(MediaType.parse("application/json"), gson.toJson(headPhoneRequest));
         requestBodyMap.put("json_data", json);
-        Disposable disposable=restApiService.submitEvalute(requestBodyMap)
+        Disposable disposable = restApiService.changeAvatar(requestBodyMap)
+                .flatMap(new RxRemoteDataParse<String>())
+                .compose(new RxSchedulerTransformer<String>())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) throws Exception {
+                        submitEvaluateView.uploadFileSuccess(string);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        submitEvaluateView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest) {
+        Disposable disposable = restApiService.submitEvalute(submitEvaluateRequest)
                 .flatMap(new RxRemoteDataParse<String>())
                 .compose(new RxSchedulerTransformer<String>())
                 .subscribe(new Consumer<String>() {

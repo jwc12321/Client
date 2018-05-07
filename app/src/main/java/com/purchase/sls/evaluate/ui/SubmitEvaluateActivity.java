@@ -2,6 +2,7 @@ package com.purchase.sls.evaluate.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,6 +31,7 @@ import com.purchase.sls.evaluate.presenter.SubmitEvaluatePresenter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -80,6 +82,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     private String orderId;
     private String starts;
     private String businessName;
+    private List<String> uploadFiles;
 
     @Inject
     SubmitEvaluatePresenter submitEvaluatePresenter;
@@ -101,6 +104,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     }
 
     private void initView() {
+        uploadFiles=new ArrayList<>();
         typeAnonymous = "1";
         storeId= getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         orderId=getIntent().getStringExtra(StaticData.ORDER_ID);
@@ -151,6 +155,11 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     }
 
     @Override
+    public void uploadFileSuccess(String photoUrl) {
+        uploadFiles.add(photoUrl);
+    }
+
+    @Override
     public void submitSuccess() {
         EvaluateSuccessActivity.start(this);
         this.finish();
@@ -194,6 +203,11 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         initPhotoPicker();
     }
 
+    @Override
+    public void removePhoto(int position) {
+        uploadFiles.remove(position);
+    }
+
     @OnClick({R.id.add_photo,R.id.submit,R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -227,6 +241,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         photoPaths.add(filePath.getAbsolutePath());
         phoneRv.setVisibility(VISIBLE);
         photoAdapter.setPaths(photoPaths);
+        submitEvaluatePresenter.uploadFile(filePath.getAbsolutePath());
     }
 
     @OnCheckedChanged({R.id.agreement_check})
@@ -239,14 +254,21 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     }
 
     private void submit(){
+        String picsStr="";
         SubmitEvaluateRequest submitEvaluateRequest=new SubmitEvaluateRequest();
         submitEvaluateRequest.setStoreid(storeId);
         submitEvaluateRequest.setWords(evaluateEt.getText().toString());
         submitEvaluateRequest.setStarts(starts);
         submitEvaluateRequest.setType(typeAnonymous);
         submitEvaluateRequest.setOrderid(orderId);
-        String[] strings = new String[photoPaths.size()];
-        submitEvaluateRequest.setPics(photoPaths.toArray(strings));
+        for(int i=0;i<uploadFiles.size();i++){
+            if(i<uploadFiles.size()-1) {
+                picsStr = picsStr + uploadFiles.get(i) + ",";
+            }else {
+                picsStr = picsStr + uploadFiles.get(i);
+            }
+        }
+        submitEvaluateRequest.setPics(picsStr);
         submitEvaluatePresenter.submitEvaluate(submitEvaluateRequest);
     }
 }

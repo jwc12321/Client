@@ -36,10 +36,12 @@ public interface EvaluateContract {
     }
 
     interface SubmitEvaluatePresenter extends BasePresenter {
+        void uploadFile(String photoUrl);
         void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest);
     }
 
     interface SubmitEvaluateView extends BaseView<SubmitEvaluatePresenter> {
+        void uploadFileSuccess(String photoUrl);
         void submitSuccess();
     }
 }

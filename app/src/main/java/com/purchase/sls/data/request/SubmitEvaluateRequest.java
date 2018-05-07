@@ -2,6 +2,8 @@ package com.purchase.sls.data.request;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by JWC on 2018/5/5.
  */
@@ -14,7 +16,7 @@ public class SubmitEvaluateRequest {
     @SerializedName("starts")
     private String starts;
     @SerializedName("pics")
-    private String[] pics;
+    private String  pics;
     @SerializedName("type")
     private String type;
     @SerializedName("orderid")
@@ -44,11 +46,11 @@ public class SubmitEvaluateRequest {
         this.starts = starts;
     }
 
-    public String[] getPics() {
+    public String getPics() {
         return pics;
     }
 
-    public void setPics(String[] pics) {
+    public void setPics(String pics) {
         this.pics = pics;
     }
 
