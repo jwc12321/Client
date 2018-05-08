@@ -89,8 +89,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.ui.AccountLoginActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.ui.SmsLoginActivity"
             android:screenOrientation="portrait" />
@@ -173,6 +173,8 @@
         <activity
             android:name=".homepage.ui.SearchShopActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".messages.ui.MessageNotificationActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -27,6 +27,7 @@ import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.evaluate.ui.ToBeEvaluatedActivity;
 import com.purchase.sls.login.ui.AccountLoginActivity;
+import com.purchase.sls.messages.ui.MessageNotificationActivity;
 import com.purchase.sls.webview.ui.WebViewActivity;
 
 import butterknife.BindView;
@@ -137,11 +138,14 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im})
+    @OnClick({R.id.information_iv,R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.setting_iv://
+            case R.id.setting_iv://设置
                 SettingActivity.start(getActivity(), phoneNumber);
+                break;
+            case R.id.information_iv:
+                MessageNotificationActivity.start(getActivity());
                 break;
             case R.id.item_persion_im://个人主页
                 PersonalInformationActivity.start(getActivity());

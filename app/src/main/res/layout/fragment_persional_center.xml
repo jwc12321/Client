@@ -46,6 +46,8 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="@dimen/common_margin_left_right"
                         android:paddingRight="@dimen/common_margin_left_right"
+                        android:paddingTop="@dimen/common_text_left"
+                        android:paddingBottom="@dimen/common_text_left"
                         android:scaleType="fitXY"
                         android:src="@mipmap/news" />
                 </RelativeLayout>

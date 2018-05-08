@@ -15,6 +15,7 @@ import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.MapMarkerInfo;
+import com.purchase.sls.data.entity.MessageListInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -38,6 +39,7 @@ import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.MapMarkerRequest;
+import com.purchase.sls.data.request.MessageListRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.PageRequest;
@@ -195,5 +197,9 @@ public interface RestApiService {
     //订单详情
     @POST("home/quan/present")
     Flowable<RemoteDataWrapper<OrderDetailInfo>> getOrderDetailInfo(@Body OrderDetailRequest orderDetailRequest);
+
+    //消息中心
+    @POST("home/user/Message")
+    Flowable<RemoteDataWrapper<MessageListInfo>> getMessageListInfo(@Body MessageListRequest messageListRequest);
 
 }

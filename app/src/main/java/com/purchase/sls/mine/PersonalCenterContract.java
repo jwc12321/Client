@@ -8,33 +8,43 @@ import com.purchase.sls.BaseView;
  */
 
 public interface PersonalCenterContract {
-    interface PersonalImPresenter extends BasePresenter{
+    interface PersonalImPresenter extends BasePresenter {
         void changeHeadPortrait(String photoUrl);
+
         void changeUserInfo(String nickname, String sex, String birthday);
     }
-    interface PersonalImView extends BaseView<PersonalImPresenter>{
+
+    interface PersonalImView extends BaseView<PersonalImPresenter> {
         void changeHeadPortraitSuccess(String phoneUrl);
+
         void changeUserInfoSuccess();
     }
 
-    interface ShiftHandsetPresenter extends BasePresenter{
-        void sendOldVcode(String tel, String dostr );
+    interface ShiftHandsetPresenter extends BasePresenter {
+        void sendOldVcode(String tel, String dostr);
+
         void checkOldCode(String tel, String code, String type);
+
         void sendNewVCode(String newtel);
-        void checkNewCode(String newtel,String code);
+
+        void checkNewCode(String newtel, String code);
     }
 
-    interface ShiftHandsetView extends BaseView<ShiftHandsetPresenter>{
+    interface ShiftHandsetView extends BaseView<ShiftHandsetPresenter> {
         void oldVcodeSuccess();
+
         void checkOldCodeSuccess();
+
         void newVcodeSuccess();
+
         void checkNewCodeSuccess();
     }
 
-    interface SettingPresenter extends BasePresenter{
+    interface SettingPresenter extends BasePresenter {
         void detectionVersion(String edition, String type);
     }
-    interface SettingView extends BaseView<SettingPresenter>{
+
+    interface SettingView extends BaseView<SettingPresenter> {
         void detectionSuccess();
     }
 }
