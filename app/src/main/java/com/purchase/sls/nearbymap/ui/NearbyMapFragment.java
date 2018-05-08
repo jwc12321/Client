@@ -1,5 +1,7 @@
 package com.purchase.sls.nearbymap.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -20,10 +23,20 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.unit.ViewUtil;
+import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.nearbymap.DaggerNearbyMapComponent;
 import com.purchase.sls.nearbymap.NearbyMapContract;
@@ -31,6 +44,7 @@ import com.purchase.sls.nearbymap.NearbyMapModule;
 import com.purchase.sls.nearbymap.adapter.NearbyItemAdapter;
 import com.purchase.sls.nearbymap.adapter.NearbyMunuAdapter;
 import com.purchase.sls.nearbymap.presenter.NearbyMapPresenter;
+import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import java.util.List;
 
@@ -38,12 +52,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by JWC on 2018/4/19.
  */
 
-public class NearbyMapFragment extends BaseFragment implements NearbyMapContract.NearbyView, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener, LocationSource, AMapLocationListener {
+public class NearbyMapFragment extends BaseFragment implements NearbyMapContract.NearbyView, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener, LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter, AMap.OnInfoWindowClickListener {
 
     @BindView(R.id.map)
     MapView mapView;
@@ -71,6 +86,11 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Inject
     NearbyMapPresenter nearbyMapPresenter;
 
+    BitmapDescriptor bitmapDescriptor;
+
+    private String latitude;
+    private String longitude;
+
     public NearbyMapFragment() {
     }
 
@@ -97,7 +117,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         super.onViewCreated(view, savedInstanceState);
         initView();
         mapView.onCreate(savedInstanceState);// 此方法必须重写
-//        initMap();
+        initMap();
     }
 
     private boolean isFirstLoad = true;
@@ -107,7 +127,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         super.setUserVisibleHint(isVisibleToUser);
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
-                isFirstLoad=false;
+                isFirstLoad = false;
             }
         }
     }
@@ -136,6 +156,9 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         aMap.setLocationSource(this);// 设置定位监听
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        aMap.setOnMarkerClickListener(this);
+        aMap.setInfoWindowAdapter(this);
+        aMap.setOnInfoWindowClickListener(this);
         setupLocationStyle();
     }
 
@@ -159,16 +182,17 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Override
     public void onResume() {
         super.onResume();
-//        mapView.onResume();
+        mapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        mapView.onDestroy();
-//        if (null != mlocationClient) {
-//            mlocationClient.onDestroy();
-//        }
+        mapView.onDestroy();
+        if (null != mlocationClient) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
+        }
     }
 
     /**
@@ -177,7 +201,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        mapView.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
     @Override
@@ -201,8 +225,18 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
             nearbyLl.setVisibility(View.VISIBLE);
             nearbyMunuAdapter.setMunuList(nearbyInfoResponses);
             nearbyItemAdapter.setItemList(nearbyInfoResponses.get(0).getCateInfos());
+            if (nearbyInfoResponses.get(0).getCateInfos() != null && nearbyInfoResponses.get(0).getCateInfos().size() > 0) {
+                nearbyMapPresenter.getMapMarkerInfo(nearbyInfoResponses.get(0).getCateInfos().get(0).getId(), (longitude + "," + latitude));
+            }
         } else {
             nearbyLl.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void renderapMarkers(List<MapMarkerInfo> mapMarkerInfos) {
+        for (int i = 0; i < mapMarkerInfos.size(); i++) {
+            addCustomMarker(mapMarkerInfos.get(i));
         }
     }
 
@@ -215,6 +249,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     public void itemClickListener(NearbyInfoResponse.CateInfo cateInfo, int itemPosition) {
         nearbyItemAdapter.setPosittion(itemLastPosition, itemPosition);
         itemLastPosition = itemPosition;
+        nearbyMapPresenter.getMapMarkerInfo(cateInfo.getId(), (longitude + "," + latitude));
     }
 
     @Override
@@ -222,6 +257,9 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         nearbyMunuAdapter.setPosittion(munuLastPosition, menuPosition);
         munuLastPosition = menuPosition;
         nearbyItemAdapter.setItemList(nearbyInfoResponses.get(menuPosition).getCateInfos());
+        if (nearbyInfoResponses.get(menuPosition).getCateInfos() != null && nearbyInfoResponses.get(menuPosition).getCateInfos().size() > 0) {
+            nearbyMapPresenter.getMapMarkerInfo(nearbyInfoResponses.get(menuPosition).getCateInfos().get(0).getId(), (longitude + "," + latitude));
+        }
     }
 
 
@@ -239,6 +277,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
                     nearbyMapPresenter.getNearbyInfo(amapLocation.getCity());
                 }
                 Log.d("jjj0", "精度和纬度" + amapLocation.getLatitude() + "=====" + amapLocation.getLongitude());
+                latitude = amapLocation.getLatitude() + "";
+                longitude = amapLocation.getLongitude() + "";
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
                 aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
             } else {
@@ -262,9 +302,9 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
             mlocationClient.setLocationListener(this);
             //设置为高精度定位模式
             mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            mLocationOption.setInterval(30000);
             //设置定位参数
             mlocationClient.setLocationOption(mLocationOption);
-            mLocationOption.setInterval(60000);
             // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
             // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
             // 在定位结束后，在合适的生命周期调用onDestroy()方法
@@ -285,4 +325,98 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         }
         mlocationClient = null;
     }
+
+    String url;
+    String addressXy;
+    String[] addressXys;
+
+    /**
+     * by moos on 2018/01/12
+     * func:添加单个自定义marker
+     */
+    private void addCustomMarker(final MapMarkerInfo mapMarkerInfo) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        addressXy = mapMarkerInfo.getAddressXy();
+        addressXys = addressXy.split(",");
+        markerOptions.position(new LatLng(Double.parseDouble(addressXys[1]), Double.parseDouble(addressXys[0])));
+        markerOptions.visible(true);
+        markerOptions.title("当前位置");
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        markerOptions.icon(bitmapDescriptor);
+        Marker marker;
+        marker = aMap.addMarker(markerOptions);
+        marker.setObject(mapMarkerInfo);
+    }
+
+    /**
+     * by moos on 2018/01/12
+     * func:定制化marker的图标
+     *
+     * @return
+     */
+    private void customizeMarkerIcon(String url, final OnMarkerIconLoadListener listener) {
+        final View markerView = LayoutInflater.from(getActivity()).inflate(R.layout.marker_bg, null);
+        final CircleImageView icon = (CircleImageView) markerView.findViewById(R.id.marker_item_icon);
+        Glide.with(this)
+                .load(url + "!/format/webp")
+                .asBitmap()
+                .thumbnail(0.2f)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .centerCrop()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                        //待图片加载完毕后再设置bitmapDes
+                        icon.setImageBitmap(bitmap);
+                        bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(ViewUtil.convertViewToBitmap(markerView));
+                        listener.markerIconLoadingFinished(markerView);
+                    }
+                });
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.showInfoWindow();
+        return false;
+    }
+
+    View infoWindow;
+    View InfoContent;
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        if (infoWindow == null) {
+            infoWindow = getLayoutInflater().inflate(R.layout.map_iw, null);
+        }
+        TextView shopName = (TextView) infoWindow.findViewById(R.id.shop_name);
+        MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        shopName.setText(mapMarkerInfo.getTitle());
+        return infoWindow;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        if (InfoContent == null) {
+            InfoContent = getLayoutInflater().inflate(R.layout.map_iw, null);
+        }
+        TextView shopName = (TextView) InfoContent.findViewById(R.id.shop_name);
+        MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        shopName.setText(mapMarkerInfo.getTitle());
+        return InfoContent;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        ShopDetailActivity.start(getActivity(), mapMarkerInfo.getId());
+    }
+
+    /**
+     * by moos on 2018/01/12
+     * func:自定义监听接口,用来marker的icon加载完毕后回调添加marker属性
+     */
+    public interface OnMarkerIconLoadListener {
+        void markerIconLoadingFinished(View view);
+    }
+
 }

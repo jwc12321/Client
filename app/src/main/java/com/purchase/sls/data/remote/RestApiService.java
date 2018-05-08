@@ -14,6 +14,7 @@ import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
+import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -36,6 +37,7 @@ import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
+import com.purchase.sls.data.request.MapMarkerRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.PageRequest;
@@ -97,6 +99,10 @@ public interface RestApiService {
     //获取附近地图中的数据
     @POST("home/nearby")
     Flowable<RemoteDataWrapper<List<NearbyInfoResponse>>> getNearbyInfo(@Body NearbyInfoRequest nearbyInfoRequest);
+
+    //地图marker的list
+    @POST("home/getinfostore")
+    Flowable<RemoteDataWrapper<List<MapMarkerInfo>>> getMapMarkerInfo(@Body MapMarkerRequest mapMarkerRequest);
 
     //获取选择首页几个图片跳转页面的额数据
     @POST("home/index/appGetCate")
@@ -189,4 +195,5 @@ public interface RestApiService {
     //订单详情
     @POST("home/quan/present")
     Flowable<RemoteDataWrapper<OrderDetailInfo>> getOrderDetailInfo(@Body OrderDetailRequest orderDetailRequest);
+
 }

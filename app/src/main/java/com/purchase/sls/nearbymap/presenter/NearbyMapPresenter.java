@@ -1,9 +1,11 @@
 package com.purchase.sls.nearbymap.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.MapMarkerRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.nearbymap.NearbyMapContract;
 
@@ -58,6 +60,25 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
                 });
         mDisposableList.add(disposable);
 
+    }
+
+    @Override
+    public void getMapMarkerInfo(String cid, String addressXy) {
+        MapMarkerRequest mapMarkerRequest = new MapMarkerRequest(cid, addressXy);
+        Disposable disposable = restApiService.getMapMarkerInfo(mapMarkerRequest)
+                .flatMap(new RxRemoteDataParse<List<MapMarkerInfo>>())
+                .compose(new RxSchedulerTransformer<List<MapMarkerInfo>>())
+                .subscribe(new Consumer<List<MapMarkerInfo>>() {
+                    @Override
+                    public void accept(List<MapMarkerInfo> mapMarkerInfos) throws Exception {
+                        nearbyView.renderapMarkers(mapMarkerInfos);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                    }
+                });
+        mDisposableList.add(disposable);
     }
 
     @Override
