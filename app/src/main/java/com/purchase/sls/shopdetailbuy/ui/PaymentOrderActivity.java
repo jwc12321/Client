@@ -33,11 +33,18 @@ import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.entity.CouponInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.UserpowerInfo;
+import com.purchase.sls.data.event.PayAbortEvent;
+import com.purchase.sls.data.event.WXSuccessPayEvent;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
 import com.purchase.sls.shopdetailbuy.adapter.CouponAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.PaymentOrderPresenter;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
@@ -130,6 +137,10 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     private BigDecimal maxEnergyDecial;//最大的优惠金额
     private BigDecimal totalStCdDecimal;//输入的价格减去优惠券金额
 
+    private String payTypeWhat="1";
+    private IWXAPI api;
+    private String ordreno;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,6 +155,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         businessZpics = getIntent().getStringExtra(StaticData.BUSINESS_ZPICS);
         businessStoreId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         mHandler = new MyHandler(this);
+        paymentOrderPresenter.setContext(this);
         editListener();
         GlideHelper.load(this, businessZpics, R.mipmap.app_icon, photo);
         shopName.setText(businessName);
@@ -305,6 +317,61 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         this.finish();
     }
 
+    @Override
+    public void onRechargetFail() {
+        showMessage("支付宝支付失败");
+    }
+
+    @Override
+    public void onRechargeSuccess() {
+        PaySuccessActivity.start(this, businessName,ordreno);
+    }
+
+    @Override
+    public void onRechargeCancel() {
+        showMessage("支付宝支付取消");
+    }
+
+    @Override
+    public void onAppIdReceive(String appId) {
+        if (api == null) {
+            api = WXAPIFactory.createWXAPI(this, appId);
+            api.registerApp(appId);
+            paymentOrderPresenter.setWXAPI(api);
+        }
+    }
+
+    @Override
+    public void renderOrderno(String orderno) {
+        this.ordreno=orderno;
+    }
+
+    /*****
+     * 微信支付结果的回调
+     ******/
+
+    //取消支付，或者支付不成功
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPayNotSuccess(PayAbortEvent event) {
+        if (event.msg != null)
+            showMessage(event.msg);
+    }
+
+    //支付成功
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPaySuccess(WXSuccessPayEvent event) {
+        PaySuccessActivity.start(this, businessName, ordreno);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWxPayResult(PayAbortEvent event) {
+        if (event.code == 0) {
+            finish();
+        } else {
+            showMessage(event.msg);
+        }
+    }
+
     @OnClick({R.id.back, R.id.reel_rl, R.id.coupon_black_background, R.id.confirm_pay_bg, R.id.zhifubao_rl, R.id.weixin_rl})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -335,7 +402,13 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                 CalculateEachPayment();
                 break;
             case R.id.confirm_pay_bg:
-                paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                if(TextUtils.equals("1",payTypeWhat)){
+                    paymentOrderPresenter.getAlipaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                }else if(TextUtils.equals("2",payTypeWhat)){
+                    paymentOrderPresenter.getWXPaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                }else {
+                    paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                }
                 break;
             default:
 
@@ -366,6 +439,16 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                 payExplainStr = "能量支付" + energyDecimal.toString() + "微信支付" + zfpayDecimal.toString() + "元";
             }
             payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
+        }
+
+        if(totalPriceBigDecimal.compareTo(energyDecimal.add(couponDecimal))>0){
+            if (TextUtils.equals("1", payType)) {
+                payTypeWhat="1";
+            }else {
+                payTypeWhat="2";
+            }
+        }else if(totalPriceBigDecimal.compareTo(energyDecimal.add(couponDecimal))==0){
+            payTypeWhat="0";
         }
     }
 

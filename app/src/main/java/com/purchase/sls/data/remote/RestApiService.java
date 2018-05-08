@@ -4,6 +4,7 @@ package com.purchase.sls.data.remote;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
+import com.purchase.sls.data.entity.AliPaySignResponse;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.BrowseInfo;
@@ -23,6 +24,7 @@ import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.ToBeEvaluationInfo;
 import com.purchase.sls.data.entity.UserpowerInfo;
+import com.purchase.sls.data.entity.WXPaySignResponse;
 import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
@@ -126,9 +128,17 @@ public interface RestApiService {
     @POST("home/login/getuserpower")
     Flowable<RemoteDataWrapper<UserpowerInfo>> getUserpowerInfo(@Body UserpowerRequest userpowerRequest);
 
-    //生成订单
+    //生成订单(能量支付)
     @POST("pay/create")
     Flowable<RemoteDataWrapper<GeneratingOrderInfo>> getGeneratingOrderInfo(@Body GeneratingOrderRequest generatingOrderRequest);
+
+    //生成订单(支付宝支付)
+    @POST("pay/create")
+    Flowable<RemoteDataWrapper<AliPaySignResponse>> getAliPaySignResponse(@Body GeneratingOrderRequest generatingOrderRequest);
+
+    //生成订单(微信支付)
+    @POST("pay/create")
+    Flowable<RemoteDataWrapper<WXPaySignResponse>> getWXPaySignResponse(@Body GeneratingOrderRequest generatingOrderRequest);
 
     //账单列表
     @POST("home/bill/userbill")
@@ -165,10 +175,12 @@ public interface RestApiService {
     //发送新手机的验证码
     @POST("home/login/smsNewTel")
     Flowable<RemoteDataWrapper<Ignore>> sendNewVcode(@Body SendNewVCodeRequest sendNewVCodeRequest);
+
     //修改手机号
     @POST("home/login/changeNewTel")
     Flowable<RemoteDataWrapper<Ignore>> checkNewCode(@Body CheckNewCodeRequest checkNewCodeRequest);
     //上传头像
+
     /**
      * 修改头像
      */
@@ -183,12 +195,15 @@ public interface RestApiService {
     //获取评价列表
     @POST("home/business/getEvaluate")
     Flowable<RemoteDataWrapper<AllEvaluationInfo>> getAllEvaluation(@Body StoreIdPageRequest storeIdPageRequest);
+
     //待评价列表
     @POST("home/consume/waitevaluate")
     Flowable<RemoteDataWrapper<ToBeEvaluationInfo>> getToBeEvaluation(@Body PageRequest pageRequest);
+
     //提交评价
     @POST("home/index/evaluate")
     Flowable<RemoteDataWrapper<String>> submitEvalute(@Body SubmitEvaluateRequest submitEvaluateRequest);
+
     //上传图片(阿里云图片上传)
     @Multipart
     @POST("home/index/uploadFile")

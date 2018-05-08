@@ -24,10 +24,20 @@ public interface ShopDetailBuyContract {
     interface PaymentOrderPresenter extends BasePresenter{
         void getUserpowerInfo(String price, String storeid);
         void setGeneratingOrder(String allprice, String storeid, String coupon, String power, String paytype, String notes);
+        void getAlipaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes);
+        void getWXPaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes);
     }
     interface PaymentOrderView extends BaseView<PaymentOrderPresenter>{
         void userpowerInfo(UserpowerInfo userpowerInfo);
         void generatingOrderSuccess(GeneratingOrderInfo generatingOrderInfo);
+        //充值失败回调
+        void onRechargetFail();
+        //充值成功回调
+        void onRechargeSuccess();
+        //充值取消
+        void onRechargeCancel();
+        void onAppIdReceive(String appId);
+        void renderOrderno(String orderno);
     }
 
     interface OrderDetailPresenter extends BasePresenter{
