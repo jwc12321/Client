@@ -128,10 +128,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 SmsLoginActivity.start(this);
                 break;
             case R.id.forget_password:
-                RegisterFirstActivity.start(this, StaticData.CHANGEPWD);
+                RegisterFirstActivity.start(this, StaticData.CHANGEPWD,"");
                 break;
             case R.id.immediate_registration:
-                RegisterFirstActivity.start(this, StaticData.REGISTER);
+                RegisterFirstActivity.start(this, StaticData.REGISTER,"");
                 break;
             case R.id.back:
                 finish();

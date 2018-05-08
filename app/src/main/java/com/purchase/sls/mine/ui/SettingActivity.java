@@ -103,7 +103,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
                 ShiftHandsetActivity.start(this);
                 break;
             case R.id.item_user_password:
-                RegisterSecondActivity.start(this, StaticData.CHANGEPWD, phoneNumber);
+                RegisterSecondActivity.start(this, StaticData.CHANGEPWD, phoneNumber,"");
                 break;
             case R.id.login_out:
                 commonAppPreferences.clean();

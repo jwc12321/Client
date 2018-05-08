@@ -72,14 +72,16 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
     LinearLayout registrationAgreementLl;
 
     private String type;
+    private String storeid;
     private String phoneNumberStr;
     private String phoneCodeStr;
     @Inject
     LoginPresenter loginPresenter;
 
-    public static void start(Context context, String type) {
+    public static void start(Context context, String type,String storeid) {
         Intent intent = new Intent(context, RegisterFirstActivity.class);
         intent.putExtra(StaticData.TYPE, type);
+        intent.putExtra(StaticData.BUSINESS_STOREID,storeid);
         context.startActivity(intent);
     }
 
@@ -102,6 +104,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
 
     private void initView() {
         type = getIntent().getStringExtra(StaticData.TYPE);
+        storeid=getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         if (TextUtils.equals(StaticData.REGISTER, type)) {
             title.setText(getString(R.string.register));
             registrationAgreementLl.setVisibility(View.VISIBLE);
@@ -210,7 +213,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
 
     @Override
     public void checkCodeSuccess() {
-        RegisterSecondActivity.start(this,type,phoneNumberStr);
+        RegisterSecondActivity.start(this,type,phoneNumberStr,storeid);
     }
 
     @Override

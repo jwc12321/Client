@@ -15,11 +15,14 @@ public class RegisterPasswordRequest {
     private String address;
     @SerializedName("type")
     private String type;
+    @SerializedName("storeid")
+    private String storeid;
 
-    public RegisterPasswordRequest(String tel, String password, String address, String type) {
+    public RegisterPasswordRequest(String tel, String password, String address, String type, String storeid) {
         this.tel = tel;
         this.password = password;
         this.address = address;
         this.type = type;
+        this.storeid = storeid;
     }
 }

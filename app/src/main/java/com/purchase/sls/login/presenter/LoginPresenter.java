@@ -131,8 +131,8 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      * @param type register(注册)/changepwd(修改密码)
      */
     @Override
-    public void registerPassword(String tel, String password, String address, String type) {
-        RegisterPasswordRequest registerPasswordRequest=new RegisterPasswordRequest(tel,password,address,type);
+    public void registerPassword(String tel, String password, String address, String type,String storeid) {
+        RegisterPasswordRequest registerPasswordRequest=new RegisterPasswordRequest(tel,password,address,type,storeid);
         Disposable disposable=restApiService.registerPassword(registerPasswordRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
                 .compose(new RxSchedulerTransformer<Ignore>())

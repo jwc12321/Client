@@ -62,15 +62,17 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
 
     private String type;
     private String phoneNumber;
+    private String storeid;
     private String passwordStr;
     private String passwordAgain;
     @Inject
     LoginPresenter loginPresenter;
 
-    public static void start(Context context, String type,String phoneNumber) {
+    public static void start(Context context, String type,String phoneNumber,String storeid) {
         Intent intent = new Intent(context, RegisterSecondActivity.class);
         intent.putExtra(StaticData.PHONE_NUMBER,phoneNumber);
         intent.putExtra(StaticData.TYPE, type);
+        intent.putExtra(StaticData.BUSINESS_STOREID,storeid);
         context.startActivity(intent);
     }
 
@@ -85,6 +87,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     private void initView() {
         type = getIntent().getStringExtra(StaticData.TYPE);
         phoneNumber=getIntent().getStringExtra(StaticData.PHONE_NUMBER);
+        storeid=getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         title.setText(getString(R.string.set_passwrod));
     }
 
@@ -105,7 +108,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 break;
             case R.id.next:
                 if(TextUtils.equals(passwordStr,passwordAgain)){
-                    loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type);
+                    loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type,storeid);
                 }else {
                     showMessage("两次输入得密码不一样");
                 }
