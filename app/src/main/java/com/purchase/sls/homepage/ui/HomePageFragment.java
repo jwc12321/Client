@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -26,8 +28,10 @@ import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.location.LocationHelper;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.PermissionUtil;
+import com.purchase.sls.common.unit.StatusBarUtil;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
+import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.common.widget.LimitScrollerView;
 import com.purchase.sls.data.entity.BannerHotResponse;
@@ -54,7 +58,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener {
+public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener,GradationScrollView.ScrollViewListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
@@ -74,6 +78,10 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     LimitScrollerView limitScroll;
     @BindView(R.id.search_ll)
     LinearLayout searchLl;
+    @BindView(R.id.scrollview)
+    GradationScrollView scrollview;
+    @BindView(R.id.title_rel)
+    RelativeLayout titleRel;
 
 
     private LocationHelper mLocationHelper;
@@ -108,6 +116,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setImgTransparent(getActivity());
         View rootview = inflater.inflate(R.layout.fragment_homepage, container, false);
         ButterKnife.bind(this, rootview);
         return rootview;
@@ -121,6 +130,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     private void initView() {
+        scrollview.setScrollViewListener(this);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         mapLocal();
         bannerInitialization();
@@ -275,7 +285,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         }
     }
 
-    @OnClick({R.id.choice_city, R.id.scan,R.id.search_ll})
+    @OnClick({R.id.choice_city, R.id.scan, R.id.search_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choice_city:
@@ -362,12 +372,26 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
-        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(),"");
+        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
         ShopDetailActivity.start(getActivity(), storeid);
+    }
+
+    @Override
+    public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
+        // TODO Auto-generated method stub
+        if (y <= 0) {   //设置标题的背景颜色
+            titleRel.setBackgroundColor(Color.argb((int) 0, 144,151,166));
+        } else if (y > 0 && y <= 200) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
+            float scale = (float) y / 200;
+            float alpha = (255 * scale);
+            titleRel.setBackgroundColor(Color.argb((int) alpha, 255,101,40));
+        } else {    //滑动到banner下面设置普通颜色
+            titleRel.setBackgroundColor(Color.argb((int) 255, 255,101,40));
+        }
     }
 
     //TODO 修改适配器绑定数据
