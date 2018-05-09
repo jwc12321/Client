@@ -10,7 +10,25 @@
     <dimen name="margin_small">7dp</dimen>
 
     <dimen name="bottom_select_height">50dp</dimen>
+    <dimen name="common_eight_margin">8dp</dimen>
+    <dimen name="common_seven_margin">7dp</dimen>
     <dimen name="common_text_left">11dp</dimen>
+    <dimen name="common_text_left_second">12dp</dimen>
+    <dimen name="common_ten_margin">10dp</dimen>
+    <dimen name="common_eleven_margin">11dp</dimen>
+    <dimen name="common_twelve_margin">12dp</dimen>
+    <dimen name="common_thirteen_margin">13dp</dimen>
+    <dimen name="common_fourteen_margin">14dp</dimen>
+    <dimen name="common_seventeen_margin">17dp</dimen>
+    <dimen name="common_nineteen_margin">19dp</dimen>
+    <dimen name="common_twenty_one_margin">21dp</dimen>
+    <dimen name="common_twenty_four_margin">24dp</dimen>
+    <dimen name="common_thirty_margin">30dp</dimen>
+    <dimen name="common_forty_three_margin">43dp</dimen>
+    <dimen name="common_forty_four_margin">44dp</dimen>
+    <dimen name="common_fifty_margin">50dp</dimen>
+    <dimen name="common_seventy_two_margin">72dp</dimen>
+    <dimen name="common_ninety_nine_margin">99dp</dimen>
 
     <!--刷新控件参数-->
     <dimen name="refresh_view_height">300dp</dimen>
@@ -23,7 +41,8 @@
     <!--首页-->
     <dimen name="space_bootom">16dp</dimen>
     <dimen name="like_adapter_marginTop">12dp</dimen>
-    <dimen name="like_adapter_icon">106dp</dimen>
+    <dimen name="like_adapter_icon">96dp</dimen>
+    <dimen name="like_adapter_icon_margin_top">13dp</dimen>
 
     <!--我的-->
     <dimen name="personal_photo_size">70dp</dimen>

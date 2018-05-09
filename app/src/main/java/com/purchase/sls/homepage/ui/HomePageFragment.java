@@ -97,6 +97,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private static final int REFRESS_LOCATION_CODE = 3;
     private static final int REQUEST_CODE_CAMERA = 4;
 
+    String longitude;
+    String latitude;
+
     @Inject
     HomePagePresenter homePagePresenter;
 
@@ -132,11 +135,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private void initView() {
         scrollview.setScrollViewListener(this);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
-        mapLocal();
         bannerInitialization();
         hotService();
         scrollerUpDown();
         likeStore();
+        mapLocal();
         homePagePresenter.getLikeStore();
     }
 
@@ -170,8 +173,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
             @Override
             public void onLocated(AMapLocation aMapLocation) {
                 city = aMapLocation.getCity();
+                longitude=aMapLocation.getLongitude()+"";
+                latitude=aMapLocation.getLatitude()+"";
                 homePagePresenter.getBannerHotInfo(city);
-                Log.d("1111", "城市" + city);
+                Log.d("1111", "城市" + city+"经纬度"+longitude+","+latitude);
+                likeStoreAdapter.setCity(city,longitude,latitude);
             }
         });
 
@@ -372,7 +378,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
-        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
+        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "",longitude,latitude);
     }
 
     @Override
@@ -385,8 +391,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         // TODO Auto-generated method stub
         if (y <= 0) {   //设置标题的背景颜色
             titleRel.setBackgroundColor(Color.argb((int) 0, 144,151,166));
-        } else if (y > 0 && y <= 200) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
-            float scale = (float) y / 200;
+        } else if (y > 0 && y <= 180) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
+            float scale = (float) y / 180;
             float alpha = (255 * scale);
             titleRel.setBackgroundColor(Color.argb((int) alpha, 255,101,40));
         } else {    //滑动到banner下面设置普通颜色

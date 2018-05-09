@@ -61,7 +61,7 @@ public class SearchShopActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (!TextUtils.isEmpty(searchEt.getText().toString()))
-                        ScreeningListActivity.start(SearchShopActivity.this, "", "", searchEt.getText().toString(), "", searchEt.getText().toString());
+                        ScreeningListActivity.start(SearchShopActivity.this, "", "", searchEt.getText().toString(), "", searchEt.getText().toString(),"","");
                     return true;
                 }
                 return false;

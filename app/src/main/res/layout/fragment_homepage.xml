@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:openxu="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.purchase.sls.common.refreshview.HeaderViewLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -20,13 +21,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/backGround1"
+                android:background="@color/appText1"
                 android:orientation="vertical">
 
                 <com.purchase.sls.common.widget.Banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     app:indicator_drawable_selected="@drawable/selected_radius"
                     app:indicator_drawable_unselected="@drawable/unselected_radius" />
 
@@ -36,48 +37,66 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
                     android:nestedScrollingEnabled="false"
-                    android:padding="25dp"
+                    android:padding="@dimen/common_margin_left_right"
                     app:layoutManager="@string/layoutManager_Gridlayout" />
+
+                <View style="@style/fengexian_style" />
+
                 <com.purchase.sls.common.widget.LimitScrollerView
                     android:id="@+id/limitScroll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    openxu:limit="1"
+                    android:layout_margin="@dimen/common_text_left"
                     openxu:durationTime="1200"
-                    openxu:periodTime="2000"
-                    android:layout_marginLeft="@dimen/common_text_left"
-                    android:layout_marginRight="@dimen/common_text_left"/>
+                    openxu:limit="1"
+                    openxu:periodTime="2000" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/backGround1" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="猜你喜欢" />
+                    android:layout_marginTop="@dimen/common_margin_left_right"
+                    android:text="猜你喜欢"
+                    android:textColor="@color/appText5"
+                    android:textSize="13sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/like_store_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
                     app:layoutManager="@string/layoutManager_LinearLayout" />
             </LinearLayout>
         </com.purchase.sls.common.widget.GradationScrollView>
     </com.purchase.sls.common.refreshview.HeaderViewLayout>
+
     <RelativeLayout
         android:id="@+id/title_rel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:textColor="@color/backGround3"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:textColor="@color/backGround3">
 
         <TextView
             android:id="@+id/choice_city"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
+            android:drawableEnd="@mipmap/down"
+            android:drawablePadding="4dp"
+            android:drawableRight="@mipmap/down"
             android:gravity="center"
-            android:paddingLeft="@dimen/common_text_left"
+            android:paddingLeft="@dimen/common_margin_left_right"
             android:paddingRight="@dimen/common_text_left"
             android:text="杭州"
             android:textColor="@color/appText1" />

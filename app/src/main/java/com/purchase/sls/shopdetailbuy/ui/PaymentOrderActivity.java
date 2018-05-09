@@ -82,8 +82,6 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     ImageView goIv;
     @BindView(R.id.reel_number)
     TextView reelNumber;
-    @BindView(R.id.reel_iv)
-    ImageView reelIv;
     @BindView(R.id.reel_rl)
     RelativeLayout reelRl;
     @BindView(R.id.energy_icon)
@@ -301,7 +299,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     public void userpowerInfo(UserpowerInfo userpowerInfo) {
         this.userpowerInfo = userpowerInfo;
         energyStr = userpowerInfo.getPersionInfoResponse().getPower();
-        addEnergyEt.setHint("请输入金额（可用" + energyStr + "能量，抵用现金" + energyStr + "元");
+        addEnergyEt.setHint("请输入金额(可用" + energyStr + "能量，抵用现金" + energyStr + "元)");
         couponInfos = userpowerInfo.getCouponInfos();
         if (couponInfos != null && couponInfos.size() > 0) {
             reelRl.setEnabled(true);

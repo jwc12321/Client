@@ -5,32 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/title_rel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/appText1"
-        android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/back"
-            style="@style/title_left_back_style" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/title_text_style" />
-
-        <ImageView
-            android:id="@+id/collection"
-            style="@style/title_right_back_style"
-            android:src="@drawable/collection_icon" />
-    </RelativeLayout>
-
-    <com.purchase.sls.common.widget.ReboundScrollView
-        android:id="@+id/scroll_content"
+    <com.purchase.sls.common.widget.GradationScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_rel"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -50,20 +29,21 @@
                 <com.purchase.sls.common.widget.Banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     app:indicator_drawable_selected="@drawable/selected_radius"
                     app:indicator_drawable_unselected="@drawable/unselected_radius" />
 
                 <RelativeLayout
                     android:id="@+id/shop_info_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="67dp">
 
                     <LinearLayout
                         android:id="@+id/popularity_ll"
                         android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/common_margin_left_right"
                         android:background="@color/appText3"
                         android:gravity="center"
@@ -72,13 +52,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
                             android:text="月均人气"
                             android:textColor="@color/appText1"
-                            android:textSize="9sp" />
+                            android:textSize="10sp" />
 
                         <View
                             android:layout_width="30dp"
                             android:layout_height="1dp"
+                            android:layout_marginTop="6dp"
                             android:background="@color/appText1" />
 
                         <TextView
@@ -86,12 +68,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/appText1"
-                            android:textSize="9sp" />
+                            android:textSize="24sp"
+                            tools:text="60" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toLeftOf="@id/popularity_ll"
                         android:orientation="vertical">
 
@@ -99,15 +83,22 @@
                             android:id="@+id/shop_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/common_eleven_margin"
                             android:textColor="@color/appText4"
-                            android:textSize="15sp" />
+                            android:textSize="20sp"
+                            tools:text="闪点" />
 
                         <TextView
                             android:id="@+id/shop_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/backGround2"
-                            android:textSize="11sp" />
+                            android:layout_marginLeft="@dimen/common_eleven_margin"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/appText6"
+                            android:textSize="12sp"
+                            tools:text="哈哈" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -116,32 +107,28 @@
                 <RelativeLayout
                     android:id="@+id/back_energy_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp">
+                    android:layout_height="@dimen/common_forty_three_margin">
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/back_energy_tt"
-                        android:layout_width="50dp"
-                        android:layout_height="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/common_margin_left_right"
-                        android:background="@color/appText3"
-                        android:gravity="center"
-                        android:text="@string/back_energy"
-                        android:textColor="@color/appText1"
-                        android:textSize="9dp" />
+                        android:layout_marginLeft="@dimen/common_eleven_margin"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/return_energy" />
 
                     <TextView
                         android:id="@+id/back_energy_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/common_eight_margin"
                         android:layout_toRightOf="@id/back_energy_tt"
                         android:textColor="@color/appText4"
-                        android:textSize="9dp" />
+                        android:textSize="13dp" />
 
-                    <ImageView
-                        style="@style/go_arrow" />
+                    <ImageView style="@style/go_arrow" />
                 </RelativeLayout>
 
                 <View style="@style/fengexian_style" />
@@ -149,7 +136,7 @@
                 <RelativeLayout
                     android:id="@+id/local_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="@dimen/common_forty_three_margin">
 
                     <RelativeLayout
                         android:id="@+id/address_rl"
@@ -159,10 +146,10 @@
 
                         <ImageView
                             android:id="@+id/local_iv"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
+                            android:layout_width="@dimen/common_eleven_margin"
+                            android:layout_height="@dimen/common_fourteen_margin"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/common_margin_left_right"
+                            android:layout_marginLeft="@dimen/common_eleven_margin"
                             android:src="@mipmap/nearby_no_select" />
 
                         <TextView
@@ -170,12 +157,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/common_text_left"
+                            android:layout_marginLeft="@dimen/common_fourteen_margin"
                             android:layout_marginRight="@dimen/common_text_left"
                             android:layout_toRightOf="@id/local_iv"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="@color/backGround2" />
+                            android:textColor="@color/appText6"
+                            android:textSize="12sp" />
                     </RelativeLayout>
 
 
@@ -184,7 +172,7 @@
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/common_margin_left_right"
+                        android:layout_marginRight="@dimen/common_eleven_margin"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -220,15 +208,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/evaluate_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/common_text_left"
-                    android:layout_marginLeft="@dimen/common_margin_left_right"
+                    android:layout_marginLeft="@dimen/common_eleven_margin"
                     android:layout_marginTop="@dimen/common_text_left"
-                    android:text="网友评论"
-                    android:textSize="12dp" />
-
-                <View style="@style/fengexian_style" />
+                    android:textColor="@color/appText4"
+                    android:textSize="14dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/evaluate_rv"
@@ -248,7 +235,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="查看全部评论"
-                        android:textColor="@color/appText3" />
+                        android:textColor="@color/appText3"
+                        android:layout_marginLeft="@dimen/common_eleven_margin"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -272,13 +260,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/common_text_left"
-                    android:layout_marginLeft="@dimen/common_margin_left_right"
-                    android:layout_marginTop="@dimen/common_text_left"
+                    android:layout_marginLeft="@dimen/common_eleven_margin"
+                    android:layout_marginTop="@dimen/common_fourteen_margin"
                     android:text="@string/more_shop"
-                    android:textSize="12dp" />
-
-                <View style="@style/fengexian_style" />
+                    android:textColor="@color/appText4"
+                    android:textSize="15dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/more_shop_rv"
@@ -289,15 +275,37 @@
                     app:layoutManager="@string/layoutManager_LinearLayout" />
             </LinearLayout>
         </LinearLayout>
-    </com.purchase.sls.common.widget.ReboundScrollView>
+    </com.purchase.sls.common.widget.GradationScrollView>
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/backGround3"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style" />
+
+        <ImageView
+            android:id="@+id/collection"
+            style="@style/title_right_back_style"
+            android:src="@drawable/collection_icon" />
+    </RelativeLayout>
+
     <Button
         android:id="@+id/check_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/login_button_background"
-        android:text="买单"
-        android:textColor="@color/appText1"
         android:enabled="true"
-        android:layout_alignParentBottom="true"/>
+        android:text="买单"
+        android:textColor="@color/appText1" />
 </RelativeLayout>

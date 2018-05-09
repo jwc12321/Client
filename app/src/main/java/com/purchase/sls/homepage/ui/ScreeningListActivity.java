@@ -22,7 +22,6 @@ import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.ComprehensiveInfo;
-import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.MealsNumberInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
@@ -116,6 +115,8 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     private String businessSum;
     private String businessScreen;
     private String storename;
+    private String longitude;
+    private String latitude;
 
     private String allCid;
     private String allName;
@@ -140,13 +141,15 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     @Inject
     ScreeningListPresenter screeningListPresenter;
 
-    public static void start(Context context, String city, String cid, String name, String sum,String storename) {
+    public static void start(Context context, String city, String cid, String name, String sum,String storename,String longitude,String latitude) {
         Intent intent = new Intent(context, ScreeningListActivity.class);
         intent.putExtra(StaticData.CHOICE_CITY, city);
         intent.putExtra(StaticData.BUSINESS_CID, cid);
         intent.putExtra(StaticData.BUSINESS_NAME, name);
         intent.putExtra(StaticData.BUSINESS_SUM, sum);
         intent.putExtra(StaticData.STORE_NAME,storename);
+        intent.putExtra(StaticData.LONGITUDE,longitude);
+        intent.putExtra(StaticData.LATITUDE,latitude);
         context.startActivity(intent);
     }
 
@@ -167,6 +170,8 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         allName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         allSum = getIntent().getStringExtra(StaticData.BUSINESS_SUM);
         storename=getIntent().getStringExtra(StaticData.STORE_NAME);
+        longitude=getIntent().getStringExtra(StaticData.LONGITUDE);
+        latitude=getIntent().getStringExtra(StaticData.LATITUDE);
         bussinessCid = allCid;
         bussinessName = allName;
         businessSum = allSum;
@@ -181,7 +186,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     }
 
     private void likeStore() {
-        likeStoreAdapter = new LikeStoreAdapter(this);
+        likeStoreAdapter = new LikeStoreAdapter(this,city,longitude,latitude);
         likeStoreAdapter.setOnLikeStoreClickListener(this);
         choiceShopRv.setAdapter(likeStoreAdapter);
     }

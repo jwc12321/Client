@@ -33,6 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/appText1"
             android:orientation="vertical">
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -41,73 +42,110 @@
                 android:layout_width="@dimen/personal_photo_size"
                 android:layout_height="@dimen/personal_photo_size"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/photo_bottom"
-                android:layout_marginTop="@dimen/photo_top"
+                android:layout_marginTop="27dp"
                 app:riv_oval="true"
                 tools:background="@null"
                 tools:src="@mipmap/ic_launcher" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:layout_marginLeft="@dimen/common_fourteen_margin"
+                android:layout_marginRight="@dimen/common_fourteen_margin"
+                android:layout_marginTop="@dimen/common_thirteen_margin">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="转账给" />
+                    android:layout_marginRight="@dimen/common_eight_margin"
+                    android:layout_toLeftOf="@id/merchant_tv"
+                    android:text="转账给"
+                    android:textColor="@color/appText5"
+                    android:textSize="20sp" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/app_icon" />
+                <TextView
+                    android:id="@+id/merchant_tv"
+                    android:layout_width="75dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/common_text_bg"
+                    android:gravity="center"
+                    android:text="商家账户"
+                    android:textColor="@color/appText3"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/shop_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_eight_margin"
+                    android:layout_toRightOf="@id/merchant_tv"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/appText5"
+                    android:textSize="20sp"
+                    tools:text="闪点" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="转账金额" />
+                android:layout_marginLeft="@dimen/common_fourteen_margin"
+                android:layout_marginTop="@dimen/common_forty_four_margin"
+                android:text="转账金额"
+                android:textColor="@color/appText5"
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="26dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_fourteen_margin"
                     android:text="¥"
-                    android:textSize="20sp" />
+                    android:textColor="@color/appText5"
+                    android:textSize="35sp" />
 
                 <EditText
                     android:id="@+id/money_et"
-                    style="@style/phone_number_et_style"
-                    android:layout_height="50dp" />
+                    style="@style/pay_number_et_style"
+                    android:layout_height="50dp"
+                    android:textColor="@color/appText12" />
             </LinearLayout>
 
-            <View style="@style/fengexian_style" />
+            <View
+                style="@style/fengexian_style"
+                android:layout_marginTop="@dimen/common_seven_margin" />
 
             <EditText
                 android:id="@+id/add_notes_et"
                 style="@style/text_et_style"
+                android:layout_marginTop="@dimen/common_eight_margin"
                 android:hint="@string/add_note" />
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/appText3" />
+                android:layout_height="17dp"
+                android:layout_marginTop="@dimen/common_thirteen_margin"
+                android:background="@color/backGround1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@mipmap/lace_icon" />
+            </LinearLayout>
+
 
             <RelativeLayout
                 android:id="@+id/reel_rl"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
+                android:layout_height="@dimen/common_fifty_margin"
                 android:background="@color/appText1">
 
                 <ImageView
@@ -116,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/common_text_left"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
                     android:src="@mipmap/arrow_indicator" />
 
                 <TextView
@@ -124,51 +162,79 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_eleven_margin"
                     android:layout_toLeftOf="@id/go_iv"
+                    android:textColor="@color/appText5"
                     android:textSize="15sp" />
 
-                <ImageView
-                    android:id="@+id/reel_iv"
+                <TextView
+                    android:id="@+id/shop_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/app_icon" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_nineteen_margin"
+                    android:background="@mipmap/shop_name"
+                    android:text="店铺"
+                    android:textColor="@color/appText3"
+                    android:textSize="9dp" />
+
+                <TextView
+                    android:id="@+id/shop_coupon_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/shop_name_tv"
+                    android:background="@mipmap/shop_coupon"
+                    android:text="@string/coupon"
+                    android:textColor="@color/appText3"
+                    android:textSize="9dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/reel_iv"
-                    android:text="@string/store_cash_reel" />
+                    android:layout_marginLeft="@dimen/common_eight_margin"
+                    android:layout_toRightOf="@id/shop_coupon_tv"
+                    android:text="@string/store_cash_reel"
+                    android:textColor="@color/appText5"
+                    android:textSize="11sp" />
             </RelativeLayout>
 
             <View style="@style/fengexian_style" />
 
             <RelativeLayout
                 android:id="@+id/item_energy"
-                style="@style/persion_item_fl_style">
+                style="@style/pay_item_fl_style">
 
                 <ImageView
                     android:id="@+id/energy_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
                     android:src="@mipmap/energy" />
 
                 <EditText
                     android:id="@+id/add_energy_et"
-                    style="@style/phone_number_et_style"
-                    android:layout_toRightOf="@id/energy_icon" />
+                    style="@style/energy_number_et_style"
+                    android:layout_toRightOf="@id/energy_icon"
+                    android:textColor="@color/appText12" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_ten_margin"
+                android:background="@color/backGround1" />
 
             <RelativeLayout
                 android:id="@+id/zhifubao_rl"
-                style="@style/persion_item_fl_style"
+                style="@style/pay_item_fl_style"
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/energy"
-                    android:drawableStart="@mipmap/energy"
+                    style="@style/pay_item_text_style"
+                    android:drawableLeft="@mipmap/zhifubao_icon"
+                    android:drawableStart="@mipmap/zhifubao_icon"
                     android:text="支付宝" />
 
                 <ImageView
@@ -183,15 +249,19 @@
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
 
+            <View style="@style/fengexian_style"
+                android:layout_marginLeft="@dimen/common_seventeen_margin"/>
+
             <RelativeLayout
                 android:id="@+id/weixin_rl"
-                style="@style/persion_item_fl_style">
+                style="@style/pay_item_fl_style"
+                android:layout_marginBottom="@dimen/common_ninety_nine_margin">
 
 
                 <TextView
-                    style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/energy"
-                    android:drawableStart="@mipmap/energy"
+                    style="@style/pay_item_text_style"
+                    android:drawableLeft="@mipmap/weixin_icon"
+                    android:drawableStart="@mipmap/weixin_icon"
                     android:text="微信" />
 
                 <ImageView
@@ -205,14 +275,15 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/pay_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
+
+    <TextView
+        android:id="@+id/pay_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/confirm_pay_bg"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/confirm_pay_bg"
@@ -220,6 +291,7 @@
         android:layout_height="@dimen/title_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/common_thirteen_margin"
         android:background="@drawable/login_button_background"
         android:enabled="false"
         android:text="@string/confirm_payment"
@@ -231,21 +303,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone">
+
         <TextView
             android:id="@+id/coupon_text"
-            android:layout_above="@id/coupon_rv_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/coupon"
+            android:layout_above="@id/coupon_rv_ll"
             android:layout_centerHorizontal="true"
             android:background="@color/appText1"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:text="@string/coupon" />
+
         <LinearLayout
             android:id="@+id/coupon_rv_ll"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/coupon_rv"
                 android:layout_width="match_parent"
@@ -255,10 +330,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_above="@id/coupon_text"
             android:id="@+id/coupon_black_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/coupon_text"
             android:background="@color/appText4"
             android:orientation="horizontal" />
     </RelativeLayout>

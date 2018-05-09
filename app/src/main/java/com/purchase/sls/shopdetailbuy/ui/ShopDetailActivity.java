@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,17 +23,17 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
-import com.purchase.sls.common.widget.ReboundScrollView;
+import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.dialog.CallDialogFragment;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.StoreInfo;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
+import com.purchase.sls.evaluate.adapter.AllEvaluateAdapter;
 import com.purchase.sls.evaluate.ui.AllEvaluationActivity;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
-import com.purchase.sls.shopdetailbuy.adapter.EvaluateAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.ShopDetailPresenter;
 import com.purchase.sls.webview.ui.WebViewActivity;
 
@@ -47,7 +48,7 @@ import butterknife.OnClick;
  * 商品详情页面
  */
 
-public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener {
+public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener {
 
     @BindView(R.id.banner)
     Banner banner;
@@ -61,8 +62,6 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     TextView shopDescription;
     @BindView(R.id.shop_info_rl)
     RelativeLayout shopInfoRl;
-    @BindView(R.id.back_energy_tt)
-    TextView backEnergyTt;
     @BindView(R.id.back_energy_number)
     TextView backEnergyNumber;
     @BindView(R.id.back_energy_rl)
@@ -89,8 +88,6 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     RecyclerView moreShopRv;
     @BindView(R.id.more_shop_ll)
     LinearLayout moreShopLl;
-    @BindView(R.id.scroll_content)
-    ReboundScrollView scrollContent;
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -103,13 +100,19 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     RelativeLayout addressRl;
     @BindView(R.id.check_bg)
     Button checkBg;
+    @BindView(R.id.scrollview)
+    GradationScrollView scrollview;
+    @BindView(R.id.back_energy_tt)
+    ImageView backEnergyTt;
+    @BindView(R.id.evaluate_number)
+    TextView evaluateNumber;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
 
     private StoreInfo storeInfo;
     private LikeStoreAdapter likeStoreAdapter;
-    private EvaluateAdapter evaluateAdapter;
+    private AllEvaluateAdapter allEvaluateAdapter;
     private int collectionType = 0;
     private String phoneNumber;
     private WebViewDetailInfo webViewDetailInfo;
@@ -134,6 +137,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     private void initView() {
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
+        scrollview.setScrollViewListener(this);
         bannerInitialization();
         evaluateAdapter();
         moreStore();
@@ -143,13 +147,13 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("111","数据是onStart");
+        Log.d("111", "数据是onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("111","数据是onResume");
+        Log.d("111", "数据是onResume");
     }
 
     //初始化banner
@@ -177,8 +181,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void evaluateAdapter() {
-        evaluateAdapter = new EvaluateAdapter(this);
-        evaluateRv.setAdapter(evaluateAdapter);
+        allEvaluateAdapter = new AllEvaluateAdapter(this);
+        evaluateRv.setAdapter(allEvaluateAdapter);
     }
 
 
@@ -212,7 +216,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 shopDescription.setText(storeInfo.getDescription());
                 popularityNumber.setText(storeInfo.getBuzz());
                 address.setText(storeInfo.getAddress());
-                backEnergyNumber.setText(storeInfo.getRebate());
+                if (!TextUtils.isEmpty(storeInfo.getRebate())&&!TextUtils.equals("0",storeInfo.getRebate())) {
+                    backEnergyNumber.setText("每消费一单返消费金额的"+storeInfo.getRebate()+"%的能量");
+                }
                 addressXY = storeInfo.getAddressXy();
                 if (TextUtils.equals("1", storeInfo.getFavo())) {
                     collection.setSelected(true);
@@ -223,8 +229,13 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
             }
             if (shopDetailsInfo.getEvaluateResult() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo() != null
-                    && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null) {
-                evaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
+                    && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null&&shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size()>0) {
+                evaluateNumber.setText("网友评论("+shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size()+")");
+                allEvaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
+                lookAllCommentRl.setVisibility(View.VISIBLE);
+            }else {
+                evaluateNumber.setText("网友评论(0)");
+                lookAllCommentRl.setVisibility(View.GONE);
             }
             if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos() != null) {
                 likeStoreAdapter.setLikeInfos(shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos());
@@ -243,7 +254,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         ShopDetailActivity.start(this, storeid);
     }
 
-    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl,R.id.check_bg,R.id.look_all_comment_rl})
+    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl, R.id.check_bg, R.id.look_all_comment_rl})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -284,12 +295,12 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 }
                 break;
             case R.id.check_bg:
-                if(storeInfo!=null){
-                    PaymentOrderActivity.start(this,storeInfo.getTitle(),storeInfo.getzPics(),storeid);
+                if (storeInfo != null) {
+                    PaymentOrderActivity.start(this, storeInfo.getTitle(), storeInfo.getzPics(), storeid);
                 }
                 break;
             case R.id.look_all_comment_rl://查看全部评论
-                AllEvaluationActivity.start(this,storeid);
+                AllEvaluationActivity.start(this, storeid);
                 break;
             default:
         }
@@ -323,6 +334,20 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 }
                 dial(mCallingPhone, mTitle);
                 break;
+        }
+    }
+
+    @Override
+    public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
+        // TODO Auto-generated method stub
+        if (y <= 0) {   //设置标题的背景颜色
+            titleRel.setBackgroundColor(Color.argb((int) 0, 144, 151, 166));
+        } else if (y > 0 && y <= 180) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
+            float scale = (float) y / 180;
+            float alpha = (255 * scale);
+            titleRel.setBackgroundColor(Color.argb((int) alpha, 255, 101, 40));
+        } else {    //滑动到banner下面设置普通颜色
+            titleRel.setBackgroundColor(Color.argb((int) 255, 255, 101, 40));
         }
     }
 }

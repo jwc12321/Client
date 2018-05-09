@@ -9,27 +9,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp">
+        android:layout_height="@dimen/common_fifty_margin"
+        android:layout_marginTop="@dimen/common_eleven_margin">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/people_icon"
             style="@style/PhotoStyle"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/common_fifty_margin"
+            android:layout_height="@dimen/common_fifty_margin"
             android:layout_centerVertical="true"
             app:riv_oval="true"
             tools:background="@null"
             tools:src="@mipmap/ic_launcher"
-            android:layout_marginLeft="@dimen/common_text_left"/>
+            android:layout_marginLeft="@dimen/common_eleven_margin"/>
 
         <TextView
             android:id="@+id/people_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/people_icon"
-            android:layout_marginLeft="@dimen/common_text_left"
-            android:layout_marginTop="@dimen/common_margin_left_right"/>
+            android:layout_marginLeft="@dimen/common_eleven_margin"
+            android:layout_marginTop="@dimen/common_eleven_margin"
+            android:textColor="@color/appText4"
+            android:textSize="14sp"/>
 
         <com.purchase.sls.common.widget.MyRatingBar
             android:id="@+id/rating_bar"
@@ -55,14 +57,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/common_text_left"/>
+            android:layout_marginRight="@dimen/common_text_left"
+            android:textSize="12sp"
+            android:textColor="@color/appText6"
+            android:layout_marginTop="@dimen/common_thirteen_margin"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/evaluate_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginLeft="@dimen/common_seventy_two_margin"
         android:layout_marginRight="@dimen/common_text_left"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/photo_recycler_view"
@@ -71,5 +75,6 @@
         android:background="@color/appText1"
         android:orientation="horizontal"
         android:visibility="gone"
-        app:layoutManager="@string/layoutManager_LinearLayout" />
+        app:layoutManager="@string/layoutManager_LinearLayout"
+        android:layout_marginLeft="@dimen/common_seventy_two_margin" />
 </LinearLayout>

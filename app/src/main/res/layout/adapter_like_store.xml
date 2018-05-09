@@ -1,86 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/likestore_ll">
+    android:layout_height="122dp"
+    android:id="@+id/likestore_rl">
 
     <ImageView
         android:id="@+id/shop_icon"
         android:layout_width="@dimen/like_adapter_icon"
         android:layout_height="@dimen/like_adapter_icon"
-        android:layout_marginBottom="@dimen/common_margin_left_right"
+        android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
         android:layout_marginLeft="@dimen/common_text_left"
-        android:layout_marginTop="@dimen/common_margin_left_right"
-        android:scaleType="fitXY" />
+        android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
+        android:scaleType="fitXY"
+        tools:src="@mipmap/ic_launcher"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/common_text_left"
-        android:orientation="vertical">
+        android:layout_marginLeft="@dimen/common_text_left_second"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/shop_icon">
 
         <TextView
             android:id="@+id/store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
             android:textColor="@color/appText4"
-            android:textSize="12sp" />
+            android:textSize="15sp"
+            tools:text="1111"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/like_adapter_marginTop">
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/popularity_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/appText3"
-                android:textSize="12sp" />
+                android:textSize="13sp"
+                android:layout_gravity="center_vertical"
+                tools:text="1111"/>
+            <ImageView
+                android:layout_width="11dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/fire"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/appText6"
+                android:id="@+id/per_capita"
+                android:layout_marginLeft="9dp"
+                android:layout_gravity="center_vertical"
+                tools:text="1111"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/like_adapter_marginTop"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/shop_name"
-                style="@style/like_adapter_text_style" />
+                style="@style/like_adapter_text_style"
+                tools:text="1111"/>
 
             <TextView
                 android:id="@+id/shop_city"
-                style="@style/like_adapter_text_style" />
+                style="@style/like_adapter_text_style"
+                android:layout_marginLeft="7dp"/>
 
             <TextView
                 android:id="@+id/shop_distance"
-                style="@style/like_adapter_text_style" />
+                style="@style/like_adapter_text_style"
+                android:layout_marginLeft="7dp"/>
 
-            <TextView
-                android:id="@+id/shop_consumption"
-                style="@style/like_adapter_text_style" />
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/return_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/common_text_left"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
             <ImageView
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/return_energy" />
 
             <TextView
                 android:id="@+id/return_energy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/appText4"
-                android:textSize="12sp" />
+                android:textColor="@color/appText7"
+                android:textSize="12sp"
+                android:layout_marginLeft="9dp"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <View
+        style="@style/fengexian_style"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>
