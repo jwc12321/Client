@@ -139,8 +139,8 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
                 }
                 shopDistance.setVisibility(View.VISIBLE);
             }
-            if (TextUtils.equals("0", collectionStoreInfo.getRebate())) {
-                returnLl.setVisibility(View.VISIBLE);
+            if (TextUtils.isEmpty(collectionStoreInfo.getRebate())||TextUtils.equals("0", collectionStoreInfo.getRebate())) {
+                returnLl.setVisibility(View.GONE);
             }else {
                 returnEnergy.setText("每消费一单返消费金额的"+collectionStoreInfo.getRebate()+"%的能量");
                 returnLl.setVisibility(View.VISIBLE);

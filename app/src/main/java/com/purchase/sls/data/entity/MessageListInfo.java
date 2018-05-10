@@ -41,6 +41,8 @@ public class MessageListInfo {
         private String number;
         @SerializedName("title")
         private String title;
+        @SerializedName("messageid")
+        private String messageId;
 
         public String getId() {
             return id;
@@ -80,6 +82,14 @@ public class MessageListInfo {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getMessageId() {
+            return messageId;
+        }
+
+        public void setMessageId(String messageId) {
+            this.messageId = messageId;
         }
     }
 }

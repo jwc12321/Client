@@ -1,30 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:id="@+id/choice_item">
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/appText3"/>
-    <TextView
-        android:id="@+id/least_cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/price" />
-    <TextView
-        android:id="@+id/validday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/price"/>
-    <TextView
-        android:id="@+id/can_use_tt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@drawable/bottom_text_select"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/choice_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_ninety_margin"
+        android:layout_marginTop="@dimen/common_six_margin"
+        android:background="@mipmap/coupon_bg">
+
+        <TextView
+            android:id="@+id/rmb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_seventeen_margin"
+            android:layout_marginTop="@dimen/common_twenty_four_margin"
+            android:text="¥"
+            android:textColor="@color/appText11"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_two_margin"
+            android:layout_marginTop="@dimen/common_eleven_margin"
+            android:layout_toRightOf="@id/rmb"
+            android:textColor="@color/appText11"
+            android:textSize="29sp"
+            tools:text="56" />
+
+        <TextView
+            android:id="@+id/least_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_six_margin"
+            android:layout_marginTop="@dimen/common_twenty_four_margin"
+            android:layout_toRightOf="@id/price"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="满减" />
+
+        <TextView
+            android:id="@+id/validday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/price"
+            android:layout_marginLeft="@dimen/common_seventeen_margin"
+            android:textColor="@color/appText6"
+            android:textSize="12sp"
+            tools:text="领取今天后" />
+
+        <TextView
+            android:id="@+id/can_use_tt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_twenty_four_margin"
+            android:textColor="@drawable/bottom_text_select"
+            android:textSize="14sp"
+            tools:text="立即领取" />
+    </RelativeLayout>
+
+
+</LinearLayout>

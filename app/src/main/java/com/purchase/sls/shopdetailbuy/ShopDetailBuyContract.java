@@ -6,6 +6,7 @@ import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.UserpowerInfo;
+import com.purchase.sls.data.request.SubmitEvaluateRequest;
 
 /**
  * Created by JWC on 2018/4/24.
@@ -42,8 +43,10 @@ public interface ShopDetailBuyContract {
 
     interface OrderDetailPresenter extends BasePresenter{
         void getOrderDetailInfo(String orderno);
+        void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest);
     }
     interface OrderDetailView extends BaseView<OrderDetailPresenter>{
         void renderOrderDetail(OrderDetailInfo orderDetailInfo);
+        void submitSuccess();
     }
 }

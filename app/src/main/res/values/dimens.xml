@@ -14,21 +14,43 @@
     <dimen name="common_seven_margin">7dp</dimen>
     <dimen name="common_text_left">11dp</dimen>
     <dimen name="common_text_left_second">12dp</dimen>
+
+    <dimen name="common_two_margin">2dp</dimen>
+    <dimen name="common_six_margin">6dp</dimen>
+    <dimen name="common_nine_margin">9dp</dimen>
     <dimen name="common_ten_margin">10dp</dimen>
     <dimen name="common_eleven_margin">11dp</dimen>
     <dimen name="common_twelve_margin">12dp</dimen>
     <dimen name="common_thirteen_margin">13dp</dimen>
     <dimen name="common_fourteen_margin">14dp</dimen>
+    <dimen name="common_fifteen_margin">15dp</dimen>
+    <dimen name="common_sixteen_margin">16dp</dimen>
     <dimen name="common_seventeen_margin">17dp</dimen>
+    <dimen name="common_eighteen_margin">18dp</dimen>
     <dimen name="common_nineteen_margin">19dp</dimen>
     <dimen name="common_twenty_one_margin">21dp</dimen>
+    <dimen name="common_twenty_two_margin">22dp</dimen>
+    <dimen name="common_twenty_three_margin">23dp</dimen>
     <dimen name="common_twenty_four_margin">24dp</dimen>
+    <dimen name="common_twenty_five_margin">25dp</dimen>
+    <dimen name="common_twenty_six_margin">26dp</dimen>
     <dimen name="common_thirty_margin">30dp</dimen>
+    <dimen name="common_thirty_three_margin">33dp</dimen>
+    <dimen name="common_thirty_eight_margin">38dp</dimen>
     <dimen name="common_forty_three_margin">43dp</dimen>
     <dimen name="common_forty_four_margin">44dp</dimen>
+    <dimen name="common_forty_five_margin">45dp</dimen>
+    <dimen name="common_forty_nine_margin">49dp</dimen>
     <dimen name="common_fifty_margin">50dp</dimen>
+    <dimen name="common_fifty_five_margin">55dp</dimen>
+    <dimen name="common_sixty_margin">60dp</dimen>
+    <dimen name="common_seventy_margin">70dp</dimen>
     <dimen name="common_seventy_two_margin">72dp</dimen>
+    <dimen name="common_ninety_margin">90dp</dimen>
     <dimen name="common_ninety_nine_margin">99dp</dimen>
+    <dimen name="common_one_hundred_and_fifty_five_margin">155dp</dimen>
+    <dimen name="common_one_hundred_and_ten_margin">110dp</dimen>
+    <dimen name="common_one_hundred_and_twenty_five_margin">125dp</dimen>
 
     <!--刷新控件参数-->
     <dimen name="refresh_view_height">300dp</dimen>

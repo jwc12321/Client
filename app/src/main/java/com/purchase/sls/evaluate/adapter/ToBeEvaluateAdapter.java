@@ -109,7 +109,7 @@ public class ToBeEvaluateAdapter extends RecyclerView.Adapter<ToBeEvaluateAdapte
         }
 
         public void bindData(ToBeEvaluationInfo.ToBeEvaluationItem toBeEvaluationItem) {
-            GlideHelper.load((Activity) context, toBeEvaluationItem.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, photo);
+            GlideHelper.load((Activity) context, toBeEvaluationItem.getzPics(), R.mipmap.app_icon, photo);
             businessName.setText(toBeEvaluationItem.getTitle());
             time.setText("消费时间 :" + FormatUtil.formatDateByLine(toBeEvaluationItem.getCreatedAt()));
             address.setText(toBeEvaluationItem.getAddress());

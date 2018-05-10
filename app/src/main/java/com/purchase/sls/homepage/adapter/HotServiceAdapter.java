@@ -76,7 +76,7 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.Ho
         }
 
         public void bindData(BannerHotResponse.StorecateInfo storecateInfo) {
-            GlideHelper.load((Activity) context, storecateInfo.getPic(), R.mipmap.client_v330_ic_homepage_circle_1, icon);
+            GlideHelper.load((Activity) context, storecateInfo.getPic(), R.mipmap.app_icon, icon);
             text.setText(storecateInfo.getName());
         }
     }

@@ -92,10 +92,11 @@
         <item name="android:inputType">phone</item>
         <item name="android:maxLength">11</item>
         <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/appText12</item>
+        <item name="android:textColor">@color/appText11</item>
         <item name="android:textColorHint">@color/appText6</item>
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="energy_number_et_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -104,10 +105,11 @@
         <item name="android:background">@null</item>
         <item name="android:inputType">phone</item>
         <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/appText12</item>
+        <item name="android:textColor">@color/appText11</item>
         <item name="android:textColorHint">@color/appText6</item>
         <item name="android:textSize">13sp</item>
     </style>
+
     <style name="text_et_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -120,6 +122,7 @@
         <item name="android:textColorHint">@color/appText6</item>
         <item name="android:textSize">13sp</item>
     </style>
+
     <style name="nickname_et_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -236,18 +239,24 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/appText6</item>
-        <item name="android:layout_marginLeft">@dimen/common_margin_left_right</item>
+        <item name="android:layout_marginLeft">@dimen/common_sixteen_margin</item>
         <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="account_detail_right_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/appText4</item>
+        <item name="android:textColor">@color/appText5</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_marginRight">@dimen/common_margin_left_right</item>
+        <item name="android:layout_marginRight">@dimen/common_sixteen_margin</item>
+        <item name="android:layout_marginLeft">@dimen/common_ninety_margin</item>
         <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
+
     <style name="go_arrow">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -273,12 +282,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/appText1</item>
     </style>
+
     <style name="setting_text_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">@dimen/common_text_left</item>
     </style>
+
     <style name="persional_im_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

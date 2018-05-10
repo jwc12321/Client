@@ -116,7 +116,7 @@
                     android:id="@+id/money_et"
                     style="@style/pay_number_et_style"
                     android:layout_height="50dp"
-                    android:textColor="@color/appText12" />
+                    android:textColor="@color/appText11" />
             </LinearLayout>
 
             <View
@@ -129,18 +129,17 @@
                 android:layout_marginTop="@dimen/common_eight_margin"
                 android:hint="@string/add_note" />
 
-            <LinearLayout
+
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="17dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_thirteen_margin"
-                android:background="@color/backGround1">
+                android:src="@mipmap/lace_icon" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@mipmap/lace_icon" />
-            </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_fourteen_margin"
+                android:background="@color/backGround1"/>
 
             <RelativeLayout
                 android:id="@+id/reel_rl"
@@ -218,7 +217,7 @@
                     android:id="@+id/add_energy_et"
                     style="@style/energy_number_et_style"
                     android:layout_toRightOf="@id/energy_icon"
-                    android:textColor="@color/appText12" />
+                    android:textColor="@color/appText11" />
             </RelativeLayout>
 
             <View
@@ -249,8 +248,9 @@
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
 
-            <View style="@style/fengexian_style"
-                android:layout_marginLeft="@dimen/common_seventeen_margin"/>
+            <View
+                style="@style/fengexian_style"
+                android:layout_marginLeft="@dimen/common_seventeen_margin" />
 
             <RelativeLayout
                 android:id="@+id/weixin_rl"
@@ -310,23 +310,30 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/coupon_rv_ll"
             android:layout_centerHorizontal="true"
-            android:background="@color/appText1"
+            android:background="@color/backGround1"
             android:gravity="center_horizontal"
-            android:text="@string/coupon" />
+            android:text="@string/coupon"
+            android:textSize="17sp"
+            android:textColor="@color/appText5"
+            android:paddingTop="@dimen/common_twenty_four_margin"
+            android:paddingBottom="@dimen/common_nine_margin"/>
 
         <LinearLayout
             android:id="@+id/coupon_rv_ll"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/backGround1">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/coupon_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/appText1"
-                app:layoutManager="@string/layoutManager_LinearLayout" />
+                android:background="@color/backGround1"
+                app:layoutManager="@string/layoutManager_LinearLayout"
+                android:layout_marginLeft="@dimen/common_eleven_margin"
+                android:layout_marginRight="@dimen/common_eleven_margin"/>
         </LinearLayout>
 
         <LinearLayout

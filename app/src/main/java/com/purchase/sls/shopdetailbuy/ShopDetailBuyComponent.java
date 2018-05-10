@@ -18,4 +18,5 @@ public interface ShopDetailBuyComponent {
     void inject(ShopDetailActivity shopDetailActivity);
     void inject(PaymentOrderActivity paymentOrderActivity);
     void inject(PaySuccessActivity paySuccessActivity);
+
 }

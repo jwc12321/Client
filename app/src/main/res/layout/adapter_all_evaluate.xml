@@ -47,7 +47,7 @@
             myrating:mImageHeight="10dp"
             myrating:mImageWidth="10dp"
             myrating:mMargin="1px"
-            myrating:mScope="2.3"
+            myrating:mScope="0"
             myrating:mStarChoose="0"
             myrating:mStarNum="5"
             android:layout_marginLeft="@dimen/common_text_left"/>

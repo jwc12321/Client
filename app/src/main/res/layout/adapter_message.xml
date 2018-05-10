@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,30 +12,56 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/common_eleven_margin"
+        android:layout_marginTop="@dimen/common_eleven_margin"
+        android:textColor="@color/appText6"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/appText1"
+        android:layout_marginLeft="@dimen/common_eleven_margin"
+        android:layout_marginRight="@dimen/common_eleven_margin"
+        android:background="@drawable/common_frame_bg"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_nine_margin"
+            android:layout_marginTop="@dimen/common_eighteen_margin"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="黄金周" />
 
 
         <TextView
             android:id="@+id/explain"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_nine_margin"
+            android:layout_marginRight="@dimen/common_nine_margin"
+            android:layout_marginTop="@dimen/common_sixteen_margin"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/appText7"
+            android:textSize="13sp"
+            tools:text="哈哈哈" />
 
-        <View style="@style/fengexian_style" />
+        <View
+            style="@style/fengexian_style"
+            android:layout_marginTop="@dimen/common_fifteen_margin" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="点击查看详情" />
+            android:layout_marginBottom="@dimen/common_ten_margin"
+            android:layout_marginLeft="@dimen/common_nine_margin"
+            android:layout_marginTop="@dimen/common_ten_margin"
+            android:text="点击查看详情"
+            android:textColor="@color/appText5"
+            android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

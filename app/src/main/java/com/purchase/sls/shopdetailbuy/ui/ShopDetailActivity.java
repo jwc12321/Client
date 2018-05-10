@@ -218,6 +218,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 address.setText(storeInfo.getAddress());
                 if (!TextUtils.isEmpty(storeInfo.getRebate())&&!TextUtils.equals("0",storeInfo.getRebate())) {
                     backEnergyNumber.setText("每消费一单返消费金额的"+storeInfo.getRebate()+"%的能量");
+                    backEnergyRl.setVisibility(View.VISIBLE);
+                }else {
+                    backEnergyRl.setVisibility(View.GONE);
                 }
                 addressXY = storeInfo.getAddressXy();
                 if (TextUtils.equals("1", storeInfo.getFavo())) {
@@ -345,9 +348,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         } else if (y > 0 && y <= 180) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
             float scale = (float) y / 180;
             float alpha = (255 * scale);
-            titleRel.setBackgroundColor(Color.argb((int) alpha, 255, 101, 40));
+            titleRel.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
         } else {    //滑动到banner下面设置普通颜色
-            titleRel.setBackgroundColor(Color.argb((int) 255, 255, 101, 40));
+            titleRel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
         }
     }
 }

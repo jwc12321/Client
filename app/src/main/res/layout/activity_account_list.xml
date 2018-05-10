@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appText1"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/title_rel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/appText1"
-        android:gravity="center_vertical">
+        style="@style/title_rl_style">
 
         <ImageView
             android:id="@+id/back"
@@ -25,26 +23,38 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/common_sixty_margin"
         android:background="@color/backGround1">
 
         <TextView
             android:id="@+id/account_data"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_eleven_margin"
+            android:layout_marginTop="@dimen/common_nine_margin"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="2017" />
 
         <TextView
             android:id="@+id/account_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/account_data" />
+            android:layout_below="@id/account_data"
+            android:layout_marginLeft="@dimen/common_eleven_margin"
+            android:layout_marginTop="@dimen/common_six_margin"
+            android:textColor="@color/appText7"
+            android:textSize="12sp"
+            tools:text="总收入" />
 
         <ImageView
             android:id="@+id/screen_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_centerVertical="true"
+            android:padding="@dimen/common_eleven_margin"
+            android:src="@mipmap/choose_time" />
     </RelativeLayout>
 
     <com.purchase.sls.common.refreshview.HeaderViewLayout

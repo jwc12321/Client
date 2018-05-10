@@ -90,7 +90,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         }
 
         public void bindData(AccountItemInfo accountItemInfo) {
-            GlideHelper.load((Activity) context, accountItemInfo.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, photo);
+            GlideHelper.load((Activity) context, accountItemInfo.getzPics(), R.mipmap.app_icon, photo);
             businessNama.setText(accountItemInfo.getTitle());
             businessTime.setText(FormatUtil.formatNewDate(accountItemInfo.getCreatedAt(), "MM月dd日"));
             businessPrice.setText("-" + accountItemInfo.getPrice());

@@ -9,6 +9,7 @@ import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.evaluate.ui.AllEvaluationActivity;
 import com.purchase.sls.evaluate.ui.SubmitEvaluateActivity;
 import com.purchase.sls.evaluate.ui.ToBeEvaluatedActivity;
+import com.purchase.sls.shopdetailbuy.ui.PaySuccessActivity;
 
 import dagger.Component;
 

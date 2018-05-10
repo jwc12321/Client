@@ -186,8 +186,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         mapView.onDestroy();
         if (null != mlocationClient) {
             mlocationClient.stopLocation();

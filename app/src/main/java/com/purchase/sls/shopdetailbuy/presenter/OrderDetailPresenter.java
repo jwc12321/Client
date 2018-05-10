@@ -5,6 +5,7 @@ import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.OrderDetailRequest;
+import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 
 import java.util.ArrayList;
@@ -65,6 +66,25 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
                     @Override
                     public void accept(OrderDetailInfo orderDetailInfo) throws Exception {
                         orderDetailView.renderOrderDetail(orderDetailInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        orderDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest) {
+        Disposable disposable = restApiService.submitEvalute(submitEvaluateRequest)
+                .flatMap(new RxRemoteDataParse<String>())
+                .compose(new RxSchedulerTransformer<String>())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) throws Exception {
+                        orderDetailView.submitSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

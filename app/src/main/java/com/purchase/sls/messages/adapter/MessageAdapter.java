@@ -49,7 +49,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             @Override
             public void onClick(View v) {
                 if (onItemClick != null) {
-                    onItemClick.itemClick(messageItem.getType(), "");
+                    onItemClick.itemClick(messageItem.getType(), messageItem.getMessageId());
                 }
             }
         });

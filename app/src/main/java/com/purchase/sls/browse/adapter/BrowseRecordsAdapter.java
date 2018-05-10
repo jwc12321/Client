@@ -123,7 +123,7 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
         public void bindData(BrowseInfo.BrowseItemInfo browseItemInfo) {
             choiceItem.setVisibility(TextUtils.equals("1", behavior) ? View.GONE : View.VISIBLE);
             BrowseInfo.BrowseItemInfo.Store store = browseItemInfo.getStore();
-            GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.client_v330_ic_homepage_circle_1, shopIcon);
+            GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.app_icon, shopIcon);
             storeName.setText(store.getTitle());
             shopName.setText(store.getName());
         }
