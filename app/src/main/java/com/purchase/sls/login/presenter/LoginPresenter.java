@@ -8,6 +8,7 @@ import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.UserInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.ChangepwdRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
@@ -166,6 +167,26 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
                         loginView.checkCodeSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        loginView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void changepwd(String tel, String password, String type) {
+        ChangepwdRequest changepwdRequest=new ChangepwdRequest(tel,password,type);
+        Disposable disposable=restApiService.changepwd(changepwdRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        loginView.setPasswordSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

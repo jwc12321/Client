@@ -116,7 +116,8 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     private String businessZpics;
     private String businessStoreId;
     private String energyStr;
-    private static final int UPDATE_EDITTEXT = 99;
+    private static final int UPDATE_TOTAL_MONEY = 98;
+    private static final int UPDATE_ENERGY = 99;
     private UserpowerInfo userpowerInfo;
     //1：支付包 2：微信
     private String payType = "1";
@@ -132,12 +133,18 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     private BigDecimal totalPriceBigDecimal;//总价
     private BigDecimal energyDecimal;//能量
     private BigDecimal couponDecimal;//优惠券
-    private BigDecimal maxEnergyDecial;//最大的优惠金额
-    private BigDecimal totalStCdDecimal;//输入的价格减去优惠券金额
+    private BigDecimal maxEnergyDecial;//用户有多少能量
+    private BigDecimal totalStCdDecimal;//输入的价格减去优惠券金额乘以兑换比例，算出所需的能量值
+    private BigDecimal proportionDecimal;//能量兑换比例
+    private BigDecimal offsetCashDecimal;//能抵用的现金金额
+    private BigDecimal percentageDecimal;//能量兑换比是200，要除以100才行
+    private BigDecimal zfpayDecimal;//支付宝和微信支付的钱
+    private BigDecimal leastCostDecimal;//满足多少钱才能使用优惠券
 
-    private String payTypeWhat="1";
+    private String payTypeWhat = "1";
     private IWXAPI api;
     private String ordreno;
+    private String proportion; //能量兑换比例  如果是200，就是一个能量相当于2块钱
 
 
     @Override
@@ -152,6 +159,10 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         businessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         businessZpics = getIntent().getStringExtra(StaticData.BUSINESS_ZPICS);
         businessStoreId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
+        percentageDecimal = new BigDecimal(100).setScale(2, RoundingMode.HALF_UP);
+        offsetCashDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+        zfpayDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+        leastCostDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         mHandler = new MyHandler(this);
         paymentOrderPresenter.setContext(this);
         editListener();
@@ -184,6 +195,12 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(moneyEt.getText().toString())) {
                     confirmPayBg.setEnabled(true);
+                    if (mHandler != null) {
+                        mHandler.removeCallbacksAndMessages(null);
+                        mHandler.sendEmptyMessageDelayed(UPDATE_TOTAL_MONEY, 1000);
+                    } else {
+                        mHandler.sendEmptyMessageDelayed(UPDATE_TOTAL_MONEY, 1000);
+                    }
                 } else {
                     confirmPayBg.setEnabled(false);
                 }
@@ -205,9 +222,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                 if (!TextUtils.isEmpty(addEnergyEt.getText().toString())) {
                     if (mHandler != null) {
                         mHandler.removeCallbacksAndMessages(null);
-                        mHandler.sendEmptyMessageDelayed(UPDATE_EDITTEXT, 500);
+                        mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
                     } else {
-                        mHandler.sendEmptyMessageDelayed(UPDATE_EDITTEXT, 500);
+                        mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
                     }
                 }
             }
@@ -229,29 +246,49 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         public void handleMessage(Message msg) {
             final Activity activity = mWeakReference.get();
             if (activity != null) {
-                if (msg.what == UPDATE_EDITTEXT) {
-                    fillNumber();
-                    CalculateEachPayment();
+                switch (msg.what) {
+                    case UPDATE_TOTAL_MONEY:
+                        fillNumber();
+                        break;
+                    case UPDATE_ENERGY:
+                        fillNumber();
+                        break;
                 }
             }
         }
     }
 
     private void fillNumber() {
-        if (!TextUtils.isEmpty(addEnergyEt.getText().toString()) && !TextUtils.isEmpty(userpowerInfo.getPersionInfoResponse().getPower()) && !TextUtils.isEmpty(moneyEt.getText().toString())) {
-            maxEnergyDecial = new BigDecimal(userpowerInfo.getPersionInfoResponse().getPower()).setScale(2, RoundingMode.HALF_UP);
-            energyDecimal = new BigDecimal(addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
-            totalPriceBigDecimal = new BigDecimal(moneyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
-            couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
-            totalStCdDecimal = totalPriceBigDecimal.subtract(couponDecimal);
-            if (energyDecimal.compareTo(maxEnergyDecial) > 0) {
-                toast("最大优惠能量" + userpowerInfo.getPersionInfoResponse().getPower());
-                addEnergyEt.setText(userpowerInfo.getPersionInfoResponse().getPower());
+        String payExplainStr;
+        totalPriceBigDecimal = new BigDecimal(TextUtils.isEmpty(moneyEt.getText().toString()) ? "0" : moneyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
+        if (totalPriceBigDecimal.compareTo(leastCostDecimal) < 0) {
+            couponMoney = "0";
+            reelNumber.setText("");
+        }
+        energyDecimal = new BigDecimal(TextUtils.isEmpty(addEnergyEt.getText().toString()) ? "0" : addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
+        couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
+        totalStCdDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).divide(proportionDecimal).multiply(percentageDecimal);
+        if (energyDecimal.compareTo(totalStCdDecimal) < 0) {//需要微信和支付包支付
+            zfpayDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).subtract(energyDecimal.multiply(proportionDecimal).divide(percentageDecimal));
+            if (TextUtils.equals("1", payType)) {
+                payExplainStr = "能量支付" + energyDecimal.toString() + "支付宝支付" + zfpayDecimal.toString() + "元";
+                payTypeWhat = "1";
+            } else {
+                payExplainStr = "能量支付" + energyDecimal.toString() + "微信支付" + zfpayDecimal.toString() + "元";
+                payTypeWhat = "2";
             }
-            if (totalStCdDecimal.compareTo(energyDecimal) < 0) {
-                toast("能量只需要填写" + totalStCdDecimal);
-                addEnergyEt.setText(totalStCdDecimal.toString());
+            payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
+        } else if (energyDecimal.compareTo(totalStCdDecimal) > 0) {//输入的能量太多了
+            toast("能量只需要填写" + totalStCdDecimal.toString());
+            addEnergyEt.setText(totalStCdDecimal.toString());
+        } else {
+            if (TextUtils.equals("1", payType)) {
+                payExplainStr = "能量支付" + energyDecimal.toString() + "支付宝支付0元";
+            } else {
+                payExplainStr = "能量支付" + energyDecimal.toString() + "微信支付0元";
             }
+            payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
+            payTypeWhat = "0";
         }
     }
 
@@ -298,8 +335,12 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     @Override
     public void userpowerInfo(UserpowerInfo userpowerInfo) {
         this.userpowerInfo = userpowerInfo;
+        proportion = userpowerInfo.getProportion();
         energyStr = userpowerInfo.getPersionInfoResponse().getPower();
-        addEnergyEt.setHint("请输入金额(可用" + energyStr + "能量，抵用现金" + energyStr + "元)");
+        maxEnergyDecial = new BigDecimal(TextUtils.isEmpty(energyStr) ? "0" : energyStr).setScale(2, RoundingMode.HALF_UP);
+        proportionDecimal = new BigDecimal(TextUtils.isEmpty(proportion) ? "0" : proportion).setScale(2, RoundingMode.HALF_UP);
+        offsetCashDecimal = maxEnergyDecial.multiply(proportionDecimal).divide(percentageDecimal);
+        addEnergyEt.setHint("请输入金额(可用" + energyStr + "能量，抵用现金" + (offsetCashDecimal.toString()) + "元)");
         couponInfos = userpowerInfo.getCouponInfos();
         if (couponInfos != null && couponInfos.size() > 0) {
             reelRl.setEnabled(true);
@@ -322,7 +363,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
     @Override
     public void onRechargeSuccess() {
-        PaySuccessActivity.start(this, businessName,ordreno);
+        PaySuccessActivity.start(this, businessName, ordreno);
     }
 
     @Override
@@ -341,7 +382,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
     @Override
     public void renderOrderno(String orderno) {
-        this.ordreno=orderno;
+        this.ordreno = orderno;
     }
 
     /*****
@@ -391,20 +432,20 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                 payType = "1";
                 zhifubaoPay.setSelected(true);
                 weixinPay.setSelected(false);
-                CalculateEachPayment();
+                fillNumber();
                 break;
             case R.id.weixin_rl:
                 payType = "2";
                 zhifubaoPay.setSelected(false);
                 weixinPay.setSelected(true);
-                CalculateEachPayment();
+                fillNumber();
                 break;
             case R.id.confirm_pay_bg:
-                if(TextUtils.equals("1",payTypeWhat)){
+                if (TextUtils.equals("1", payTypeWhat)) {
                     paymentOrderPresenter.getAlipaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
-                }else if(TextUtils.equals("2",payTypeWhat)){
+                } else if (TextUtils.equals("2", payTypeWhat)) {
                     paymentOrderPresenter.getWXPaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
-                }else {
+                } else {
                     paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
                 }
                 break;
@@ -417,37 +458,11 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     @Override
     public void couponItemClick(CouponInfo couponInfo) {
         couponRl.setVisibility(View.GONE);
+        leastCostDecimal = new BigDecimal(TextUtils.isEmpty(couponInfo.getQuanInfo().getLeastCost()) ? "0" : couponInfo.getQuanInfo().getLeastCost()).setScale(2, RoundingMode.HALF_UP);
         reelNumber.setText("-¥" + couponInfo.getQuanInfo().getPrice());
         couponId = couponInfo.getId();
         couponMoney = couponInfo.getQuanInfo().getPrice();
         fillNumber();
-        CalculateEachPayment();
-    }
-
-    private void CalculateEachPayment() {
-        totalPriceBigDecimal = new BigDecimal(TextUtils.isEmpty(moneyEt.getText().toString()) ? "0" : moneyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
-        energyDecimal = new BigDecimal(TextUtils.isEmpty(addEnergyEt.getText().toString()) ? "0" : addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
-        couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
-        if (!(totalPriceBigDecimal.compareTo(energyDecimal.add(couponDecimal)) < 0)) {
-            String payExplainStr;
-            BigDecimal zfpayDecimal = totalPriceBigDecimal.subtract(energyDecimal).subtract(couponDecimal);
-            if (TextUtils.equals("1", payType)) {
-                payExplainStr = "能量支付" + energyDecimal.toString() + "支付宝支付" + zfpayDecimal.toString() + "元";
-            } else {
-                payExplainStr = "能量支付" + energyDecimal.toString() + "微信支付" + zfpayDecimal.toString() + "元";
-            }
-            payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
-        }
-
-        if(totalPriceBigDecimal.compareTo(energyDecimal.add(couponDecimal))>0){
-            if (TextUtils.equals("1", payType)) {
-                payTypeWhat="1";
-            }else {
-                payTypeWhat="2";
-            }
-        }else if(totalPriceBigDecimal.compareTo(energyDecimal.add(couponDecimal))==0){
-            payTypeWhat="0";
-        }
     }
 
 

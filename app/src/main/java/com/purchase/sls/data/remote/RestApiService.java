@@ -29,6 +29,7 @@ import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
+import com.purchase.sls.data.request.ChangepwdRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.CheckNewCodeRequest;
@@ -87,6 +88,10 @@ public interface RestApiService {
     //注册/修改密码
     @POST("home/login/register")
     Flowable<RemoteDataWrapper<Ignore>> registerPassword(@Body RegisterPasswordRequest registerPasswordRequest);
+
+    //修改密码
+    @POST("home/login/changepwd")
+    Flowable<RemoteDataWrapper<Ignore>> changepwd(@Body ChangepwdRequest changepwdRequest);
 
     //验证验证码
     @POST("home/login/checkCode")

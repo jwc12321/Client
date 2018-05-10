@@ -68,11 +68,11 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     @Inject
     LoginPresenter loginPresenter;
 
-    public static void start(Context context, String type,String phoneNumber,String storeid) {
+    public static void start(Context context, String type, String phoneNumber, String storeid) {
         Intent intent = new Intent(context, RegisterSecondActivity.class);
-        intent.putExtra(StaticData.PHONE_NUMBER,phoneNumber);
+        intent.putExtra(StaticData.PHONE_NUMBER, phoneNumber);
         intent.putExtra(StaticData.TYPE, type);
-        intent.putExtra(StaticData.BUSINESS_STOREID,storeid);
+        intent.putExtra(StaticData.BUSINESS_STOREID, storeid);
         context.startActivity(intent);
     }
 
@@ -86,8 +86,8 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
 
     private void initView() {
         type = getIntent().getStringExtra(StaticData.TYPE);
-        phoneNumber=getIntent().getStringExtra(StaticData.PHONE_NUMBER);
-        storeid=getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
+        phoneNumber = getIntent().getStringExtra(StaticData.PHONE_NUMBER);
+        storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         title.setText(getString(R.string.set_passwrod));
     }
 
@@ -100,16 +100,20 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 .inject(this);
     }
 
-    @OnClick({R.id.back, R.id.next,R.id.complete})
+    @OnClick({R.id.back, R.id.next, R.id.complete})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.next:
-                if(TextUtils.equals(passwordStr,passwordAgain)){
-                    loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type,storeid);
-                }else {
+                if (TextUtils.equals(passwordStr, passwordAgain)) {
+                    if (TextUtils.equals(StaticData.REGISTER, type)) {
+                        loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type, storeid);
+                    } else {
+                        loginPresenter.changepwd(phoneNumber, passwordAgain, type);
+                    }
+                } else {
                     showMessage("两次输入得密码不一样");
                 }
                 break;

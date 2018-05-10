@@ -13,6 +13,8 @@ public class UserpowerInfo {
     private PersionInfoResponse persionInfoResponse;
     @SerializedName("coupon")
     private List<CouponInfo> couponInfos;
+    @SerializedName("proportion")
+    private String proportion;
 
     public PersionInfoResponse getPersionInfoResponse() {
         return persionInfoResponse;
@@ -28,5 +30,13 @@ public class UserpowerInfo {
 
     public void setCouponInfos(List<CouponInfo> couponInfos) {
         this.couponInfos = couponInfos;
+    }
+
+    public String getProportion() {
+        return proportion;
+    }
+
+    public void setProportion(String proportion) {
+        this.proportion = proportion;
     }
 }

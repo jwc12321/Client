@@ -99,7 +99,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
 
         public void bindData(CouponInfo couponInfo) {
             price.setText(couponInfo.getQuanInfo().getPrice());
-            leastCost.setText("满" + couponInfo.getQuanInfo().getLeast_cost() + "可用");
+            leastCost.setText("满" + couponInfo.getQuanInfo().getLeastCost() + "可用");
             priceLl.setSelected(TextUtils.equals("0", availableType) ? true : false);
             businessName.setText(couponInfo.getQuanInfo().getTitle());
             businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + couponInfo.getQuanInfo().getEndtime());

@@ -27,7 +27,7 @@ public class QuanInfo {
     @SerializedName("title")
     private String title;
     @SerializedName("updated_at")
-    private String updated_at;
+    private String updatedAt;
     @SerializedName("starttime")
     private String starttime;
     //几天有效
@@ -35,9 +35,9 @@ public class QuanInfo {
     private String validday;
     //满多少可用
     @SerializedName("least_cost")
-    private String least_cost;
+    private String leastCost;
     @SerializedName("deleted_at")
-    private String deleted_at;
+    private String deletedAt;
 
     public String getId() {
         return id;
@@ -111,14 +111,6 @@ public class QuanInfo {
         this.title = title;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
-    }
-
     public String getStarttime() {
         return starttime;
     }
@@ -135,19 +127,27 @@ public class QuanInfo {
         this.validday = validday;
     }
 
-    public String getLeast_cost() {
-        return least_cost;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setLeast_cost(String least_cost) {
-        this.least_cost = least_cost;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public String getDeleted_at() {
-        return deleted_at;
+    public String getLeastCost() {
+        return leastCost;
     }
 
-    public void setDeleted_at(String deleted_at) {
-        this.deleted_at = deleted_at;
+    public void setLeastCost(String leastCost) {
+        this.leastCost = leastCost;
+    }
+
+    public String getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(String deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }

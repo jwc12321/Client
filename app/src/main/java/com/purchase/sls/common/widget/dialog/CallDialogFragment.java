@@ -83,12 +83,12 @@ public class CallDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         title.setText(titleString);
         String content = "";
-        SpannableString ss = null;
-        if (getString(R.string.service_phone_number).equals(phone)) {
-            ss = new SpannableString(phone);
-        } else {
-            ss = new SpannableString(PhoneNumberUtils.encryptPhone(phone));
-        }
+        SpannableString ss = new SpannableString(phone);
+//        if (getString(R.string.service_phone_number).equals(phone)) {
+//            ss = new SpannableString(phone);
+//        } else {
+//            ss = new SpannableString(PhoneNumberUtils.encryptPhone(phone));
+//        }
         ss.setSpan(new ForegroundColorSpan(Color.BLACK), content.length(), ss.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         contentTextView.setText(ss);
     }

@@ -83,7 +83,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
 
         public void bindData(CouponInfo couponInfo) {
             BigDecimal priceDecimal = new BigDecimal(priceStr).setScale(2, RoundingMode.HALF_UP);
-            BigDecimal leastCostDecimal = new BigDecimal(couponInfo.getQuanInfo().getLeast_cost()).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal leastCostDecimal = new BigDecimal(couponInfo.getQuanInfo().getLeastCost()).setScale(2, RoundingMode.HALF_UP);
             if (priceDecimal.compareTo(leastCostDecimal) >= 0) {
                 canUseTt.setSelected(true);
                 choiceItem.setEnabled(true);
@@ -94,7 +94,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
                 canUseTt.setText("无法使用");
             }
             price.setText(couponInfo.getQuanInfo().getPrice());
-            leastCost.setText("满"+couponInfo.getQuanInfo().getLeast_cost()+"可用");
+            leastCost.setText("满"+couponInfo.getQuanInfo().getLeastCost()+"可用");
             validday.setText("领取后"+couponInfo.getQuanInfo().getValidday()+"天有效");
         }
     }

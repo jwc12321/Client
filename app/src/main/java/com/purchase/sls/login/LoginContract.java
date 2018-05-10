@@ -17,6 +17,7 @@ public interface LoginContract {
        void phoneLogin(String tel,String code);
        void registerPassword(String tel,String password,String address,String type,String storeid);
        void checkCode(String tel,String code,String type);
+       void changepwd(String tel,String password,String type);
     }
 
     interface LoginView extends BaseView<LoginPresenter>{
