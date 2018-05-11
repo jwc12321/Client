@@ -221,10 +221,12 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Override
     public void nearbyInfo(List<NearbyInfoResponse> nearbyInfoResponses) {
         this.nearbyInfoResponses = nearbyInfoResponses;
+        munuLastPosition = 0;
+        itemLastPosition = 0;
         if (nearbyInfoResponses != null && nearbyInfoResponses.size() > 0) {
             nearbyLl.setVisibility(View.VISIBLE);
-            nearbyMunuAdapter.setMunuList(nearbyInfoResponses);
-            nearbyItemAdapter.setItemList(nearbyInfoResponses.get(0).getCateInfos());
+            nearbyMunuAdapter.setMunuList(nearbyInfoResponses,munuLastPosition);
+            nearbyItemAdapter.setItemList(nearbyInfoResponses.get(0).getCateInfos(),itemLastPosition);
             if (nearbyInfoResponses.get(0).getCateInfos() != null && nearbyInfoResponses.get(0).getCateInfos().size() > 0) {
                 nearbyMapPresenter.getMapMarkerInfo(nearbyInfoResponses.get(0).getCateInfos().get(0).getId(), (longitude + "," + latitude));
             }
@@ -256,7 +258,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     public void menuItemClickListener(int menuPosition) {
         nearbyMunuAdapter.setPosittion(munuLastPosition, menuPosition);
         munuLastPosition = menuPosition;
-        nearbyItemAdapter.setItemList(nearbyInfoResponses.get(menuPosition).getCateInfos());
+        itemLastPosition=0;
+        nearbyItemAdapter.setItemList(nearbyInfoResponses.get(menuPosition).getCateInfos(),itemLastPosition);
         if (nearbyInfoResponses.get(menuPosition).getCateInfos() != null && nearbyInfoResponses.get(menuPosition).getCateInfos().size() > 0) {
             nearbyMapPresenter.getMapMarkerInfo(nearbyInfoResponses.get(menuPosition).getCateInfos().get(0).getId(), (longitude + "," + latitude));
         }

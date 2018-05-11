@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -145,6 +146,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     private IWXAPI api;
     private String ordreno;
     private String proportion; //能量兑换比例  如果是200，就是一个能量相当于2块钱
+    private int digits = 2;
 
 
     @Override
@@ -163,6 +165,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         offsetCashDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         zfpayDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         leastCostDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+        totalStCdDecimal=new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         mHandler = new MyHandler(this);
         paymentOrderPresenter.setContext(this);
         editListener();
@@ -194,6 +197,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(moneyEt.getText().toString())) {
+                    limitedDecimal(moneyEt.getText().toString(),moneyEt);
                     confirmPayBg.setEnabled(true);
                     if (mHandler != null) {
                         mHandler.removeCallbacksAndMessages(null);
@@ -219,7 +223,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!TextUtils.isEmpty(addEnergyEt.getText().toString())) {
+                if (!TextUtils.isEmpty(addEnergyEt.getText().toString())&&!TextUtils.equals("0",addEnergyEt.getText().toString())
+                        &&!TextUtils.equals("0.0",addEnergyEt.getText().toString())&&!TextUtils.equals("0.0",addEnergyEt.getText().toString())) {
+                    limitedDecimal(addEnergyEt.getText().toString(),addEnergyEt);
                     if (mHandler != null) {
                         mHandler.removeCallbacksAndMessages(null);
                         mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
@@ -233,6 +239,34 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
             public void afterTextChanged(Editable editable) {
             }
         });
+    }
+
+
+    private void limitedDecimal(String s,EditText editText){
+        //删除“.”后面超过2位后的数据
+        if (s.toString().contains(".")) {
+            if (s.length() - 1 - s.toString().indexOf(".") > digits) {
+                s = (String) s.toString().subSequence(0, s.toString().indexOf(".") + digits+1);
+                editText.setText(s);
+                editText.setSelection(s.length()); //光标移到最后
+            }
+        }
+        //如果"."在起始位置,则起始位置自动补0
+        if (s.toString().trim().substring(0).equals(".")) {
+            s = "0" + s;
+            editText.setText(s);
+            editText.setSelection(2);
+        }
+
+        //如果起始位置为0,且第二位跟的不是".",则无法后续输入
+        if (s.toString().startsWith("0")
+                && s.toString().trim().length() > 1) {
+            if (!s.toString().substring(1, 2).equals(".")) {
+                editText.setText(s.subSequence(0, 1));
+                editText.setSelection(1);
+                return;
+            }
+        }
     }
 
     class MyHandler extends Handler {
@@ -268,24 +302,42 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         energyDecimal = new BigDecimal(TextUtils.isEmpty(addEnergyEt.getText().toString()) ? "0" : addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
         couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
         totalStCdDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).divide(proportionDecimal).multiply(percentageDecimal);
+        if(totalStCdDecimal.doubleValue()>0) {
+            if (energyDecimal.compareTo(maxEnergyDecial) > 0) {//输入能量大于最多的能量
+                toast("能量最多只能填写" + maxEnergyDecial.toString());
+                addEnergyEt.setText(maxEnergyDecial.toString());
+                return;
+            }
+        }
         if (energyDecimal.compareTo(totalStCdDecimal) < 0) {//需要微信和支付包支付
             zfpayDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).subtract(energyDecimal.multiply(proportionDecimal).divide(percentageDecimal));
             if (TextUtils.equals("1", payType)) {
-                payExplainStr = "能量支付" + energyDecimal.toString() + "支付宝支付" + zfpayDecimal.toString() + "元";
+                payExplainStr = "能量支付" + energyDecimal.toString() + ",支付宝支付" + zfpayDecimal.toString() + "元";
                 payTypeWhat = "1";
             } else {
-                payExplainStr = "能量支付" + energyDecimal.toString() + "微信支付" + zfpayDecimal.toString() + "元";
+                payExplainStr = "能量支付" + energyDecimal.toString() + ",微信支付" + zfpayDecimal.toString() + "元";
                 payTypeWhat = "2";
             }
             payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
         } else if (energyDecimal.compareTo(totalStCdDecimal) > 0) {//输入的能量太多了
-            toast("能量只需要填写" + totalStCdDecimal.toString());
-            addEnergyEt.setText(totalStCdDecimal.toString());
+            if(totalStCdDecimal.doubleValue()<0){
+                addEnergyEt.setText("0");
+                if (TextUtils.equals("1", payType)) {
+                    payExplainStr = "能量支付0,支付宝支付0元";
+                } else {
+                    payExplainStr = "能量支付0,微信支付0元";
+                }
+                payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
+                payTypeWhat = "0";
+            }else {
+                toast("能量只需要填写" + totalStCdDecimal.toString());
+                addEnergyEt.setText(totalStCdDecimal.toString());
+            }
         } else {
             if (TextUtils.equals("1", payType)) {
-                payExplainStr = "能量支付" + energyDecimal.toString() + "支付宝支付0元";
+                payExplainStr = "能量支付" + energyDecimal.toString() + ",支付宝支付0元";
             } else {
-                payExplainStr = "能量支付" + energyDecimal.toString() + "微信支付0元";
+                payExplainStr = "能量支付" + energyDecimal.toString() + ",微信支付0元";
             }
             payDetails.setText(KeywordUtil.matcherActivity(Color.parseColor("#f56165"), payExplainStr));
             payTypeWhat = "0";

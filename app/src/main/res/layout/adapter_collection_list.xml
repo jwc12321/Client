@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/common_eleven_margin"
-        android:button="@drawable/pay_select"
+        android:button="@drawable/delete_select"
         android:visibility="gone"/>
 
     <RelativeLayout

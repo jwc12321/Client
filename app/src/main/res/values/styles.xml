@@ -317,7 +317,7 @@
     </style>
 
     <style name="pay_item_fl_style">
-        <item name="android:layout_height">@dimen/common_fifty_margin</item>
+        <item name="android:layout_height">@dimen/common_forty_four_margin</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/appText1</item>
         <item name="android:paddingLeft">@dimen/common_seventeen_margin</item>

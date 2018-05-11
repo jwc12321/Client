@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_fourteen_margin"
-                android:layout_marginTop="@dimen/common_forty_four_margin"
+                android:layout_marginTop="@dimen/common_ten_margin"
                 android:text="转账金额"
                 android:textColor="@color/appText5"
                 android:textSize="15sp" />
@@ -100,7 +100,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="@dimen/common_two_margin"
                 android:orientation="horizontal">
 
                 <TextView
@@ -133,18 +133,18 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_thirteen_margin"
+                android:layout_marginTop="@dimen/common_two_margin"
                 android:src="@mipmap/lace_icon" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_fourteen_margin"
-                android:background="@color/backGround1"/>
+                android:background="@color/backGround1" />
 
             <RelativeLayout
                 android:id="@+id/reel_rl"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/common_fifty_margin"
+                android:layout_height="@dimen/common_forty_four_margin"
                 android:background="@color/appText1">
 
                 <ImageView
@@ -227,8 +227,7 @@
 
             <RelativeLayout
                 android:id="@+id/zhifubao_rl"
-                style="@style/pay_item_fl_style"
-                android:layout_marginTop="10dp">
+                style="@style/pay_item_fl_style">
 
                 <TextView
                     style="@style/pay_item_text_style"
@@ -274,28 +273,44 @@
                     android:background="@null"
                     android:scaleType="fitCenter"
                     android:src="@drawable/pay_select" />
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_marginLeft="@dimen/common_seventeen_margin"
+                    android:layout_alignParentBottom="true"/>
             </RelativeLayout>
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
 
-    <TextView
-        android:id="@+id/pay_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/confirm_pay_bg"
-        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/confirm_pay_bg"
+    <LinearLayout
+        android:id="@+id/confirm_pay_ll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/common_thirteen_margin"
-        android:background="@drawable/login_button_background"
-        android:enabled="false"
-        android:text="@string/confirm_payment"
-        android:textColor="@color/appText1" />
+        android:background="@color/appText1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/pay_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/appText1"
+            android:gravity="center_horizontal"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            tools:text="hhh"
+            android:layout_marginTop="@dimen/common_six_margin"/>
+        <Button
+            android:id="@+id/confirm_pay_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@drawable/login_button_background"
+            android:enabled="false"
+            android:text="@string/confirm_payment"
+            android:textColor="@color/appText1"
+            android:layout_margin="@dimen/common_thirteen_margin"/>
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/coupon_rl"
@@ -312,28 +327,28 @@
             android:layout_centerHorizontal="true"
             android:background="@color/backGround1"
             android:gravity="center_horizontal"
-            android:text="@string/coupon"
-            android:textSize="17sp"
-            android:textColor="@color/appText5"
+            android:paddingBottom="@dimen/common_nine_margin"
             android:paddingTop="@dimen/common_twenty_four_margin"
-            android:paddingBottom="@dimen/common_nine_margin"/>
+            android:text="@string/coupon"
+            android:textColor="@color/appText5"
+            android:textSize="17sp" />
 
         <LinearLayout
             android:id="@+id/coupon_rv_ll"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:background="@color/backGround1">
+            android:background="@color/backGround1"
+            android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/coupon_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/backGround1"
-                app:layoutManager="@string/layoutManager_LinearLayout"
                 android:layout_marginLeft="@dimen/common_eleven_margin"
-                android:layout_marginRight="@dimen/common_eleven_margin"/>
+                android:layout_marginRight="@dimen/common_eleven_margin"
+                android:background="@color/backGround1"
+                app:layoutManager="@string/layoutManager_LinearLayout" />
         </LinearLayout>
 
         <LinearLayout

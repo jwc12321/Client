@@ -28,7 +28,8 @@ public class NearbyMunuAdapter extends RecyclerView.Adapter<NearbyMunuAdapter.Ne
     private List<NearbyInfoResponse> nearbyInfoResponses;
     private int selectPosition = 0;
 
-    public void setMunuList(List<NearbyInfoResponse> nearbyInfoResponses) {
+    public void setMunuList(List<NearbyInfoResponse> nearbyInfoResponses,int position) {
+        this.selectPosition=position;
         this.nearbyInfoResponses = nearbyInfoResponses;
         notifyDataSetChanged();
     }

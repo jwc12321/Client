@@ -25,7 +25,8 @@ public class NearbyItemAdapter extends RecyclerView.Adapter<NearbyItemAdapter.Ne
     private List<NearbyInfoResponse.CateInfo> cateInfos;
     private int selectPosition = 0;
 
-    public void setItemList(List<NearbyInfoResponse.CateInfo> cateInfos) {
+    public void setItemList(List<NearbyInfoResponse.CateInfo> cateInfos,int position) {
+        this.selectPosition=position;
         this.cateInfos = cateInfos;
         notifyDataSetChanged();
     }
