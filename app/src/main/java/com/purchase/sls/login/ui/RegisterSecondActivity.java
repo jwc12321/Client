@@ -3,6 +3,7 @@ package com.purchase.sls.login.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -89,6 +90,16 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
         phoneNumber = getIntent().getStringExtra(StaticData.PHONE_NUMBER);
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         title.setText(getString(R.string.set_passwrod));
+        setPasswordET.setFocusable(true);
+        setPasswordET.setFocusableInTouchMode(true);
+        setPasswordET.requestFocus();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(setPasswordET, InputMethodManager.SHOW_FORCED);
+            }
+        }, 1000);
     }
 
     @Override
@@ -199,5 +210,17 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                     && event.getY() > top && event.getY() < bottom);
         }
         return false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(setPasswordET.getWindowToken(),0);
+        inputMethodManager.hideSoftInputFromWindow(setPasswordAgainET.getWindowToken(),0);
     }
 }

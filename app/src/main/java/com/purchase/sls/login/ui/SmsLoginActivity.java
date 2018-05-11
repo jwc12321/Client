@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
 import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
@@ -33,7 +36,7 @@ import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
  * 短信发送登录
  */
 
-public class SmsLoginActivity extends BaseActivity implements LoginContract.LoginView,ColdDownButton.OnResetListener{
+public class SmsLoginActivity extends BaseActivity implements LoginContract.LoginView, ColdDownButton.OnResetListener {
 
     @BindView(R.id.back)
     ImageView back;
@@ -78,9 +81,9 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         return null;
     }
 
-    @OnClick({R.id.back, R.id.clean_phone_number, R.id.send_auth_code, R.id.clean_verificationcode,R.id.hidden_verificationcode,R.id.login_in,R.id.account_login})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.back, R.id.clean_phone_number, R.id.send_auth_code, R.id.clean_verificationcode, R.id.hidden_verificationcode, R.id.login_in, R.id.account_login})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -95,16 +98,16 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
             case R.id.hidden_verificationcode:
                 break;
             case R.id.login_in:
-                loginPresenter.phoneLogin(phoneNumberStr,phoneCodeStr);
+                loginPresenter.phoneLogin(phoneNumberStr, phoneCodeStr);
                 break;
             case R.id.account_login:
                 AccountLoginActivity.start(this);
                 break;
-                default:
+            default:
         }
     }
 
-    private void sendCode(){
+    private void sendCode() {
         if (!isAccountValid(phoneNumberStr)) {
             showError(getString(R.string.invalid_account_input));
             return;
@@ -112,7 +115,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
             showMessage(getString(R.string.empty_account));
             return;
         }
-        loginPresenter.sendCode(phoneNumberStr,"login");
+        loginPresenter.sendCode(phoneNumberStr, "login");
         sendAuthCode.startCold();
     }
 
@@ -123,8 +126,14 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
     public void checkLoginEnable() {
         loginIn.setEnabled(true);
         phoneNumberStr = loginPhoneNumberEt.getText().toString();
-        phoneCodeStr=loginVerificationcodeEt.getText().toString();
+        phoneCodeStr = loginVerificationcodeEt.getText().toString();
         loginIn.setEnabled(!(TextUtils.isEmpty(phoneNumberStr) || TextUtils.isEmpty(phoneCodeStr)));
+        loginPhoneNumberEt.setFocusable(!sendAuthCode.isCounting());
+    }
+
+    @OnFocusChange({R.id.login_phone_number_et, R.id.login_verificationcode_et})
+    public void changeFocus(View view) {
+        loginPhoneNumberEt.setFocusable(!sendAuthCode.isCounting());
     }
 
     @Override
@@ -164,5 +173,50 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
     @Override
     public void setPasswordSuccess() {
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(loginPhoneNumberEt.getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(loginVerificationcodeEt.getWindowToken(), 0);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideKeyboard();
     }
 }

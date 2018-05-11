@@ -87,15 +87,13 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <!--微信-->
         <activity
@@ -113,8 +111,10 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
-        <activity android:name=".splash.GuideActivity"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".splash.GuideActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mainframe.ui.MainFrameActivity"
             android:launchMode="singleTask"
@@ -207,8 +207,12 @@
         <activity
             android:name=".homepage.ui.SearchShopActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".messages.ui.MessageNotificationActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".messages.ui.MessageNotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mine.ui.ChangeHeadPortraitActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

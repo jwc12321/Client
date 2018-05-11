@@ -103,6 +103,7 @@
     <string name="birthday">生日</string>
     <string name="change_nickname">修改用户名</string>
     <string name="add_new_nickname">请输入新昵称</string>
+    <string name="change_head">更改头像</string>
 
     <!--评价-->
     <string name="netizen_evaluation">网友评价</string>

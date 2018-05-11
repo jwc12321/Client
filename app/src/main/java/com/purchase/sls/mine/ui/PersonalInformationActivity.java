@@ -43,7 +43,7 @@ import butterknife.OnClick;
  * 个人信息
  */
 
-public class PersonalInformationActivity extends BaseActivity implements PersonalCenterContract.PersonalImView,ActionSheet.OnPictureChoseListener {
+public class PersonalInformationActivity extends BaseActivity implements PersonalCenterContract.PersonalImView{
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -105,13 +105,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     private String choseWhat;
     @Inject
     PersonalImPresenter personalImPresenter;
-
     private static final int CHANGE_NIKENAME = 199;
-
-    private ActionSheet actionSheet;
-    private String headPhone;
-
-
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PersonalInformationActivity.class);
@@ -123,7 +117,6 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persional_information);
         ButterKnife.bind(this);
-        initView();
     }
 
     private void initView() {
@@ -141,13 +134,19 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
                 sex.setText("女");
                 sexType = "1";
             }
-            birthdayTime=persionInfoResponse.getBirthday();
+            birthdayTime = persionInfoResponse.getBirthday();
             birthday.setText(birthdayTime);
             blackBackground.setAlpha(0.4f);
         }
-        yearSelect=100;
-        monthSelect=FormatUtil.nowMonth();
-        daySelect=FormatUtil.nowDay();
+        yearSelect = 100;
+        monthSelect = FormatUtil.nowMonth();
+        daySelect = FormatUtil.nowDay();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
     }
 
     @Override
@@ -173,22 +172,18 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
             case R.id.preservation:
                 break;
             case R.id.item_head_portrait:
-                if (actionSheet == null) {
-                actionSheet = ActionSheet.newInstance(true, photo.getWidth(), photo.getHeight());
-                actionSheet.setOnPictureChoseListener(PersonalInformationActivity.this);
-            }
-                actionSheet.show(this);
+                ChangeHeadPortraitActivity.start(this);
                 break;
             case R.id.item_nickname:
                 Intent intent = new Intent(this, ChangeNickNameActivity.class);
                 startActivityForResult(intent, CHANGE_NIKENAME);
                 break;
             case R.id.item_sex:
-                choseWhat="1";
+                choseWhat = "1";
                 chooseSexRl.setVisibility(View.VISIBLE);
                 break;
             case R.id.item_birthday:
-                choseWhat="2";
+                choseWhat = "2";
                 setTimePicker();
                 break;
             case R.id.cancel:
@@ -197,13 +192,13 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
             case R.id.male:
                 sex.setText("男");
                 sexType = "0";
-                personalImPresenter.changeUserInfo("",sexType,"");
+                personalImPresenter.changeUserInfo("", sexType, "");
                 chooseSexRl.setVisibility(View.GONE);
                 break;
             case R.id.female:
                 sex.setText("女");
                 sexType = "1";
-                personalImPresenter.changeUserInfo("",sexType,"");
+                personalImPresenter.changeUserInfo("", sexType, "");
                 chooseSexRl.setVisibility(View.GONE);
                 break;
             case R.id.black_background:
@@ -232,7 +227,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
                 daySelect = backDaySelect;
                 birthday.setText(time);
                 birthdayTime = time;
-                personalImPresenter.changeUserInfo("","",birthdayTime);
+                personalImPresenter.changeUserInfo("", "", birthdayTime);
             }
         });
         chooseTimePicker.setCancelListener(new ChooseTimePicker.OnCancelListener() {
@@ -252,38 +247,30 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     @Override
     public void changeHeadPortraitSuccess(String phoneUrl) {
         persionInfoResponse.setAvatar(phoneUrl);
-        persionInfoStr=gson.toJson(persionInfoResponse);
+        persionInfoStr = gson.toJson(persionInfoResponse);
         commonAppPreferences.setPersionInfo(persionInfoStr);
     }
 
     @Override
     public void changeUserInfoSuccess() {
-        if(TextUtils.equals("1",choseWhat)){
+        if (TextUtils.equals("1", choseWhat)) {
             persionInfoResponse.setSex(sexType);
-        }else if(TextUtils.equals("2",choseWhat)){
+        } else if (TextUtils.equals("2", choseWhat)) {
             persionInfoResponse.setBirthday(birthdayTime);
         }
-        persionInfoStr=gson.toJson(persionInfoResponse);
+        persionInfoStr = gson.toJson(persionInfoResponse);
         commonAppPreferences.setPersionInfo(persionInfoStr);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK&&requestCode==CHANGE_NIKENAME){
+        if (resultCode == Activity.RESULT_OK && requestCode == CHANGE_NIKENAME) {
             persionInfoStr = commonAppPreferences.getPersionInfo();
             if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
                 nickname.setText(persionInfoResponse.getNickname());
             }
         }
-    }
-
-    @Override
-    public void onPictureChose(File filePath) {
-        actionSheet.dismiss();
-        headPhone = filePath.getAbsolutePath();
-        photo.setImageBitmap(BitmapFactory.decodeFile(headPhone));
-        personalImPresenter.changeHeadPortrait(headPhone);
     }
 }

@@ -3,9 +3,12 @@ package com.purchase.sls.mine.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,6 +35,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
 import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
@@ -97,10 +101,23 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
             sendAuthCode.startCold();
             shiftHandsetPresenter.sendOldVcode(phoneNumberStr, "changetel");
             sendAuthCode.setOnResetListener(this);
+            phoneCodeEt.setFocusable(true);
+            phoneCodeEt.setFocusableInTouchMode(true);
+            phoneCodeEt.requestFocus();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(phoneCodeEt, InputMethodManager.SHOW_FORCED);
+                }
+            }, 1000);
         }
     }
 
-
+    private void upKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(photoNumberEt, InputMethodManager.SHOW_FORCED);
+    }
     @Override
     public View getSnackBarHolderView() {
         return null;
@@ -136,6 +153,7 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
         photoNumberEt.setFocusable(true);
         photoNumberEt.setFocusableInTouchMode(true);
         photoNumberEt.requestFocus();
+        upKeyboard();
     }
 
     @Override
@@ -213,8 +231,47 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
         phoneNumberStr = photoNumberEt.getText().toString().trim();
         phoneCodeStr = phoneCodeEt.getText().toString().trim();
         sendAuthCode.setEnabled(!TextUtils.isEmpty(phoneNumberStr) && AccountUtils.isAccountValid(phoneNumberStr));
-//        photoNumberEt.setFocusable(!sendAuthCode.isCounting());
+        photoNumberEt.setFocusable(!sendAuthCode.isCounting());
         okButton.setEnabled(!(TextUtils.isEmpty(phoneNumberStr) || TextUtils.isEmpty(phoneCodeStr)));
     }
+
+    @OnFocusChange({R.id.photo_number_et, R.id.phone_code_et})
+    public void changeFocus(View view){
+        photoNumberEt.setFocusable(!sendAuthCode.isCounting());
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
+    }
+
 }
 
