@@ -20,11 +20,13 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -237,8 +239,18 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
 
     @Override
     public void renderapMarkers(List<MapMarkerInfo> mapMarkerInfos) {
+        removeMarker();
         for (int i = 0; i < mapMarkerInfos.size(); i++) {
             addCustomMarker(mapMarkerInfos.get(i));
+        }
+    }
+
+    private void removeMarker(){
+        List<Marker> saveMarkerList = aMap.getMapScreenMarkers();
+        if (saveMarkerList == null || saveMarkerList.size() <= 0)
+            return;
+        for (Marker marker : saveMarkerList) {
+            marker.remove();
         }
     }
 
@@ -305,7 +317,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
             mlocationClient.setLocationListener(this);
             //设置为高精度定位模式
             mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-            mLocationOption.setInterval(30000);
+            mLocationOption.setInterval(1000000);
             //设置定位参数
             mlocationClient.setLocationOption(mLocationOption);
             // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
@@ -344,7 +356,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         markerOptions.position(new LatLng(Double.parseDouble(addressXys[1]), Double.parseDouble(addressXys[0])));
         markerOptions.visible(true);
         markerOptions.title("当前位置");
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.marker_icon));
         markerOptions.icon(bitmapDescriptor);
         Marker marker;
         marker = aMap.addMarker(markerOptions);
@@ -421,5 +433,4 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     public interface OnMarkerIconLoadListener {
         void markerIconLoadingFinished(View view);
     }
-
 }

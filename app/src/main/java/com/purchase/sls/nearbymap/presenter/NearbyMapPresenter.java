@@ -64,7 +64,7 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
 
     @Override
     public void getMapMarkerInfo(String cid, String addressXy) {
-        MapMarkerRequest mapMarkerRequest = new MapMarkerRequest(cid, addressXy);
+        MapMarkerRequest mapMarkerRequest = new MapMarkerRequest(cid, "118.86667,28.9750");
         Disposable disposable = restApiService.getMapMarkerInfo(mapMarkerRequest)
                 .flatMap(new RxRemoteDataParse<List<MapMarkerInfo>>())
                 .compose(new RxSchedulerTransformer<List<MapMarkerInfo>>())
