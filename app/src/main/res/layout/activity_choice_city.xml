@@ -28,42 +28,44 @@
             android:text="@string/choice_city" />
     </RelativeLayout>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_draw1"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:visibility="gone">
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:layout_marginLeft="@dimen/common_eleven_margin"
+        android:layout_marginRight="@dimen/common_eleven_margin">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/currentCityTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="当前城市:"
+            android:textColor="@color/appText4"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/currentCityTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="当前城市"
-                android:textColor="@color/appText4"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/currentCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/currentCityTag"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/appText4"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/currentCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/common_nine_margin"
+            android:layout_toRightOf="@+id/currentCityTag"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textColor="@color/appText4"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/location_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重新定位"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/common_nine_margin"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

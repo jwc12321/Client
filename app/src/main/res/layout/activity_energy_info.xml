@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backGround1">
 
     <RelativeLayout
         android:id="@+id/title_rel"
@@ -23,30 +24,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="164dp"
-        android:background="@color/appText3">
+        android:background="@mipmap/energy_big">
 
         <TextView
             android:id="@+id/energy_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="@color/appText1" />
+            android:textColor="@color/appText1"
+            android:textSize="20sp"/>
         <Button
             android:id="@+id/energy_explain"
-            android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/common_sixty_five_margin"
+            android:layout_height="@dimen/common_twenty_six_margin"
             android:background="@drawable/energy_explain_select"
             android:textColor="@color/appText1"
             android:text="帮助说明"
             android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/common_text_left"/>
+            android:layout_margin="@dimen/common_twelve_margin"
+            android:textSize="13sp"/>
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
         android:layout_gravity="center_horizontal"
-        android:text="@string/energy_income_detail" />
+        android:text="@string/energy_income_detail"
+        android:background="@color/appText1"
+        android:gravity="center"/>
+    <View
+       style="@style/fengexian_style"/>
 
     <com.purchase.sls.common.refreshview.HeaderViewLayout
         android:id="@+id/refreshLayout"

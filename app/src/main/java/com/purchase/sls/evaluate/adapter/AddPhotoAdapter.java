@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
 import com.purchase.sls.R;
 
@@ -61,7 +62,13 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.Holder
 
     @Override
     public int getItemCount() {
-        return paths == null || paths.isEmpty() ? 1 : paths.size() + 1;
+        if (paths == null || paths.isEmpty()) {
+            return 1;
+        } else if (paths.size() < 9) {
+            return paths.size() + 1;
+        } else {
+            return 9;
+        }
     }
 
     @Override
@@ -137,6 +144,7 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.Holder
     public interface AddPhotoListener {
 
         void startAddPhoto();
+
         void removePhoto(int position);
     }
 }

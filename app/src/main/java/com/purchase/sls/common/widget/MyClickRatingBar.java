@@ -17,9 +17,9 @@ import com.purchase.sls.R;
 public class MyClickRatingBar extends LinearLayout {
     private int mImageWidth = 20;  //图片设置默认的宽度
     private int mImageHeight = 20; //图片设置默认的高度
-    private int mDefaultImageId = R.mipmap.star;
+    private int mDefaultImageId = R.mipmap.star_in;
     private int mClickImageId = R.mipmap.star2;
-    private int mHalfImageId = R.mipmap.star3;
+    private int mHalfImageId = R.mipmap.star_out;
     private int mMargin = 5;   //图片之间默认的margin
     private int mStarNum = 5;  //星星默认的个数
     private int mStarChoose = 3;  //默认默认是三颗星

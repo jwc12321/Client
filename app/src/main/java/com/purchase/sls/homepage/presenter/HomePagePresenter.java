@@ -1,5 +1,7 @@
 package com.purchase.sls.homepage.presenter;
 
+import android.util.Log;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.LikeStoreResponse;

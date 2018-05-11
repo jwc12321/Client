@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:myrating="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/title_rel"
@@ -33,28 +34,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/appText1">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/common_ninety_eight_margin"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/common_text_left"
-                    android:gravity="center"
-                    android:text="评分" />
-
-                <RatingBar
-                    android:id="@+id/ratingbar"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:stepSize="1.0"
-                    android:layout_marginLeft="@dimen/common_text_left" />
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:gravity="center"
+                    android:text="评分"
+                    android:textColor="@color/appText4"
+                    android:textSize="17sp" />
+
+                <com.purchase.sls.common.widget.MyClickRatingBar
+                    android:id="@+id/rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_twenty_four_margin"
+                    myrating:mClickImageId="@mipmap/star_in"
+                    myrating:mDefaultImageId="@mipmap/star_out"
+                    myrating:mHalfImageId="@mipmap/star3"
+                    myrating:mImageHeight="@dimen/common_thirty_margin"
+                    myrating:mImageWidth="@dimen/common_thirty_margin"
+                    myrating:mMargin="1px"
+                    myrating:mScope="0"
+                    myrating:mStarChoose="0"
+                    myrating:mStarNum="5" />
             </LinearLayout>
+
             <View style="@style/fengexian_style" />
 
             <FrameLayout
@@ -88,65 +103,74 @@
                 <EditText
                     android:id="@+id/evaluate_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/common_two_hundred_margin"
                     android:background="@drawable/null_bg"
                     android:gravity="left|top"
                     android:hint="您的评价对其他会员都是很重要的参考"
                     android:maxEms="200"
                     android:maxLength="200"
-                    android:minHeight="98.5dp"
                     android:padding="@dimen/padding_small"
                     android:textColorHint="@color/appText2"
                     android:textSize="14sp" />
             </FrameLayout>
+
             <FrameLayout
-                android:background="@drawable/bottom_line"
                 android:layout_width="match_parent"
-                android:paddingLeft="@dimen/padding_small"
-                android:layout_height="45dp">
+                android:layout_height="45dp"
+                android:background="@drawable/bottom_line"
+                android:paddingLeft="@dimen/common_twelve_margin">
+
                 <TextView
-                    android:layout_gravity="center_vertical"
-                    android:text="上传图片（最多8张）"
-                    android:textColor="@color/appText4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="上传图片（最多9张）"
+                    android:textColor="@color/appText4" />
 
                 <ImageView
                     android:id="@+id/add_photo"
-                    android:src="@mipmap/ic_launcher"
-                    android:scaleType="fitXY"
+                    android:layout_width="@dimen/common_nineteen_margin"
+                    android:layout_height="@dimen/common_nineteen_margin"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/app_icon"
+                    android:visibility="gone" />
             </FrameLayout>
             <!--照片-->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/phone_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_twelve_margin"
+                android:layout_marginRight="@dimen/common_twelve_margin"
                 android:background="@drawable/bottom_line"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/padding_small"
                 android:paddingTop="@dimen/padding_small"
-                android:visibility="gone"
                 app:layoutManager="@string/layoutManager_LinearLayout"
                 tools:listitem="@layout/list_item" />
+
+            <View
+                style="@style/fengexian_style"
+                android:layout_marginTop="@dimen/common_eleven_margin" />
+
             <LinearLayout
                 android:id="@+id/registration_agreement_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginBottom="@dimen/common_fifty_margin"
+                android:layout_marginTop="@dimen/common_two_margin"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/agreement_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
                     android:button="@drawable/checkbox"
-                    android:padding="5dp"
                     android:checked="true"
-                    android:layout_marginLeft="@dimen/common_text_left"/>
+                    android:padding="@dimen/common_eight_margin" />
 
                 <TextView
                     android:id="@+id/agreement"

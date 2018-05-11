@@ -19,6 +19,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.ComprehensiveInfo;
@@ -108,7 +109,6 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     @BindView(R.id.third_black_background)
     LinearLayout thirdBlackBackground;
 
-    private String city;
     private String bussinessCid;
     private String bussinessName;
     private String businessSort;
@@ -117,6 +117,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     private String storename;
     private String longitude;
     private String latitude;
+    private String city;
 
     private String allCid;
     private String allName;
@@ -138,18 +139,18 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     private int choiceThirdInt = 0;
     private int clickThirdType =1;
 
+    private CommonAppPreferences commonAppPreferences;
+
+
     @Inject
     ScreeningListPresenter screeningListPresenter;
 
-    public static void start(Context context, String city, String cid, String name, String sum,String storename,String longitude,String latitude) {
+    public static void start(Context context,String cid, String name, String sum,String storename) {
         Intent intent = new Intent(context, ScreeningListActivity.class);
-        intent.putExtra(StaticData.CHOICE_CITY, city);
         intent.putExtra(StaticData.BUSINESS_CID, cid);
         intent.putExtra(StaticData.BUSINESS_NAME, name);
         intent.putExtra(StaticData.BUSINESS_SUM, sum);
         intent.putExtra(StaticData.STORE_NAME,storename);
-        intent.putExtra(StaticData.LONGITUDE,longitude);
-        intent.putExtra(StaticData.LATITUDE,latitude);
         context.startActivity(intent);
     }
 
@@ -163,20 +164,24 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     }
 
     private void initView() {
-//        city = getIntent().getStringExtra(StaticData.CHOICE_CITY);
+        commonAppPreferences=new CommonAppPreferences(this);
+        city=commonAppPreferences.getCity();
+        longitude=commonAppPreferences.getLongitude();
+        latitude=commonAppPreferences.getLatitude();
         city = "衢州市";
-
         allCid = getIntent().getStringExtra(StaticData.BUSINESS_CID);
         allName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         allSum = getIntent().getStringExtra(StaticData.BUSINESS_SUM);
         storename=getIntent().getStringExtra(StaticData.STORE_NAME);
-        longitude=getIntent().getStringExtra(StaticData.LONGITUDE);
-        latitude=getIntent().getStringExtra(StaticData.LATITUDE);
         bussinessCid = allCid;
         bussinessName = allName;
         businessSum = allSum;
         title.setText(bussinessName);
-        choiceFirstTt.setText(bussinessName);
+        if(TextUtils.equals("搜索结果",bussinessName)){
+            choiceFirstTt.setText("分类");
+        }else{
+            choiceFirstTt.setText(bussinessName);
+        }
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         likeStore();
         screenFirst();

@@ -27,6 +27,7 @@ import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.location.LocationHelper;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PermissionUtil;
 import com.purchase.sls.common.unit.StatusBarUtil;
 import com.purchase.sls.common.widget.Banner.Banner;
@@ -97,11 +98,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private static final int REFRESS_LOCATION_CODE = 3;
     private static final int REQUEST_CODE_CAMERA = 4;
 
-    String longitude;
-    String latitude;
+    private String longitude;
+    private String latitude;
 
     @Inject
     HomePagePresenter homePagePresenter;
+
+    private CommonAppPreferences commonAppPreferences;
 
     public HomePageFragment() {
     }
@@ -133,6 +136,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     private void initView() {
+        commonAppPreferences=new CommonAppPreferences(getActivity());
         scrollview.setScrollViewListener(this);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         bannerInitialization();
@@ -141,6 +145,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         likeStore();
         mapLocal();
         homePagePresenter.getLikeStore();
+
     }
 
     @Override
@@ -177,6 +182,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 latitude=aMapLocation.getLatitude()+"";
                 homePagePresenter.getBannerHotInfo(city);
                 Log.d("1111", "城市" + city+"经纬度"+longitude+","+latitude);
+                commonAppPreferences.setLocalAddress(city,longitude,latitude);
                 likeStoreAdapter.setCity(city,longitude,latitude);
             }
         });
@@ -295,8 +301,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choice_city:
-                Intent intent = new Intent(getActivity(), ChoiceCityActivity.class);
-                startActivityForResult(intent, REFRESS_LOCATION_CODE);
+                Intent intent=new Intent(getActivity(),ChoiceCityActivity.class);
+                intent.putExtra(StaticData.CHOICE_CITY, city);
+                startActivityForResult(intent,REFRESS_LOCATION_CODE);
                 break;
             case R.id.scan:
                 scan();
@@ -378,7 +385,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
-        ScreeningListActivity.start(getActivity(), city, storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "",longitude,latitude);
+        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
     }
 
     @Override

@@ -43,7 +43,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/collection_rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layoutManager="@string/layoutManager_LinearLayout" />
 
             <android.support.v4.widget.NestedScrollView
@@ -75,11 +75,18 @@
             </android.support.v4.widget.NestedScrollView>
         </FrameLayout>
     </com.purchase.sls.common.refreshview.HeaderViewLayout>
-    <Button
-        style="@style/common_ok_button_style"
-        android:id="@+id/delete_bg"
-        android:layout_centerHorizontal="true"
+    <LinearLayout
+        android:id="@+id/delete_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_sixty_six_margin"
         android:layout_alignParentBottom="true"
-        android:text="删除"
-        android:layout_marginBottom="20dp" />
+        android:visibility="gone">
+        <Button
+            style="@style/common_ok_button_style"
+            android:id="@+id/delete_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="删除"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
 </RelativeLayout>

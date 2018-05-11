@@ -3,6 +3,7 @@ package com.purchase.sls.mine.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class PersonalCenterFragment extends BaseFragment {
     @BindView(R.id.item_about_neng)
     FrameLayout itemAboutNeng;
     @BindView(R.id.item_persion_im)
-    LinearLayout itemPersionIm;
+    ImageView itemPersionIm;
     private boolean isFirstLoad = true;
 
     private CommonAppPreferences commonAppPreferences;
@@ -113,6 +114,7 @@ public class PersonalCenterFragment extends BaseFragment {
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
+                initVeiw();
             }
         }
     }
@@ -125,20 +127,22 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
     private void initVeiw() {
-        persionInfoStr = commonAppPreferences.getPersionInfo();
-        gson = new Gson();
-        if (!TextUtils.isEmpty(persionInfoStr)) {
-            persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
-            GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
-            persionName.setText(persionInfoResponse.getUsername());
-            phoneNumber = persionInfoResponse.getTel();
-        } else {
-            AccountLoginActivity.start(getActivity());
+        if (!isFirstLoad) {
+            persionInfoStr = commonAppPreferences.getPersionInfo();
+            gson = new Gson();
+            if (!TextUtils.isEmpty(persionInfoStr)) {
+                persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
+                GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
+                persionName.setText(persionInfoResponse.getUsername());
+                phoneNumber = persionInfoResponse.getTel();
+            } else {
+                AccountLoginActivity.start(getActivity());
+            }
         }
     }
 
 
-    @OnClick({R.id.information_iv,R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -167,6 +171,12 @@ public class PersonalCenterFragment extends BaseFragment {
                 break;
             case R.id.item_browse_records://浏览记录
                 BrowseRecordsActivity.start(getActivity());
+                break;
+            case R.id.item_customer_service_center:
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("客服中心");
+                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/services");
+                WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_want_cooperate://我要合作
                 webViewDetailInfo = new WebViewDetailInfo();

@@ -76,11 +76,18 @@
         </FrameLayout>
     </com.purchase.sls.common.refreshview.HeaderViewLayout>
 
-    <Button
-        android:id="@+id/delete_bg"
-        style="@style/common_ok_button_style"
+    <LinearLayout
+        android:id="@+id/delete_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_sixty_six_margin"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="删除" />
+        android:visibility="gone">
+        <Button
+            style="@style/common_ok_button_style"
+            android:id="@+id/delete_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="删除"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
 </RelativeLayout>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
@@ -122,7 +123,7 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         refreshLayout.stopRefresh();
         if (energyInfo != null) {
             if (energyInfo.getSumPower() != null) {
-                energyNumber.setText("当前" + energyInfo.getSumPower().getPower() + "个能量");
+                energyNumber.setText(KeywordUtil.matcherActivity(2.0f,"当前" + energyInfo.getSumPower().getPower() + "个能量"));
             }
             if (energyInfo.getUserlog() != null && energyInfo.getUserlog().getEnergyIncomeDetails() != null && energyInfo.getUserlog().getEnergyIncomeDetails().size() > 0) {
                 emptyView.setVisibility(View.GONE);

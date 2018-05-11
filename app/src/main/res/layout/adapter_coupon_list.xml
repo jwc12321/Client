@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@color/backGround1"
@@ -40,15 +42,26 @@
             android:id="@+id/business_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_toRightOf="@id/price_ll" />
+            android:layout_marginLeft="@dimen/common_fifteen_margin"
+            android:layout_marginTop="@dimen/common_nineteen_margin"
+            android:layout_toRightOf="@id/price_ll"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="2014" />
 
         <TextView
             android:id="@+id/business_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/business_name"
-            android:layout_toRightOf="@id/price_ll" />
+            android:layout_marginLeft="@dimen/common_fifteen_margin"
+            android:layout_marginTop="@dimen/common_nine_margin"
+            android:layout_toRightOf="@id/price_ll"
+            android:textColor="@color/appText6"
+            android:textSize="10sp"
+            tools:text="2014" />
 
         <Button
             android:id="@+id/use_bt"
@@ -56,6 +69,7 @@
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/common_eleven_margin"
             android:layout_marginRight="@dimen/common_text_left"
             android:background="@drawable/common_coupon_bt"
             android:enabled="true"

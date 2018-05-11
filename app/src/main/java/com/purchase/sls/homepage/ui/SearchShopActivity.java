@@ -60,8 +60,9 @@ public class SearchShopActivity extends BaseActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyboard();
                     if (!TextUtils.isEmpty(searchEt.getText().toString()))
-                        ScreeningListActivity.start(SearchShopActivity.this, "", "", searchEt.getText().toString(), "", searchEt.getText().toString(),"","");
+                        ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", searchEt.getText().toString());
                     return true;
                 }
                 return false;
@@ -71,9 +72,15 @@ public class SearchShopActivity extends BaseActivity {
             @Override
             public void run() {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(searchEt,InputMethodManager.SHOW_FORCED);
+                imm.showSoftInput(searchEt, InputMethodManager.SHOW_FORCED);
             }
         }, 1000);
+    }
+
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(searchEt.getWindowToken(),0);
     }
 
     @Override

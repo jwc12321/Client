@@ -122,7 +122,8 @@ public class MainFrameActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(onPageChangeListener);
         viewPager.setCurrentItem(0);
-
+        imageViews[0].setSelected(true);
+        textViews[0].setSelected(true);
     }
 
 

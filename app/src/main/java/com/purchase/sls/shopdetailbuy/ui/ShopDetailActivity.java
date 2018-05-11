@@ -255,6 +255,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     @Override
     public void likeStoreClickListener(String storeid) {
         ShopDetailActivity.start(this, storeid);
+        this.finish();
     }
 
     @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl, R.id.check_bg, R.id.look_all_comment_rl})
@@ -267,10 +268,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 collectionType += 1;
                 if (collectionType % 2 == 0) {
                     collection.setSelected(false);
-                    shopDetailPresenter.addRemoveCollection("161", "2", null);
+                    shopDetailPresenter.addRemoveCollection(storeid, "2", null);
                 } else {
                     collection.setSelected(true);
-                    shopDetailPresenter.addRemoveCollection("161", "1", null);
+                    shopDetailPresenter.addRemoveCollection(storeid, "1", null);
                 }
                 break;
             case R.id.call_ll:

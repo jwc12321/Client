@@ -44,7 +44,7 @@ public class SplashActivity extends BaseActivity {
                     goHome();
                     break;
                 case GO_GUIDE:
-//                    goGuide();
+                    goGuide();
                     break;
             }
             super.handleMessage(msg);
@@ -78,9 +78,8 @@ public class SplashActivity extends BaseActivity {
         preferences.edit().putBoolean("isFirstIn", false).apply();
 
         // 判断程序与第几次运行，如果是第一次运行则跳转到引导界面，否则跳转到主界面
-//        if ( !isFirstIn ) {
+        if ( !isFirstIn ) {
         // 使用Handler的postDelayed方法，1秒后执行跳转
-//            mHandler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -93,10 +92,10 @@ public class SplashActivity extends BaseActivity {
             }
         }, 1000);
 
-//        }
-//        else {
-//            mHandler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
-//        }
+        }
+        else {
+            mHandler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
+        }
 
     }
 
@@ -110,9 +109,9 @@ public class SplashActivity extends BaseActivity {
 
     //跳转到引导页
     private void goGuide() {//目前暂时没有引导页，先做保留
-//        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
-//        SplashActivity.this.startActivity(intent);
-//        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
-//        SplashActivity.this.finish();
+        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+        SplashActivity.this.startActivity(intent);
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+        SplashActivity.this.finish();
     }
 }

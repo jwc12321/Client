@@ -1,5 +1,6 @@
 package com.purchase.sls.coupon.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -103,7 +104,19 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
             priceLl.setSelected(TextUtils.equals("0", availableType) ? true : false);
             businessName.setText(couponInfo.getQuanInfo().getTitle());
             businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + couponInfo.getQuanInfo().getEndtime());
-            useBt.setVisibility(TextUtils.equals("0", availableType) ? View.VISIBLE : View.GONE);
+            if(TextUtils.equals("0",couponInfo.getStatus())){
+                useBt.setEnabled(true);
+                useBt.setText("立即使用");
+                useBt.setTextColor(Color.rgb(255, 101, 40));
+            }else if(TextUtils.equals("1",couponInfo.getStatus())){
+                useBt.setEnabled(false);
+                useBt.setText("已使用");
+                useBt.setTextColor(Color.rgb(224, 224, 224));
+            }else {
+                useBt.setEnabled(false);
+                useBt.setText("已失效");
+                useBt.setTextColor(Color.rgb(224, 224, 224));
+            }
 
         }
     }

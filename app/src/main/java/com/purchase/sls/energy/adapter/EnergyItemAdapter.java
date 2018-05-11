@@ -1,6 +1,7 @@
 package com.purchase.sls.energy.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class EnergyItemAdapter extends RecyclerView.Adapter<EnergyItemAdapter.En
         public void bindData(EnergyIncomeDetail energyIncomeDetail) {
             businessName.setText(energyIncomeDetail.getRemarks());
             time.setText(FormatUtil.formatDateByLine(energyIncomeDetail.getCreatedAt()));
-            number.setText(energyIncomeDetail.getAmount());
+            number.setText((TextUtils.equals("1",energyIncomeDetail.getType())?"-":"+")+energyIncomeDetail.getAmount());
         }
     }
 }

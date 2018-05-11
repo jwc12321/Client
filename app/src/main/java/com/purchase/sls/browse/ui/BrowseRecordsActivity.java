@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,14 +21,16 @@ import com.purchase.sls.browse.BrowseModule;
 import com.purchase.sls.browse.DaggerBrowseComponent;
 import com.purchase.sls.browse.adapter.BrowseRecordsAdapter;
 import com.purchase.sls.browse.presenter.BrowsePresenter;
-import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.data.entity.BrowseInfo;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,7 +40,7 @@ import butterknife.OnClick;
  * 浏览记录页面
  */
 
-public class BrowseRecordsActivity extends BaseActivity implements BrowseContract.BrowseView,BrowseRecordsAdapter.OnBrowseItemClickListener{
+public class BrowseRecordsActivity extends BaseActivity implements BrowseContract.BrowseView, BrowseRecordsAdapter.OnBrowseItemClickListener {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -58,11 +62,19 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
 
     @Inject
     BrowsePresenter browsePresenter;
+    @BindView(R.id.delete_ll)
+    LinearLayout deleteLl;
 
     private BrowseRecordsAdapter browseRecordsAdapter;
     private int choiceEditInt = 0;
     private List<String> removeList;
     private String[] removeArray;
+
+    private CommonAppPreferences commonAppPreferences;
+
+    private String city;
+    private String longitude;
+    private String latitude;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, BrowseRecordsActivity.class);
@@ -78,9 +90,13 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
     }
 
     private void initView() {
+        commonAppPreferences=new CommonAppPreferences(this);
+        city=commonAppPreferences.getCity();
+        longitude=commonAppPreferences.getLongitude();
+        latitude=commonAppPreferences.getLatitude();
         removeList = new ArrayList<>();
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
-        browseRecordsAdapter = new BrowseRecordsAdapter(this);
+        browseRecordsAdapter = new BrowseRecordsAdapter(this,city,longitude,latitude);
         browseRecordsAdapter.setOnBrowseItemClickListener(this);
         browseRecordsRv.setAdapter(browseRecordsAdapter);
         browsePresenter.getBrowseInfo();
@@ -130,12 +146,14 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
                 if (choiceEditInt % 2 == 0) {
                     edit.setText("编辑");
                     browseRecordsAdapter.setType("1");
-                    deleteBg.setVisibility(View.GONE);
+                    deleteLl.setVisibility(View.GONE);
                     removeList.clear();
+                    setMargins(browseRecordsRv,0,0,0,0);
                 } else {
                     edit.setText("完成");
                     browseRecordsAdapter.setType("2");
-                    deleteBg.setVisibility(View.VISIBLE);
+                    deleteLl.setVisibility(View.VISIBLE);
+                    setMargins(browseRecordsRv,0,0,0,70);
                 }
                 break;
             case R.id.delete_bg:
@@ -168,7 +186,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
 
     @Override
     public void goShopDetail(String storeid) {
-        ShopDetailActivity.start(this,storeid);
+        ShopDetailActivity.start(this, storeid);
     }
 
     @Override
@@ -187,10 +205,11 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
         } else {
             browseRecordsRv.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
-            choiceEditInt=0;
+            choiceEditInt = 0;
             edit.setText("编辑");
             browseRecordsAdapter.setType("1");
-            deleteBg.setVisibility(View.GONE);
+            deleteLl.setVisibility(View.GONE);
+            setMargins(browseRecordsRv,0,0,0,0);
             removeList.clear();
             refreshLayout.setCanLoadMore(false);
         }
@@ -199,7 +218,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
     @Override
     public void renderMoreBrowseInfo(BrowseInfo browseInfo) {
         refreshLayout.stopRefresh();
-        if (browseInfo != null && browseInfo.getBrowseItemInfos() != null &&browseInfo.getBrowseItemInfos().size() > 0) {
+        if (browseInfo != null && browseInfo.getBrowseItemInfos() != null && browseInfo.getBrowseItemInfos().size() > 0) {
             refreshLayout.setCanLoadMore(true);
             browseRecordsAdapter.addMore(browseInfo.getBrowseItemInfos());
         } else {
@@ -210,5 +229,13 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
     @Override
     public void removeSuccess() {
         browsePresenter.getBrowseInfo();
+    }
+
+    public static void setMargins (View v, int l, int t, int r, int b) {
+        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            p.setMargins(l, t, r, b);
+            v.requestLayout();
+        }
     }
 }

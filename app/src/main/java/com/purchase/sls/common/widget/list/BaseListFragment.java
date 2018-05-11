@@ -43,7 +43,7 @@ public abstract class BaseListFragment<T> extends BaseFragment implements Header
         view = inflater.inflate(getContentRes(), container, false);
         ButterKnife.bind(this, view);
         refresh.setOnRefreshListener(this);
-        recyclerView.addItemDecoration(getItemDecoration());
+//        recyclerView.addItemDecoration(getItemDecoration());
         return view;
     }
 

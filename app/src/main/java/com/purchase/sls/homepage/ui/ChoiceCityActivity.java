@@ -1,11 +1,13 @@
 package com.purchase.sls.homepage.ui;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
@@ -25,6 +28,8 @@ import com.purchase.sls.common.cityList.style.citylist.sortlistview.SortAdapter;
 import com.purchase.sls.common.cityList.style.citylist.sortlistview.SortModel;
 import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.cityList.utils.PinYinUtils;
+import com.purchase.sls.common.location.LocationHelper;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +64,13 @@ public class ChoiceCityActivity extends BaseActivity {
     TextView dialog;
     @BindView(R.id.sidrbar)
     SideBar sidrbar;
+    @BindView(R.id.location_again)
+    TextView locationAgain;
 
+    private String city;
+    private LocationHelper mLocationHelper;
+    private CommonAppPreferences commonAppPreferences;
+    private static final int REQUEST_PERMISSION_LOCATION = 1;
 
     @Override
     public View getSnackBarHolderView() {
@@ -97,12 +108,13 @@ public class ChoiceCityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice_city);
         ButterKnife.bind(this);
-
+        city=getIntent().getStringExtra(StaticData.CHOICE_CITY);
+        currentCity.setText(city);
         initList();
-
         setCityData(CityListLoader.getInstance().getCityListData());
 
     }
+
     private void setCityData(List<CityInfoBean> cityList) {
         cityListInfo = cityList;
         if (cityListInfo == null) {
@@ -142,14 +154,11 @@ public class ChoiceCityActivity extends BaseActivity {
                     String pinyin = "";
                     if (cityName.equals("重庆市")) {
                         pinyin = "chong";
-                    }
-                    else if (cityName.equals("长沙市")) {
+                    } else if (cityName.equals("长沙市")) {
                         pinyin = "chang";
-                    }
-                    else if (cityName.equals("长春市")) {
+                    } else if (cityName.equals("长春市")) {
                         pinyin = "chang";
-                    }
-                    else {
+                    } else {
                         pinyin = mPinYinUtils.getStringPinYin(cityName.substring(0, 1));
                     }
 
@@ -162,13 +171,11 @@ public class ChoiceCityActivity extends BaseActivity {
                         // 正则表达式，判断首字母是否是英文字母
                         if (sortString.matches("[A-Z]")) {
                             sortModel.setSortLetters(sortString.toUpperCase());
-                        }
-                        else {
+                        } else {
                             sortModel.setSortLetters("#");
                         }
                         mSortList.add(sortModel);
-                    }
-                    else {
+                    } else {
                         Log.d("citypicker_log", "null,cityName:-> " + cityName + "       pinyin:-> " + pinyin);
                     }
 
@@ -227,8 +234,7 @@ public class ChoiceCityActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(filterStr)) {
             filterDateList = sourceDateList;
-        }
-        else {
+        } else {
             filterDateList.clear();
             for (SortModel sortModel : sourceDateList) {
                 String name = sortModel.getName();
@@ -243,13 +249,24 @@ public class ChoiceCityActivity extends BaseActivity {
         adapter.updateListView(filterDateList);
     }
 
-    @OnClick({R.id.back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.back, R.id.location_again,R.id.currentCity})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-                default:
+            case R.id.location_again:
+                break;
+            case R.id.currentCity:
+                cityInfoBean = CityInfoBean.findCity(cityListInfo, city);
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
+                intent.putExtras(bundle);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+            default:
         }
     }
 }

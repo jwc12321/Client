@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_rl"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="@dimen/common_one_hundred_and_six_margin"
+    android:background="@color/appText1">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/photo"
         style="@style/PhotoStyle"
-        android:layout_width="@dimen/personal_photo_size"
-        android:layout_height="@dimen/personal_photo_size"
+        android:layout_width="@dimen/common_eighty_five_margin"
+        android:layout_height="@dimen/common_eighty_five_margin"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginLeft="@dimen/common_eleven_margin"
         app:riv_oval="true"
         tools:background="@null"
         tools:src="@mipmap/ic_launcher" />
@@ -21,9 +22,12 @@
         android:id="@+id/business_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_text_left"
-        android:layout_marginTop="@dimen/common_text_left"
-        android:layout_toRightOf="@id/photo" />
+        android:layout_marginLeft="@dimen/common_ten_margin"
+        android:layout_marginTop="@dimen/common_eleven_margin"
+        android:layout_toRightOf="@id/photo"
+        android:textColor="@color/appText4"
+        android:textSize="12sp"
+        tools:text="大家"/>
 
     <TextView
         android:id="@+id/time"
@@ -31,7 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/business_name"
         android:layout_marginLeft="@dimen/common_text_left"
-        android:layout_toRightOf="@id/photo" />
+        android:layout_toRightOf="@id/photo"
+        android:textSize="11sp"
+        android:textColor="@color/appText6"
+        tools:text="2017"
+        android:layout_marginTop="@dimen/common_nine_margin"/>
 
     <TextView
         android:id="@+id/address"
@@ -42,7 +50,11 @@
         android:layout_marginRight="@dimen/common_text_left"
         android:layout_toRightOf="@id/photo"
         android:ellipsize="end"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="@color/appText6"
+        android:textSize="11sp"
+        tools:text="大家"
+        android:layout_marginTop="@dimen/common_nine_margin"/>
 
     <TextView
         android:id="@+id/price"
@@ -50,7 +62,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/address"
         android:layout_marginLeft="@dimen/common_text_left"
-        android:layout_toRightOf="@id/photo" />
+        android:layout_toRightOf="@id/photo"
+        android:textColor="@color/appText6"
+        android:textSize="11sp"
+        tools:text="大家"
+        android:layout_marginTop="@dimen/common_nine_margin"/>
 
     <Button
         android:id="@+id/use_bt"

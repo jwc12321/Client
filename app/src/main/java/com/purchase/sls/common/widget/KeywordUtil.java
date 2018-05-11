@@ -3,6 +3,7 @@ package com.purchase.sls.common.widget;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +41,19 @@ public class KeywordUtil {
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             return s;
+    }
+
+    public static SpannableString matcherActivity(float size, String text) {
+        SpannableString s = new SpannableString(text);
+        Pattern p = Pattern.compile("[0-9.]*");
+        Matcher m = p.matcher(s);
+        while (m.find()) {
+            int start = m.start();
+            int end = m.end();
+            s.setSpan(new RelativeSizeSpan(size), start, end,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return s;
     }
 
     public static String matcherHtml(String text){

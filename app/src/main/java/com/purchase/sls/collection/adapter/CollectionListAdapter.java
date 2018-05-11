@@ -99,6 +99,14 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
             }
         });
+        holder.likestoreRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onCollectionItemClickListener!=null&&TextUtils.equals("1", behavior)){
+                    onCollectionItemClickListener.goShopDetail(collectionListInfo.getStoreid());
+                }
+            }
+        });
 
     }
 
@@ -138,6 +146,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
         public void bindData(CollectionListInfo collectionListInfo) {
             choiceItem.setVisibility(TextUtils.equals("1", behavior) ? View.GONE : View.VISIBLE);
+            choiceItem.setChecked(false);
             CollectionStoreInfo collectionStoreInfo = collectionListInfo.getCollectionStoreInfo();
             GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
             storeName.setText(collectionStoreInfo.getTitle());
@@ -169,8 +178,8 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
     public interface OnCollectionItemClickListener {
         void addItem(String storeId);
-
         void removeItem(String storeId);
+        void goShopDetail(String storeid);
     }
 
     private OnCollectionItemClickListener onCollectionItemClickListener;

@@ -2,18 +2,19 @@ package com.purchase.sls.evaluate.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.widget.MyClickRatingBar;
 import com.purchase.sls.common.widget.customeview.ActionSheet;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.evaluate.DaggerEvaluateComponent;
@@ -48,7 +50,7 @@ import static android.view.View.VISIBLE;
  * 评价商店
  */
 
-public class SubmitEvaluateActivity extends BaseActivity implements EvaluateContract.SubmitEvaluateView, AddPhotoAdapter.AddPhotoListener, ActionSheet.OnPictureChoseListener {
+public class SubmitEvaluateActivity extends BaseActivity implements EvaluateContract.SubmitEvaluateView, AddPhotoAdapter.AddPhotoListener, ActionSheet.OnPictureChoseListener,MyClickRatingBar.OnStarItemClickListener {
 
 
     @BindView(R.id.back)
@@ -59,8 +61,6 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     TextView submit;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
-    @BindView(R.id.ratingbar)
-    RatingBar ratingbar;
     @BindView(R.id.text_number)
     TextView textNumber;
     @BindView(R.id.evaluate_et)
@@ -71,6 +71,12 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     ImageView addPhoto;
     @BindView(R.id.agreement_check)
     CheckBox agreementCheck;
+    @BindView(R.id.rating_bar)
+    MyClickRatingBar ratingBar;
+    @BindView(R.id.agreement)
+    TextView agreement;
+    @BindView(R.id.registration_agreement_ll)
+    LinearLayout registrationAgreementLl;
 
     private String typeAnonymous;
 
@@ -87,11 +93,11 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     @Inject
     SubmitEvaluatePresenter submitEvaluatePresenter;
 
-    public static void start(Context context, String storeId,String orderId,String businessName) {
+    public static void start(Context context, String storeId, String orderId, String businessName) {
         Intent intent = new Intent(context, SubmitEvaluateActivity.class);
         intent.putExtra(StaticData.BUSINESS_STOREID, storeId);
-        intent.putExtra(StaticData.ORDER_ID,orderId);
-        intent.putExtra(StaticData.BUSINESS_NAME,businessName);
+        intent.putExtra(StaticData.ORDER_ID, orderId);
+        intent.putExtra(StaticData.BUSINESS_NAME, businessName);
         context.startActivity(intent);
     }
 
@@ -104,24 +110,20 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     }
 
     private void initView() {
-        uploadFiles=new ArrayList<>();
+        uploadFiles = new ArrayList<>();
         typeAnonymous = "1";
-        storeId= getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
-        orderId=getIntent().getStringExtra(StaticData.ORDER_ID);
-        businessName=getIntent().getStringExtra(StaticData.BUSINESS_NAME);
+        starts="0";
+        storeId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
+        orderId = getIntent().getStringExtra(StaticData.ORDER_ID);
+        businessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         title.setText(businessName);
-        ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                starts=String.valueOf(rating);
-            }
-        });
+        ratingBar.setmStarItemClickListener(this);
         addAdapter();
     }
 
     private void addAdapter() {
         photoAdapter = new AddPhotoAdapter();
-        phoneRv.setLayoutManager(new GridLayoutManager(this, 4));
+        phoneRv.setLayoutManager(new GridLayoutManager(this, 3));
         photoAdapter.setPaths(photoPaths);
         photoAdapter.setPhotoListener(this);
         phoneRv.setAdapter(photoAdapter);
@@ -208,7 +210,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         uploadFiles.remove(position);
     }
 
-    @OnClick({R.id.add_photo,R.id.submit,R.id.back})
+    @OnClick({R.id.add_photo, R.id.submit, R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_photo:
@@ -220,7 +222,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
             case R.id.back:
                 finish();
                 break;
-                default:
+            default:
         }
     }
 
@@ -230,8 +232,9 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
             actionSheet.setOnPictureChoseListener(SubmitEvaluateActivity.this);
         }
         actionSheet.show(this);
-        if (photoPaths.size() > 7) {
-            showMessage("至多选择8张照片");
+        Log.d("111","数据"+photoPaths.size());
+        if (photoPaths.size() > 8) {
+            showMessage("至多选择9张照片");
             return;
         }
     }
@@ -239,36 +242,40 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     @Override
     public void onPictureChose(File filePath) {
         photoPaths.add(filePath.getAbsolutePath());
-        phoneRv.setVisibility(VISIBLE);
         photoAdapter.setPaths(photoPaths);
         submitEvaluatePresenter.uploadFile(filePath.getAbsolutePath());
     }
 
     @OnCheckedChanged({R.id.agreement_check})
     public void agreementCheck(boolean checked) {
-        if(checked) {
+        if (checked) {
             typeAnonymous = "1";
-        }else {
+        } else {
             typeAnonymous = "0";
         }
     }
 
-    private void submit(){
-        String picsStr="";
-        SubmitEvaluateRequest submitEvaluateRequest=new SubmitEvaluateRequest();
+    private void submit() {
+        String picsStr = "";
+        SubmitEvaluateRequest submitEvaluateRequest = new SubmitEvaluateRequest();
         submitEvaluateRequest.setStoreid(storeId);
         submitEvaluateRequest.setWords(evaluateEt.getText().toString());
         submitEvaluateRequest.setStarts(starts);
         submitEvaluateRequest.setType(typeAnonymous);
         submitEvaluateRequest.setOrderid(orderId);
-        for(int i=0;i<uploadFiles.size();i++){
-            if(i<uploadFiles.size()-1) {
+        for (int i = 0; i < uploadFiles.size(); i++) {
+            if (i < uploadFiles.size() - 1) {
                 picsStr = picsStr + uploadFiles.get(i) + ",";
-            }else {
+            } else {
                 picsStr = picsStr + uploadFiles.get(i);
             }
         }
         submitEvaluateRequest.setPics(picsStr);
         submitEvaluatePresenter.submitEvaluate(submitEvaluateRequest);
+    }
+
+    @Override
+    public void onItemClick(View view, int pos) {
+        starts = String.valueOf(pos+1);
     }
 }

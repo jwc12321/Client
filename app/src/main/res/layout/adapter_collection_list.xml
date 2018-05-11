@@ -3,123 +3,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="122dp"
-    android:id="@+id/likestore_rl">
+    android:layout_height="122dp">
 
     <CheckBox
         android:id="@+id/choice_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/pay_select"
-        android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/common_eleven_margin"/>
-    <ImageView
-        android:id="@+id/shop_icon"
-        android:layout_width="@dimen/like_adapter_icon"
-        android:layout_height="@dimen/like_adapter_icon"
-        android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
-        android:layout_marginLeft="@dimen/common_twenty_four_margin"
-        android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
-        android:scaleType="fitXY"
-        tools:src="@mipmap/ic_launcher"
-        android:layout_toRightOf="@id/choice_item"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/common_eleven_margin"
+        android:button="@drawable/pay_select"
+        android:visibility="gone"/>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/likestore_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/common_text_left_second"
-        android:orientation="vertical"
-        android:layout_toRightOf="@id/shop_icon">
+        android:layout_toRightOf="@id/choice_item">
 
-        <TextView
-            android:id="@+id/store_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/shop_icon"
+            android:layout_width="@dimen/like_adapter_icon"
+            android:layout_height="@dimen/like_adapter_icon"
+            android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
+            android:layout_marginLeft="@dimen/common_twenty_four_margin"
             android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
-            android:textColor="@color/appText4"
-            android:textSize="15sp"
-            tools:text="1111"/>
+            android:scaleType="fitXY"
+            tools:src="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_text_left_second"
+            android:layout_toRightOf="@id/shop_icon"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/popularity_number"
+                android:id="@+id/store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/appText3"
-                android:textSize="13sp"
-                android:layout_gravity="center_vertical"
-                tools:text="1111"/>
-            <ImageView
-                android:layout_width="11dp"
-                android:layout_height="15dp"
-                android:src="@mipmap/fire"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="5dp"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
+                android:textColor="@color/appText4"
+                android:textSize="15sp"
+                tools:text="1111" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/appText6"
-                android:id="@+id/per_capita"
-                android:layout_marginLeft="9dp"
-                android:layout_gravity="center_vertical"
-                tools:text="1111"/>
-        </LinearLayout>
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/popularity_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/appText3"
+                    android:textSize="13sp"
+                    tools:text="1111" />
 
-            <TextView
-                android:id="@+id/shop_name"
-                style="@style/like_adapter_text_style"
-                tools:text="1111"/>
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/fire" />
 
-            <TextView
-                android:id="@+id/shop_city"
-                style="@style/like_adapter_text_style"
-                android:layout_marginLeft="7dp"/>
+                <TextView
+                    android:id="@+id/per_capita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="9dp"
+                    android:textColor="@color/appText6"
+                    android:textSize="13sp"
+                    tools:text="1111" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/shop_distance"
-                style="@style/like_adapter_text_style"
-                android:layout_marginLeft="7dp"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/return_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/common_text_left"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <ImageView
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/return_energy" />
-
-            <TextView
-                android:id="@+id/return_energy"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/appText7"
-                android:textSize="12sp"
-                android:layout_marginLeft="9dp"/>
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/shop_name"
+                    style="@style/like_adapter_text_style"
+                    tools:text="1111" />
+
+                <TextView
+                    android:id="@+id/shop_city"
+                    style="@style/like_adapter_text_style"
+                    android:layout_marginLeft="7dp" />
+
+                <TextView
+                    android:id="@+id/shop_distance"
+                    style="@style/like_adapter_text_style"
+                    android:layout_marginLeft="7dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/return_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/common_text_left"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/return_energy" />
+
+                <TextView
+                    android:id="@+id/return_energy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:textColor="@color/appText7"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
+
     <View
         style="@style/fengexian_style"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
