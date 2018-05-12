@@ -41,7 +41,6 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LOW_PROFILE);
         intViews();
     }
 

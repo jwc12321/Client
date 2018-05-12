@@ -11,6 +11,8 @@ import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.unit.SPManager;
 import com.purchase.sls.data.local.GreenDaoModule;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2017/12/15.
  */
@@ -26,6 +28,8 @@ public class MainApplication  extends MultiDexApplication {
          */
         CityListLoader.getInstance().loadCityData(this);
         SPManager.getInstance().register(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
     private void initDaggerComponent() {
         mApplicationComponent = DaggerApplicationComponent.builder()

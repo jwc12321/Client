@@ -64,5 +64,7 @@ ext{
     multidexVersion="1.0.1"
     aviVersion="1.0.0"
     nineoldandroidsVersion="2.4.0"
+    jpushVersion="3.0.0"
+    jcoreVersion="1.0.0"
 
 }

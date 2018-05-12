@@ -26,6 +26,14 @@ android {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
         }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "79cf4744f9e34f5f2dad94a4", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                PACKAGE_NAME : applicationId,
+
+        ]
     }
 
     signingConfigs {
@@ -47,12 +55,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            manifestPlaceholders.put("JPUSH_APPKEY", "79cf4744f9e34f5f2dad94a4")
+            manifestPlaceholders.put("JPUSH_CHANNEL", "developer-default")
         }
         debug {
             buildConfigField "String", "API_BASE_URL", "\"http://www.365nengs.com/api/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
+            manifestPlaceholders.put("JPUSH_APPKEY", "79cf4744f9e34f5f2dad94a4")
+            manifestPlaceholders.put("JPUSH_CHANNEL", "developer-default")
         }
     }
 
@@ -67,7 +79,6 @@ android {
         incremental true
         javaMaxHeapSize "4g"
     }
-
 }
 
 greendao {
@@ -147,4 +158,8 @@ dependencies {
     implementation files('libs/classes.jar')
     implementation files('libs/alipaySdk.jar')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    //极光推送
+    compile 'cn.jiguang.sdk:jpush:3.0.0'
+    compile 'cn.jiguang.sdk:jcore:1.0.0'
 }
