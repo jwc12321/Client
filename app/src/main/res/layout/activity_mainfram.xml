@@ -40,20 +40,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/shoppingmall_rl"
-            style="@style/bottom_RelativeLayout_style">
-
-            <ImageView
-                android:id="@+id/shoppingmall_iv"
-                style="@style/bottom_imageView_style"
-                android:src="@drawable/shopping_mall_select" />
-            <TextView
-                android:id="@+id/shoppingmall_tt"
-                style="@style/bottom_textView_style"
-                android:text="@string/shoppingmall" />
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/energy_rl"
             style="@style/bottom_RelativeLayout_style">
 
@@ -67,7 +53,19 @@
                 style="@style/bottom_textView_style"
                 android:text="@string/energy" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/shoppingmall_rl"
+            style="@style/bottom_RelativeLayout_style">
 
+            <ImageView
+                android:id="@+id/shoppingmall_iv"
+                style="@style/bottom_imageView_style"
+                android:src="@drawable/shopping_mall_select" />
+            <TextView
+                android:id="@+id/shoppingmall_tt"
+                style="@style/bottom_textView_style"
+                android:text="@string/shoppingmall" />
+        </RelativeLayout>
         <RelativeLayout
             android:id="@+id/mine_rl"
             style="@style/bottom_RelativeLayout_style">
