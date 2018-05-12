@@ -77,7 +77,7 @@ public class SubmitEvaluatePresenter implements EvaluateContract.SubmitEvaluateP
         requestBodyMap.put("file\"; filename=\"" + fileName, photo);
         RequestBody json = RequestBody.create(MediaType.parse("application/json"), gson.toJson(headPhoneRequest));
         requestBodyMap.put("json_data", json);
-        Disposable disposable = restApiService.changeAvatar(requestBodyMap)
+        Disposable disposable = restApiService.uploadFile(requestBodyMap)
                 .flatMap(new RxRemoteDataParse<String>())
                 .compose(new RxSchedulerTransformer<String>())
                 .subscribe(new Consumer<String>() {

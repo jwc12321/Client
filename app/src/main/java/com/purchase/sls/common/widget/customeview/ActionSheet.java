@@ -340,39 +340,29 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult: " + (data != null));
-        if (resultCode == Activity.RESULT_OK) {
+        if ( resultCode == Activity.RESULT_OK ) {
             switch (requestCode) {
                 case CODE_GALLERY:
-                    if (data != null) {
+                    if ( data != null ) {
                         Uri selectedImage = data.getData();
                         String picturePath;
-                        if ("file".equals(selectedImage.getScheme())) {
+                        if ( "file".equals(selectedImage.getScheme()) ) {
                             picturePath = selectedImage.getPath();
                             tempFile = createTempFile(filePath);
-                            if (compress) {
-                                ImageSizeUtil.compressAndSaveToFile(picturePath, tempFile.getAbsolutePath(), compressWidth, compressHeight);
-                                dismiss();
-                                mOnPictureChoseListener.onPictureChose(tempFile);
-                            } else {
-                                crop(picturePath, 1, 1, 400, 400);
-                            }
-                        } else if ("content".equals(selectedImage.getScheme())) {
+                            crop(picturePath, 1, 1, 400, 400);
+                        } else if ( "content".equals(selectedImage.getScheme()) ) {
 
                             String[] filePathColumn = {MediaStore.Images.Media.DATA};
                             Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                                     filePathColumn, null, null, null);
-                            if (cursor != null) {
+                            if ( cursor != null ) {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 
                                 picturePath = cursor.getString(columnIndex);
                                 cursor.close();
                                 tempFile = createTempFile(filePath);
-                                if (compress) {
-                                    ImageSizeUtil.compressAndSaveToFile(picturePath, tempFile.getAbsolutePath(), compressWidth, compressHeight);
-                                    dismiss();
-                                    mOnPictureChoseListener.onPictureChose(tempFile);
-                                } else crop(picturePath, 1, 1, 400, 400);
+                                crop(picturePath, 1, 1, 400, 400);
                             } else {
                                 Toast.makeText(getActivity(), "图片获取失败", Toast.LENGTH_SHORT).show();
                             }
@@ -383,16 +373,11 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
                     }
                     break;
                 case CODE_TAKE_PHOTO:
-                    if (compress) {
-//                        dismiss();
-//                        ImageSizeUtil.compressAndSaveToFile(tempFile.getAbsolutePath(), null, compressWidth, compressHeight);
-                        mOnPictureChoseListener.onPictureChose(ImageSizeUtil.compressAndSaveToFile(tempFile.getAbsolutePath(), null, compressWidth, compressHeight));
-                    } else
-                        crop(tempFile.getAbsolutePath(), 1, 1, 400, 400);
+                    crop(tempFile.getAbsolutePath(), 1, 1, 400, 400);
                     break;
                 case CODE_CUT:
-                    dismiss();
                     mOnPictureChoseListener.onPictureChose(tempFile);
+                    dismiss();
                     break;
                 default:
             }

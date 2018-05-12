@@ -27,8 +27,6 @@ public class SplashActivity extends BaseActivity {
     boolean isFirstIn = false;
     //用pref记录是否为首次载入
     private static final String SHAREDPREFERENCES_NAME = "first_pref";
-    @BindView(R.id.splash)
-    FrameLayout splash;
     private Bundle bundle;
 
     private static final int GO_HOME = 1000;
@@ -53,7 +51,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public View getSnackBarHolderView() {
-        return splash;
+        return null;
     }
 
     @Override
@@ -61,9 +59,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        splash.setBackgroundResource(R.mipmap.splash);
-        bundle = getIntent().getExtras();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         init(bundle);
 
     }
