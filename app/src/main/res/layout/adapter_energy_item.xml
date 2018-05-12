@@ -9,16 +9,17 @@
 
     <TextView
         android:id="@+id/business_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/common_twelve_margin"
-        android:layout_marginRight="@dimen/common_fifty_margin"
+        android:layout_marginRight="@dimen/common_twelve_margin"
         android:layout_marginTop="14dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/appText4"
         android:textSize="15sp"
-        tools:text="hafd" />
+        tools:text="hafd"
+        android:layout_toLeftOf="@id/number" />
 
     <TextView
         android:id="@+id/time"

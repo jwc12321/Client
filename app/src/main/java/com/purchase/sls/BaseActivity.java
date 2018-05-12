@@ -1,5 +1,6 @@
 package com.purchase.sls;
 
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.purchase.sls.MainApplication;
+import com.purchase.sls.common.unit.WeiboDialogUtils;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 
@@ -26,6 +28,7 @@ import com.purchase.sls.login.ui.AccountLoginActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements LoadDataView {
     private Toast toast;
+    private Dialog mWeiboDialog;
 
     /**
      * snack bar holder view
@@ -120,13 +123,13 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
     }
 
     @Override
-    public void showLoading(String title) {
-
+    public void showLoading() {
+        mWeiboDialog = WeiboDialogUtils.createLoadingDialog(this);
     }
 
     @Override
     public void dismissLoading() {
-
+        WeiboDialogUtils.closeDialog(mWeiboDialog);
     }
 
     public void showError(String errMsg) {

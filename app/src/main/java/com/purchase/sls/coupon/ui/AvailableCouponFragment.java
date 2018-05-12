@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.widget.list.BaseListFragment;
 import com.purchase.sls.coupon.CouponContract;
 import com.purchase.sls.coupon.CouponModule;
@@ -30,6 +31,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     @Inject
     CouponPresenter couponPresenter;
     private CouponListAdapter couponListAdapter;
+    private CommonAppPreferences commonAppPreferences;
 
     public static AvailableCouponFragment newInstance() {
         AvailableCouponFragment fragment = new AvailableCouponFragment();
@@ -39,6 +41,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        commonAppPreferences=new CommonAppPreferences(getActivity());
     }
 
     @Override
@@ -104,7 +107,8 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     }
 
     @Override
-    public void btClick() {
+    public void btClick(String mainGo) {
+        commonAppPreferences.setMianGoWhere(mainGo);
         MainFrameActivity.start(getActivity());
     }
 }

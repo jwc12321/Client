@@ -28,7 +28,7 @@ public class RemoteDataWrapper<T> {
     }
 
     public String getErrorStr() {
-        return errorCode;
+        return errorStr;
     }
 
     /**

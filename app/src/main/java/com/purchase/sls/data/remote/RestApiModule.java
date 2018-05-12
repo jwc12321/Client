@@ -101,13 +101,15 @@ public class RestApiModule {
 //                    }
 //                    builder.addEncoded(PARAM_KEY, PARAM_VALUE);
 //                    FormBody dstBody = builder.build();
-                    Request request = original.newBuilder()
-                            //content-length need re calc
-//                            .header("Content-Length", String.valueOf(dstBody.contentLength()))
-                            .header("Token",TokenManager.getToken()+"")
-//                            .method(original.method(), original.body())
+                Request request;
+                if (TextUtils.isEmpty(TokenManager.getToken())) {
+                    request = original.newBuilder().build();
+                } else {
+                    request = original.newBuilder()
+                            .header("Token", TokenManager.getToken() + "")
                             .build();
-                    return chain.proceed(request);
+                }
+                return chain.proceed(request);
 //                } else {
 //                    return chain.proceed(original);
 //                }

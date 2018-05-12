@@ -52,6 +52,7 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code_scan);
         ButterKnife.bind(this);
+        qrCodeScanner.setDelegate(this);
 
     }
 
@@ -71,10 +72,20 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     protected void onPause() {
         super.onPause();
-        qrCodeScanner.stopCamera();
+
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        qrCodeScanner.stopCamera();
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -84,8 +95,7 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        if (DEBUG)
-            Log.d(TAG, "onScanQRCodeSuccess: " + result);
+        Log.d(TAG, "onScanQRCodeSuccess: " + result);
         if (UrlUtils.isUrl(result)) {
             String[] results = result.split("&&");
             if (results[0].startsWith("ngapp::")) {

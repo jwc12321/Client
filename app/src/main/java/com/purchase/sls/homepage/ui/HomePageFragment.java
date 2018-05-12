@@ -122,7 +122,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        StatusBarUtil.setImgTransparent(getActivity());
+//        StatusBarUtil.setImgTransparent(getActivity());
         View rootview = inflater.inflate(R.layout.fragment_homepage, container, false);
         ButterKnife.bind(this, rootview);
         return rootview;

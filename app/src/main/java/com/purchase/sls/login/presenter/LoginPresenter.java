@@ -1,5 +1,7 @@
 package com.purchase.sls.login.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.UserInfoDao;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.Ignore;
@@ -52,6 +54,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      */
     @Override
     public void accountLogin(String username, String pwd,String clientid) {
+        loginView.showLoading();
         LoginRequest loginRequest=new LoginRequest(username,pwd,clientid);
         Disposable disposable=restApiService.accountLogin(loginRequest)
                 .flatMap(new RxRemoteDataParse<PersionInfoResponse>())
@@ -59,6 +62,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<PersionInfoResponse>() {
                     @Override
                     public void accept(PersionInfoResponse persionInfoResponse) throws Exception {
+                        loginView.dismissLoading();
                         loginView.accountLoginSuccess(persionInfoResponse);
                         UserInfo userInfo = new UserInfo();
                         userInfo.setPhone("");
@@ -68,6 +72,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        loginView.dismissLoading();
                         loginView.showError(throwable);
                     }
                 });
@@ -81,6 +86,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      */
     @Override
     public void sendCode(String tel, String dostr) {
+        loginView.showLoading();
         SendCodeRequest sendCodeRequest=new SendCodeRequest(tel,dostr);
         Disposable disposable=restApiService.sendCode(sendCodeRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
@@ -88,11 +94,13 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        loginView.dismissLoading();
                         loginView.codeSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        loginView.dismissLoading();
                         loginView.showError(throwable);
                     }
                 });
@@ -106,6 +114,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      */
     @Override
     public void phoneLogin(String tel, String code) {
+        loginView.showLoading();
         PhoneLoginRequest phoneLoginRequest=new PhoneLoginRequest(tel,code);
         Disposable disposable=restApiService.phoneLogin(phoneLoginRequest)
                 .flatMap(new RxRemoteDataParse<PersionInfoResponse>())
@@ -113,11 +122,13 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<PersionInfoResponse>() {
                     @Override
                     public void accept(PersionInfoResponse persionInfoResponse) throws Exception {
-
+                        loginView.dismissLoading();
+                        loginView.accountLoginSuccess(persionInfoResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        loginView.dismissLoading();
                         loginView.showError(throwable);
                     }
                 });
@@ -132,19 +143,27 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      * @param type register(注册)/changepwd(修改密码)
      */
     @Override
-    public void registerPassword(String tel, String password, String address, String type,String storeid) {
-        RegisterPasswordRequest registerPasswordRequest=new RegisterPasswordRequest(tel,password,address,type,storeid);
+    public void registerPassword(String tel, String password, String address, String type,String storeid,String code) {
+        loginView.showLoading();
+        RegisterPasswordRequest registerPasswordRequest;
+        if(TextUtils.isEmpty(code)){
+            registerPasswordRequest=new RegisterPasswordRequest(tel,password,address,type,storeid);
+        }else {
+            registerPasswordRequest=new RegisterPasswordRequest(tel,password,address,type,storeid,code);
+        }
         Disposable disposable=restApiService.registerPassword(registerPasswordRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
                 .compose(new RxSchedulerTransformer<Ignore>())
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        loginView.dismissLoading();
                         loginView.setPasswordSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        loginView.dismissLoading();
                         loginView.showError(throwable);
                     }
                 });
@@ -159,6 +178,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      */
     @Override
     public void checkCode(String tel, String code, String type) {
+        loginView.showLoading();
         CheckCodeRequest checkCodeRequest=new CheckCodeRequest(tel,code,type);
         Disposable disposable=restApiService.checkCode(checkCodeRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
@@ -166,11 +186,13 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        loginView.dismissLoading();
                         loginView.checkCodeSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        loginView.dismissLoading();
                         loginView.showError(throwable);
                     }
                 });
@@ -179,6 +201,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
 
     @Override
     public void changepwd(String tel, String password, String type) {
+        loginView.showLoading();
         ChangepwdRequest changepwdRequest=new ChangepwdRequest(tel,password,type);
         Disposable disposable=restApiService.changepwd(changepwdRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
@@ -186,11 +209,13 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        loginView.dismissLoading();
                         loginView.setPasswordSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        loginView.dismissLoading();
                         loginView.showError(throwable);
                     }
                 });

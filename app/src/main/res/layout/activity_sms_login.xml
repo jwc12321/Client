@@ -62,10 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/send_auth_code"
-                android:paddingTop="13dp"
                 android:paddingBottom="13dp"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp"
+                android:paddingTop="13dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/si_calean" />
 
@@ -114,8 +114,9 @@
                 android:id="@+id/clean_verificationcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/hidden_verificationcode"
+                android:layout_marginRight="@dimen/common_eleven_margin"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/si_calean" />
@@ -128,7 +129,8 @@
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/si_yan" />
+                android:src="@mipmap/si_yan"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <Button
@@ -160,13 +162,30 @@
             android:layout_below="@id/login_explain"
             android:layout_marginTop="36dp">
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/appText2"
-                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_seven_margin"
+                android:layout_toLeftOf="@id/login_type"
+                android:src="@mipmap/xian_left" />
+
+            <TextView
+                android:id="@+id/login_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/other_login_in"  />
+                android:text="@string/other_login_in"
+                android:textColor="@color/appText2"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_seven_margin"
+                android:layout_toRightOf="@id/login_type"
+                android:src="@mipmap/xian_right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -181,7 +200,7 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:background="@null"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/account_login" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

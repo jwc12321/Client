@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
+import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.ColdDownButton;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.DaggerLoginComponent;
@@ -62,6 +65,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
 
     private String phoneNumberStr;
     private String phoneCodeStr;
+    private CommonAppPreferences commonAppPreferences;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SmsLoginActivity.class);
@@ -73,6 +77,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_login);
         ButterKnife.bind(this);
+        commonAppPreferences=new CommonAppPreferences(this);
         sendAuthCode.setOnResetListener(this);
     }
 
@@ -157,7 +162,13 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
 
     @Override
     public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
-
+        TokenManager.saveToken(persionInfoResponse.getToken());
+        Gson gson=new Gson();
+        String persionInfoResponseStr=gson.toJson(persionInfoResponse);
+        commonAppPreferences.setPersionInfo(persionInfoResponseStr);
+        Intent intent = new Intent();
+        setResult(RESULT_OK,intent);
+        finish();
     }
 
     @Override

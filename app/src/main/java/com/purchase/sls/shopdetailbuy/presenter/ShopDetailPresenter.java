@@ -39,6 +39,7 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
 
     @Override
     public void getShopDetail(String storeid) {
+        shopDetailView.showLoading();
         ShopDetailsRequest shopDetailsRequest = new ShopDetailsRequest(storeid);
         Disposable disposable = restApiService.getShopDetailsInfo(shopDetailsRequest)
                 .flatMap(new RxRemoteDataParse<ShopDetailsInfo>())
@@ -46,11 +47,13 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
                 .subscribe(new Consumer<ShopDetailsInfo>() {
                     @Override
                     public void accept(ShopDetailsInfo shopDetailsInfo) throws Exception {
+                        shopDetailView.dismissLoading();
                         shopDetailView.shopDetailInfo(shopDetailsInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        shopDetailView.dismissLoading();
                         shopDetailView.showError(throwable);
                     }
                 });
@@ -66,6 +69,7 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
      */
     @Override
     public void addRemoveCollection(String storeid, String type, String[] fidArray) {
+        shopDetailView.showLoading();
         AddRemoveCollectionRequest addRemoveCollectionRequest = new AddRemoveCollectionRequest(storeid, type, fidArray);
         Disposable disposable = restApiService.addRemoveCollection(addRemoveCollectionRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
@@ -73,11 +77,13 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        shopDetailView.dismissLoading();
                         shopDetailView.addRemoveSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        shopDetailView.dismissLoading();
                         shopDetailView.showError(throwable);
                     }
                 });

@@ -72,7 +72,7 @@ public class ToBeEvaluateAdapter extends RecyclerView.Adapter<ToBeEvaluateAdapte
     public void onBindViewHolder(ToBeEvaluateView holder, int position) {
         final ToBeEvaluationInfo.ToBeEvaluationItem toBeEvaluationItem = toBeEvaluationItems.get(holder.getAdapterPosition());
         holder.bindData(toBeEvaluationItem);
-        holder.itemRl.setOnClickListener(new View.OnClickListener() {
+        holder.useBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {

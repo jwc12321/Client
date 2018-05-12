@@ -76,5 +76,9 @@
         android:orientation="horizontal"
         android:visibility="gone"
         app:layoutManager="@string/layoutManager_LinearLayout"
-        android:layout_marginLeft="@dimen/common_seventy_two_margin" />
+        android:layout_marginLeft="@dimen/common_seventy_two_margin"
+        android:layout_marginRight="@dimen/common_eleven_margin"/>
+    <View
+        style="@style/fengexian_style"
+        android:layout_marginTop="@dimen/common_six_margin"/>
 </LinearLayout>

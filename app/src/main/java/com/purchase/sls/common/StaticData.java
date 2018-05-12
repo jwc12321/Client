@@ -53,4 +53,8 @@ public class StaticData {
     public static final String ORDER_NO="orderno";
     //搜索的名字
     public static final String STORE_NAME ="storename";
+    //验证码的code
+    public static final String PHONE_CODE="phoneCode";
+    //首页应去哪里
+    public static final String MAIN_GO="mainGo";
 }

@@ -71,7 +71,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     //登录按钮是否可点击
     private boolean loginEnable = false;
     //密码是否显示
-    private boolean isPassWordVisible = false;
+    private boolean isPassWordVisible = true;
     private static final int REQUEST_PHONE_STATE = 0x01;
     private CommonAppPreferences commonAppPreferences;
 
@@ -80,6 +80,8 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
 
     @Inject
     LoginPresenter loginPresenter;
+
+    private static final int CODE_SMS_LOGIN = 1;
 
     @Override
     public View getSnackBarHolderView() {
@@ -125,7 +127,8 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 login();
                 break;
             case R.id.sms_login:
-                SmsLoginActivity.start(this);
+                Intent intent=new Intent(this,SmsLoginActivity.class);
+                startActivityForResult(intent,CODE_SMS_LOGIN);
                 break;
             case R.id.forget_password:
                 RegisterFirstActivity.start(this, StaticData.CHANGEPWD,"");
@@ -214,5 +217,18 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     @Override
     public void setPasswordSuccess() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CODE_SMS_LOGIN:
+                    this.finish();
+                    break;
+                default:
+            }
+        }
     }
 }

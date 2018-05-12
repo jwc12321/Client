@@ -27,6 +27,15 @@ public class CouponInfo {
     private String updated_at;
     @SerializedName("quan")
     private QuanInfo quanInfo;
+    private String addSc;
+
+    public String getAddSc() {
+        return addSc;
+    }
+
+    public void setAddSc(String addSc) {
+        this.addSc = addSc;
+    }
 
     public String getId() {
         return id;

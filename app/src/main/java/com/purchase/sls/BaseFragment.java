@@ -1,5 +1,6 @@
 package com.purchase.sls;
 
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +15,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.purchase.sls.common.unit.WeiboDialogUtils;
+
 /**
  *
  */
 
 public class BaseFragment extends Fragment implements LoadDataView{
     private Toast toast;
+    private Dialog mWeiboDialog;
 
 
     @Override
@@ -104,11 +108,13 @@ public class BaseFragment extends Fragment implements LoadDataView{
     }
 
     @Override
-    public void showLoading(String title) {
+    public void showLoading() {
+        mWeiboDialog = WeiboDialogUtils.createLoadingDialog(getActivity());
     }
 
     @Override
     public void dismissLoading() {
+        WeiboDialogUtils.closeDialog(mWeiboDialog);
     }
 
     protected void notifyNetWorkChange(boolean isConnected){

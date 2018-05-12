@@ -58,6 +58,7 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
 
     @Override
     public void getToBeEvaluation() {
+        toBeEvaluationView.showLoading();
         currentIndex = 1;
         PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getToBeEvaluation(pageRequest)
@@ -66,11 +67,13 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
                 .subscribe(new Consumer<ToBeEvaluationInfo>() {
                     @Override
                     public void accept(ToBeEvaluationInfo toBeEvaluationInfo) throws Exception {
+                        toBeEvaluationView.dismissLoading();
                         toBeEvaluationView.renderToBeEvaluation(toBeEvaluationInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        toBeEvaluationView.dismissLoading();
                         toBeEvaluationView.showError(throwable);
                     }
                 });
@@ -80,6 +83,7 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
 
     @Override
     public void getMoreToBeEvaluation() {
+        toBeEvaluationView.showLoading();
         currentIndex = currentIndex + 1;
         PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getToBeEvaluation(pageRequest)
@@ -88,11 +92,13 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
                 .subscribe(new Consumer<ToBeEvaluationInfo>() {
                     @Override
                     public void accept(ToBeEvaluationInfo toBeEvaluationInfo) throws Exception {
+                        toBeEvaluationView.dismissLoading();
                         toBeEvaluationView.renderMoreToBeEvaluation(toBeEvaluationInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        toBeEvaluationView.dismissLoading();
                         toBeEvaluationView.showError(throwable);
                     }
                 });

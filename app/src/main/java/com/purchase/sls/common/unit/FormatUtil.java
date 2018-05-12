@@ -143,6 +143,17 @@ public class FormatUtil {
         }
     }
 
+    public static String formatDateYear(String timestamp) {
+        if(!TextUtils.isEmpty(timestamp)) {
+            long time = Long.parseLong(timestamp);
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat format = new SimpleDateFormat(pattern);
+            return format.format(new Date(time * 1000));
+        }else{
+            return "";
+        }
+    }
+
     /**
      * 格式化日期时间
      *

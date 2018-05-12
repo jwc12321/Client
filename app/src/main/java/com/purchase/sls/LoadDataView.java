@@ -9,7 +9,7 @@ public interface LoadDataView {
 
     void showError(Throwable e);
 
-    void showLoading(String title);
+    void showLoading();
 
     void dismissLoading();
 }

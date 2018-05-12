@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
+import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.common.widget.list.MoreLoadable;
 import com.purchase.sls.common.widget.list.Refreshable;
 import com.purchase.sls.data.entity.CouponInfo;
@@ -49,13 +50,17 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
 
     @Override
     public void onBindViewHolder(CouponListView holder, int position) {
-        CouponInfo couponInfo = couponInfos.get(holder.getAdapterPosition());
+        final CouponInfo couponInfo = couponInfos.get(holder.getAdapterPosition());
         holder.bindData(couponInfo);
         holder.useBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onBtClick != null) {
-                    onBtClick.btClick();
+                    if(TextUtils.equals("3",couponInfo.getAddSc())){
+                        onBtClick.btClick("3");
+                    }else {
+                        onBtClick.btClick("0");
+                    }
                 }
             }
         });
@@ -100,10 +105,15 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
 
         public void bindData(CouponInfo couponInfo) {
             price.setText(couponInfo.getQuanInfo().getPrice());
-            leastCost.setText("满" + couponInfo.getQuanInfo().getLeastCost() + "可用");
+            if(TextUtils.equals("3",couponInfo.getAddSc())){
+                leastCost.setText("抵金劵");
+                businessTime.setText("永久");
+            }else {
+                leastCost.setText("满" + couponInfo.getQuanInfo().getLeastCost() + "可用");
+                businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + FormatUtil.formatDateYear(couponInfo.getExpire_at()));
+            }
             priceLl.setSelected(TextUtils.equals("0", availableType) ? true : false);
             businessName.setText(couponInfo.getQuanInfo().getTitle());
-            businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + couponInfo.getQuanInfo().getEndtime());
             if(TextUtils.equals("0",couponInfo.getStatus())){
                 useBt.setEnabled(true);
                 useBt.setText("立即使用");
@@ -117,12 +127,11 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
                 useBt.setText("已失效");
                 useBt.setTextColor(Color.rgb(224, 224, 224));
             }
-
         }
     }
 
     public interface OnBtClick {
-        void btClick();
+        void btClick(String mainGo);
     }
 
     private OnBtClick onBtClick;

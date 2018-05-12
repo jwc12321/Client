@@ -61,6 +61,7 @@ public class AccountDetailPresenter implements AccountContract.AccountDetailPres
      */
     @Override
     public void getAccountDetail(String billid) {
+        accountDetailView.showLoading();
         AccountDetailRequest accountDetailRequest = new AccountDetailRequest(billid);
         Disposable disposable = restApiService.getAccountDetail(accountDetailRequest)
                 .flatMap(new RxRemoteDataParse<AccountDetailInfo>())
@@ -68,11 +69,14 @@ public class AccountDetailPresenter implements AccountContract.AccountDetailPres
                 .subscribe(new Consumer<AccountDetailInfo>() {
                     @Override
                     public void accept(AccountDetailInfo accountDetailInfo) throws Exception {
+                        accountDetailView.dismissLoading();
                         accountDetailView.accountDetail(accountDetailInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        accountDetailView.dismissLoading();
+                        accountDetailView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

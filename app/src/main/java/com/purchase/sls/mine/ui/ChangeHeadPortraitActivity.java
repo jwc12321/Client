@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -97,7 +99,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
                 break;
             case R.id.change_bt:
                 if (actionSheet == null) {
-                    actionSheet = ActionSheet.newInstance(true, photo.getWidth(), photo.getHeight());
+                    actionSheet = ActionSheet.newInstance(false, photo.getWidth(), photo.getHeight());
                     actionSheet.setOnPictureChoseListener(ChangeHeadPortraitActivity.this);
                 }
                 actionSheet.show(this);
@@ -120,6 +122,8 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
 
     @Override
     public void changeHeadPortraitSuccess(String phoneUrl) {
+        Toast.makeText(getApplicationContext(), "头像修改成功",
+                Toast.LENGTH_SHORT).show();
         persionInfoResponse.setAvatar(phoneUrl);
         persionInfoStr = gson.toJson(persionInfoResponse);
         commonAppPreferences.setPersionInfo(persionInfoStr);
@@ -127,6 +131,20 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
 
     @Override
     public void changeUserInfoSuccess() {
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if(actionSheet!=null){
+                actionSheet.dismiss();
+            }
+            this.finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
 
     }
 }

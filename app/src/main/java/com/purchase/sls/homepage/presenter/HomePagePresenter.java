@@ -59,6 +59,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
      */
     @Override
     public void getBannerHotInfo(String areaname) {
+        homepageView.showLoading();
         BannerHotRequest bannerHotRequest = new BannerHotRequest(areaname);
         Disposable disposable = restApiService.getBannerHotInfo(bannerHotRequest)
                 .flatMap(new RxRemoteDataParse<BannerHotResponse>())
@@ -66,11 +67,13 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 .subscribe(new Consumer<BannerHotResponse>() {
                     @Override
                     public void accept(BannerHotResponse bannerHotResponse) throws Exception {
+                        homepageView.dismissLoading();
                         homepageView.bannerHotInfo(bannerHotResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        homepageView.dismissLoading();
                         homepageView.showError(throwable);
                     }
                 });
@@ -104,6 +107,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
 
     @Override
     public void getMoreLikeStore() {
+        homepageView.showLoading();
         currentIndex =currentIndex+1;
         LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex));
         Disposable disposable = restApiService.getLikeStoreInfo(likeStoreRequest)
@@ -112,11 +116,13 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 .subscribe(new Consumer<LikeStoreResponse>() {
                     @Override
                     public void accept(LikeStoreResponse likeStoreResponse) throws Exception {
+                        homepageView.dismissLoading();
                         homepageView.moreLikeStroeInfo(likeStoreResponse.getCollectionStoreInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        homepageView.dismissLoading();
                         homepageView.showError(throwable);
                     }
                 });

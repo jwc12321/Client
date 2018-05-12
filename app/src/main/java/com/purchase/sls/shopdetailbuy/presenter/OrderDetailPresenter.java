@@ -58,6 +58,7 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
 
     @Override
     public void getOrderDetailInfo(String orderno) {
+        orderDetailView.showLoading();
         OrderDetailRequest orderDetailRequest=new OrderDetailRequest(orderno);
         Disposable disposable=restApiService.getOrderDetailInfo(orderDetailRequest)
                 .flatMap(new RxRemoteDataParse<OrderDetailInfo>())
@@ -65,11 +66,13 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
                 .subscribe(new Consumer<OrderDetailInfo>() {
                     @Override
                     public void accept(OrderDetailInfo orderDetailInfo) throws Exception {
+                        orderDetailView.dismissLoading();
                         orderDetailView.renderOrderDetail(orderDetailInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        orderDetailView.dismissLoading();
                         orderDetailView.showError(throwable);
                     }
                 });
@@ -78,17 +81,20 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
 
     @Override
     public void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest) {
+        orderDetailView.showLoading();
         Disposable disposable = restApiService.submitEvalute(submitEvaluateRequest)
                 .flatMap(new RxRemoteDataParse<String>())
                 .compose(new RxSchedulerTransformer<String>())
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String string) throws Exception {
+                        orderDetailView.dismissLoading();
                         orderDetailView.submitSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        orderDetailView.dismissLoading();
                         orderDetailView.showError(throwable);
                     }
                 });

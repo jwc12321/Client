@@ -58,4 +58,14 @@ public class CommonAppPreferences {
         editor.commit();
     }
 
+    public void setMianGoWhere(String mainGo){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(StaticData.MAIN_GO,mainGo);
+        editor.commit();
+    }
+
+    public String getMainGoWhere(){
+        return sharedPreferences.getString(StaticData.MAIN_GO,"");
+    }
+
 }

@@ -55,6 +55,7 @@ public class SettingPresenter implements PersonalCenterContract.SettingPresenter
 
     @Override
     public void detectionVersion(String edition, String type) {
+        settingView.showLoading();
         DetectionVersionRequest detectionVersionRequest=new DetectionVersionRequest(edition,type);
         Disposable disposable=restApiService.changeApp(detectionVersionRequest)
                 .flatMap(new RxRemoteDataParse<String>())
@@ -62,11 +63,13 @@ public class SettingPresenter implements PersonalCenterContract.SettingPresenter
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String string) throws Exception {
+                        settingView.dismissLoading();
                         settingView.detectionSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        settingView.dismissLoading();
                         settingView.showError(throwable);
                     }
                 });

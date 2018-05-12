@@ -44,6 +44,7 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
      */
     @Override
     public void getNearbyInfo(String address) {
+        nearbyView.showLoading();
         NearbyInfoRequest nearbyInfoRequest = new NearbyInfoRequest(address);
         Disposable disposable = restApiService.getNearbyInfo(nearbyInfoRequest)
                 .flatMap(new RxRemoteDataParse<List<NearbyInfoResponse>>())
@@ -51,11 +52,14 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
                 .subscribe(new Consumer<List<NearbyInfoResponse>>() {
                     @Override
                     public void accept(List<NearbyInfoResponse> nearbyInfoResponses) throws Exception {
+                        nearbyView.dismissLoading();
                         nearbyView.nearbyInfo(nearbyInfoResponses);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        nearbyView.dismissLoading();
+                        nearbyView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -64,6 +68,7 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
 
     @Override
     public void getMapMarkerInfo(String cid, String addressXy) {
+        nearbyView.showLoading();
         MapMarkerRequest mapMarkerRequest = new MapMarkerRequest(cid, "118.86667,28.9750");
         Disposable disposable = restApiService.getMapMarkerInfo(mapMarkerRequest)
                 .flatMap(new RxRemoteDataParse<List<MapMarkerInfo>>())
@@ -71,11 +76,14 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
                 .subscribe(new Consumer<List<MapMarkerInfo>>() {
                     @Override
                     public void accept(List<MapMarkerInfo> mapMarkerInfos) throws Exception {
+                        nearbyView.dismissLoading();
                         nearbyView.renderapMarkers(mapMarkerInfos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        nearbyView.dismissLoading();
+                        nearbyView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

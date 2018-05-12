@@ -68,12 +68,14 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
     private String passwordAgain;
     @Inject
     LoginPresenter loginPresenter;
+    private String phoneCode;
 
-    public static void start(Context context, String type, String phoneNumber, String storeid) {
+    public static void start(Context context, String type, String phoneNumber, String storeid,String code) {
         Intent intent = new Intent(context, RegisterSecondActivity.class);
         intent.putExtra(StaticData.PHONE_NUMBER, phoneNumber);
         intent.putExtra(StaticData.TYPE, type);
         intent.putExtra(StaticData.BUSINESS_STOREID, storeid);
+        intent.putExtra(StaticData.PHONE_CODE,code);
         context.startActivity(intent);
     }
 
@@ -87,6 +89,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
 
     private void initView() {
         type = getIntent().getStringExtra(StaticData.TYPE);
+        phoneCode=getIntent().getStringExtra(StaticData.PHONE_CODE);
         phoneNumber = getIntent().getStringExtra(StaticData.PHONE_NUMBER);
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         title.setText(getString(R.string.set_passwrod));
@@ -119,8 +122,8 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 break;
             case R.id.next:
                 if (TextUtils.equals(passwordStr, passwordAgain)) {
-                    if (TextUtils.equals(StaticData.REGISTER, type)) {
-                        loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type, storeid);
+                    if (!TextUtils.isEmpty(type)) {
+                        loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type, storeid,phoneCode);
                     } else {
                         loginPresenter.changepwd(phoneNumber, passwordAgain, type);
                     }

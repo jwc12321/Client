@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,11 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
     private LayoutInflater layoutInflater;
     private List<EvaluateInfo.EvaluateItemInfo> evaluateItemInfos;
     private static Context context;
+    private String type;//1：图片不显示2：图片显示
 
-    public AllEvaluateAdapter(Context context) {
+    public AllEvaluateAdapter(Context context,String type) {
         this.context = context;
+        this.type=type;
     }
 
     public void setData(List<EvaluateInfo.EvaluateItemInfo> evaluateItemInfos) {
@@ -103,13 +106,21 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
             }
             ratingBar.setmScope(Float.parseFloat(evaluateItemInfo.getStarts()));
             peopleTime.setText(FormatUtil.formatDate(evaluateItemInfo.getCreatedAt()));
-            evaluateTv.setText(evaluateItemInfo.getWords());
-            if(evaluateItemInfo.getPics()!=null&&evaluateItemInfo.getPics().size()>0){
-                photoAdapter.setPhotoList(evaluateItemInfo.getPics());
-                photoRecyclerView.setVisibility(View.VISIBLE);
-            }else {
+            if(TextUtils.equals("1",type)){
+                evaluateTv.setVisibility(View.GONE);
                 photoRecyclerView.setVisibility(View.GONE);
+            }else {
+                evaluateTv.setVisibility(View.VISIBLE);
+                photoRecyclerView.setVisibility(View.VISIBLE);
+                evaluateTv.setText(evaluateItemInfo.getWords());
+                if(evaluateItemInfo.getPics()!=null&&evaluateItemInfo.getPics().size()>0){
+                    photoAdapter.setPhotoList(evaluateItemInfo.getPics());
+                    photoRecyclerView.setVisibility(View.VISIBLE);
+                }else {
+                    photoRecyclerView.setVisibility(View.GONE);
+                }
             }
+
         }
 
         @Override

@@ -70,6 +70,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
      */
     @Override
     public void getUserpowerInfo(String price, String storeid) {
+        paymentOrderView.showLoading();
         UserpowerRequest userpowerRequest=new UserpowerRequest(price,storeid);
         Disposable disposable=restApiService.getUserpowerInfo(userpowerRequest)
                 .flatMap(new RxRemoteDataParse<UserpowerInfo>())
@@ -77,11 +78,13 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
                 .subscribe(new Consumer<UserpowerInfo>() {
                     @Override
                     public void accept(UserpowerInfo userpowerInfo) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.userpowerInfo(userpowerInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.showError(throwable);
                     }
                 });
@@ -100,6 +103,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
      */
     @Override
     public void setGeneratingOrder(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
+        paymentOrderView.showLoading();
         GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes);
         Disposable disposable=restApiService.getGeneratingOrderInfo(generatingOrderRequest)
                 .flatMap(new RxRemoteDataParse<GeneratingOrderInfo>())
@@ -107,11 +111,13 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
                 .subscribe(new Consumer<GeneratingOrderInfo>() {
                     @Override
                     public void accept(GeneratingOrderInfo generatingOrderInfo) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.generatingOrderSuccess(generatingOrderInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.showError(throwable);
                     }
                 });
@@ -129,6 +135,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
      */
     @Override
     public void getAlipaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
+        paymentOrderView.showLoading();
         GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes);
         Disposable disposable=restApiService.getAliPaySignResponse(generatingOrderRequest)
                 .flatMap(new RxRemoteDataParse<AliPaySignResponse>())
@@ -136,6 +143,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
                 .subscribe(new Consumer<AliPaySignResponse>() {
                     @Override
                     public void accept(AliPaySignResponse aliPaySignResponse) throws Exception {
+                        paymentOrderView.dismissLoading();
                        String sign = aliPaySignResponse.getSign();
                        paymentOrderView.renderOrderno(aliPaySignResponse.getOrderno());
                        startAliPay(sign);
@@ -143,6 +151,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.showError(throwable);
                     }
                 });
@@ -160,6 +169,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
      */
     @Override
     public void getWXPaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
+        paymentOrderView.showLoading();
         GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes);
         Disposable disposable=restApiService.getWXPaySignResponse(generatingOrderRequest)
                 .flatMap(new RxRemoteDataParse<WXPaySignResponse>())
@@ -167,12 +177,14 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
                 .subscribe(new Consumer<WXPaySignResponse>() {
                     @Override
                     public void accept(WXPaySignResponse wXPaySignResponse) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.renderOrderno(wXPaySignResponse.getOrderno());
                         startWXPay(wXPaySignResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        paymentOrderView.dismissLoading();
                         paymentOrderView.showError(throwable);
                     }
                 });

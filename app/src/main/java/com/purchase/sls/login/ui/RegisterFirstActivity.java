@@ -233,7 +233,8 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
 
     @Override
     public void checkCodeSuccess() {
-        RegisterSecondActivity.start(this, type, phoneNumberStr, storeid);
+        RegisterSecondActivity.start(this, type, phoneNumberStr, storeid,phoneCodeStr);
+        this.finish();
     }
 
     @Override

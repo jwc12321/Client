@@ -1,9 +1,13 @@
 package com.purchase.sls.coupon.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.coupon.CouponContract;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.CollectionListResponse;
+import com.purchase.sls.data.entity.CouponInfo;
 import com.purchase.sls.data.entity.CouponListInfo;
+import com.purchase.sls.data.entity.QuanInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.CouponListRequest;
@@ -57,7 +61,8 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
     }
 
     @Override
-    public void getCouponList(String type) {
+    public void getCouponList(final String type) {
+        couponListView.showLoading();
         currentIndex = 1;
         CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCouponListInfo(couponListRequest)
@@ -66,11 +71,29 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                 .subscribe(new Consumer<CouponListInfo>() {
                     @Override
                     public void accept(CouponListInfo couponListInfo) throws Exception {
-                        couponListView.render(couponListInfo.getCouponList().getCouponInfos());
+                        couponListView.dismissLoading();
+                        if(couponListInfo!=null) {
+                            List<CouponInfo> couponInfos;
+                            if (TextUtils.equals("0", type)) {
+                                CouponInfo couponInfo = new CouponInfo();
+                                couponInfo.setAddSc("3");
+                                couponInfo.setStatus("0");
+                                QuanInfo quanInfo = new QuanInfo();
+                                quanInfo.setPrice(couponListInfo.getScItem().getQuannum());
+                                quanInfo.setTitle("商城抵金劵");
+                                couponInfo.setQuanInfo(quanInfo);
+                                couponInfos=couponListInfo.getCouponList().getCouponInfos();
+                                couponInfos.add(0,couponInfo);
+                                couponListView.render(couponInfos);
+                            } else {
+                                couponListView.render(couponListInfo.getCouponList().getCouponInfos());
+                            }
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        couponListView.dismissLoading();
                         couponListView.showError(throwable);
                     }
                 });
@@ -79,6 +102,7 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
 
     @Override
     public void getMoreCouponList(String type) {
+        couponListView.showLoading();
         currentIndex = currentIndex + 1;
         CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCouponListInfo(couponListRequest)
@@ -87,11 +111,13 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                 .subscribe(new Consumer<CouponListInfo>() {
                     @Override
                     public void accept(CouponListInfo couponListInfo) throws Exception {
+                        couponListView.dismissLoading();
                         couponListView.renderMore(couponListInfo.getCouponList().getCouponInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        couponListView.dismissLoading();
                         couponListView.showError(throwable);
                     }
                 });

@@ -208,7 +208,8 @@
             <FrameLayout
                 android:id="@+id/item_about_neng"
                 style="@style/persion_item_fl_style"
-                android:layout_marginTop="1dp">
+                android:layout_marginTop="1dp"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/persion_item_text_style"

@@ -58,6 +58,7 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
 
     @Override
     public void getEnergyInfo(String pool) {
+        energyInfoView.showLoading();
         currentIndex = 1;
         EnergyInfoRequest energyInfoRequest = new EnergyInfoRequest(pool, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getEnergyInfo(energyInfoRequest)
@@ -66,11 +67,13 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
                 .subscribe(new Consumer<EnergyInfo>() {
                     @Override
                     public void accept(EnergyInfo energyInfo) throws Exception {
+                        energyInfoView.dismissLoading();
                         energyInfoView.renderEnergyInfo(energyInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        energyInfoView.dismissLoading();
                         energyInfoView.showError(throwable);
                     }
                 });
@@ -79,6 +82,7 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
 
     @Override
     public void getMoreEnergyInfo(String pool) {
+        energyInfoView.showLoading();
         currentIndex = currentIndex + 1;
         EnergyInfoRequest energyInfoRequest = new EnergyInfoRequest(pool, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getEnergyInfo(energyInfoRequest)
@@ -87,11 +91,13 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
                 .subscribe(new Consumer<EnergyInfo>() {
                     @Override
                     public void accept(EnergyInfo energyInfo) throws Exception {
+                        energyInfoView.dismissLoading();
                         energyInfoView.renderMoreEnergyInfo(energyInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        energyInfoView.dismissLoading();
                         energyInfoView.showError(throwable);
                     }
                 });

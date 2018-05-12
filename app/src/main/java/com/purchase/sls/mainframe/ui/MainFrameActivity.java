@@ -17,6 +17,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.energy.ui.EnergyFragment;
 import com.purchase.sls.homepage.ui.HomePageFragment;
@@ -76,6 +77,8 @@ public class MainFrameActivity extends BaseActivity {
     private MainPagerAdapter adapter;
 
     private String goFirst;
+    private CommonAppPreferences commonAppPreferences;
+    private String mianGo;
     public static void start(Context context){
         Intent intent=new Intent(context,MainFrameActivity.class);
         context.startActivity(intent);
@@ -86,6 +89,7 @@ public class MainFrameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainfram);
         ButterKnife.bind(this);
+        commonAppPreferences=new CommonAppPreferences(this);
         initView();
     }
 
@@ -93,26 +97,26 @@ public class MainFrameActivity extends BaseActivity {
         fragments = new BaseFragment[5];
         fragments[0] = HomePageFragment.newInstance();
         fragments[1] = NearbyMapFragment.newInstance();
-        fragments[2] = ShoppingMallFragment.newInstance();
-        fragments[3] = EnergyFragment.newInstance();
+        fragments[2] = EnergyFragment.newInstance();
+        fragments[3] = ShoppingMallFragment.newInstance();
         fragments[4] = PersonalCenterFragment.newInstance();
         relativeLayouts = new RelativeLayout[5];
         relativeLayouts[0] = homepageRl;
         relativeLayouts[1] = nearbyRl;
-        relativeLayouts[2] = shoppingmallRl;
-        relativeLayouts[3] = energyRl;
+        relativeLayouts[2] = energyRl;
+        relativeLayouts[3] = shoppingmallRl;
         relativeLayouts[4] = mineRl;
         imageViews = new ImageView[5];
         imageViews[0] = homepageIv;
         imageViews[1] = nearbyIv;
-        imageViews[2] = shoppingmallIv;
-        imageViews[3] = energyIv;
+        imageViews[2] = energyIv;
+        imageViews[3] = shoppingmallIv;
         imageViews[4] = mineIv;
         textViews = new TextView[5];
         textViews[0] = homepageTt;
         textViews[1] = nearbyTt;
-        textViews[2] = shoppingmallTt;
-        textViews[3] = energyTt;
+        textViews[2] = energyTt;
+        textViews[3] = shoppingmallTt;
         textViews[4] = mineTt;
         for (RelativeLayout relativeLayout : relativeLayouts) {
             relativeLayout.setOnClickListener(onClickListener);
@@ -157,14 +161,15 @@ public class MainFrameActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        goFirst=getIntent().getStringExtra(StaticData.GO_FIRST);
-        if(TextUtils.equals("1",goFirst)){
+        mianGo=commonAppPreferences.getMainGoWhere();
+        if(TextUtils.equals("3",mianGo)){
+            viewPager.setCurrentItem(3);
+            commonAppPreferences.setMianGoWhere("100");
+        }else if(TextUtils.equals("0",mianGo)){
             viewPager.setCurrentItem(0);
-            goFirst="2";
+            commonAppPreferences.setMianGoWhere("100");
         }
     }
-
-    private String goFirst1;
     @Override
     protected void onResume() {
         super.onResume();

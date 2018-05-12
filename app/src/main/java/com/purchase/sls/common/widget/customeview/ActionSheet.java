@@ -353,7 +353,9 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
                                 ImageSizeUtil.compressAndSaveToFile(picturePath, tempFile.getAbsolutePath(), compressWidth, compressHeight);
                                 dismiss();
                                 mOnPictureChoseListener.onPictureChose(tempFile);
-                            } else crop(picturePath, 1, 1, 400, 400);
+                            } else {
+                                crop(picturePath, 1, 1, 400, 400);
+                            }
                         } else if ("content".equals(selectedImage.getScheme())) {
 
                             String[] filePathColumn = {MediaStore.Images.Media.DATA};

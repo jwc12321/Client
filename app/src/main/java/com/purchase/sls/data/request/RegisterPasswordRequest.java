@@ -17,6 +17,17 @@ public class RegisterPasswordRequest {
     private String type;
     @SerializedName("storeid")
     private String storeid;
+    @SerializedName("code")
+    private String code;
+
+    public RegisterPasswordRequest(String tel, String password, String address, String type, String storeid, String code) {
+        this.tel = tel;
+        this.password = password;
+        this.address = address;
+        this.type = type;
+        this.storeid = storeid;
+        this.code = code;
+    }
 
     public RegisterPasswordRequest(String tel, String password, String address, String type, String storeid) {
         this.tel = tel;

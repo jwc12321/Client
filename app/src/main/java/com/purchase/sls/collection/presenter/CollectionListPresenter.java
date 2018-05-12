@@ -62,6 +62,7 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
      */
     @Override
     public void getCollectionListInfo() {
+        collectionView.showLoading();
         currentIndex = 1;
         CollectionListRequest collectionListRequest = new CollectionListRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCollectionListInfo(collectionListRequest)
@@ -70,11 +71,13 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
                 .subscribe(new Consumer<CollectionListResponse>() {
                     @Override
                     public void accept(CollectionListResponse collectionListResponse) throws Exception {
+                        collectionView.dismissLoading();
                         collectionView.collectionListInfo(collectionListResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        collectionView.dismissLoading();
                         collectionView.showError(throwable);
                     }
                 });
@@ -86,6 +89,7 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
      */
     @Override
     public void getMoreCollectionListInfo() {
+        collectionView.showLoading();
         currentIndex = currentIndex + 1;
         CollectionListRequest collectionListRequest = new CollectionListRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCollectionListInfo(collectionListRequest)
@@ -94,11 +98,13 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
                 .subscribe(new Consumer<CollectionListResponse>() {
                     @Override
                     public void accept(CollectionListResponse collectionListResponse) throws Exception {
+                        collectionView.dismissLoading();
                         collectionView.moreCollectionListInfo(collectionListResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        collectionView.dismissLoading();
                         collectionView.showError(throwable);
                     }
                 });
@@ -114,6 +120,7 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
      */
     @Override
     public void addRemoveCollection(String storeid, String type, String[] fidArray) {
+        collectionView.showLoading();
         AddRemoveCollectionRequest addRemoveCollectionRequest = new AddRemoveCollectionRequest(storeid, type, fidArray);
         Disposable disposable = restApiService.addRemoveCollection(addRemoveCollectionRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
@@ -121,11 +128,13 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        collectionView.dismissLoading();
                         collectionView.addRemoveSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        collectionView.dismissLoading();
                         collectionView.showError(throwable);
                     }
                 });

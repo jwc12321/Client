@@ -45,6 +45,7 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
      */
     @Override
     public void getAccountList(String dates1, String dates2) {
+        accountListView.showLoading();
         currentIndex = 1;
         AccountListRequest accountListRequest = new AccountListRequest(String.valueOf(currentIndex), dates1, dates2);
         Disposable disposable = restApiService.getAccountListInfo(accountListRequest)
@@ -53,11 +54,14 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
                 .subscribe(new Consumer<AccountListInfo>() {
                     @Override
                     public void accept(AccountListInfo accountListInfo) throws Exception {
+                        accountListView.dismissLoading();
                         accountListView.accountListInfo(accountListInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        accountListView.dismissLoading();
+                        accountListView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -71,6 +75,7 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
      */
     @Override
     public void getMoreAccountList(String dates1, String dates2) {
+        accountListView.showLoading();
         currentIndex = currentIndex + 1;
         AccountListRequest accountListRequest = new AccountListRequest(String.valueOf(currentIndex), dates1, dates2);
         Disposable disposable = restApiService.getAccountListInfo(accountListRequest)
@@ -79,11 +84,14 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
                 .subscribe(new Consumer<AccountListInfo>() {
                     @Override
                     public void accept(AccountListInfo accountListInfo) throws Exception {
+                        accountListView.dismissLoading();
                         accountListView.moreAccountListInfo(accountListInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        accountListView.dismissLoading();
+                        accountListView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

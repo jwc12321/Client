@@ -63,6 +63,7 @@ public class PersonalImPresenter implements PersonalCenterContract.PersonalImPre
 
     @Override
     public void changeHeadPortrait(String photoUrl) {
+        personalImView.showLoading();
         HeadPhoneRequest headPhoneRequest=new HeadPhoneRequest(photoUrl);
         Gson gson = new Gson();
         Map<String, RequestBody> requestBodyMap = new ArrayMap<>();
@@ -78,11 +79,13 @@ public class PersonalImPresenter implements PersonalCenterContract.PersonalImPre
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String string) throws Exception {
+                        personalImView.dismissLoading();
                         personalImView.changeHeadPortraitSuccess(string);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        personalImView.dismissLoading();
                         personalImView.showError(throwable);
                     }
                 });
@@ -91,6 +94,7 @@ public class PersonalImPresenter implements PersonalCenterContract.PersonalImPre
 
     @Override
     public void changeUserInfo(String nickname, String sex, String birthday) {
+        personalImView.showLoading();
         ChangeUserInfoRequest changeUserInfoRequest=new ChangeUserInfoRequest(nickname,sex,birthday);
         Disposable disposable=restApiService.changeUserInfo(changeUserInfoRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
@@ -98,11 +102,13 @@ public class PersonalImPresenter implements PersonalCenterContract.PersonalImPre
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
+                        personalImView.dismissLoading();
                         personalImView.changeUserInfoSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        personalImView.dismissLoading();
                         personalImView.showError(throwable);
                     }
                 });

@@ -62,5 +62,7 @@ ext{
     zxingVersion="3.2.1"
     bingoogolappleVersion="1.1.3@aar"
     multidexVersion="1.0.1"
+    aviVersion="1.0.0"
+    nineoldandroidsVersion="2.4.0"
 
 }

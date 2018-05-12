@@ -57,6 +57,7 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
 
     @Override
     public void getAllEvaluation(String storeId) {
+        allEvaluationView.showLoading();
         currentIndex=1;
         StoreIdPageRequest storeIdPageRequest=new StoreIdPageRequest(String.valueOf(currentIndex),storeId);
         Disposable disposable=restApiService.getAllEvaluation(storeIdPageRequest)
@@ -65,11 +66,13 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
                 .subscribe(new Consumer<AllEvaluationInfo>() {
                     @Override
                     public void accept(AllEvaluationInfo allEvaluationInfo) throws Exception {
+                        allEvaluationView.dismissLoading();
                         allEvaluationView.renderAllEvaluation(allEvaluationInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        allEvaluationView.dismissLoading();
                         allEvaluationView.showError(throwable);
                     }
                 });
@@ -78,6 +81,7 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
 
     @Override
     public void getMoreAllEvaluation(String storeId) {
+        allEvaluationView.showLoading();
         currentIndex=currentIndex+1;
         StoreIdPageRequest storeIdPageRequest=new StoreIdPageRequest(String.valueOf(currentIndex),storeId);
         Disposable disposable=restApiService.getAllEvaluation(storeIdPageRequest)
@@ -86,11 +90,13 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
                 .subscribe(new Consumer<AllEvaluationInfo>() {
                     @Override
                     public void accept(AllEvaluationInfo allEvaluationInfo) throws Exception {
+                        allEvaluationView.dismissLoading();
                         allEvaluationView.renderMoreAllEvaluation(allEvaluationInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        allEvaluationView.dismissLoading();
                         allEvaluationView.showError(throwable);
                     }
                 });

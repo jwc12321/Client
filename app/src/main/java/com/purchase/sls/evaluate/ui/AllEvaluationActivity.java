@@ -77,7 +77,7 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
     private void initView() {
         storeId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
-        allEvaluateAdapter = new AllEvaluateAdapter(this);
+        allEvaluateAdapter = new AllEvaluateAdapter(this,"2");
         allEvaluateAdapter.setOnPictureOnClickListener(this);
         evaluationRv.setAdapter(allEvaluateAdapter);
         allEvaluationPresenter.getAllEvaluation(storeId);
