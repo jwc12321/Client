@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             app:riv_oval="true"
             tools:background="@null"
-            tools:src="@mipmap/ic_launcher"
+            tools:src="@mipmap/app_icon"
             android:layout_marginLeft="@dimen/common_eleven_margin"/>
 
         <TextView

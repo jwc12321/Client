@@ -62,7 +62,7 @@
                     android:layout_toLeftOf="@id/arrow_first"
                     app:riv_oval="true"
                     tools:background="@null"
-                    tools:src="@mipmap/ic_launcher" />
+                    tools:src="@mipmap/app_icon" />
 
                 <View
                     style="@style/fengexian_style"

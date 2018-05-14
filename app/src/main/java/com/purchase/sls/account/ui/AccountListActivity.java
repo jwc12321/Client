@@ -151,7 +151,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
             if (accountListInfo.getAccountpowers() != null && accountListInfo.getAccountpowers().size() > 0) {
                 totalPower = accountListInfo.getAccountpowers().get(0).getPower();
             }
-            accountSum.setText("总支付¥" + totalSum + " 能量收入¥" + totalPower);
+            accountSum.setText("总支付¥" + (TextUtils.isEmpty(totalSum)?0:totalSum)+ " 能量收入¥" + (TextUtils.isEmpty(totalPower)?0:totalPower));
             if (accountListInfo.getAccountItemList() != null && accountListInfo.getAccountItemList().getAccountItemInfos() != null && accountListInfo.getAccountItemList().getAccountItemInfos().size() > 0) {
                 refreshLayout.setCanLoadMore(true);
                 accountListAdapter.setData(accountListInfo.getAccountItemList().getAccountItemInfos());

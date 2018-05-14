@@ -50,7 +50,6 @@ public class InvalidCouponFragment extends BaseListFragment<CouponInfo> implemen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         setMoreLoadable(true);
-        setEmptyView(R.mipmap.ic_launcher, "当前没有优惠券");
     }
 
     @Override

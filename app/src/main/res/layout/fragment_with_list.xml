@@ -37,7 +37,7 @@
                     android:layout_centerInParent="true"
                     android:drawablePadding="@dimen/photo_top"
                     android:textColor="@color/appText10"
-                    tools:drawableTop="@mipmap/ic_launcher"
+                    tools:drawableTop="@mipmap/app_icon"
                     tools:text="当前没有订单，赶快去看看需要什么服务吧" />
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>

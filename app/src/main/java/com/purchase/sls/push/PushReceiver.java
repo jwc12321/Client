@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.messages.ui.MessageNotificationActivity;
+
 import javax.inject.Inject;
 import cn.jpush.android.api.JPushInterface;
 
@@ -36,9 +38,16 @@ public class PushReceiver extends BroadcastReceiver {
             Log.i(TAG, "[MyReceiver]用户点击通知的标题" + bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE));
             String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);//获取附加字段,是一个json数组
             Log.i(TAG, "[MyReceiver]附加字段" + extras);
-            if (!TextUtils.isEmpty(extras)) {
-                pushUtil.parseMessage(context, extras);
-            }
+            Intent intentActivity = new Intent(context,MessageNotificationActivity.class);
+            intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intentActivity);
+
+
+
+            //现在说只需要去消息中心
+//            if (!TextUtils.isEmpty(extras)) {
+//                pushUtil.parseMessage(context, extras);
+//            }
         }
         //当用户收到了通知(用户只有先收到通知,才能点击通知)
         else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {

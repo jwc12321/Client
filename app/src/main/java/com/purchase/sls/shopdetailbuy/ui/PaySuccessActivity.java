@@ -68,8 +68,6 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
     private String orderno;
     private String storeId;
     private OrderDetailInfo.OrderItem orderItem;
-    private BigDecimal energyDecimal;//能量
-    private BigDecimal couponDecimal;//优惠券
     private String evaluateStars;
 
     @Inject
@@ -91,7 +89,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void initView() {
-        evaluateStars="0";
+        evaluateStars="1";
         businessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         orderno = getIntent().getStringExtra(StaticData.ORDER_NO);
         shopName.setText(businessName);
@@ -125,11 +123,8 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                 orderItem = orderDetailInfo.getOrderItem();
                 storeId=orderItem.getStoreid();
                 totalPrice.setText(orderItem.getAllprice());
-                couponType.setText((TextUtils.equals("0.00", orderItem.getPower()) ? "" : "能量") + (TextUtils.equals("0.00", orderItem.getQuannum()) ? "" : "优惠券"));
-                preferentialPrice.setText((TextUtils.equals("0.00", orderItem.getPower()) ? "" : orderItem.getPower()) + (TextUtils.equals("0.00", orderItem.getQuannum()) ? "" : orderItem.getQuannum()));
-                energyDecimal = new BigDecimal(TextUtils.isEmpty(orderItem.getPower()) ? "0" : orderItem.getPower()).setScale(2, RoundingMode.HALF_UP);
-                couponDecimal = new BigDecimal(TextUtils.isEmpty(orderItem.getQuannum()) ? "0" : orderItem.getQuannum()).setScale(2, RoundingMode.HALF_UP);
-                preferentialPrice.setText("¥" + (energyDecimal.add(couponDecimal)).toString());
+                couponType.setText((TextUtils.equals("0.00", orderItem.getPower()) ? "" : "能量+") + (TextUtils.equals("0.00", orderItem.getQuannum()) ? "" : "优惠券"));
+                preferentialPrice.setText((TextUtils.equals("0.00", orderItem.getPower()) ? "" : ("¥"+orderItem.getPower())) + (TextUtils.equals("0.00", orderItem.getQuannum()) ? "" : ("¥"+orderItem.getQuannum())));
                 if (TextUtils.equals("1", orderItem.getPaytype())) {
                     payType.setText("支付宝支付");
                 } else {

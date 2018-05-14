@@ -49,7 +49,7 @@
                     android:layout_height="@dimen/common_twenty_six_margin"
                     app:riv_oval="true"
                     tools:background="@null"
-                    tools:src="@mipmap/ic_launcher" />
+                    tools:src="@mipmap/app_icon" />
 
                 <TextView
                     android:id="@+id/business_name"

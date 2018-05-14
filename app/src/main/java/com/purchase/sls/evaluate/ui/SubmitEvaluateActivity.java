@@ -112,7 +112,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     private void initView() {
         uploadFiles = new ArrayList<>();
         typeAnonymous = "1";
-        starts="0";
+        starts="1";
         storeId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         orderId = getIntent().getStringExtra(StaticData.ORDER_ID);
         businessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);

@@ -5,5 +5,5 @@
     android:scaleType="fitCenter"
     android:layout_marginLeft="@dimen/common_text_left"
     android:layout_marginRight="@dimen/common_text_left"
-    android:src="@mipmap/ic_launcher"
+    android:src="@mipmap/app_icon"
     android:orientation="vertical" />

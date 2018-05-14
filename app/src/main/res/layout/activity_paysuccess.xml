@@ -215,8 +215,8 @@
                 myrating:mImageHeight="@dimen/common_thirty_margin"
                 myrating:mImageWidth="@dimen/common_thirty_margin"
                 myrating:mMargin="1px"
-                myrating:mScope="0"
-                myrating:mStarChoose="0"
+                myrating:mScope="1"
+                myrating:mStarChoose="1"
                 myrating:mStarNum="5" />
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>

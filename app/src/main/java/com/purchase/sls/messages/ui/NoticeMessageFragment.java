@@ -56,7 +56,6 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         setMoreLoadable(true);
-        setEmptyView(R.mipmap.ic_launcher, "当前没有通知");
     }
 
     @Override

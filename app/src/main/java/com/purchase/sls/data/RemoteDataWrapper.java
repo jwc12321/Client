@@ -11,12 +11,16 @@ import com.google.gson.annotations.SerializedName;
 public class RemoteDataWrapper<T> {
 
     public static final String CODE_SUCCESS = "0";
+    @Nullable
     @SerializedName("errorCode")
     public String errorCode;
+    @Nullable
     @SerializedName("errorStr")
     public String errorStr;
+    @Nullable
     @SerializedName("resultCount")
     public String resultCount;
+    @Nullable
     @SerializedName("results")
     public String results;
     @Nullable

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
@@ -32,6 +33,7 @@ import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.evaluate.adapter.AllEvaluateAdapter;
 import com.purchase.sls.evaluate.ui.AllEvaluationActivity;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
+import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
@@ -305,6 +307,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 }
                 break;
             case R.id.check_bg:
+                if(TextUtils.isEmpty(TokenManager.getToken())){
+                    AccountLoginActivity.start(this);
+                    return;
+                }
                 if (storeInfo != null) {
                     PaymentOrderActivity.start(this, storeInfo.getTitle(), storeInfo.getzPics(), storeid);
                 }

@@ -1,6 +1,7 @@
 package com.purchase.sls;
 
 import android.app.Application;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -23,6 +24,10 @@ public class MainApplication  extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         initDaggerComponent();
+
+        //Android7.0的照片问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         /**
          * 预先加载一级列表所有城市的数据
          */

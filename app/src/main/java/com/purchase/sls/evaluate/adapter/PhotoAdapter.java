@@ -45,7 +45,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
     @Override
     public void onBindViewHolder(final PhotoView holder, int position) {
         final String photoUrl = photoList.get(holder.getAdapterPosition());
-        GlideHelper.load((Activity) context, photoUrl, R.mipmap.ic_launcher, holder.photo);
+        GlideHelper.load((Activity) context, photoUrl, R.mipmap.app_icon, holder.photo);
         if (onPictureOnClickListener != null) {
             holder.photo.setOnClickListener(new View.OnClickListener() {
                 @Override

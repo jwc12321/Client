@@ -76,6 +76,7 @@ public class PushUtil {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         switch (id) {
+
         }
     }
 
