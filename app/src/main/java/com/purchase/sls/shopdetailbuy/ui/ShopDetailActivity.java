@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
@@ -248,7 +249,12 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     @Override
-    public void addRemoveSuccess() {
+    public void addRemoveSuccess(String tyepe) {
+        if(TextUtils.equals("1",tyepe)){
+            Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "收藏取消", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

@@ -166,6 +166,8 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         zfpayDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         leastCostDecimal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         totalStCdDecimal=new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+        proportionDecimal = new BigDecimal(100).setScale(2, RoundingMode.HALF_UP);
+        maxEnergyDecial=new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         mHandler = new MyHandler(this);
         paymentOrderPresenter.setContext(this);
         editListener();

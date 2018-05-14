@@ -15,7 +15,7 @@ import java.util.HashSet;
 /**
  * Created by JWC on 2018/4/17.
  */
-public class LocationHelper {
+public class ChoiceCityLocationHelper {
     private static final String TAG = "LocationHelper";
 
     public static final String COOR_TYPE_BD09 = "bd09";
@@ -26,11 +26,11 @@ public class LocationHelper {
 
     private Context mContext;
 
-    private AMapLocationClient  mLocationClient;
+    private AMapLocationClient mLocationClient;
 
     private HashSet<OnLocatedListener> mOnLocatedListeners;
 
-    private AMapLocationClientOption  mLocationOption ;
+    private AMapLocationClientOption mLocationOption;
 
     private double mLastLatitude = 0.0d;
 
@@ -47,7 +47,7 @@ public class LocationHelper {
         void onLocated(AMapLocation aMapLocation);
     }
 
-    private AMapLocationListener  mLocationListener = new AMapLocationListener () {
+    private AMapLocationListener mLocationListener = new AMapLocationListener() {
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
             Log.d(TAG, "onReceiveLocation: " + (aMapLocation == null ? null :
@@ -64,15 +64,16 @@ public class LocationHelper {
         }
     };
 
-    private static LocationHelper locationHelper = null;
-    public static LocationHelper sharedInstance(Context context) {
+    private static ChoiceCityLocationHelper locationHelper = null;
+
+    public static ChoiceCityLocationHelper sharedInstance(Context context) {
         if (locationHelper == null) {
-            locationHelper = new LocationHelper(context);
+            locationHelper = new ChoiceCityLocationHelper(context);
         }
         return locationHelper;
     }
 
-    private LocationHelper(Context context) {
+    private ChoiceCityLocationHelper(Context context) {
         mContext = context.getApplicationContext();
         mLocationClient = new AMapLocationClient(mContext);
         mLocationClient.setLocationListener(mLocationListener);
@@ -144,9 +145,9 @@ public class LocationHelper {
      * 开始定位
      */
     public void start() {
-        if (!mLocationClient.isStarted()) {
-            mLocationClient.startLocation();
-        }
+//        if (!mLocationClient.isStarted()) {
+        mLocationClient.startLocation();
+//        }
     }
 
     /**
@@ -160,8 +161,8 @@ public class LocationHelper {
 
     public void destroyLocation(){
         if (null != mLocationClient) {
+            mOnLocatedListeners.clear();
             mLocationClient.stopLocation();
-            mLocationClient.onDestroy();
         }
     }
 

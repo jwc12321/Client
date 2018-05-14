@@ -19,7 +19,7 @@ public interface ShopDetailBuyContract {
     }
     interface ShopDetailView extends BaseView<ShopDetailPresenter>{
         void shopDetailInfo(ShopDetailsInfo shopDetailsInfo);
-        void addRemoveSuccess();
+        void addRemoveSuccess(String tyepe);
     }
 
     interface PaymentOrderPresenter extends BasePresenter{

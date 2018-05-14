@@ -93,6 +93,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     private String latitude;
     private String longitude;
 
+    private MapMarkerInfo mapMarkerInfo;
+
     public NearbyMapFragment() {
     }
 
@@ -249,8 +251,11 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         List<Marker> saveMarkerList = aMap.getMapScreenMarkers();
         if (saveMarkerList == null || saveMarkerList.size() <= 0)
             return;
-        for (Marker marker : saveMarkerList) {
-            marker.remove();
+        for (int i = 0; i < saveMarkerList.size(); i++) {
+            Marker marker = saveMarkerList.get(i);
+            if (marker.getObject() instanceof MapMarkerInfo) {
+                marker.remove();//移除当前Marker
+            }
         }
     }
 
@@ -404,7 +409,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
             infoWindow = getLayoutInflater().inflate(R.layout.map_iw, null);
         }
         TextView shopName = (TextView) infoWindow.findViewById(R.id.shop_name);
-        MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        mapMarkerInfo = (MapMarkerInfo) marker.getObject();
         shopName.setText(mapMarkerInfo.getTitle());
         return infoWindow;
     }
@@ -415,14 +420,14 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
             InfoContent = getLayoutInflater().inflate(R.layout.map_iw, null);
         }
         TextView shopName = (TextView) InfoContent.findViewById(R.id.shop_name);
-        MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        mapMarkerInfo = (MapMarkerInfo) marker.getObject();
         shopName.setText(mapMarkerInfo.getTitle());
         return InfoContent;
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        mapMarkerInfo = (MapMarkerInfo) marker.getObject();
         ShopDetailActivity.start(getActivity(), mapMarkerInfo.getId());
     }
 

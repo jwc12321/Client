@@ -68,7 +68,7 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
      * @param fidArray
      */
     @Override
-    public void addRemoveCollection(String storeid, String type, String[] fidArray) {
+    public void addRemoveCollection(String storeid, final String type, String[] fidArray) {
         shopDetailView.showLoading();
         AddRemoveCollectionRequest addRemoveCollectionRequest = new AddRemoveCollectionRequest(storeid, type, fidArray);
         Disposable disposable = restApiService.addRemoveCollection(addRemoveCollectionRequest)
@@ -78,7 +78,7 @@ public class ShopDetailPresenter implements ShopDetailBuyContract.ShopDetailPres
                     @Override
                     public void accept(Ignore ignore) throws Exception {
                         shopDetailView.dismissLoading();
-                        shopDetailView.addRemoveSuccess();
+                        shopDetailView.addRemoveSuccess(type);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

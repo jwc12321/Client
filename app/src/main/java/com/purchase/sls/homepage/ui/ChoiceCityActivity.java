@@ -28,7 +28,7 @@ import com.purchase.sls.common.cityList.style.citylist.sortlistview.SortAdapter;
 import com.purchase.sls.common.cityList.style.citylist.sortlistview.SortModel;
 import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.cityList.utils.PinYinUtils;
-import com.purchase.sls.common.location.LocationHelper;
+import com.purchase.sls.common.location.ChoiceCityLocationHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 
 import java.util.ArrayList;
@@ -67,10 +67,15 @@ public class ChoiceCityActivity extends BaseActivity {
     @BindView(R.id.location_again)
     TextView locationAgain;
 
+    private ChoiceCityLocationHelper mLocationHelper;
     private String city;
-    private LocationHelper mLocationHelper;
-    private CommonAppPreferences commonAppPreferences;
+    private String longitude;
+    private String latitude;
     private static final int REQUEST_PERMISSION_LOCATION = 1;
+    private CommonAppPreferences commonAppPreferences;
+
+
+
 
     @Override
     public View getSnackBarHolderView() {
@@ -108,7 +113,9 @@ public class ChoiceCityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice_city);
         ButterKnife.bind(this);
+        commonAppPreferences=new CommonAppPreferences(this);
         city=getIntent().getStringExtra(StaticData.CHOICE_CITY);
+        mapLocal();
         currentCity.setText(city);
         initList();
         setCityData(CityListLoader.getInstance().getCityListData());
@@ -256,6 +263,7 @@ public class ChoiceCityActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.location_again:
+                mLocationHelper.start();
                 break;
             case R.id.currentCity:
                 cityInfoBean = CityInfoBean.findCity(cityListInfo, city);
@@ -268,5 +276,46 @@ public class ChoiceCityActivity extends BaseActivity {
                 break;
             default:
         }
+    }
+
+
+    //地图定位
+    private void mapLocal() {
+        mLocationHelper = ChoiceCityLocationHelper.sharedInstance(this);
+        mLocationHelper.addOnLocatedListener(new ChoiceCityLocationHelper.OnLocatedListener() {
+            @Override
+            public void onLocated(AMapLocation aMapLocation) {
+                city = aMapLocation.getCity();
+                longitude=aMapLocation.getLongitude()+"";
+                latitude=aMapLocation.getLatitude()+"";
+                Log.d("1111", "城市" + city+"经纬度===="+longitude+","+latitude);
+                commonAppPreferences.setLocalAddress(city,longitude,latitude);
+            }
+        });
+
+        if (requestRuntimePermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_LOCATION)) {
+            mLocationHelper.start();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION_LOCATION:
+                for (int gra : grantResults) {
+                    if (gra != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                }
+                mLocationHelper.start();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationHelper.destroyLocation();
     }
 }

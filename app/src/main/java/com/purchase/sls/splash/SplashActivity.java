@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.common.StaticData;
 import com.purchase.sls.mainframe.ui.MainFrameActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -73,26 +70,25 @@ public class SplashActivity extends BaseActivity {
         preferences.edit().putBoolean("isFirstIn", false).apply();
 
         // 判断程序与第几次运行，如果是第一次运行则跳转到引导界面，否则跳转到主界面
-        if ( !isFirstIn ) {
-        // 使用Handler的postDelayed方法，1秒后执行跳转
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainFrameActivity.class);
-                if (bundle != null)
-                    intent.putExtras(bundle);
-                startActivity(intent);
+        if (!isFirstIn) {
+            // 使用Handler的postDelayed方法，1秒后执行跳转
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashActivity.this, MainFrameActivity.class);
+                    if (bundle != null)
+                        intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }, 1000);
 
-                SplashActivity.this.finish();
-            }
-        }, 1000);
-
-        }
-        else {
+        } else {
             mHandler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
         }
 
     }
+
+    private static final int REFRESS_LOCATION_CODE = 3;
 
     //跳转到主页
     private void goHome() {

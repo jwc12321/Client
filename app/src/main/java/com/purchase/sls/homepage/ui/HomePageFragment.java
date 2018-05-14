@@ -122,7 +122,6 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        StatusBarUtil.setImgTransparent(getActivity());
         View rootview = inflater.inflate(R.layout.fragment_homepage, container, false);
         ButterKnife.bind(this, rootview);
         return rootview;
@@ -327,6 +326,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         if (cityInfoBean == null) {
                             return;
                         }
+                        homePagePresenter.getBannerHotInfo(cityInfoBean.getName());
                         choiceCity.setText(cityInfoBean.getName());
                     }
                     break;
@@ -441,5 +441,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onPause() {
         super.onPause();
         limitScroll.cancel();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLocationHelper.destroyLocation();
     }
 }
