@@ -17,6 +17,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.customeview.ActionSheet;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.mine.DaggerPersonalCenterComponent;
@@ -48,7 +49,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     @Inject
     PersonalImPresenter personalImPresenter;
 
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
@@ -67,8 +68,8 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     }
 
     private void initVeiw(){
-        commonAppPreferences = new CommonAppPreferences(this);
-        persionInfoStr = commonAppPreferences.getPersionInfo();
+        persionAppPreferences = new PersionAppPreferences(this);
+        persionInfoStr = persionAppPreferences.getPersionInfo();
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
@@ -126,7 +127,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
                 Toast.LENGTH_SHORT).show();
         persionInfoResponse.setAvatar(phoneUrl);
         persionInfoStr = gson.toJson(persionInfoResponse);
-        commonAppPreferences.setPersionInfo(persionInfoStr);
+        persionAppPreferences.setPersionInfo(persionInfoStr);
     }
 
     @Override

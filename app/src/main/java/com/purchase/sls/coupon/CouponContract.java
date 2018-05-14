@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CouponContract {
     interface CouponListPresenter extends BasePresenter{
-        void getCouponList(String type);
+        void getCouponList(String refreshType,String type);
         void getMoreCouponList(String type);
     }
     interface CouponListView extends BaseView<CouponListPresenter>{

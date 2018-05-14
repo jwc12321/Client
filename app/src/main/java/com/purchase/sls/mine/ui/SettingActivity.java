@@ -17,6 +17,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.APKVersionCodeUtils;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterSecondActivity;
@@ -54,7 +55,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
     @BindView(R.id.login_out)
     Button loginOut;
 
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
     private String phoneNumber;
     private WebViewDetailInfo webViewDetailInfo;
     @Inject
@@ -75,7 +76,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
     }
 
     private void initView() {
-        commonAppPreferences = new CommonAppPreferences(this);
+        persionAppPreferences = new PersionAppPreferences(this);
         phoneNumber = getIntent().getStringExtra(StaticData.PHONE_NUMBER);
     }
 
@@ -106,7 +107,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
                 RegisterSecondActivity.start(this, StaticData.CHANGEPWD, phoneNumber,"","");
                 break;
             case R.id.login_out:
-                commonAppPreferences.clean();
+                persionAppPreferences.clean();
                 AccountLoginActivity.start(this);
                 finish();
                 break;

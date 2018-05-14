@@ -22,6 +22,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.AccountUtils;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.ColdDownButton;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.ui.AccountLoginActivity;
@@ -65,7 +66,7 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
     @BindView(R.id.ok_button)
     Button okButton;
 
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
@@ -91,8 +92,8 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
 
     private void initView() {
         typeWhat = "1";
-        commonAppPreferences = new CommonAppPreferences(this);
-        persionInfoStr = commonAppPreferences.getPersionInfo();
+        persionAppPreferences = new PersionAppPreferences(this);
+        persionInfoStr = persionAppPreferences.getPersionInfo();
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);

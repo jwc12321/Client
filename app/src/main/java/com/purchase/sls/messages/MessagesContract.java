@@ -13,7 +13,7 @@ import java.util.List;
 public interface MessagesContract {
 
     interface MessageListPresenter extends BasePresenter {
-        void getMessageList(String type);
+        void getMessageList(String refreshType,String type);
 
         void getMoreMessageList(String type);
     }

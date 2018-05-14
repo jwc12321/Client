@@ -1,5 +1,7 @@
 package com.purchase.sls.evaluate.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ToBeEvaluationInfo;
 import com.purchase.sls.data.remote.RestApiService;
@@ -57,8 +59,10 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
     }
 
     @Override
-    public void getToBeEvaluation() {
-        toBeEvaluationView.showLoading();
+    public void getToBeEvaluation(String refreshType) {
+        if(TextUtils.equals("1",refreshType)){
+            toBeEvaluationView.showLoading();
+        }
         currentIndex = 1;
         PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getToBeEvaluation(pageRequest)

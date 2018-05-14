@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.mine.DaggerPersonalCenterComponent;
 import com.purchase.sls.mine.PersonalCenterContract;
@@ -49,7 +50,7 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
     @BindView(R.id.clean_iv)
     ImageView cleanIv;
 
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
@@ -65,8 +66,8 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
         initView();
     }
     private void initView(){
-        commonAppPreferences = new CommonAppPreferences(this);
-        persionInfoStr = commonAppPreferences.getPersionInfo();
+        persionAppPreferences = new PersionAppPreferences(this);
+        persionInfoStr = persionAppPreferences.getPersionInfo();
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
@@ -123,7 +124,7 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
     public void changeUserInfoSuccess() {
         persionInfoResponse.setNickname(nicknameEt.getText().toString());
         persionInfoStr=gson.toJson(persionInfoResponse);
-        commonAppPreferences.setPersionInfo(persionInfoStr);
+        persionAppPreferences.setPersionInfo(persionInfoStr);
         Intent intent=new Intent();
         setResult(Activity.RESULT_OK, intent);
         finish();

@@ -179,7 +179,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 city = aMapLocation.getCity();
                 longitude=aMapLocation.getLongitude()+"";
                 latitude=aMapLocation.getLatitude()+"";
-                homePagePresenter.getBannerHotInfo(city);
+                homePagePresenter.getBannerHotInfo("1",city);
                 Log.d("1111", "城市" + city+"经纬度"+longitude+","+latitude);
                 commonAppPreferences.setLocalAddress(city,longitude,latitude);
                 likeStoreAdapter.setCity(city,longitude,latitude);
@@ -219,7 +219,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            homePagePresenter.getBannerHotInfo("杭州");
+            homePagePresenter.getBannerHotInfo("0","杭州");
             homePagePresenter.getLikeStore();
         }
 
@@ -326,7 +326,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         if (cityInfoBean == null) {
                             return;
                         }
-                        homePagePresenter.getBannerHotInfo(cityInfoBean.getName());
+                        homePagePresenter.getBannerHotInfo("1",cityInfoBean.getName());
                         choiceCity.setText(cityInfoBean.getName());
                     }
                     break;

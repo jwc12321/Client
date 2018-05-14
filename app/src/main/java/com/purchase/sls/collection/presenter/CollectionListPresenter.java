@@ -1,5 +1,7 @@
 package com.purchase.sls.collection.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.collection.CollectionContract;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.CollectionListResponse;
@@ -61,8 +63,10 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
      * 获取收藏列表
      */
     @Override
-    public void getCollectionListInfo() {
-        collectionView.showLoading();
+    public void getCollectionListInfo(String refreshType) {
+        if(TextUtils.equals("1",refreshType)){
+            collectionView.showLoading();
+        }
         currentIndex = 1;
         CollectionListRequest collectionListRequest = new CollectionListRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCollectionListInfo(collectionListRequest)

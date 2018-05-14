@@ -1,5 +1,7 @@
 package com.purchase.sls.messages.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.MessageListInfo;
@@ -57,8 +59,10 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
     }
 
     @Override
-    public void getMessageList(String type) {
-        messageListView.showLoading();
+    public void getMessageList(String refreshType,String type) {
+        if(TextUtils.equals("1",refreshType)){
+            messageListView.showLoading();
+        }
         currentIndex = 1;
         MessageListRequest messageListRequest = new MessageListRequest(String.valueOf(currentIndex), type);
         Disposable disposable = restApiService.getMessageListInfo(messageListRequest)

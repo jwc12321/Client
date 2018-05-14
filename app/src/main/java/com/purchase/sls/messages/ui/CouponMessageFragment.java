@@ -48,7 +48,7 @@ public class CouponMessageFragment extends BaseListFragment<MessageListInfo.Mess
     public void onResume() {
         super.onResume();
         if (messageListPresenter != null) {
-            messageListPresenter.getMessageList("0");
+            messageListPresenter.getMessageList("1","0");
         }
     }
 
@@ -73,7 +73,7 @@ public class CouponMessageFragment extends BaseListFragment<MessageListInfo.Mess
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 if (messageListPresenter != null) {
-                    messageListPresenter.getMessageList("0");
+                    messageListPresenter.getMessageList("1","0");
                 }
                 isFirstLoad = false;
             }
@@ -82,7 +82,7 @@ public class CouponMessageFragment extends BaseListFragment<MessageListInfo.Mess
 
     @Override
     public void onRefresh() {
-        messageListPresenter.getMessageList("0");
+        messageListPresenter.getMessageList("0","0");
     }
 
     @Override

@@ -12,7 +12,7 @@ import com.purchase.sls.data.entity.IntercourseRecordInfo;
 
 public interface AccountContract {
     interface AccountListPresenter extends BasePresenter{
-        void getAccountList(String dates1, String dates2);
+        void getAccountList(String refreshType,String dates1, String dates2);
         void getMoreAccountList(String dates1, String dates2);
     }
     interface AccountListView extends BaseView<AccountListPresenter>{
@@ -28,7 +28,7 @@ public interface AccountContract {
     }
 
     interface IntercourseRecordPresenter extends BasePresenter{
-        void getIntercourseRecordInfo(String storeid);
+        void getIntercourseRecordInfo(String refreshType,String storeid);
         void getMoreIntercourseRecordInfo(String storeid);
     }
     interface IntercourseRecordView extends BaseView<IntercourseRecordPresenter>{

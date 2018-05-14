@@ -187,7 +187,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         screenFirst();
         screenSecond();
         screenThird();
-        screeningListPresenter.getScreeningList(city, bussinessCid, "", "",storename);
+        screeningListPresenter.getScreeningList("1",city, bussinessCid, "", "",storename);
     }
 
     private void likeStore() {
@@ -246,9 +246,9 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         @Override
         public void onRefresh() {
             if (TextUtils.equals("1", choiceType) || TextUtils.equals("0", choiceType)) {
-                screeningListPresenter.getScreeningList(city, bussinessCid, "", "",storename);
+                screeningListPresenter.getScreeningList("0",city, bussinessCid, "", "",storename);
             } else if (TextUtils.equals("2", choiceType)) {
-                screeningListPresenter.getScreeningList(city, allCid, businessSort, "",storename);
+                screeningListPresenter.getScreeningList("0",city, allCid, businessSort, "",storename);
             } else {
 
             }
@@ -396,7 +396,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
                 break;
             case R.id.ok_bg:
                 chooseTypeThirdLl.setVisibility(View.GONE);
-                screeningListPresenter.getScreeningList(city, allCid, "", businessScreen,storename);
+                screeningListPresenter.getScreeningList("1",city, allCid, "", businessScreen,storename);
                 break;
             default:
         }
@@ -421,7 +421,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         bussinessCid = id;
         chooseTypeFirstLl.setVisibility(View.GONE);
         choiceFirstInt = position;
-        screeningListPresenter.getScreeningList(city, bussinessCid, "", "",storename);
+        screeningListPresenter.getScreeningList("1",city, bussinessCid, "", "",storename);
     }
 
     @Override
@@ -429,7 +429,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         businessSort = sort;
         chooseTypeSecondLl.setVisibility(View.GONE);
         choiceSecondInt = position;
-        screeningListPresenter.getScreeningList(city, allCid, businessSort, "",storename);
+        screeningListPresenter.getScreeningList("1",city, allCid, businessSort, "",storename);
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.purchase.sls.data.entity.BrowseInfo;
 
 public interface BrowseContract {
     interface BrowsePresenter extends BasePresenter{
-        void getBrowseInfo();
+        void getBrowseInfo(String refreshType);
         void getMoreBrowseInfo();
         void removeBrowse(String[] idArray);
     }

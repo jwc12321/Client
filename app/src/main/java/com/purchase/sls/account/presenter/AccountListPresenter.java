@@ -1,5 +1,7 @@
 package com.purchase.sls.account.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.account.AccountContract;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.AccountListInfo;
@@ -44,8 +46,10 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
      * @param dates2
      */
     @Override
-    public void getAccountList(String dates1, String dates2) {
-        accountListView.showLoading();
+    public void getAccountList(String refreshType,String dates1, String dates2) {
+        if(TextUtils.equals("1",refreshType)){
+            accountListView.showLoading();
+        }
         currentIndex = 1;
         AccountListRequest accountListRequest = new AccountListRequest(String.valueOf(currentIndex), dates1, dates2);
         Disposable disposable = restApiService.getAccountListInfo(accountListRequest)
@@ -75,7 +79,6 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
      */
     @Override
     public void getMoreAccountList(String dates1, String dates2) {
-        accountListView.showLoading();
         currentIndex = currentIndex + 1;
         AccountListRequest accountListRequest = new AccountListRequest(String.valueOf(currentIndex), dates1, dates2);
         Disposable disposable = restApiService.getAccountListInfo(accountListRequest)

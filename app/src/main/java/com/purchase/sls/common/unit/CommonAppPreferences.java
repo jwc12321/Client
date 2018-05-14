@@ -41,23 +41,6 @@ public class CommonAppPreferences {
         return sharedPreferences.getString(StaticData.LATITUDE, "");
     }
 
-    //个人信息
-    public void setPersionInfo(String persionInfoStr) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(StaticData.PERSION_INFO, persionInfoStr);
-        editor.commit();
-    }
-
-    public String getPersionInfo() {
-        return sharedPreferences.getString(StaticData.PERSION_INFO, "");
-    }
-
-    public void clean(){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.commit();
-    }
-
     public void setMianGoWhere(String mainGo){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(StaticData.MAIN_GO,mainGo);

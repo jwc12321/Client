@@ -99,7 +99,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
         browseRecordsAdapter = new BrowseRecordsAdapter(this,city,longitude,latitude);
         browseRecordsAdapter.setOnBrowseItemClickListener(this);
         browseRecordsRv.setAdapter(browseRecordsAdapter);
-        browsePresenter.getBrowseInfo();
+        browsePresenter.getBrowseInfo("1");
 
     }
 
@@ -122,7 +122,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            browsePresenter.getBrowseInfo();
+            browsePresenter.getBrowseInfo("0");
         }
 
         @Override
@@ -228,7 +228,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
 
     @Override
     public void removeSuccess() {
-        browsePresenter.getBrowseInfo();
+        browsePresenter.getBrowseInfo("1");
     }
 
     public static void setMargins (View v, int l, int t, int r, int b) {

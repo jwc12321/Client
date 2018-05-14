@@ -61,8 +61,10 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
     }
 
     @Override
-    public void getCouponList(final String type) {
-        couponListView.showLoading();
+    public void getCouponList(String refreshType,final String type) {
+        if(TextUtils.equals("1",refreshType)){
+            couponListView.showLoading();
+        }
         currentIndex = 1;
         CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCouponListInfo(couponListRequest)

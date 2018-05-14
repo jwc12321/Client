@@ -85,7 +85,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         accountData.setText(FormatUtil.formatDateMonth(System.currentTimeMillis()));
         addAdapter();
-        accountListPresenter.getAccountList("", "");
+        accountListPresenter.getAccountList("1","", "");
     }
 
     private void addAdapter() {
@@ -98,11 +98,11 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         @Override
         public void onRefresh() {
             if (TextUtils.isEmpty(chooseTimeType)) {
-                accountListPresenter.getAccountList("", "");
+                accountListPresenter.getAccountList("0","", "");
             } else if (TextUtils.equals("1", chooseTimeType)) {
-                accountListPresenter.getAccountList(monthlyTime, "");
+                accountListPresenter.getAccountList("0",monthlyTime, "");
             } else {
-                accountListPresenter.getAccountList(startTime, endTime);
+                accountListPresenter.getAccountList("0",startTime, endTime);
             }
         }
 
@@ -205,12 +205,12 @@ public class AccountListActivity extends BaseActivity implements AccountContract
                     chooseTimeType = data.getStringExtra(StaticData.CHOOSE_TIME_TYPE);
                     if (TextUtils.equals("1", chooseTimeType)) {
                         monthlyTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);
-                        accountListPresenter.getAccountList(monthlyTime, "");
+                        accountListPresenter.getAccountList("1",monthlyTime, "");
                         accountData.setText(monthlyTime);
                     } else {
                         startTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);
                         endTime = data.getStringExtra(StaticData.CHOOSE_TIME_SECOND);
-                        accountListPresenter.getAccountList(startTime, endTime);
+                        accountListPresenter.getAccountList("1",startTime, endTime);
                         accountData.setText(startTime+"到"+endTime);
                     }
                     return;

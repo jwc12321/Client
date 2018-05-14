@@ -22,6 +22,7 @@ import com.purchase.sls.account.ui.AccountChooseTimeActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.FormatUtil;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.chooseTime.ChooseTimePicker;
 import com.purchase.sls.common.widget.customeview.ActionSheet;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -91,7 +92,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     @BindView(R.id.choose_sex_rl)
     RelativeLayout chooseSexRl;
 
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
@@ -120,8 +121,8 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     }
 
     private void initView() {
-        commonAppPreferences = new CommonAppPreferences(this);
-        persionInfoStr = commonAppPreferences.getPersionInfo();
+        persionAppPreferences = new PersionAppPreferences(this);
+        persionInfoStr = persionAppPreferences.getPersionInfo();
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
@@ -248,7 +249,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     public void changeHeadPortraitSuccess(String phoneUrl) {
         persionInfoResponse.setAvatar(phoneUrl);
         persionInfoStr = gson.toJson(persionInfoResponse);
-        commonAppPreferences.setPersionInfo(persionInfoStr);
+        persionAppPreferences.setPersionInfo(persionInfoStr);
     }
 
     @Override
@@ -259,14 +260,14 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
             persionInfoResponse.setBirthday(birthdayTime);
         }
         persionInfoStr = gson.toJson(persionInfoResponse);
-        commonAppPreferences.setPersionInfo(persionInfoStr);
+        persionAppPreferences.setPersionInfo(persionInfoStr);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == CHANGE_NIKENAME) {
-            persionInfoStr = commonAppPreferences.getPersionInfo();
+            persionInfoStr = persionAppPreferences.getPersionInfo();
             if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
                 nickname.setText(persionInfoResponse.getNickname());

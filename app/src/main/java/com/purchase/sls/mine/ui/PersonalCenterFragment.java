@@ -21,6 +21,7 @@ import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -74,7 +75,7 @@ public class PersonalCenterFragment extends BaseFragment {
     ImageView itemPersionIm;
     private boolean isFirstLoad = true;
 
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
@@ -99,7 +100,7 @@ public class PersonalCenterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_persional_center, container, false);
         ButterKnife.bind(this, rootview);
-        commonAppPreferences = new CommonAppPreferences(getActivity());
+        persionAppPreferences = new PersionAppPreferences(getActivity());
         return rootview;
     }
 
@@ -128,7 +129,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void initVeiw() {
         if (!isFirstLoad) {
-            persionInfoStr = commonAppPreferences.getPersionInfo();
+            persionInfoStr = persionAppPreferences.getPersionInfo();
             gson = new Gson();
             if (!TextUtils.isEmpty(persionInfoStr)) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);

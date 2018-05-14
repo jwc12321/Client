@@ -1,5 +1,7 @@
 package com.purchase.sls.evaluate.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.remote.RestApiService;
@@ -56,8 +58,10 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
     }
 
     @Override
-    public void getAllEvaluation(String storeId) {
-        allEvaluationView.showLoading();
+    public void getAllEvaluation(String refreshType,String storeId) {
+        if(TextUtils.equals("1",refreshType)){
+            allEvaluationView.showLoading();
+        }
         currentIndex=1;
         StoreIdPageRequest storeIdPageRequest=new StoreIdPageRequest(String.valueOf(currentIndex),storeId);
         Disposable disposable=restApiService.getAllEvaluation(storeIdPageRequest)

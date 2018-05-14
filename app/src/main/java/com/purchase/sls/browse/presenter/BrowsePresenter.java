@@ -1,5 +1,7 @@
 package com.purchase.sls.browse.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.browse.BrowseContract;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.BrowseInfo;
@@ -59,8 +61,10 @@ public class BrowsePresenter implements BrowseContract.BrowsePresenter {
     }
 
     @Override
-    public void getBrowseInfo() {
-        browseView.showLoading();
+    public void getBrowseInfo(String refreshType) {
+        if(TextUtils.equals("1",refreshType)){
+            browseView.showLoading();
+        }
         currentIndex = 1;
         PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getBrowseInfo(pageRequest)

@@ -10,7 +10,7 @@ import com.purchase.sls.data.entity.EnergyInfo;
 
 public interface EnergyContract {
     interface EnergyInfoPresenter extends BasePresenter {
-        void getEnergyInfo(String pool);
+        void getEnergyInfo(String refreshType,String pool);
 
         void getMoreEnergyInfo(String pool);
     }

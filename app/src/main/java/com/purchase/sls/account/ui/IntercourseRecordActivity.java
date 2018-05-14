@@ -77,7 +77,7 @@ public class IntercourseRecordActivity extends BaseActivity implements AccountCo
         businessName=getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         addAdapter();
-        intercourseRecordPresenter.getIntercourseRecordInfo(storeid);
+        intercourseRecordPresenter.getIntercourseRecordInfo("1",storeid);
     }
 
     private void addAdapter() {
@@ -88,7 +88,7 @@ public class IntercourseRecordActivity extends BaseActivity implements AccountCo
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            intercourseRecordPresenter.getIntercourseRecordInfo(storeid);
+            intercourseRecordPresenter.getIntercourseRecordInfo("0",storeid);
         }
 
         @Override

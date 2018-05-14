@@ -1,5 +1,7 @@
 package com.purchase.sls.account.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.account.AccountContract;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
@@ -56,8 +58,10 @@ public class IntercourseRecordPresenter implements AccountContract.IntercourseRe
     }
 
     @Override
-    public void getIntercourseRecordInfo(String storeid) {
-        intercourseRecordView.showLoading();
+    public void getIntercourseRecordInfo(String refreshType,String storeid) {
+        if(TextUtils.equals("1",refreshType)){
+            intercourseRecordView.showLoading();
+        }
         currentIndex = 1;
         IntercourseRecordRequest intercourseRecordRequest = new IntercourseRecordRequest(String.valueOf(currentIndex),storeid);
         Disposable disposable = restApiService.getIntercourseRecordInfo(intercourseRecordRequest)
@@ -81,7 +85,6 @@ public class IntercourseRecordPresenter implements AccountContract.IntercourseRe
 
     @Override
     public void getMoreIntercourseRecordInfo(String storeid) {
-        intercourseRecordView.showLoading();
         currentIndex = currentIndex + 1;
         IntercourseRecordRequest intercourseRecordRequest = new IntercourseRecordRequest(String.valueOf(currentIndex),storeid);
         Disposable disposable = restApiService.getIntercourseRecordInfo(intercourseRecordRequest)
@@ -90,13 +93,11 @@ public class IntercourseRecordPresenter implements AccountContract.IntercourseRe
                 .subscribe(new Consumer<IntercourseRecordInfo>() {
                     @Override
                     public void accept(IntercourseRecordInfo intercourseRecordInfo) throws Exception {
-                        intercourseRecordView.dismissLoading();
                         intercourseRecordView.moreIntercourseRecordInfo(intercourseRecordInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        intercourseRecordView.dismissLoading();
                         intercourseRecordView.showError(throwable);
                     }
                 });

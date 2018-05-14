@@ -12,7 +12,7 @@ import com.purchase.sls.data.request.SubmitEvaluateRequest;
 
 public interface EvaluateContract {
     interface AllEvaluationPresenter extends BasePresenter {
-        void getAllEvaluation(String storeId);
+        void getAllEvaluation(String refreshType,String storeId);
 
         void getMoreAllEvaluation(String storeId);
     }
@@ -24,7 +24,7 @@ public interface EvaluateContract {
     }
 
     interface ToBeEvaluationPresenter extends BasePresenter {
-        void getToBeEvaluation();
+        void getToBeEvaluation(String refreshType);
 
         void getMoreToBeEvaluation();
     }

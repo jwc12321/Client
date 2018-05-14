@@ -48,7 +48,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     public void onResume() {
         super.onResume();
         if(couponPresenter!=null) {
-            couponPresenter.getCouponList("0");
+            couponPresenter.getCouponList("1","0");
         }
     }
 
@@ -74,7 +74,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 if(couponPresenter!=null) {
-                    couponPresenter.getCouponList("0");
+                    couponPresenter.getCouponList("1","0");
                 }
                 isFirstLoad = false;
             }
@@ -83,7 +83,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
 
     @Override
     public void onRefresh() {
-        couponPresenter.getCouponList("0");
+        couponPresenter.getCouponList("0","0");
     }
 
     @Override

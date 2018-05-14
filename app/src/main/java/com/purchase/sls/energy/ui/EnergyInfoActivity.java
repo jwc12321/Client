@@ -78,14 +78,14 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         energyItemAdapter = new EnergyItemAdapter();
         energyRv.setAdapter(energyItemAdapter);
-        energyInfoPresente.getEnergyInfo("2");
+        energyInfoPresente.getEnergyInfo("1","2");
     }
 
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            energyInfoPresente.getEnergyInfo("2");
+            energyInfoPresente.getEnergyInfo("0","2");
         }
 
         @Override

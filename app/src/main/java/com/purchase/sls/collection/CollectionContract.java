@@ -11,7 +11,7 @@ import com.purchase.sls.data.entity.CollectionListResponse;
 
 public interface CollectionContract {
     interface CollectionPresenter extends BasePresenter{
-        void getCollectionListInfo();
+        void getCollectionListInfo(String refreshType);
         void getMoreCollectionListInfo();
         void addRemoveCollection(String storeid, String type, String[] fidArray );
     }

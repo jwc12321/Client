@@ -25,6 +25,8 @@ public class StaticData {
     public static final String BUSINESS_STOREID="businessStoreid";
     //存储的sharedPreferences的key
     public static final String SPF_NAME="spfNengName";
+    //存储的sharedPreferences的key
+    public static final String PERSION_SPF_NAME="persionspfNengName";
     //维度
     public static String LATITUDE="latitude";
     //经度

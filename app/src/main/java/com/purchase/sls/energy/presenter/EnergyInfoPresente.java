@@ -1,5 +1,7 @@
 package com.purchase.sls.energy.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.EnergyInfo;
@@ -57,8 +59,10 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
     }
 
     @Override
-    public void getEnergyInfo(String pool) {
-        energyInfoView.showLoading();
+    public void getEnergyInfo(String refreshType,String pool) {
+        if(TextUtils.equals("1",refreshType)){
+            energyInfoView.showLoading();
+        }
         currentIndex = 1;
         EnergyInfoRequest energyInfoRequest = new EnergyInfoRequest(pool, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getEnergyInfo(energyInfoRequest)

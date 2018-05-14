@@ -80,7 +80,7 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
         allEvaluateAdapter = new AllEvaluateAdapter(this,"2");
         allEvaluateAdapter.setOnPictureOnClickListener(this);
         evaluationRv.setAdapter(allEvaluateAdapter);
-        allEvaluationPresenter.getAllEvaluation(storeId);
+        allEvaluationPresenter.getAllEvaluation("1",storeId);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            allEvaluationPresenter.getAllEvaluation(storeId);
+            allEvaluationPresenter.getAllEvaluation("0",storeId);
         }
 
         @Override

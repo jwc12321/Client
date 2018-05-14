@@ -1,5 +1,7 @@
 package com.purchase.sls.homepage.presenter;
 
+import android.text.TextUtils;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.remote.RestApiService;
@@ -63,8 +65,10 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
      * @param screen
      */
     @Override
-    public void getScreeningList(String address, String cid, String sort,  String screen,String storename) {
-        screeningListView.showLoading();
+    public void getScreeningList(String refreshType,String address, String cid, String sort,  String screen,String storename) {
+        if(TextUtils.equals("1",refreshType)){
+            screeningListView.showLoading();
+        }
         currentIndex = 1;
         ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen,storename);
         Disposable disposable=restApiService.getScreeningListInfo(screeningListRequest)

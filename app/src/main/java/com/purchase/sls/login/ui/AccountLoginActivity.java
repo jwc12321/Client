@@ -22,6 +22,7 @@ import com.purchase.sls.common.unit.AccountUtils;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.PermissionUtil;
+import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.login.DaggerLoginComponent;
@@ -73,7 +74,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     //密码是否显示
     private boolean isPassWordVisible = true;
     private static final int REQUEST_PHONE_STATE = 0x01;
-    private CommonAppPreferences commonAppPreferences;
+    private PersionAppPreferences persionAppPreferences;
 
     private String accountNumber;
     private String loginPassword;
@@ -99,7 +100,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
         ButterKnife.bind(this);
-        commonAppPreferences=new CommonAppPreferences(this);
+        persionAppPreferences=new PersionAppPreferences(this);
     }
 
     @Override
@@ -200,7 +201,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         TokenManager.saveToken(persionInfoResponse.getToken());
         Gson gson=new Gson();
         String persionInfoResponseStr=gson.toJson(persionInfoResponse);
-        commonAppPreferences.setPersionInfo(persionInfoResponseStr);
+        persionAppPreferences.setPersionInfo(persionInfoResponseStr);
         finish();
     }
 

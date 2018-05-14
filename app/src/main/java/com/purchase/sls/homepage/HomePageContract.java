@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface HomePageContract {
     interface HomepagePresenter extends BasePresenter {
-        void getBannerHotInfo(String areaname);
+        void getBannerHotInfo(String refreshType,String areaname);
 
         void getLikeStore();
 
@@ -31,7 +31,7 @@ public interface HomePageContract {
     }
 
     interface ScreeningListPresenter extends BasePresenter {
-        void getScreeningList(String address, String cid, String sort, String screen,String storename);
+        void getScreeningList(String refreshType,String address, String cid, String sort, String screen,String storename);
 
         void getMoreScreeningList(String address, String cid, String sort, String screen,String storename);
     }

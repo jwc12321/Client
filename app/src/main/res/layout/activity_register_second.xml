@@ -72,9 +72,9 @@
 
     <ImageView
         android:id="@+id/over_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/common_one_hundred_margin"
+        android:layout_height="@dimen/common_one_hundred_margin"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:src="@mipmap/app_icon"/>
+        android:src="@mipmap/hook_icon"/>
 </RelativeLayout>

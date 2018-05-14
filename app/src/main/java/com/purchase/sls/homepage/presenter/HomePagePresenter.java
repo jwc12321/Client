@@ -1,5 +1,6 @@
 package com.purchase.sls.homepage.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
@@ -58,8 +59,10 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
      * @param areaname
      */
     @Override
-    public void getBannerHotInfo(String areaname) {
-        homepageView.showLoading();
+    public void getBannerHotInfo(String refreshType,String areaname) {
+        if(TextUtils.equals("1",refreshType)){
+            homepageView.showLoading();
+        }
         BannerHotRequest bannerHotRequest = new BannerHotRequest(areaname);
         Disposable disposable = restApiService.getBannerHotInfo(bannerHotRequest)
                 .flatMap(new RxRemoteDataParse<BannerHotResponse>())

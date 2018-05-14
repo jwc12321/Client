@@ -122,7 +122,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 break;
             case R.id.next:
                 if (TextUtils.equals(passwordStr, passwordAgain)) {
-                    if (!TextUtils.isEmpty(type)) {
+                    if (!TextUtils.isEmpty(phoneCode)) {
                         loginPresenter.registerPassword(phoneNumber, passwordAgain, "", type, storeid,phoneCode);
                     } else {
                         loginPresenter.changepwd(phoneNumber, passwordAgain, type);

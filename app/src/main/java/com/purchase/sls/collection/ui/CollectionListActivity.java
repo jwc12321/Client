@@ -99,7 +99,7 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
         collectionListAdapter = new CollectionListAdapter(this,city,longitude,latitude);
         collectionListAdapter.setOnCollectionItemClickListener(this);
         collectionRv.setAdapter(collectionListAdapter);
-        collectionListPresenter.getCollectionListInfo();
+        collectionListPresenter.getCollectionListInfo("1");
 
     }
 
@@ -122,7 +122,7 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            collectionListPresenter.getCollectionListInfo();
+            collectionListPresenter.getCollectionListInfo("0");
         }
 
         @Override
@@ -175,7 +175,7 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
 
     @Override
     public void addRemoveSuccess() {
-        collectionListPresenter.getCollectionListInfo();
+        collectionListPresenter.getCollectionListInfo("1");
     }
 
     @OnClick({R.id.back, R.id.edit, R.id.delete_bg})

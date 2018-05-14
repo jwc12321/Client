@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backGround1"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layoutManager="@string/layoutManager_LinearLayout" />
 
         <android.support.v4.widget.NestedScrollView
@@ -24,22 +24,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/backGround1"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:visibility="gone">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/app_icon"
+                    android:layout_gravity="center"/>
 
                 <TextView
+                    android:layout_marginTop="@dimen/common_eight_margin"
                     android:id="@+id/empty_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawablePadding="@dimen/photo_top"
                     android:textColor="@color/appText10"
-                    tools:drawableTop="@mipmap/app_icon"
-                    tools:text="当前没有订单，赶快去看看需要什么服务吧" />
-            </RelativeLayout>
+                    android:text="没数据"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </FrameLayout>
 

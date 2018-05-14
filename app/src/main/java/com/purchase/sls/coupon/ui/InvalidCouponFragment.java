@@ -42,7 +42,7 @@ public class InvalidCouponFragment extends BaseListFragment<CouponInfo> implemen
     public void onResume() {
         super.onResume();
         if(couponPresenter!=null) {
-            couponPresenter.getCouponList("1");
+            couponPresenter.getCouponList("1","1");
         }
     }
 
@@ -67,7 +67,7 @@ public class InvalidCouponFragment extends BaseListFragment<CouponInfo> implemen
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 if(couponPresenter!=null) {
-                    couponPresenter.getCouponList("1");
+                    couponPresenter.getCouponList("1","1");
                 }
                 isFirstLoad = false;
             }
@@ -76,7 +76,7 @@ public class InvalidCouponFragment extends BaseListFragment<CouponInfo> implemen
 
     @Override
     public void onRefresh() {
-        couponPresenter.getCouponList("1");
+        couponPresenter.getCouponList("0","1");
     }
 
     @Override

@@ -49,7 +49,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
     public void onResume() {
         super.onResume();
         if (messageListPresenter != null) {
-            messageListPresenter.getMessageList("1");
+            messageListPresenter.getMessageList("1","1");
         }
     }
 
@@ -74,7 +74,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 if (messageListPresenter != null) {
-                    messageListPresenter.getMessageList("1");
+                    messageListPresenter.getMessageList("1","1");
                 }
                 isFirstLoad = false;
             }
@@ -83,7 +83,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
 
     @Override
     public void onRefresh() {
-        messageListPresenter.getMessageList("1");
+        messageListPresenter.getMessageList("0","1");
     }
 
     @Override
