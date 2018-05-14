@@ -88,7 +88,6 @@ public class BrowsePresenter implements BrowseContract.BrowsePresenter {
 
     @Override
     public void getMoreBrowseInfo() {
-        browseView.showLoading();
         currentIndex = currentIndex + 1;
         PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getBrowseInfo(pageRequest)
@@ -97,13 +96,11 @@ public class BrowsePresenter implements BrowseContract.BrowsePresenter {
                 .subscribe(new Consumer<BrowseInfo>() {
                     @Override
                     public void accept(BrowseInfo browseInfo) throws Exception {
-                        browseView.dismissLoading();
                         browseView.renderMoreBrowseInfo(browseInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        browseView.dismissLoading();
                         browseView.showError(throwable);
                     }
                 });

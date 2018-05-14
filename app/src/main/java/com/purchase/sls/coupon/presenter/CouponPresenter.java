@@ -104,7 +104,6 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
 
     @Override
     public void getMoreCouponList(String type) {
-        couponListView.showLoading();
         currentIndex = currentIndex + 1;
         CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCouponListInfo(couponListRequest)
@@ -113,13 +112,11 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                 .subscribe(new Consumer<CouponListInfo>() {
                     @Override
                     public void accept(CouponListInfo couponListInfo) throws Exception {
-                        couponListView.dismissLoading();
                         couponListView.renderMore(couponListInfo.getCouponList().getCouponInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        couponListView.dismissLoading();
                         couponListView.showError(throwable);
                     }
                 });

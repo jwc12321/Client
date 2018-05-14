@@ -92,7 +92,6 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
 
     @Override
     public void getMoreScreeningList(String address, String cid, String sort, String screen,String storename) {
-        screeningListView.showLoading();
         currentIndex = currentIndex+1;
         ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen,storename);
         Disposable disposable=restApiService.getScreeningListInfo(screeningListRequest)
@@ -101,13 +100,11 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
                 .subscribe(new Consumer<ScreeningListResponse>() {
                     @Override
                     public void accept(ScreeningListResponse screeningListResponse) throws Exception {
-                        screeningListView.dismissLoading();
                         screeningListView.moreScreeningListInfo(screeningListResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        screeningListView.dismissLoading();
                         screeningListView.showError(throwable);
                     }
                 });

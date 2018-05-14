@@ -87,13 +87,11 @@ public class AccountListPresenter implements AccountContract.AccountListPresente
                 .subscribe(new Consumer<AccountListInfo>() {
                     @Override
                     public void accept(AccountListInfo accountListInfo) throws Exception {
-                        accountListView.dismissLoading();
                         accountListView.moreAccountListInfo(accountListInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        accountListView.dismissLoading();
                         accountListView.showError(throwable);
                     }
                 });

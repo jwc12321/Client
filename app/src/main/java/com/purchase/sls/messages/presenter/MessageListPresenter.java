@@ -86,7 +86,6 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
 
     @Override
     public void getMoreMessageList(String type) {
-        messageListView.showLoading();
         currentIndex = currentIndex + 1;
         MessageListRequest messageListRequest = new MessageListRequest(String.valueOf(currentIndex), type);
         Disposable disposable = restApiService.getMessageListInfo(messageListRequest)
@@ -95,13 +94,11 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
                 .subscribe(new Consumer<MessageListInfo>() {
                     @Override
                     public void accept(MessageListInfo messageListInfo) throws Exception {
-                        messageListView.dismissLoading();
                         messageListView.renderMore(messageListInfo.getMessageItems());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        messageListView.dismissLoading();
                         messageListView.showError(throwable);
                     }
                 });

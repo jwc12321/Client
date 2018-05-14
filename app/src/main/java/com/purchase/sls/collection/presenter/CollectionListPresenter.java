@@ -93,7 +93,6 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
      */
     @Override
     public void getMoreCollectionListInfo() {
-        collectionView.showLoading();
         currentIndex = currentIndex + 1;
         CollectionListRequest collectionListRequest = new CollectionListRequest(String.valueOf(currentIndex));
         Disposable disposable = restApiService.getCollectionListInfo(collectionListRequest)
@@ -102,13 +101,11 @@ public class CollectionListPresenter implements CollectionContract.CollectionPre
                 .subscribe(new Consumer<CollectionListResponse>() {
                     @Override
                     public void accept(CollectionListResponse collectionListResponse) throws Exception {
-                        collectionView.dismissLoading();
                         collectionView.moreCollectionListInfo(collectionListResponse);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        collectionView.dismissLoading();
                         collectionView.showError(throwable);
                     }
                 });
