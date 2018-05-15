@@ -289,6 +289,7 @@ public class ChoiceCityActivity extends BaseActivity {
                 longitude=aMapLocation.getLongitude()+"";
                 latitude=aMapLocation.getLatitude()+"";
                 Log.d("1111", "城市" + city+"经纬度===="+longitude+","+latitude);
+                currentCity.setText(city);
                 commonAppPreferences.setLocalAddress(city,longitude,latitude);
             }
         });

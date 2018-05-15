@@ -59,4 +59,8 @@ public class StaticData {
     public static final String PHONE_CODE="phoneCode";
     //首页应去哪里
     public static final String MAIN_GO="mainGo";
+    //昵称
+    public static final String NICKNAME="nickname";
+    //
+    public static final String GO_TYPE="goType";
 }

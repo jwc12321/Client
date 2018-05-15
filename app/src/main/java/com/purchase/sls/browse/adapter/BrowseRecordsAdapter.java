@@ -80,7 +80,7 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
     }
 
     @Override
-    public void onBindViewHolder(BrowseRecordsView holder, int position) {
+    public void onBindViewHolder(final BrowseRecordsView holder, int position) {
         final BrowseInfo.BrowseItemInfo browseItemInfo = browseItemInfos.get(holder.getAdapterPosition());
         holder.bindData(browseItemInfo);
         holder.choiceItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -99,8 +99,18 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
         holder.collectionItemLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onBrowseItemClickListener != null&&TextUtils.equals("1", behavior)) {
-                    onBrowseItemClickListener.goShopDetail(browseItemInfo.getStore().getId());
+                if (onBrowseItemClickListener != null) {
+                    if (TextUtils.equals("1", behavior)) {
+                        onBrowseItemClickListener.goShopDetail(browseItemInfo.getStore().getId());
+                    }else {
+                        if(holder.choiceItem.isChecked()){
+                            holder.choiceItem.setChecked(false);
+                            onBrowseItemClickListener.removeItem(browseItemInfo.getId());
+                        }else {
+                            holder.choiceItem.setChecked(true);
+                            onBrowseItemClickListener.addItem(browseItemInfo.getId());
+                        }
+                    }
                 }
             }
         });

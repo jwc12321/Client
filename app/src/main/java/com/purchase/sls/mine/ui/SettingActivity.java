@@ -18,6 +18,7 @@ import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.APKVersionCodeUtils;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PersionAppPreferences;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterSecondActivity;
@@ -108,6 +109,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
                 break;
             case R.id.login_out:
                 persionAppPreferences.clean();
+                TokenManager.saveToken("");
                 AccountLoginActivity.start(this);
                 finish();
                 break;

@@ -83,7 +83,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
     }
 
     @Override
-    public void onBindViewHolder(CollectionListView holder, int position) {
+    public void onBindViewHolder(final CollectionListView holder, int position) {
         final CollectionListInfo collectionListInfo = collectionListInfos.get(holder.getAdapterPosition());
         holder.bindData(collectionListInfo);
         holder.choiceItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -102,8 +102,18 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
         holder.likestoreRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onCollectionItemClickListener!=null&&TextUtils.equals("1", behavior)){
-                    onCollectionItemClickListener.goShopDetail(collectionListInfo.getStoreid());
+                if(onCollectionItemClickListener!=null) {
+                    if (TextUtils.equals("1", behavior)) {
+                        onCollectionItemClickListener.goShopDetail(collectionListInfo.getStoreid());
+                    }else {
+                        if(holder.choiceItem.isChecked()){
+                            holder.choiceItem.setChecked(false);
+                            onCollectionItemClickListener.removeItem(collectionListInfo.getId());
+                        }else {
+                            holder.choiceItem.setChecked(true);
+                            onCollectionItemClickListener.addItem(collectionListInfo.getId());
+                        }
+                    }
                 }
             }
         });

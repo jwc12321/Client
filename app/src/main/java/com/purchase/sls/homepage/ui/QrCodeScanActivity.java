@@ -1,7 +1,7 @@
 package com.purchase.sls.homepage.ui;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,18 +13,15 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.TokenManager;
-import com.purchase.sls.common.unit.UrlUtils;
-import com.purchase.sls.common.widget.QrCodeScanView;
+import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterFirstActivity;
 import com.purchase.sls.shopdetailbuy.ui.PaymentOrderActivity;
-
-import java.util.Map;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
+import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 
 public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Delegate {
@@ -38,8 +35,8 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     TextView title;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
-    @BindView(R.id.qr_code_scanner)
-    QrCodeScanView qrCodeScanner;
+    @BindView(R.id.zxingview)
+    ZXingView mQRCodeView;
 
 
     @Override
@@ -52,8 +49,7 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code_scan);
         ButterKnife.bind(this);
-        qrCodeScanner.setDelegate(this);
-
+        mQRCodeView.setDelegate(this);
     }
 
     @Override
@@ -62,10 +58,16 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mQRCodeView.startCamera();
+        mQRCodeView.showScanRect();
+        mQRCodeView.startSpot();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        //scannerView.startCamera();
-        qrCodeScanner.startSpot();
 
     }
 
@@ -79,12 +81,13 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     protected void onStop() {
         super.onStop();
+        mQRCodeView.stopCamera();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        qrCodeScanner.stopCamera();
+        mQRCodeView.onDestroy();
     }
 
     @Override
@@ -96,18 +99,27 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     public void onScanQRCodeSuccess(String result) {
         Log.d(TAG, "onScanQRCodeSuccess: " + result);
-        if (UrlUtils.isUrl(result)) {
+        if (!TextUtils.isEmpty(result)) {
             String[] results = result.split("&&");
-            if (results[0].startsWith("ngapp::")) {
+            if (results[0].startsWith("ngapp")) {
                 String firstStr = results[0];
                 String[] firstStrs = firstStr.split("::");
                 if (!TextUtils.isEmpty(TokenManager.getToken()) && firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
                     PaymentOrderActivity.start(this, results[1], results[2], firstStrs[1]);
+                    this.finish();
                 } else if (TextUtils.isEmpty(TokenManager.getToken()) && firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
-                    RegisterFirstActivity.start(this, StaticData.REGISTER, firstStrs[1]);
+                    AccountLoginActivity.start(this,"1");
+                    this.finish();
                 }
             }
         }
+        vibrate();
+        mQRCodeView.startSpot();
+    }
+
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
     }
 
     @OnClick({R.id.back})

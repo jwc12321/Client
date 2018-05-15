@@ -79,6 +79,7 @@ public class SplashActivity extends BaseActivity {
                     if (bundle != null)
                         intent.putExtras(bundle);
                     startActivity(intent);
+                    SplashActivity.this.finish();
                 }
             }, 1000);
 

@@ -7,7 +7,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.account.ui.AccountChooseTimeActivity;
 import com.purchase.sls.common.GlideHelper;
+import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.common.unit.PersionAppPreferences;
@@ -96,6 +99,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
+    private String nickName;
 
     private ChooseTimePicker chooseTimePicker;
     private int yearSelect = 0;
@@ -127,7 +131,8 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
             GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
-            nickname.setText(persionInfoResponse.getNickname());
+            nickName=persionInfoResponse.getNickname();
+            nickname.setText(nickName);
             if (TextUtils.equals("0", persionInfoResponse.getSex())) {
                 sex.setText("男");
                 sexType = "0";
@@ -181,29 +186,29 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
                 break;
             case R.id.item_sex:
                 choseWhat = "1";
-                chooseSexRl.setVisibility(View.VISIBLE);
+                visSex();
                 break;
             case R.id.item_birthday:
                 choseWhat = "2";
                 setTimePicker();
                 break;
             case R.id.cancel:
-                chooseSexRl.setVisibility(View.GONE);
+                goneSex();
                 break;
             case R.id.male:
                 sex.setText("男");
                 sexType = "0";
                 personalImPresenter.changeUserInfo("", sexType, "");
-                chooseSexRl.setVisibility(View.GONE);
+                goneSex();
                 break;
             case R.id.female:
                 sex.setText("女");
                 sexType = "1";
                 personalImPresenter.changeUserInfo("", sexType, "");
-                chooseSexRl.setVisibility(View.GONE);
+                goneSex();
                 break;
             case R.id.black_background:
-                chooseSexRl.setVisibility(View.GONE);
+                goneSex();
                 break;
             default:
         }
@@ -234,7 +239,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
         chooseTimePicker.setCancelListener(new ChooseTimePicker.OnCancelListener() {
             @Override
             public void onCancel() {
-
+                chooseTimePicker=null;
             }
         });
         chooseTimePicker.show(this);
@@ -273,5 +278,45 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
                 nickname.setText(persionInfoResponse.getNickname());
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            this.finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(chooseTimePicker!=null){
+            chooseTimePicker.dismiss();
+            chooseTimePicker=null;
+        }
+    }
+
+    private void visSex(){
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
+        //动画持续时间
+        alphaAnimation.setDuration(1000);
+        //动画停留在结束的位置
+        alphaAnimation.setFillAfter(true);
+        //开启动画
+        chooseSexRl.startAnimation(alphaAnimation);
+        chooseSexRl.setVisibility(View.VISIBLE);
+    }
+
+    private void goneSex(){
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
+        //动画持续时间
+        alphaAnimation.setDuration(1000);
+        //开启动画
+        chooseSexRl.startAnimation(alphaAnimation);
+        chooseSexRl.setVisibility(View.GONE);
     }
 }

@@ -1,11 +1,15 @@
 package com.purchase.sls.mine.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -54,6 +58,7 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
     private String persionInfoStr;
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
+    private String nickName;
 
     @Inject
     PersonalImPresenter personalImPresenter;
@@ -71,7 +76,17 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
+            nickName=persionInfoResponse.getNickname();
         }
+        nicknameEt.setText(nickName);
+        nicknameEt.setSelection(nicknameEt.getText().length());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(nicknameEt, InputMethodManager.SHOW_FORCED);
+            }
+        }, 1000);
     }
 
     @Override
@@ -128,5 +143,48 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
         Intent intent=new Intent();
         setResult(Activity.RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(nicknameEt.getWindowToken(),0);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        hideKeyboard();
     }
 }
