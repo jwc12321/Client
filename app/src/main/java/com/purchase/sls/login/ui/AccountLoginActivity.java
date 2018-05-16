@@ -39,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import cn.jpush.android.api.JPushInterface;
 
 import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
 
@@ -213,6 +214,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         Gson gson=new Gson();
         String persionInfoResponseStr=gson.toJson(persionInfoResponse);
         persionAppPreferences.setPersionInfo(persionInfoResponseStr);
+        JPushInterface.setAliasAndTags(getApplicationContext(),
+                persionInfoResponse.getTel(),
+                null,
+               null);
         finish();
     }
 

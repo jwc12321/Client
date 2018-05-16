@@ -28,10 +28,12 @@ import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.AccountUtils;
 import com.purchase.sls.common.widget.ColdDownButton;
 import com.purchase.sls.data.entity.PersionInfoResponse;
+import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.login.DaggerLoginComponent;
 import com.purchase.sls.login.LoginContract;
 import com.purchase.sls.login.LoginModule;
 import com.purchase.sls.login.presenter.LoginPresenter;
+import com.purchase.sls.webview.ui.WebViewActivity;
 
 import javax.inject.Inject;
 
@@ -81,6 +83,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
     private String phoneCodeStr;
     @Inject
     LoginPresenter loginPresenter;
+    private WebViewDetailInfo webViewDetailInfo;
 
     public static void start(Context context, String type, String storeid) {
         Intent intent = new Intent(context, RegisterFirstActivity.class);
@@ -139,6 +142,10 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
     private ClickableSpan protocolSpan = new ClickableSpan() {
         @Override
         public void onClick(View widget) {
+            webViewDetailInfo = new WebViewDetailInfo();
+            webViewDetailInfo.setTitle("用户协议");
+            webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/rAgreement");
+            WebViewActivity.start(RegisterFirstActivity.this, webViewDetailInfo);
         }
     };
 

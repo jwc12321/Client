@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import cn.jpush.android.api.JPushInterface;
 
 import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
 
@@ -167,6 +168,10 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         Gson gson=new Gson();
         String persionInfoResponseStr=gson.toJson(persionInfoResponse);
         persionAppPreferences.setPersionInfo(persionInfoResponseStr);
+        JPushInterface.setAliasAndTags(getApplicationContext(),
+                persionInfoResponse.getTel(),
+                null,
+                null);
         Intent intent = new Intent();
         setResult(RESULT_OK,intent);
         finish();

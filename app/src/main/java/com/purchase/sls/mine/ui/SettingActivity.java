@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by JWC on 2018/5/4.
@@ -110,6 +111,10 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
             case R.id.login_out:
                 persionAppPreferences.clean();
                 TokenManager.saveToken("");
+                JPushInterface.setAliasAndTags(getApplicationContext(),
+                        "",
+                        null,
+                        null);
                 AccountLoginActivity.start(this);
                 finish();
                 break;
