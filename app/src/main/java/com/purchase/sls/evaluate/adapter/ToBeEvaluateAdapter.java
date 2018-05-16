@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -89,7 +90,7 @@ public class ToBeEvaluateAdapter extends RecyclerView.Adapter<ToBeEvaluateAdapte
 
     public class ToBeEvaluateView extends RecyclerView.ViewHolder {
         @BindView(R.id.photo)
-        RoundedImageView photo;
+        ImageView photo;
         @BindView(R.id.business_name)
         TextView businessName;
         @BindView(R.id.time)

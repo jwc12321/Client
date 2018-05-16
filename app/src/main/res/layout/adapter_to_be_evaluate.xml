@@ -7,16 +7,14 @@
     android:layout_height="@dimen/common_one_hundred_and_six_margin"
     android:background="@color/appText1">
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <ImageView
         android:id="@+id/photo"
-        style="@style/PhotoStyle"
         android:layout_width="@dimen/common_eighty_five_margin"
         android:layout_height="@dimen/common_eighty_five_margin"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/common_eleven_margin"
-        app:riv_oval="true"
-        tools:background="@null"
-        tools:src="@mipmap/app_icon" />
+        android:layout_marginLeft="@dimen/common_text_left"
+        android:scaleType="fitXY"
+        tools:src="@mipmap/app_icon"/>
 
     <TextView
         android:id="@+id/business_name"
