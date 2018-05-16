@@ -28,6 +28,17 @@ public class PersionAppPreferences {
         return sharedPreferences.getString(StaticData.PERSION_INFO, "");
     }
 
+    //上传到商城的id
+    public void setShopMallId(String appuserid){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(StaticData.APP_USER_ID, appuserid);
+        editor.commit();
+    }
+
+    public String getShopMallId(){
+        return sharedPreferences.getString(StaticData.APP_USER_ID,"");
+    }
+
     public void clean(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

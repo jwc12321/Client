@@ -63,4 +63,8 @@ public class StaticData {
     public static final String NICKNAME="nickname";
     //
     public static final String GO_TYPE="goType";
+    //商城首页url
+    public static final String HOMEURL="http://s.365neng.com/home";
+    //用户的id
+    public static final String APP_USER_ID="appUserId";
 }

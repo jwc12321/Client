@@ -15,13 +15,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.purchase.sls.common.unit.HandleBackInterface;
+import com.purchase.sls.common.unit.HandleBackUtil;
 import com.purchase.sls.common.unit.WeiboDialogUtils;
 
 /**
  *
  */
 
-public class BaseFragment extends Fragment implements LoadDataView{
+public class BaseFragment extends Fragment implements LoadDataView,HandleBackInterface {
     private Toast toast;
     private Dialog mWeiboDialog;
 
@@ -119,5 +121,10 @@ public class BaseFragment extends Fragment implements LoadDataView{
 
     protected void notifyNetWorkChange(boolean isConnected){
 
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return HandleBackUtil.handleBackPress(this);
     }
 }

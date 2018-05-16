@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.purchase.sls.MainApplication;
+import com.purchase.sls.common.unit.HandleBackUtil;
 import com.purchase.sls.common.unit.WeiboDialogUtils;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.login.ui.AccountLoginActivity;
@@ -135,6 +136,13 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
     public void showError(String errMsg) {
         if (getApplicationContext() != null) {
             Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!HandleBackUtil.handleBackPress(this)) {
+            super.onBackPressed();
         }
     }
 

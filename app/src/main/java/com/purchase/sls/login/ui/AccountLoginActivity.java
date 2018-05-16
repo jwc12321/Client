@@ -214,6 +214,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         Gson gson=new Gson();
         String persionInfoResponseStr=gson.toJson(persionInfoResponse);
         persionAppPreferences.setPersionInfo(persionInfoResponseStr);
+        persionAppPreferences.setShopMallId(persionInfoResponse.getId());
         JPushInterface.setAliasAndTags(getApplicationContext(),
                 persionInfoResponse.getTel(),
                 null,

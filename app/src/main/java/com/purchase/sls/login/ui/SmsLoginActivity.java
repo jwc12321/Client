@@ -168,6 +168,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         Gson gson=new Gson();
         String persionInfoResponseStr=gson.toJson(persionInfoResponse);
         persionAppPreferences.setPersionInfo(persionInfoResponseStr);
+        persionAppPreferences.setShopMallId(persionInfoResponse.getId());
         JPushInterface.setAliasAndTags(getApplicationContext(),
                 persionInfoResponse.getTel(),
                 null,
