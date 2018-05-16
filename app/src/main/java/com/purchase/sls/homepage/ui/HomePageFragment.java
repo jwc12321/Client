@@ -143,8 +143,6 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         scrollerUpDown();
         likeStore();
         mapLocal();
-        homePagePresenter.getLikeStore();
-
     }
 
     @Override
@@ -180,6 +178,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 longitude=aMapLocation.getLongitude()+"";
                 latitude=aMapLocation.getLatitude()+"";
                 homePagePresenter.getBannerHotInfo("1",city);
+                homePagePresenter.getLikeStore(city);
                 Log.d("1111", "城市" + city+"经纬度"+longitude+","+latitude);
                 commonAppPreferences.setLocalAddress(city,longitude,latitude);
                 likeStoreAdapter.setCity(city,longitude,latitude);
@@ -219,13 +218,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            homePagePresenter.getBannerHotInfo("0","杭州");
-            homePagePresenter.getLikeStore();
+            homePagePresenter.getBannerHotInfo("0",city);
+            homePagePresenter.getLikeStore(city);
         }
 
         @Override
         public void onLoadMore() {
-            homePagePresenter.getMoreLikeStore();
+            homePagePresenter.getMoreLikeStore(city);
         }
 
         @Override
@@ -301,7 +300,6 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         switch (view.getId()) {
             case R.id.choice_city:
                 Intent intent=new Intent(getActivity(),ChoiceCityActivity.class);
-                intent.putExtra(StaticData.CHOICE_CITY, city);
                 startActivityForResult(intent,REFRESS_LOCATION_CODE);
                 break;
             case R.id.scan:
@@ -326,8 +324,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         if (cityInfoBean == null) {
                             return;
                         }
-                        homePagePresenter.getBannerHotInfo("1",cityInfoBean.getName());
+                        city=cityInfoBean.getName();
+                        longitude=commonAppPreferences.getLongitude();
+                        latitude=commonAppPreferences.getLatitude();
+                        homePagePresenter.getBannerHotInfo("1",city);
+                        homePagePresenter.getLikeStore(city);
                         choiceCity.setText(cityInfoBean.getName());
+                        likeStoreAdapter.setCity(city,longitude,latitude);
                     }
                     break;
                 case REFRESS_LOCATION_SCAN:

@@ -9,6 +9,7 @@ import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.ApplicationModule;
 import com.purchase.sls.DaggerApplicationComponent;
 import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
+import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.SPManager;
 import com.purchase.sls.data.local.GreenDaoModule;
 
@@ -24,7 +25,7 @@ public class MainApplication  extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         initDaggerComponent();
-
+        NetUtils.init(this);
         //Android7.0的照片问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());

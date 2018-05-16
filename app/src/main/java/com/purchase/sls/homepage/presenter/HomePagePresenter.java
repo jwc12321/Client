@@ -87,9 +87,9 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
      * 获取猜你喜欢数据
      */
     @Override
-    public void getLikeStore() {
+    public void getLikeStore(String areaname) {
         currentIndex = 1;
-        LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex));
+        LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex),areaname);
         Disposable disposable = restApiService.getLikeStoreInfo(likeStoreRequest)
                 .flatMap(new RxRemoteDataParse<LikeStoreResponse>())
                 .compose(new RxSchedulerTransformer<LikeStoreResponse>())
@@ -109,10 +109,10 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
     }
 
     @Override
-    public void getMoreLikeStore() {
+    public void getMoreLikeStore(String areaname) {
         homepageView.showLoading();
         currentIndex =currentIndex+1;
-        LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex));
+        LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex),areaname);
         Disposable disposable = restApiService.getLikeStoreInfo(likeStoreRequest)
                 .flatMap(new RxRemoteDataParse<LikeStoreResponse>())
                 .compose(new RxSchedulerTransformer<LikeStoreResponse>())

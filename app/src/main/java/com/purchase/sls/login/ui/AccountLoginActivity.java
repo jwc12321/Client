@@ -191,10 +191,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
      * 登录
      */
     private void login() {
-//        if (!NetUtils.isConnected()) {
-//            showMessage(getString(R.string.check_network));
-//            return;
-//        }
+        if (!NetUtils.isConnected()) {
+            showMessage(getString(R.string.check_network));
+            return;
+        }
         List<String> groups = new ArrayList<>();
         groups.add(Manifest.permission_group.PHONE);
         if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups, null), REQUEST_PHONE_STATE)) {

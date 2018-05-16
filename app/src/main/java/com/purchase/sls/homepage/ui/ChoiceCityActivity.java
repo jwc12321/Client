@@ -114,9 +114,7 @@ public class ChoiceCityActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_city);
         ButterKnife.bind(this);
         commonAppPreferences=new CommonAppPreferences(this);
-        city=getIntent().getStringExtra(StaticData.CHOICE_CITY);
         mapLocal();
-        currentCity.setText(city);
         initList();
         setCityData(CityListLoader.getInstance().getCityListData());
 
@@ -220,6 +218,7 @@ public class ChoiceCityActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String cityName = ((SortModel) adapter.getItem(position)).getName();
+                commonAppPreferences.setLocalAddress(cityName,"","");
                 cityInfoBean = CityInfoBean.findCity(cityListInfo, cityName);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();

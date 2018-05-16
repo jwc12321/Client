@@ -59,7 +59,7 @@ android {
             manifestPlaceholders.put("JPUSH_CHANNEL", "developer-default")
         }
         debug {
-            buildConfigField "String", "API_BASE_URL", "\"http://www.365nengs.com/api/\""
+            buildConfigField "String", "API_BASE_URL", "\"http://test.365neng.com/api/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug

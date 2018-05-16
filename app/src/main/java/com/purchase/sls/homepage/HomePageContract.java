@@ -17,9 +17,9 @@ public interface HomePageContract {
     interface HomepagePresenter extends BasePresenter {
         void getBannerHotInfo(String refreshType,String areaname);
 
-        void getLikeStore();
+        void getLikeStore(String areaname);
 
-        void getMoreLikeStore();
+        void getMoreLikeStore(String areaname);
     }
 
     interface HomepageView extends BaseView<HomepagePresenter> {

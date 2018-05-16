@@ -15,6 +15,7 @@ public class NetUtils extends BroadcastReceiver {
 
     private static boolean isConnected;
     private static Context context;
+    private static BroadcastReceiver receiver = new NetUtils();
 
     public static void init(Context ctx) {
         context = ctx;
@@ -75,5 +76,15 @@ public class NetUtils extends BroadcastReceiver {
 
     public static boolean isConnected() {
         return isConnected;
+    }
+
+
+    /**
+     * 取消注册
+     */
+    public void unregister() {
+        if (context != null) {
+            context.unregisterReceiver(receiver);
+        }
     }
 }

@@ -168,7 +168,6 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         city=commonAppPreferences.getCity();
         longitude=commonAppPreferences.getLongitude();
         latitude=commonAppPreferences.getLatitude();
-        city = "衢州市";
         allCid = getIntent().getStringExtra(StaticData.BUSINESS_CID);
         allName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         allSum = getIntent().getStringExtra(StaticData.BUSINESS_SUM);
