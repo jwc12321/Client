@@ -98,7 +98,6 @@
             android:gravity="center"
             android:paddingLeft="@dimen/common_margin_left_right"
             android:paddingRight="@dimen/common_text_left"
-            android:text="杭州"
             android:textColor="@color/appText1" />
 
         <ImageView

@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -303,7 +304,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     private void visSex(){
         AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
         //动画持续时间
-        alphaAnimation.setDuration(1000);
+        alphaAnimation.setDuration(300);
         //动画停留在结束的位置
         alphaAnimation.setFillAfter(true);
         //开启动画
@@ -312,11 +313,29 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
     }
 
     private void goneSex(){
+        blackBackground.setEnabled(false);
         AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
         //动画持续时间
-        alphaAnimation.setDuration(1000);
+        alphaAnimation.setDuration(300);
         //开启动画
         chooseSexRl.startAnimation(alphaAnimation);
         chooseSexRl.setVisibility(View.GONE);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                //动画开始时回调
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                blackBackground.setEnabled(true);
+                //动画结束时回调
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                //动画重复时回调
+            }
+        });
     }
 }

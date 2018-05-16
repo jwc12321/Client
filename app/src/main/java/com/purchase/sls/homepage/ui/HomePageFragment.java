@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener,GradationScrollView.ScrollViewListener {
+public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
@@ -135,7 +136,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     private void initView() {
-        commonAppPreferences=new CommonAppPreferences(getActivity());
+        commonAppPreferences = new CommonAppPreferences(getActivity());
         scrollview.setScrollViewListener(this);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         bannerInitialization();
@@ -174,14 +175,22 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         mLocationHelper.addOnLocatedListener(new LocationHelper.OnLocatedListener() {
             @Override
             public void onLocated(AMapLocation aMapLocation) {
-                city = aMapLocation.getCity();
-                longitude=aMapLocation.getLongitude()+"";
-                latitude=aMapLocation.getLatitude()+"";
-                homePagePresenter.getBannerHotInfo("1",city);
+                if (TextUtils.isEmpty(city) && TextUtils.equals("0.0", longitude) && TextUtils.equals("0.0", latitude)) {
+                    choiceCity.setText("定位失败，请重新定位");
+                    city = "";
+                    longitude = "";
+                    latitude = "";
+                } else {
+                    city = aMapLocation.getCity();
+                    longitude = aMapLocation.getLongitude() + "";
+                    latitude = aMapLocation.getLatitude() + "";
+                    choiceCity.setText(city);
+                }
+                homePagePresenter.getBannerHotInfo("1", city);
                 homePagePresenter.getLikeStore(city);
-                Log.d("1111", "城市" + city+"经纬度"+longitude+","+latitude);
-                commonAppPreferences.setLocalAddress(city,longitude,latitude);
-                likeStoreAdapter.setCity(city,longitude,latitude);
+                Log.d("1111", "城市" + city + "经纬度" + longitude + "," + latitude);
+                commonAppPreferences.setLocalAddress(city, longitude, latitude);
+                likeStoreAdapter.setCity(city, longitude, latitude);
             }
         });
 
@@ -218,7 +227,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            homePagePresenter.getBannerHotInfo("0",city);
+            homePagePresenter.getBannerHotInfo("0", city);
             homePagePresenter.getLikeStore(city);
         }
 
@@ -299,8 +308,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choice_city:
-                Intent intent=new Intent(getActivity(),ChoiceCityActivity.class);
-                startActivityForResult(intent,REFRESS_LOCATION_CODE);
+                Intent intent = new Intent(getActivity(), ChoiceCityActivity.class);
+                startActivityForResult(intent, REFRESS_LOCATION_CODE);
                 break;
             case R.id.scan:
                 scan();
@@ -324,13 +333,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         if (cityInfoBean == null) {
                             return;
                         }
-                        city=cityInfoBean.getName();
-                        longitude=commonAppPreferences.getLongitude();
-                        latitude=commonAppPreferences.getLatitude();
-                        homePagePresenter.getBannerHotInfo("1",city);
+                        city = cityInfoBean.getName();
+                        longitude = commonAppPreferences.getLongitude();
+                        latitude = commonAppPreferences.getLatitude();
+                        homePagePresenter.getBannerHotInfo("1", city);
                         homePagePresenter.getLikeStore(city);
-                        choiceCity.setText(cityInfoBean.getName());
-                        likeStoreAdapter.setCity(city,longitude,latitude);
+                        choiceCity.setText(city);
+                        likeStoreAdapter.setCity(city, longitude, latitude);
                     }
                     break;
                 case REFRESS_LOCATION_SCAN:
@@ -400,13 +409,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
         // TODO Auto-generated method stub
         if (y <= 0) {   //设置标题的背景颜色
-            titleRel.setBackgroundColor(Color.argb((int) 0, 144,151,166));
+            titleRel.setBackgroundColor(Color.argb((int) 0, 144, 151, 166));
         } else if (y > 0 && y <= 180) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
             float scale = (float) y / 180;
             float alpha = (255 * scale);
-            titleRel.setBackgroundColor(Color.argb((int) alpha, 255,101,40));
+            titleRel.setBackgroundColor(Color.argb((int) alpha, 255, 101, 40));
         } else {    //滑动到banner下面设置普通颜色
-            titleRel.setBackgroundColor(Color.argb((int) 255, 255,101,40));
+            titleRel.setBackgroundColor(Color.argb((int) 255, 255, 101, 40));
         }
     }
 

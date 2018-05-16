@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseActivity;
@@ -75,8 +76,6 @@ public class ChoiceCityActivity extends BaseActivity {
     private CommonAppPreferences commonAppPreferences;
 
 
-
-
     @Override
     public View getSnackBarHolderView() {
         return null;
@@ -113,7 +112,7 @@ public class ChoiceCityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice_city);
         ButterKnife.bind(this);
-        commonAppPreferences=new CommonAppPreferences(this);
+        commonAppPreferences = new CommonAppPreferences(this);
         mapLocal();
         initList();
         setCityData(CityListLoader.getInstance().getCityListData());
@@ -218,7 +217,7 @@ public class ChoiceCityActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String cityName = ((SortModel) adapter.getItem(position)).getName();
-                commonAppPreferences.setLocalAddress(cityName,"","");
+                commonAppPreferences.setLocalAddress(cityName, "", "");
                 cityInfoBean = CityInfoBean.findCity(cityListInfo, cityName);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
@@ -255,7 +254,7 @@ public class ChoiceCityActivity extends BaseActivity {
         adapter.updateListView(filterDateList);
     }
 
-    @OnClick({R.id.back, R.id.location_again,R.id.currentCity})
+    @OnClick({R.id.back, R.id.location_again, R.id.currentCity})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -285,11 +284,15 @@ public class ChoiceCityActivity extends BaseActivity {
             @Override
             public void onLocated(AMapLocation aMapLocation) {
                 city = aMapLocation.getCity();
-                longitude=aMapLocation.getLongitude()+"";
-                latitude=aMapLocation.getLatitude()+"";
-                Log.d("1111", "城市" + city+"经纬度===="+longitude+","+latitude);
+                longitude = aMapLocation.getLongitude() + "";
+                latitude = aMapLocation.getLatitude() + "";
+                Log.d("1111", "城市" + city + "经纬度====" + longitude + "," + latitude);
                 currentCity.setText(city);
-                commonAppPreferences.setLocalAddress(city,longitude,latitude);
+                commonAppPreferences.setLocalAddress(city, longitude, latitude);
+                if(TextUtils.isEmpty(city)&&TextUtils.equals("0.0",longitude)&&TextUtils.equals("0.0",latitude)){
+                    currentCity.setText("定位失败，请重新定位");
+                    Toast.makeText(getApplicationContext(), "查看定位权限有没有开", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

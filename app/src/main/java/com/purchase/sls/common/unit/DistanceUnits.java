@@ -16,7 +16,7 @@ public class DistanceUnits {
                 + Math.cos(Lat1) * Math.cos(Lat2)
                 * Math.pow(Math.sin(b / 2), 2)));
         s = s * EARTH_RADIUS;
-        s = Math.round(s * 10000) / 10000;
+        s = Math.round(s * 10000) / 10000/1000;
         return s;
     }
     private static double rad(double d) {
