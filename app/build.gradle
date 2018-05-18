@@ -9,8 +9,8 @@ android {
         applicationId "com.purchase.sls"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 55
+        versionName "5.5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "long", "DEFAULT_CONNECTION_TIMEOUT_SEC", "30"
@@ -52,11 +52,13 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField "String", "API_BASE_URL", "\"http://open.365neng.com/api/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             manifestPlaceholders.put("JPUSH_APPKEY", "55111797ee2f801613a2fd0d")
             manifestPlaceholders.put("JPUSH_CHANNEL", "developer-default")
+            zipAlignEnabled true
         }
         debug {
             buildConfigField "String", "API_BASE_URL", "\"http://test.365neng.com/api/\""

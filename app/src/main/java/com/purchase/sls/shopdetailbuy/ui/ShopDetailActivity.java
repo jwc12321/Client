@@ -167,7 +167,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void OnBannerClick(View view, int position) {
-                url = "http://www.365nengs.com/api/home/index/storeAlbum?storeid=" + storeid;
+                url = "http://open.365neng.com/api/home/index/storeAlbum?storeid=" + storeid;
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("商家相册");
                 webViewDetailInfo.setUrl(url);
@@ -288,7 +288,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 }
                 break;
             case R.id.shop_info_rl:
-                url = "http://www.365nengs.com/api/home/index/storeDetails?storeid=" + storeid;
+                url = "http://open.365neng.com/api/home/index/storeDetails?storeid=" + storeid;
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("商家介绍");
                 webViewDetailInfo.setUrl(url);

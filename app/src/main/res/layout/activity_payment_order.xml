@@ -249,11 +249,13 @@
 
             <View
                 style="@style/fengexian_style"
-                android:layout_marginLeft="@dimen/common_seventeen_margin" />
+                android:layout_marginLeft="@dimen/common_seventeen_margin"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/weixin_rl"
-                style="@style/pay_item_fl_style">
+                style="@style/pay_item_fl_style"
+                android:visibility="gone">
 
 
                 <TextView

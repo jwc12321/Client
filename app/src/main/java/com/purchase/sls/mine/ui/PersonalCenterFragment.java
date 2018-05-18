@@ -176,19 +176,19 @@ public class PersonalCenterFragment extends BaseFragment {
             case R.id.item_customer_service_center:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("客服中心");
-                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/services");
+                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/services");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_want_cooperate://我要合作
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("我要合作");
-                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/admission");
+                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/admission");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_about_neng://关于我们
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("关于能购");
-                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/index/androidAbout");
+                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/androidAbout");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             default:

@@ -158,7 +158,7 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
             case R.id.energy_explain:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("能量明细");
-                webViewDetailInfo.setUrl("http://www.365nengs.com/api/home/power/powerInfo");
+                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/power/powerInfo");
                 WebViewActivity.start(this, webViewDetailInfo);
                 break;
             default:
