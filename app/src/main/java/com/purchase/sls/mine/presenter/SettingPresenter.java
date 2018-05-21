@@ -1,6 +1,7 @@
 package com.purchase.sls.mine.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.DetectionVersionRequest;
@@ -58,13 +59,13 @@ public class SettingPresenter implements PersonalCenterContract.SettingPresenter
         settingView.showLoading();
         DetectionVersionRequest detectionVersionRequest=new DetectionVersionRequest(edition,type);
         Disposable disposable=restApiService.changeApp(detectionVersionRequest)
-                .flatMap(new RxRemoteDataParse<String>())
-                .compose(new RxSchedulerTransformer<String>())
-                .subscribe(new Consumer<String>() {
+                .flatMap(new RxRemoteDataParse<ChangeAppInfo>())
+                .compose(new RxSchedulerTransformer<ChangeAppInfo>())
+                .subscribe(new Consumer<ChangeAppInfo>() {
                     @Override
-                    public void accept(String string) throws Exception {
+                    public void accept(ChangeAppInfo changeAppInfo) throws Exception {
                         settingView.dismissLoading();
-                        settingView.detectionSuccess();
+                        settingView.detectionSuccess(changeAppInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

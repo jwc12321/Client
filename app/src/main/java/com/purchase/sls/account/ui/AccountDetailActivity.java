@@ -113,13 +113,15 @@ public class AccountDetailActivity extends BaseActivity implements AccountContra
             businessName.setText(accountDetailInfo.getTitle());
             price.setText("-" + accountDetailInfo.getAllprice());
             tradingState.setText("交易成功");
-            if (TextUtils.equals("0.00", accountDetailInfo.getPrice())) {
-                paymentMethod.setText("能量币");
-            } else if (TextUtils.equals("1", accountDetailInfo.getPaytype())) {
-                paymentMethod.setText("支付宝");
-            } else {
-                paymentMethod.setText("微信");
+            String methodFirst=TextUtils.equals("0.00",accountDetailInfo.getPower())?"":("能量抵扣"+accountDetailInfo.getPower());
+            String methodSecond=TextUtils.equals("0.00",accountDetailInfo.getQuannum())?"":("劵抵扣"+accountDetailInfo.getQuannum());
+            String methodThird="";
+            if(TextUtils.equals("1", accountDetailInfo.getPaytype())){
+                methodThird=TextUtils.equals("0.00",accountDetailInfo.getPrice())?"":("支付宝支付"+accountDetailInfo.getPrice());
+            }else if(TextUtils.equals("2", accountDetailInfo.getPaytype())){
+                methodThird=TextUtils.equals("0.00",accountDetailInfo.getPrice())?"":("微信支付支付"+accountDetailInfo.getPrice());
             }
+            paymentMethod.setText(methodFirst+methodSecond+methodThird);
             commodityDescription.setText(accountDetailInfo.getTitle());
             createdAt.setText(FormatUtil.formatDateByLine(accountDetailInfo.getCreatedAt()));
             orderNumber.setText(accountDetailInfo.getOrderno());

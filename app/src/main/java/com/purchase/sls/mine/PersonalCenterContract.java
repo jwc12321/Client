@@ -2,6 +2,7 @@ package com.purchase.sls.mine;
 
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 
 /**
  * Created by JWC on 2018/4/19.
@@ -45,6 +46,6 @@ public interface PersonalCenterContract {
     }
 
     interface SettingView extends BaseView<SettingPresenter> {
-        void detectionSuccess();
+        void detectionSuccess(ChangeAppInfo changeAppInfo);
     }
 }

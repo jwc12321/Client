@@ -2,7 +2,9 @@ package com.purchase.sls.homepage.ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseFragment;
@@ -101,6 +104,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
     private String longitude;
     private String latitude;
+    private Context mContext;
 
     @Inject
     HomePagePresenter homePagePresenter;
@@ -131,6 +135,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.mContext = getActivity();
         initView();
 
     }
@@ -144,12 +149,28 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         scrollerUpDown();
         likeStore();
         mapLocal();
+        if(testOldVersion("com.nenggou.syn")){
+            Toast.makeText(mContext, "请删出老版本的能购", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         limitScroll.startScroll();
+    }
+
+    private boolean testOldVersion(String packageName){
+        PackageManager packageManager =getActivity().getPackageManager();
+
+        //获取手机系统的所有APP包名，然后进行一一比较
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < pinfo.size(); i++) {
+            if (((PackageInfo) pinfo.get(i)).packageName
+                    .equalsIgnoreCase(packageName))
+                return true;
+        }
+        return false;
     }
 
     //设置热门

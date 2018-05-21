@@ -1,5 +1,7 @@
 package com.purchase.sls.nearbymap.presenter;
 
+import android.util.Log;
+
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;

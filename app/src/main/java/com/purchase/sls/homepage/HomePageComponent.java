@@ -7,6 +7,7 @@ package com.purchase.sls.homepage;
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.homepage.ui.HomePageFragment;
+import com.purchase.sls.homepage.ui.QrCodeScanActivity;
 import com.purchase.sls.homepage.ui.ScreeningListActivity;
 
 import dagger.Component;
@@ -16,4 +17,5 @@ import dagger.Component;
 public interface HomePageComponent {
     void inject(HomePageFragment homePageFragment);
     void inject(ScreeningListActivity screeningListActivity);
+    void inject(QrCodeScanActivity qrCodeScanActivity);
 }

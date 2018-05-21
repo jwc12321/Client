@@ -150,13 +150,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("111", "数据是onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("111", "数据是onResume");
     }
 
     //初始化banner

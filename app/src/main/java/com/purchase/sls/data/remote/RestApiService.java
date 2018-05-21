@@ -8,6 +8,7 @@ import com.purchase.sls.data.entity.AliPaySignResponse;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.BrowseInfo;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
@@ -195,7 +196,7 @@ public interface RestApiService {
 
     //版本检测
     @POST("home/changeApp")
-    Flowable<RemoteDataWrapper<String>> changeApp(@Body DetectionVersionRequest detectionVersionRequest);
+    Flowable<RemoteDataWrapper<ChangeAppInfo>> changeApp(@Body DetectionVersionRequest detectionVersionRequest);
 
     //获取评价列表
     @POST("home/business/getEvaluate")

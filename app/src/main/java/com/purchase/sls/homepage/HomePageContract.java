@@ -6,6 +6,8 @@ import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
+import com.purchase.sls.data.entity.ShopDetailsInfo;
+import com.purchase.sls.homepage.presenter.QrCodePresenter;
 
 import java.util.List;
 
@@ -40,5 +42,13 @@ public interface HomePageContract {
         void screeningListInfo(ScreeningListResponse screeningListResponse);
 
         void moreScreeningListInfo(ScreeningListResponse screeningListResponse);
+    }
+
+    interface QrCodePresenter extends BasePresenter{
+        void getShopDetail(String storeid);
+    }
+
+    interface QrCodeView extends BaseView<QrCodePresenter>{
+        void shopDetailInfo(ShopDetailsInfo shopDetailsInfo);
     }
 }

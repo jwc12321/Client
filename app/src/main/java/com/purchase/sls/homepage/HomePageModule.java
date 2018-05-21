@@ -10,6 +10,7 @@ import dagger.Provides;
 public class HomePageModule {
     private HomePageContract.HomepageView homepageView;
     private HomePageContract.ScreeningListView screeningListView;
+    private HomePageContract.QrCodeView qrCodeView;
 
     public HomePageModule(HomePageContract.HomepageView homepageView) {
         this.homepageView = homepageView;
@@ -17,6 +18,10 @@ public class HomePageModule {
 
     public HomePageModule(HomePageContract.ScreeningListView screeningListView) {
         this.screeningListView = screeningListView;
+    }
+
+    public HomePageModule(HomePageContract.QrCodeView qrCodeView) {
+        this.qrCodeView = qrCodeView;
     }
 
     @Provides
@@ -27,5 +32,10 @@ public class HomePageModule {
     @Provides
     HomePageContract.ScreeningListView provideScreeningListView(){
         return screeningListView;
+    }
+
+    @Provides
+    HomePageContract.QrCodeView provideQrCodeView(){
+        return qrCodeView;
     }
 }

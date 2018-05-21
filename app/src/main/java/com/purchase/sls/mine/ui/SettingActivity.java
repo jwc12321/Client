@@ -6,19 +6,24 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.APKVersionCodeUtils;
-import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.DownloadService;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.widget.dialog.CommonDialog;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterSecondActivity;
@@ -121,7 +126,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
             case R.id.item_user_protocol:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("用户协议");
-                webViewDetailInfo.setUrl("http://open.365nengs.com/api/home/index/Agreement");
+                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/Agreement");
                 WebViewActivity.start(this, webViewDetailInfo);
                 break;
             case R.id.item_new_version_detection:
@@ -136,10 +141,54 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
 
     }
 
+    private CommonDialog dialogUpdate;
+
     @Override
-    public void detectionSuccess() {
-        showMessage("有新版本");
+    public void detectionSuccess(final ChangeAppInfo changeAppInfo) {
+        if(changeAppInfo!=null&&TextUtils.equals("1",changeAppInfo.getStatus())){
+            if ( dialogUpdate == null )
+                dialogUpdate = new CommonDialog.Builder()
+                        .setTitle("版本更新")
+                        .setContent(changeAppInfo.getTitle())
+                        .setContentGravity(Gravity.CENTER)
+                        .setCancelButton("忽略", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogUpdate.dismiss();
+                            }
+                        })
+                        .setConfirmButton("更新", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showMessage("开始下载");
+                                updateApk(changeAppInfo.getUrl());
+                            }
+                        }).create();
+            dialogUpdate.show(getSupportFragmentManager(), "");
+        }
     }
+    private MaterialDialog materialDialog;
+    private void updateApk(String downUrl) {
+        materialDialog = new MaterialDialog.Builder(SettingActivity.this)
+
+                .title("版本升级")
+                .content("正在下载安装包，请稍候")
+
+                .progress(false, 100, false)
+                .cancelable(false)
+                .negativeText("取消")
+
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        DownloadService.stopDownload();
+                    }
+                })
+                .show();
+        DownloadService.setMaterialDialog(materialDialog);
+        DownloadService.start(SettingActivity.this, downUrl, "6F7FBCECD46341DF08BE8B11A09E6925");
+    }
+
 
     public int packageCode(Context context) {
         PackageManager manager = context.getPackageManager();

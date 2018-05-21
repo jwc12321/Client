@@ -13,9 +13,16 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.data.entity.ShopDetailsInfo;
+import com.purchase.sls.homepage.DaggerHomePageComponent;
+import com.purchase.sls.homepage.HomePageContract;
+import com.purchase.sls.homepage.HomePageModule;
+import com.purchase.sls.homepage.presenter.QrCodePresenter;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterFirstActivity;
 import com.purchase.sls.shopdetailbuy.ui.PaymentOrderActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +31,7 @@ import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 
-public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Delegate {
+public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Delegate,HomePageContract.QrCodeView {
 
     private static final String TAG = "QrCodeScanActivity";
 
@@ -37,6 +44,11 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     RelativeLayout titleRel;
     @BindView(R.id.zxingview)
     ZXingView mQRCodeView;
+
+    @Inject
+    QrCodePresenter qrCodePresenter;
+
+    private String storeId;
 
 
     @Override
@@ -52,10 +64,6 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         mQRCodeView.setDelegate(this);
     }
 
-    @Override
-    protected void initializeInjector() {
-        super.initializeInjector();
-    }
 
     @Override
     protected void onStart() {
@@ -68,14 +76,21 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
 
-
+    @Override
+    protected void initializeInjector() {
+        super.initializeInjector();
+        DaggerHomePageComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .homePageModule(new HomePageModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -100,16 +115,29 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     public void onScanQRCodeSuccess(String result) {
         Log.d(TAG, "onScanQRCodeSuccess: " + result);
         if (!TextUtils.isEmpty(result)) {
-            String[] results = result.split("&&");
-            if (results[0].startsWith("ngapp")) {
-                String firstStr = results[0];
-                String[] firstStrs = firstStr.split("::");
-                if (!TextUtils.isEmpty(TokenManager.getToken()) && firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
-                    PaymentOrderActivity.start(this, results[1], results[2], firstStrs[1]);
-                    this.finish();
-                } else if (TextUtils.isEmpty(TokenManager.getToken()) && firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
-                    AccountLoginActivity.start(this,"1");
-                    this.finish();
+            if(TextUtils.isEmpty(TokenManager.getToken())){
+                AccountLoginActivity.start(this, "1");
+                this.finish();
+            }else {
+                if (result.contains("ngapp")) {
+                    String[] results = result.split("&&");
+                    if (results[0].startsWith("ngapp")) {
+                        String firstStr = results[0];
+                        String[] firstStrs = firstStr.split("::");
+                        if (firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
+                            PaymentOrderActivity.start(this, results[1], results[2], firstStrs[1]);
+                            this.finish();
+                        }
+                    }
+                } else {
+                    String[] results = result.split("[?]");
+                    if (results[1] != null && results[1].startsWith("storeid")) {
+                        String[] ids = results[1].split("=");
+                        if (ids[1] != null && !TextUtils.isEmpty(ids[1])) {
+                            storeId = ids[1];
+                            qrCodePresenter.getShopDetail(storeId);
+                        }
+                    }
                 }
             }
         }
@@ -143,4 +171,16 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         Log.e(TAG, "onScanQRCodeOpenCameraError: ");
     }
 
+    @Override
+    public void setPresenter(HomePageContract.QrCodePresenter presenter) {
+
+    }
+
+    @Override
+    public void shopDetailInfo(ShopDetailsInfo shopDetailsInfo) {
+        if(shopDetailsInfo!=null&&shopDetailsInfo.getStoreInfo()!=null){
+            PaymentOrderActivity.start(this, shopDetailsInfo.getStoreInfo().getTitle(), shopDetailsInfo.getStoreInfo().getzPics(),storeId );
+            this.finish();
+        }
+    }
 }

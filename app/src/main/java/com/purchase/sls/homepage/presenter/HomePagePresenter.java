@@ -110,7 +110,6 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
 
     @Override
     public void getMoreLikeStore(String areaname) {
-        homepageView.showLoading();
         currentIndex =currentIndex+1;
         LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex),areaname);
         Disposable disposable = restApiService.getLikeStoreInfo(likeStoreRequest)
@@ -119,13 +118,11 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 .subscribe(new Consumer<LikeStoreResponse>() {
                     @Override
                     public void accept(LikeStoreResponse likeStoreResponse) throws Exception {
-                        homepageView.dismissLoading();
                         homepageView.moreLikeStroeInfo(likeStoreResponse.getCollectionStoreInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        homepageView.dismissLoading();
                         homepageView.showError(throwable);
                     }
                 });

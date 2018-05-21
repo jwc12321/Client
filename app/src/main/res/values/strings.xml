@@ -78,7 +78,7 @@
     <!--账单-->
     <string name="account_detail">账单详情</string>
     <string name="screen">筛选</string>
-    <string name="payment_method">付款方式</string>
+    <string name="payment_method">付款明细</string>
     <string name="commodity_description">商品说明</string>
     <string name="created_at">创建时间</string>
     <string name="order_number">订单号</string>

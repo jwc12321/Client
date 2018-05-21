@@ -143,7 +143,7 @@
             </intent-filter>
         </receiver>
 
-
+        <service android:name=".common.unit.DownloadService"/>
         <activity
             android:name=".splash.GuideActivity"
             android:screenOrientation="portrait" />
