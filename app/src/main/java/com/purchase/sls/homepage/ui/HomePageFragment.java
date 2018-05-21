@@ -15,6 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.common.widget.LimitScrollerView;
+import com.purchase.sls.common.widget.dialog.CommonDialog;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
@@ -106,6 +108,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private String latitude;
     private Context mContext;
 
+    private CommonDialog testingDialog;
+
     @Inject
     HomePagePresenter homePagePresenter;
 
@@ -150,8 +154,24 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         likeStore();
         mapLocal();
         if(testOldVersion("com.nenggou.syn")){
-            Toast.makeText(mContext, "请删出老版本的能购", Toast.LENGTH_LONG).show();
+            textDialog();
         }
+    }
+
+    private void textDialog(){
+        if ( testingDialog == null )
+            testingDialog = new CommonDialog.Builder()
+                    .showTitle(false)
+                    .setContent("检测到您当前手机含有旧能购APP，为了不影响您的使用，请先删除旧版本的APP")
+                    .setContentGravity(Gravity.CENTER)
+                    .showButton(false)
+                    .setConfirmButton("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            testingDialog.dismiss();
+                        }
+                    }).create();
+        testingDialog.show(getFragmentManager(), "");
     }
 
     @Override

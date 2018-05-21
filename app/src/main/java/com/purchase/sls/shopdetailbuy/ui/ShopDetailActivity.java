@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,11 +23,13 @@ import android.widget.Toast;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.unit.OpenLocalMapUtil;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.dialog.CallDialogFragment;
+import com.purchase.sls.data.entity.ChoiceMapInfo;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.StoreInfo;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
@@ -37,8 +40,13 @@ import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
+import com.purchase.sls.shopdetailbuy.adapter.ChoiceMapAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.ShopDetailPresenter;
 import com.purchase.sls.webview.ui.WebViewActivity;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -51,7 +59,7 @@ import butterknife.OnClick;
  * 商品详情页面
  */
 
-public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener {
+public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener, ChoiceMapAdapter.OnMapItemClick {
 
     @BindView(R.id.banner)
     Banner banner;
@@ -109,6 +117,16 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     ImageView backEnergyTt;
     @BindView(R.id.evaluate_number)
     TextView evaluateNumber;
+    @BindView(R.id.cancel)
+    Button cancel;
+    @BindView(R.id.map_rv)
+    RecyclerView mapRv;
+    @BindView(R.id.choice_map_rl)
+    RelativeLayout choiceMapRl;
+    @BindView(R.id.black_background)
+    LinearLayout blackBackground;
+    @BindView(R.id.map_ll)
+    LinearLayout mapLl;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -123,6 +141,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private String addressXY;
     private String addressX;
     private String addressY;
+    private String addressStr;
+    private String cityName;
 
     public static void start(Context context, String storeid) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
@@ -141,9 +161,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private void initView() {
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         scrollview.setScrollViewListener(this);
+        blackBackground.setAlpha(0.4f);
         bannerInitialization();
         evaluateAdapter();
         moreStore();
+        addMapApp();
         shopDetailPresenter.getShopDetail(storeid);
     }
 
@@ -182,7 +204,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void evaluateAdapter() {
-        allEvaluateAdapter = new AllEvaluateAdapter(this,"1");
+        allEvaluateAdapter = new AllEvaluateAdapter(this, "1");
         evaluateRv.setAdapter(allEvaluateAdapter);
     }
 
@@ -216,14 +238,21 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 shopName.setText(storeInfo.getTitle());
                 shopDescription.setText(storeInfo.getDescription());
                 popularityNumber.setText(storeInfo.getBuzz());
+                addressStr = storeInfo.getAddress();
+                cityName = storeInfo.getCityname();
                 address.setText(storeInfo.getAddress());
-                if (!TextUtils.isEmpty(storeInfo.getRebate())&&!TextUtils.equals("0",storeInfo.getRebate())) {
-                    backEnergyNumber.setText("每消费一单返消费金额的"+storeInfo.getRebate()+"%的能量");
+                if (!TextUtils.isEmpty(storeInfo.getRebate()) && !TextUtils.equals("0", storeInfo.getRebate())) {
+                    backEnergyNumber.setText("每消费一单返消费金额的" + storeInfo.getRebate() + "%的能量");
                     backEnergyRl.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     backEnergyRl.setVisibility(View.GONE);
                 }
                 addressXY = storeInfo.getAddressXy();
+                if (!TextUtils.isEmpty(addressXY)) {
+                    String[] addressStr = addressXY.split(",");
+                    addressX = addressStr[0];
+                    addressY = addressStr[1];
+                }
                 if (TextUtils.equals("1", storeInfo.getFavo())) {
                     collection.setSelected(true);
                     collectionType = 1;
@@ -233,11 +262,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
             }
             if (shopDetailsInfo.getEvaluateResult() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo() != null
-                    && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null&&shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size()>0) {
-                evaluateNumber.setText("网友评论("+shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size()+")");
+                    && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() > 0) {
+                evaluateNumber.setText("网友评论(" + shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() + ")");
                 allEvaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
                 lookAllCommentRl.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 evaluateNumber.setText("网友评论(0)");
                 lookAllCommentRl.setVisibility(View.GONE);
             }
@@ -250,9 +279,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     public void addRemoveSuccess(String tyepe) {
-        if(TextUtils.equals("1",tyepe)){
+        if (TextUtils.equals("1", tyepe)) {
             Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "收藏取消", Toast.LENGTH_SHORT).show();
         }
 
@@ -264,7 +293,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         this.finish();
     }
 
-    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl, R.id.check_bg, R.id.look_all_comment_rl})
+    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl, R.id.check_bg, R.id.look_all_comment_rl, R.id.cancel, R.id.choice_map_rl, R.id.black_background})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -293,19 +322,20 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
                 break;
             case R.id.address_rl:
-                if (!TextUtils.isEmpty(addressXY)) {
-                    String[] addressStr = addressXY.split(",");
-                    addressX = addressStr[0];
-                    addressY = addressStr[1];
-                    url = "http://uri.amap.com/navigation?from=%" + addressX + ",%" + addressY + ",start&to=%" + addressX + ",%" + addressY + ",end&mode=car&policy=1&callnative=1";
-                    webViewDetailInfo = new WebViewDetailInfo();
-                    webViewDetailInfo.setTitle("地图");
-                    webViewDetailInfo.setUrl(url);
-                    WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
+                if (choiceMapInfos.isEmpty()) {
+                    if (!TextUtils.isEmpty(addressXY)) {
+                        url = "http://uri.amap.com/navigation?from=%" + addressX + ",%" + addressY + ",start&to=%" + addressX + ",%" + addressY + ",end&mode=car&policy=1&callnative=1";
+                        webViewDetailInfo = new WebViewDetailInfo();
+                        webViewDetailInfo.setTitle("地图");
+                        webViewDetailInfo.setUrl(url);
+                        WebViewActivity.start(ShopDetailActivity.this, webViewDetailInfo);
+                    }
+                } else {
+                    choiceMapRl.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.check_bg:
-                if(TextUtils.isEmpty(TokenManager.getToken())){
+                if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(this);
                     return;
                 }
@@ -315,6 +345,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 break;
             case R.id.look_all_comment_rl://查看全部评论
                 AllEvaluationActivity.start(this, storeid);
+                break;
+            case R.id.cancel:
+            case R.id.black_background:
+                choiceMapRl.setVisibility(View.GONE);
                 break;
             default:
         }
@@ -364,4 +398,135 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             titleRel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
         }
     }
+
+    //判断是否安全了应用
+    private boolean isInstallByread(String packageName) {
+        return new File("/data/data/" + packageName).exists();
+    }
+
+    private List<ChoiceMapInfo> choiceMapInfos;
+    private ChoiceMapAdapter choiceMapAdapter;
+
+    private void addMapApp() {
+        choiceMapAdapter = new ChoiceMapAdapter();
+        choiceMapAdapter.setonMapItemClick(this);
+        mapRv.setAdapter(choiceMapAdapter);
+        if (choiceMapInfos == null) {
+            choiceMapInfos = new ArrayList<>();
+        }
+        if (isInstallByread("com.baidu.BaiduMap")) {
+            ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.baidu.BaiduMap", "百度地图");
+            choiceMapInfos.add(choiceMapInfo);
+        }
+        if (isInstallByread("com.autonavi.minimap")) {
+            ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.autonavi.minimap", "高德地图");
+            choiceMapInfos.add(choiceMapInfo);
+        }
+        if (isInstallByread("com.tencent.map")) {
+            ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.tencent.map", "腾讯地图");
+            choiceMapInfos.add(choiceMapInfo);
+        }
+//        if (isInstallByread("com.google.android.apps.maps")) {
+//            ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.google.android.apps.maps", "谷歌地图");
+//            choiceMapInfos.add(choiceMapInfo);
+//        }
+        choiceMapAdapter.setData(choiceMapInfos);
+    }
+
+    @Override
+    public void mapItemClick(ChoiceMapInfo choiceMapInfo) {
+        if (TextUtils.equals("百度地图", choiceMapInfo.getAppName())) {
+            openBaiduMap(addressY, addressX, addressStr);
+        } else if (TextUtils.equals("高德地图", choiceMapInfo.getAppName())) {
+            openGaoDeMap(addressY, addressX, addressStr);
+        } else if (TextUtils.equals("腾讯地图", choiceMapInfo.getAppName())) {
+            openTengXunMap(this, "drive", null, null, null, addressStr, addressY+","+addressX, null, "textApp");
+        }
+//        else if (TextUtils.equals("谷歌地图", choiceMapInfo.getAppName())) {
+//            openGooaleMap(addressY, addressX);
+//        }
+        choiceMapRl.setVisibility(View.GONE);
+    }
+
+    private void openGaoDeMap(String dlat, String dlon, String dname) {
+        try {
+            // APP_NAME  自己应用的名字
+            String uri = OpenLocalMapUtil.getGdMapUri("com.purchase.sls",
+                    dlat,
+                    dlon,
+                    dname);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.autonavi.minimap");
+            intent.setData(Uri.parse(uri));
+            startActivity(intent); //启动调用
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openBaiduMap(String slat, String slon, String sname,
+                              String dlat, String dlon, String dname, String city) {
+        try {
+            String uri = OpenLocalMapUtil.getBaiduMapUri(slat, slon, sname,
+                    dlat, dlon, dname, city, "");
+            Intent intent = Intent.parseUri(uri, 0);
+            startActivity(intent); //启动调用
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openBaiduMap(String dlat, String dlon, String dname){
+        Intent intent = new Intent();
+        String url = "baidumap://map/direction?" +
+                "destination=name:"+dname+"|latlng:"+dlat + "," + dlon+
+                "&mode=driving&sy=3&index=0&target=1";
+        Uri uri = Uri.parse(url);
+        //将功能Scheme以URI的方式传入data
+        intent.setData(uri);
+        //启动该页面即可
+        startActivity(intent);
+    }
+
+    private void openGooaleMap(String dlat, String dlon) {
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + dlat + "," + dlon + ", + Sydney +Australia");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
+    /**
+     * 腾讯地图 Uri 标识
+     */
+    public final static String BASE_URL = "qqmap://map/";
+
+    public static void openTengXunMap(Context context, @NonNull String type, String coord_type, String from,
+                                      String fromcoord, @NonNull String to, @NonNull String tocoord, String policy, @NonNull String referer) {
+        StringBuffer stringBuffer = new StringBuffer(BASE_URL)
+                .append("routeplan?")
+                .append("type=")
+                .append(type)
+                .append("&to=")
+                .append(to)
+                .append("&tocoord=")
+                .append(tocoord)
+                .append("&referer=")
+                .append(referer);
+        if (!TextUtils.isEmpty(from)) {
+            stringBuffer.append("&from=").append(from);
+        }
+        if (!TextUtils.isEmpty(fromcoord)) {
+            stringBuffer.append("&fromcoord=").append(fromcoord);
+        }
+        if (!TextUtils.isEmpty(policy)) {
+            stringBuffer.append("&policy=").append(policy);
+        }
+        if (!TextUtils.isEmpty(coord_type)) {
+            stringBuffer.append("&coord_type=").append(coord_type);
+        }
+        Intent intent = new Intent();
+        intent.setData(Uri.parse(stringBuffer.toString()));
+        context.startActivity(intent);
+    }
+
 }

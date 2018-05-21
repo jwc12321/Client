@@ -308,4 +308,42 @@
         android:enabled="true"
         android:text="买单"
         android:textColor="@color/appText1" />
+    <!--地图选择-->
+    <RelativeLayout
+        android:id="@+id/choice_map_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <LinearLayout
+            android:id="@+id/black_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/map_ll"
+            android:background="@color/appText4"
+            android:orientation="horizontal" />
+        <LinearLayout
+            android:id="@+id/map_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/appText1"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/map_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="@string/layoutManager_LinearLayout"
+                android:layout_above="@id/cancel"
+                android:background="@color/appText1"/>
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_text_bg"
+                android:text="取消"
+                android:textColor="@color/appText3"
+                android:layout_margin="@dimen/common_eleven_margin"/>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
