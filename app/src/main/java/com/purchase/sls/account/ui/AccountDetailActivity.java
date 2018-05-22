@@ -119,7 +119,7 @@ public class AccountDetailActivity extends BaseActivity implements AccountContra
             if(TextUtils.equals("1", accountDetailInfo.getPaytype())){
                 methodThird=TextUtils.equals("0.00",accountDetailInfo.getPrice())?"":("支付宝支付"+accountDetailInfo.getPrice());
             }else if(TextUtils.equals("2", accountDetailInfo.getPaytype())){
-                methodThird=TextUtils.equals("0.00",accountDetailInfo.getPrice())?"":("微信支付支付"+accountDetailInfo.getPrice());
+                methodThird=TextUtils.equals("0.00",accountDetailInfo.getPrice())?"":("微信支付"+accountDetailInfo.getPrice());
             }
             paymentMethod.setText(methodFirst+methodSecond+methodThird);
             commodityDescription.setText(accountDetailInfo.getTitle());

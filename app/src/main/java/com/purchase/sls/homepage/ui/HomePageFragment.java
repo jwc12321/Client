@@ -331,8 +331,12 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void likeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos) {
         refreshLayout.stopRefresh();
-        refreshLayout.setCanLoadMore(true);
-        likeStoreAdapter.setLikeInfos(collectionStoreInfos);
+        if (collectionStoreInfos != null && collectionStoreInfos.size() > 0) {
+            refreshLayout.setCanLoadMore(true);
+            likeStoreAdapter.setLikeInfos(collectionStoreInfos);
+        }else{
+            refreshLayout.setCanLoadMore(false);
+        }
     }
 
     @Override

@@ -123,14 +123,25 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                 orderItem = orderDetailInfo.getOrderItem();
                 storeId=orderItem.getStoreid();
                 totalPrice.setText(orderItem.getAllprice());
-                couponType.setText((TextUtils.equals("0.00", orderItem.getPower()) ? "" : "能量+") + (TextUtils.equals("0.00", orderItem.getQuannum()) ? "" : "优惠券"));
-                preferentialPrice.setText((TextUtils.equals("0.00", orderItem.getPower()) ? "" : ("¥"+orderItem.getPower())) + (TextUtils.equals("0.00", orderItem.getQuannum()) ? "" : ("¥"+orderItem.getQuannum())));
+                if(!TextUtils.equals("0.00",orderItem.getPower())&&!TextUtils.equals("0.00",orderItem.getQuannum())){
+                    couponType.setText("能量+优惠券");
+                    preferentialPrice.setText("¥"+orderItem.getPower()+"¥"+orderItem.getQuannum());
+                }else if(TextUtils.equals("0.00",orderItem.getPower())&&!TextUtils.equals("0.00",orderItem.getQuannum())){
+                    couponType.setText("优惠券");
+                    preferentialPrice.setText("¥"+orderItem.getQuannum());
+                }else if(!TextUtils.equals("0.00",orderItem.getPower())&&TextUtils.equals("0.00",orderItem.getQuannum())){
+                    couponType.setText("能量");
+                    preferentialPrice.setText("¥"+orderItem.getPower());
+                }else {
+                    couponType.setText("");
+                    preferentialPrice.setText("");
+                }
                 if (TextUtils.equals("1", orderItem.getPaytype())) {
                     payType.setText("支付宝支付");
                 } else {
                     payType.setText("微信支付");
                 }
-                payPrice.setText(orderItem.getPrice());
+                payPrice.setText("¥"+orderItem.getPrice());
             }
             if (orderDetailInfo.getResultsItem() != null && !TextUtils.isEmpty(orderDetailInfo.getResultsItem().getPower())) {
                 energyNumber.setText(orderDetailInfo.getResultsItem().getPower());

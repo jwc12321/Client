@@ -3,6 +3,7 @@ package com.purchase.sls.shoppingmall.ui;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -73,11 +74,16 @@ public class WebShoppingMallFragment extends BaseFragment {
         settings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new JSBridgeWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                showLoading();
+            }
 
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                String url = request.getUrl().getScheme().trim();
+                String url = request.getUrl().toString();
                 if (!TextUtils.equals(StaticData.HOMEURL, url)) {
                     if (TextUtils.isEmpty(persionAppPreferences.getShopMallId())) {
                         AccountLoginActivity.start(getActivity());
@@ -117,7 +123,7 @@ public class WebShoppingMallFragment extends BaseFragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Log.d("111", "路径" + url);
+                dismissLoading();
             }
         });
         webView.loadUrl("http://s.365neng.com/home");
