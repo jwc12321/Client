@@ -60,7 +60,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
      */
     @Override
     public void getBannerHotInfo(String refreshType,String areaname) {
-        if(TextUtils.equals("1",refreshType)){
+        if(TextUtils.equals("1",refreshType)&&TextUtils.isEmpty(areaname)){
             homepageView.showLoading();
         }
         BannerHotRequest bannerHotRequest = new BannerHotRequest(areaname);

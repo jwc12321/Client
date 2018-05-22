@@ -418,6 +418,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     @Override
     public void onRechargeSuccess() {
         PaySuccessActivity.start(this, businessName, ordreno);
+        this.finish();
     }
 
     @Override
@@ -454,6 +455,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPaySuccess(WXSuccessPayEvent event) {
         PaySuccessActivity.start(this, businessName, ordreno);
+        this.finish();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

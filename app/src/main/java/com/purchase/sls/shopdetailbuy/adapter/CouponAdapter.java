@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView> {
     private LayoutInflater layoutInflater;
     private List<CouponInfo> couponInfos;
-    private static String priceStr;//用户输入的金额
+    private String priceStr;//用户输入的金额
 
     public CouponAdapter() {
     }
@@ -64,7 +64,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
         return couponInfos == null ? 0 : couponInfos.size();
     }
 
-    public static class CouponView extends RecyclerView.ViewHolder {
+    public class CouponView extends RecyclerView.ViewHolder {
         @BindView(R.id.choice_item)
         RelativeLayout choiceItem;
         @BindView(R.id.price)

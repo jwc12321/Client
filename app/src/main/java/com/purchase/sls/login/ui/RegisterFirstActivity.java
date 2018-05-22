@@ -211,6 +211,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
         sendAuthCode.startCold();
         loginPresenter.sendCode(phoneNumberStr, type);
         sendAuthCode.setOnResetListener(this);
+        loginPhoneNumberEt.setFocusable(false);
     }
 
     @Override
@@ -225,7 +226,8 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
 
     @Override
     public void onReset() {
-
+        loginPhoneNumberEt.setFocusable(true);
+        loginPhoneNumberEt.setFocusableInTouchMode(true);
     }
 
     @Override

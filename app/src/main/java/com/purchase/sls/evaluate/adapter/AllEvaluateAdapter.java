@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.AllEvaluateView> {
     private LayoutInflater layoutInflater;
     private List<EvaluateInfo.EvaluateItemInfo> evaluateItemInfos;
-    private static Context context;
+    private Context context;
     private String type;//1：图片不显示2：图片显示
 
     public AllEvaluateAdapter(Context context,String type) {

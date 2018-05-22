@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.HotServiceView> {
     private LayoutInflater layoutInflater;
-    private static Context context;
+    private Context context;
     private List<BannerHotResponse.StorecateInfo> storecateInfos;
 
     public HotServiceAdapter(Context context) {
@@ -63,7 +63,7 @@ public class HotServiceAdapter extends RecyclerView.Adapter<HotServiceAdapter.Ho
         return storecateInfos == null ? 0 : storecateInfos.size();
     }
 
-    public static class HotServiceView extends RecyclerView.ViewHolder {
+    public class HotServiceView extends RecyclerView.ViewHolder {
         @BindView(R.id.icon)
         RoundedImageView icon;
         @BindView(R.id.text)

@@ -272,7 +272,8 @@
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
-                    app:layoutManager="@string/layoutManager_LinearLayout" />
+                    app:layoutManager="@string/layoutManager_LinearLayout"
+                    android:layout_marginBottom="@dimen/common_fifty_margin"/>
             </LinearLayout>
         </LinearLayout>
     </com.purchase.sls.common.widget.GradationScrollView>

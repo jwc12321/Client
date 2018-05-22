@@ -43,7 +43,7 @@ public class ToBeEvaluateAdapter extends RecyclerView.Adapter<ToBeEvaluateAdapte
     RelativeLayout itemRl;
     private LayoutInflater layoutInflater;
     private List<ToBeEvaluationInfo.ToBeEvaluationItem> toBeEvaluationItems;
-    private static Context context;
+    private Context context;
 
     public ToBeEvaluateAdapter(Context context) {
         this.context = context;

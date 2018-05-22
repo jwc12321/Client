@@ -29,7 +29,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Evalua
 
     private LayoutInflater layoutInflater;
     private List<EvaluateInfo.EvaluateItemInfo> evaluateItemInfos;
-    private static Context context;
+    private Context context;
 
     public EvaluateAdapter(Context context) {
         this.context = context;
@@ -60,7 +60,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Evalua
         return evaluateItemInfos == null ? 0 : evaluateItemInfos.size();
     }
 
-    public static class EvaluateView extends RecyclerView.ViewHolder {
+    public class EvaluateView extends RecyclerView.ViewHolder {
 
         @BindView(R.id.people_icon)
         ImageView peopleIcon;

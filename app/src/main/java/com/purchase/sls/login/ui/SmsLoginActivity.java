@@ -124,6 +124,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         }
         loginPresenter.sendCode(phoneNumberStr, "login");
         sendAuthCode.startCold();
+        loginPhoneNumberEt.setFocusable(false);
     }
 
     /**
@@ -160,6 +161,8 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
 
     @Override
     public void onReset() {
+        loginPhoneNumberEt.setFocusable(true);
+        loginPhoneNumberEt.setFocusableInTouchMode(true);
     }
 
     @Override

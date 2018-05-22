@@ -33,7 +33,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
     private LayoutInflater layoutInflater;
     private List<CollectionListInfo> collectionListInfos;
-    private static Context context;
+    private Context context;
     private String behavior = "1";//1：正常状态2：有选中删除选项
     private String longitude;
     private String latitude;

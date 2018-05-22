@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountListView> {
     private LayoutInflater layoutInflater;
     private List<AccountItemInfo> accountItemInfos;
-    private static Context context;
+    private Context context;
 
     public AccountListAdapter(Context context) {
         this.context = context;

@@ -3,6 +3,7 @@ package com.purchase.sls.shopdetailbuy.ui;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
@@ -131,6 +132,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     @Inject
     ShopDetailPresenter shopDetailPresenter;
 
+    List<String> packageNames;
+
     private StoreInfo storeInfo;
     private LikeStoreAdapter likeStoreAdapter;
     private AllEvaluateAdapter allEvaluateAdapter;
@@ -143,6 +146,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private String addressY;
     private String addressStr;
     private String cityName;
+    private String baiduY;//百度地图的纬度
+    private String baiduX;//百度地图的经度
 
     public static void start(Context context, String storeid) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
@@ -252,6 +257,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     String[] addressStr = addressXY.split(",");
                     addressX = addressStr[0];
                     addressY = addressStr[1];
+                    if(!TextUtils.isEmpty(addressX)&&!TextUtils.isEmpty(addressY)){
+                        double[] bdLatLon=gaoDeToBaidu(Double.parseDouble(addressX),Double.parseDouble(addressY));
+                        baiduX=String.valueOf(bdLatLon[0]);
+                        baiduY=String.valueOf(bdLatLon[1]);
+                    }
                 }
                 if (TextUtils.equals("1", storeInfo.getFavo())) {
                     collection.setSelected(true);
@@ -332,6 +342,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     }
                 } else {
                     choiceMapRl.setVisibility(View.VISIBLE);
+                    checkBg.setVisibility(View.GONE);
                 }
                 break;
             case R.id.check_bg:
@@ -349,6 +360,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             case R.id.cancel:
             case R.id.black_background:
                 choiceMapRl.setVisibility(View.GONE);
+                checkBg.setVisibility(View.VISIBLE);
                 break;
             default:
         }
@@ -399,10 +411,32 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         }
     }
 
-    //判断是否安全了应用
-    private boolean isInstallByread(String packageName) {
-        return new File("/data/data/" + packageName).exists();
+    /**
+     * 检查手机上是否安装了指定的软件
+     * @param packageName
+     * @return
+     */
+    public boolean isAvilible(String packageName,List<String> packageNames) {
+        // 判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
+        return packageNames.contains(packageName);
     }
+
+    public  List<String> packNames(Context context) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
+        List<String> packageNames = new ArrayList<String>();
+
+        if (packageInfos != null) {
+            for (int i = 0; i < packageInfos.size(); i++) {
+                String packName = packageInfos.get(i).packageName;
+                packageNames.add(packName);
+            }
+        }
+        // 判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
+        return packageNames;
+    }
+
+
 
     private List<ChoiceMapInfo> choiceMapInfos;
     private ChoiceMapAdapter choiceMapAdapter;
@@ -414,15 +448,17 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         if (choiceMapInfos == null) {
             choiceMapInfos = new ArrayList<>();
         }
-        if (isInstallByread("com.baidu.BaiduMap")) {
+        packageNames=packNames(this);
+
+        if (isAvilible("com.baidu.BaiduMap",packageNames)) {
             ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.baidu.BaiduMap", "百度地图");
             choiceMapInfos.add(choiceMapInfo);
         }
-        if (isInstallByread("com.autonavi.minimap")) {
+        if (isAvilible("com.autonavi.minimap",packageNames)) {
             ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.autonavi.minimap", "高德地图");
             choiceMapInfos.add(choiceMapInfo);
         }
-        if (isInstallByread("com.tencent.map")) {
+        if (isAvilible("com.tencent.map",packageNames)) {
             ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.tencent.map", "腾讯地图");
             choiceMapInfos.add(choiceMapInfo);
         }
@@ -436,7 +472,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     @Override
     public void mapItemClick(ChoiceMapInfo choiceMapInfo) {
         if (TextUtils.equals("百度地图", choiceMapInfo.getAppName())) {
-            openBaiduMap(addressY, addressX, addressStr);
+            openBaiduMap(baiduY, baiduX, addressStr);
         } else if (TextUtils.equals("高德地图", choiceMapInfo.getAppName())) {
             openGaoDeMap(addressY, addressX, addressStr);
         } else if (TextUtils.equals("腾讯地图", choiceMapInfo.getAppName())) {
@@ -446,6 +482,19 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 //            openGooaleMap(addressY, addressX);
 //        }
         choiceMapRl.setVisibility(View.GONE);
+        checkBg.setVisibility(View.VISIBLE);
+    }
+
+    //高德转百度 经纬度
+    private double[] gaoDeToBaidu(double gd_lon, double gd_lat) {
+        double[] bd_lat_lon = new double[2];
+        double PI = 3.14159265358979324 * 3000.0 / 180.0;
+        double x = gd_lon, y = gd_lat;
+        double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * PI);
+        double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * PI);
+        bd_lat_lon[0] = z * Math.cos(theta) + 0.0065;
+        bd_lat_lon[1] = z * Math.sin(theta) + 0.006;
+        return bd_lat_lon;
     }
 
     private void openGaoDeMap(String dlat, String dlon, String dname) {

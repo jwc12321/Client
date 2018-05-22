@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">能购</string>
+    <string name="app_name">能购APP</string>
     <!--recyclerView Layout-->
     <string name="layoutManager_Gridlayout">GridLayoutManager</string>
     <string name="layoutManager_LinearLayout">LinearLayoutManager</string>

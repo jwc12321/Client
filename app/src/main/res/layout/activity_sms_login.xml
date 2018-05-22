@@ -67,7 +67,8 @@
                 android:paddingRight="17dp"
                 android:paddingTop="13dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/si_calean" />
+                android:src="@mipmap/si_calean"
+                android:visibility="gone"/>
 
             <com.purchase.sls.common.widget.ColdDownButton
                 android:id="@+id/send_auth_code"

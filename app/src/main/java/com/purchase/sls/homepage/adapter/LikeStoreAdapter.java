@@ -30,7 +30,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
 
     private LayoutInflater layoutInflater;
     private List<CollectionStoreInfo> collectionStoreInfos;
-    private static Context context;
+    private Context context;
     private String longitude;
     private String latitude;
     private String city;

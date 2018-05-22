@@ -170,7 +170,8 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
 
     @Override
     public void onReset() {
-
+        photoNumberEt.setFocusable(true);
+        photoNumberEt.setFocusableInTouchMode(true);
     }
 
     @OnClick({R.id.back, R.id.ok_button,R.id.send_auth_code})
@@ -208,6 +209,7 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
             shiftHandsetPresenter.sendNewVCode(phoneNumberStr);
         }
         sendAuthCode.setOnResetListener(this);
+        photoNumberEt.setFocusable(false);
     }
 
     private void okButton() {

@@ -152,6 +152,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         hotService();
         scrollerUpDown();
         likeStore();
+        homePagePresenter.getBannerHotInfo("1", "");//防止定位慢不去请求数据就空白，后台默认衢州
         mapLocal();
         if(testOldVersion("com.nenggou.syn")){
             textDialog();
@@ -216,7 +217,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         mLocationHelper.addOnLocatedListener(new LocationHelper.OnLocatedListener() {
             @Override
             public void onLocated(AMapLocation aMapLocation) {
-                if (TextUtils.isEmpty(city) && TextUtils.equals("0.0", longitude) && TextUtils.equals("0.0", latitude)) {
+                if (TextUtils.isEmpty(aMapLocation.getCity()) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLongitude())) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLatitude()))) {
                     choiceCity.setText("定位失败，请重新定位");
                     city = "";
                     longitude = "";
