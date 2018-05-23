@@ -68,7 +68,7 @@ public class WebViewActivity extends BaseActivity {
 
     private void initView() {
         webViewDetailInfo = getIntent().getExtras().getParcelable(StaticData.WEBVIEW_DETAILINFO);
-//        title.setText(webViewDetailInfo.getTitle());
+        title.setText(webViewDetailInfo.getTitle());
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new JSBridgeWebChromeClient());
@@ -76,10 +76,10 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                String titleStr = view.getTitle();
-                if (!TextUtils.isEmpty(titleStr)) {
-                    title.setText(titleStr);
-                }
+//                String titleStr = view.getTitle();
+//                if (!TextUtils.isEmpty(titleStr)) {
+//                    title.setText(titleStr);
+//                }
             }
         });
         webView.loadUrl(webViewDetailInfo.getUrl());

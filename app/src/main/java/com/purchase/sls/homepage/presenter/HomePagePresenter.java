@@ -56,11 +56,12 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
 
     /**
      * 获取banner和热门数据
+     *
      * @param areaname
      */
     @Override
-    public void getBannerHotInfo(String refreshType,String areaname) {
-        if(TextUtils.equals("1",refreshType)&&TextUtils.isEmpty(areaname)){
+    public void getBannerHotInfo(String refreshType, String areaname) {
+        if (TextUtils.equals("1", refreshType) && TextUtils.isEmpty(areaname)) {
             homepageView.showLoading();
         }
         BannerHotRequest bannerHotRequest = new BannerHotRequest(areaname);
@@ -89,7 +90,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
     @Override
     public void getLikeStore(String areaname) {
         currentIndex = 1;
-        LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex),areaname);
+        LikeStoreRequest likeStoreRequest = new LikeStoreRequest(String.valueOf(currentIndex), areaname);
         Disposable disposable = restApiService.getLikeStoreInfo(likeStoreRequest)
                 .flatMap(new RxRemoteDataParse<LikeStoreResponse>())
                 .compose(new RxSchedulerTransformer<LikeStoreResponse>())
@@ -110,8 +111,8 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
 
     @Override
     public void getMoreLikeStore(String areaname) {
-        currentIndex =currentIndex+1;
-        LikeStoreRequest likeStoreRequest=new LikeStoreRequest( String.valueOf(currentIndex),areaname);
+        currentIndex = currentIndex + 1;
+        LikeStoreRequest likeStoreRequest = new LikeStoreRequest(String.valueOf(currentIndex), areaname);
         Disposable disposable = restApiService.getLikeStoreInfo(likeStoreRequest)
                 .flatMap(new RxRemoteDataParse<LikeStoreResponse>())
                 .compose(new RxSchedulerTransformer<LikeStoreResponse>())
@@ -128,6 +129,7 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 });
         mDisposableList.add(disposable);
     }
+
     @Override
     public void destroy() {
         for (Disposable disposable : mDisposableList) {

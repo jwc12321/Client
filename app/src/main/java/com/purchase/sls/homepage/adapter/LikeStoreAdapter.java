@@ -50,7 +50,6 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
         this.city = city;
         this.longitude = longitude;
         this.latitude = latitude;
-        notifyDataSetChanged();
     }
 
     public void setLikeInfos(List<CollectionStoreInfo> collectionStoreInfos) {

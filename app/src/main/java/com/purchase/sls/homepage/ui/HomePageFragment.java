@@ -228,11 +228,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                     latitude = aMapLocation.getLatitude() + "";
                     choiceCity.setText(city);
                 }
+                likeStoreAdapter.setCity(city, longitude, latitude);
                 homePagePresenter.getBannerHotInfo("1", city);
                 homePagePresenter.getLikeStore(city);
                 Log.d("1111", "城市" + city + "经纬度" + longitude + "," + latitude);
                 commonAppPreferences.setLocalAddress(city, longitude, latitude);
-                likeStoreAdapter.setCity(city, longitude, latitude);
             }
         });
 
@@ -333,10 +333,10 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         refreshLayout.stopRefresh();
         if (collectionStoreInfos != null && collectionStoreInfos.size() > 0) {
             refreshLayout.setCanLoadMore(true);
-            likeStoreAdapter.setLikeInfos(collectionStoreInfos);
         }else{
             refreshLayout.setCanLoadMore(false);
         }
+        likeStoreAdapter.setLikeInfos(collectionStoreInfos);
     }
 
     @Override
@@ -382,10 +382,10 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         city = cityInfoBean.getName();
                         longitude = commonAppPreferences.getLongitude();
                         latitude = commonAppPreferences.getLatitude();
+                        likeStoreAdapter.setCity(city, longitude, latitude);
                         homePagePresenter.getBannerHotInfo("1", city);
                         homePagePresenter.getLikeStore(city);
                         choiceCity.setText(city);
-                        likeStoreAdapter.setCity(city, longitude, latitude);
                     }
                     break;
                 case REFRESS_LOCATION_SCAN:
