@@ -310,6 +310,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 finish();
                 break;
             case R.id.collection:
+                if (TextUtils.isEmpty(TokenManager.getToken())) {
+                    AccountLoginActivity.start(this);
+                    return;
+                }
                 collectionType += 1;
                 if (collectionType % 2 == 0) {
                     collection.setSelected(false);

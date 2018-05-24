@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.purchase.sls.BaseActivity;
@@ -165,6 +166,9 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
                             }
                         }).create();
             dialogUpdate.show(getSupportFragmentManager(), "");
+        }else if(changeAppInfo!=null&&TextUtils.equals("0",changeAppInfo.getStatus())&&!TextUtils.isEmpty(changeAppInfo.getTitle())){
+            Toast.makeText(getApplicationContext(), changeAppInfo.getTitle(),
+                    Toast.LENGTH_SHORT).show();
         }
     }
     private MaterialDialog materialDialog;

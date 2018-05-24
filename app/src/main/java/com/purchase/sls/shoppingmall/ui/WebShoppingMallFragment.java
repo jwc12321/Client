@@ -126,7 +126,7 @@ public class WebShoppingMallFragment extends BaseFragment {
                 dismissLoading();
             }
         });
-        webView.loadUrl("http://s.365neng.com/home");
+//        webView.loadUrl("http://s.365neng.com/home");
         bridge = new BridgeImpl(getActivity());
         JSBridge.register("bridge", BridgeImpl.class);
     }
@@ -164,6 +164,9 @@ public class WebShoppingMallFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
+                if(webView!=null) {
+                    webView.loadUrl("http://s.365neng.com/home");
+                }
                 isFirstLoad = false;
             }
         }

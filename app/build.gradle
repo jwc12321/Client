@@ -93,7 +93,7 @@ walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("${project.buildDir}/outputs/channels");
     // 定制渠道包的APK的文件名称
-    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    apkFileNameFormat = '${appName}-${channel}-${buildType}-v${versionName}-${buildTime}.apk';
     // 渠道配置文件
     channelFile = new File("${project.getProjectDir()}/channel")
 }
