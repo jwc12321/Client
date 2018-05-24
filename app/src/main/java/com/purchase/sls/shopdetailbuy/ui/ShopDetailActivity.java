@@ -160,6 +160,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
         ButterKnife.bind(this);
+        setHeight(back,title,collection);
         initView();
     }
 

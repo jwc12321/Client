@@ -84,6 +84,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_second);
         ButterKnife.bind(this);
+        setHeight(back,title,complete);
         initView();
     }
 

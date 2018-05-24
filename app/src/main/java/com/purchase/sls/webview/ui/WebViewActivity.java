@@ -63,6 +63,7 @@ public class WebViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
+        setHeight(back,title,collection);
         initView();
     }
 

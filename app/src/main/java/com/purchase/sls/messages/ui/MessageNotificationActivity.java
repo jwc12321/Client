@@ -58,6 +58,7 @@ public class MessageNotificationActivity extends BaseActivity implements Message
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

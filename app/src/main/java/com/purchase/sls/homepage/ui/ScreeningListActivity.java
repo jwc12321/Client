@@ -159,6 +159,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screening_list);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
 
     }

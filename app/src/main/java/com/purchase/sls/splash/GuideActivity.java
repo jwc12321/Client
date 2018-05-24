@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.mainframe.ui.MainFrameActivity;
 import com.purchase.sls.splash.adapter.GuideAdapter;
@@ -22,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GuideActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class GuideActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -37,7 +38,12 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View getSnackBarHolderView() {
+        return null;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);

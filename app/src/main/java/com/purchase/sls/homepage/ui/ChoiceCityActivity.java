@@ -112,6 +112,7 @@ public class ChoiceCityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice_city);
         ButterKnife.bind(this);
+//        setHeight(back,title,null);
         commonAppPreferences = new CommonAppPreferences(this);
         mapLocal();
         initList();

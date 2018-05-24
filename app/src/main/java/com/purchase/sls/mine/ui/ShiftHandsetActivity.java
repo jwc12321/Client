@@ -19,9 +19,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.AccountUtils;
-import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.ColdDownButton;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -87,6 +85,7 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift_handset);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

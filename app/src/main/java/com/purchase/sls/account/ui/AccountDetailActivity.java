@@ -77,6 +77,7 @@ public class AccountDetailActivity extends BaseActivity implements AccountContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_detail);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

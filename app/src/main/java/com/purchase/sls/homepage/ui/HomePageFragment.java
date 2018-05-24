@@ -140,6 +140,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mContext = getActivity();
+        setHeight(choiceCity,searchLl,scan);
         initView();
 
     }

@@ -61,6 +61,7 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code_scan);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         mQRCodeView.setDelegate(this);
     }
 

@@ -123,6 +123,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persional_information);
         ButterKnife.bind(this);
+        setHeight(back,title,preservation);
     }
 
     private void initView() {

@@ -68,6 +68,7 @@ public class ChangeNickNameActivity extends BaseActivity implements PersonalCent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_nickname);
         ButterKnife.bind(this);
+        setHeight(back,title,preservation);
         initView();
     }
     private void initView(){

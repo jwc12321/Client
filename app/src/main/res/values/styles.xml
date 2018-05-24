@@ -1,12 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/backGround3</item>    <!-- 状态栏 -->
+        <item name="colorPrimaryDark">@color/backGround3</item> <!-- toolbar -->
+        <item name="colorAccent">@color/colorAccent</item>  <!-- 重点 -->
     </style>
+    <style name="AppTheme" parent="@style/BaseAppTheme" />
 
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
@@ -26,22 +33,44 @@
         <item name="android:padding">14dp</item>
     </style>
 
+
     <style name="title_text_style">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/common_forty_four_margin</item>
         <item name="android:textColor">@color/appText5</item>
         <item name="android:textSize">17sp</item>
-        <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
 
     <style name="title_text_right_style">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/common_forty_four_margin</item>
         <item name="android:textColor">@color/appText5</item>
         <item name="android:textSize">17sp</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:padding">@dimen/common_text_left</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingRight">@dimen/common_eleven_margin</item>
+        <item name="android:paddingLeft">@dimen/common_eleven_margin</item>
+    </style>
+
+
+    <!--title最左边的返回-->
+    <style name="title_left_back_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/common_forty_four_margin</item>
+        <item name="android:src">@mipmap/return_gray</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingLeft">@dimen/common_eleven_margin</item>
+        <item name="android:paddingRight">@dimen/common_eleven_margin</item>
+    </style>
+    <!--title最右边图片-->
+    <style name="title_right_back_style">
+        <item name="android:layout_width">@dimen/common_forty_four_margin</item>
+        <item name="android:layout_height">@dimen/common_forty_four_margin</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">@dimen/common_eleven_margin</item>
     </style>
 
     <!--首页底部LinearLayout-->
@@ -183,28 +212,10 @@
 
     <style name="title_rl_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/appText1</item>
     </style>
 
-    <!--title最左边的返回-->
-    <style name="title_left_back_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingLeft">@dimen/common_text_left</item>
-        <item name="android:paddingRight">@dimen/common_text_left</item>
-        <item name="android:src">@mipmap/return_gray</item>
-        <item name="android:background">@null</item>
-    </style>
-    <!--title最右边图片-->
-    <style name="title_right_back_style">
-        <item name="android:layout_width">@dimen/common_twenty_margin</item>
-        <item name="android:layout_height">@dimen/common_twenty_margin</item>
-        <item name="android:layout_margin">@dimen/common_eleven_margin</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:background">@null</item>
-        <item name="android:scaleType">fitXY</item>
-    </style>
 
     <style name="adapter_screen_choice_iv">
         <item name="android:layout_width">22dp</item>

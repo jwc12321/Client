@@ -68,6 +68,7 @@ public class IntercourseRecordActivity extends BaseActivity implements AccountCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intercourse_record);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
 
     }

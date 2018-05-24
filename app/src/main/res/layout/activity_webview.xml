@@ -6,10 +6,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/title_rel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/appText1"
-        android:gravity="center_vertical">
+        style="@style/title_rl_style">
 
         <ImageView
             android:id="@+id/back"

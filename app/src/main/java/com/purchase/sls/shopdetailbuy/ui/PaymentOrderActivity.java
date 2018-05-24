@@ -154,6 +154,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_order);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

@@ -17,7 +17,8 @@
         android:padding="@dimen/common_eleven_margin"
         android:text="跳过"
         android:textColor="@color/appText3"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/common_thirty_margin"/>
 
     <Button
         android:id="@+id/guide_bt"

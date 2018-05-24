@@ -86,8 +86,11 @@ public class CollectionListActivity extends BaseActivity implements CollectionCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_list);
         ButterKnife.bind(this);
+        setHeight(back,title,edit);
         initView();
     }
+
+
 
     private void initView() {
         commonAppPreferences=new CommonAppPreferences(this);

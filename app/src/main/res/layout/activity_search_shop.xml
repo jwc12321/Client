@@ -12,40 +12,45 @@
         <ImageView
             android:id="@+id/back"
             style="@style/title_left_back_style"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <LinearLayout
+            android:id="@+id/search_ll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/common_seven_margin"
+            android:paddingTop="@dimen/common_seven_margin"
             android:layout_toLeftOf="@id/cancel"
-            android:layout_toRightOf="@id/back"
-            android:background="@drawable/login_edittext_bg"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_toRightOf="@id/back">
 
-            <EditText
-                android:id="@+id/search_et"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/common_text_left"
-                android:layout_marginStart="@dimen/common_text_left"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:cursorVisible="true"
-                android:drawableLeft="@mipmap/search"
-                android:drawablePadding="7dp"
-                android:drawableStart="@mipmap/search"
-                android:gravity="center_vertical"
-                android:imeOptions="actionSearch"
-                android:maxLines="1"
-                android:hint="@string/choice_shop"
-                android:textColor="@color/appText8"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:focusableInTouchMode="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_edittext_bg">
+
+                <EditText
+                    android:id="@+id/search_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_text_left"
+                    android:layout_marginStart="@dimen/common_text_left"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:drawableLeft="@mipmap/search"
+                    android:drawablePadding="7dp"
+                    android:drawableStart="@mipmap/search"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:hint="@string/choice_shop"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/appText8"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView

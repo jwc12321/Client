@@ -71,6 +71,7 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_energy_info);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

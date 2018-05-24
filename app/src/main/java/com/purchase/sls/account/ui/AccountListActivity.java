@@ -78,6 +78,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_list);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

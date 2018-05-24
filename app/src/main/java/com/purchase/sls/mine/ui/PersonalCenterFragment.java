@@ -107,6 +107,7 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHeight(settingIv,null,informationIv);
     }
 
     @Override

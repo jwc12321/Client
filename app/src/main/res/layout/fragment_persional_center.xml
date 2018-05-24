@@ -26,28 +26,28 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/title_height">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/setting_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:paddingLeft="@dimen/common_margin_left_right"
                         android:paddingRight="@dimen/common_margin_left_right"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/btn_setting_pressed" />
+                        android:src="@mipmap/btn_setting_pressed"
+                        android:paddingTop="@dimen/common_text_left"
+                        android:paddingBottom="@dimen/common_text_left"/>
 
                     <ImageView
                         android:id="@+id/information_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingBottom="@dimen/common_text_left"
+                        android:paddingBottom="@dimen/common_twelve_margin"
                         android:paddingLeft="@dimen/common_margin_left_right"
                         android:paddingRight="@dimen/common_margin_left_right"
-                        android:paddingTop="@dimen/common_text_left"
+                        android:paddingTop="@dimen/common_twelve_margin"
                         android:scaleType="fitXY"
                         android:src="@mipmap/news" />
                 </RelativeLayout>

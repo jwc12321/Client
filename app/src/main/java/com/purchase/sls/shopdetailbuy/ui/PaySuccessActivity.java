@@ -85,6 +85,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paysuccess);
         ButterKnife.bind(this);
+        setHeight(back,title,complete);
         initView();
     }
 

@@ -13,13 +13,12 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +37,8 @@ public class SearchShopActivity extends BaseActivity {
     TextView cancel;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
+    @BindView(R.id.search_ll)
+    LinearLayout searchLl;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchShopActivity.class);
@@ -49,6 +50,7 @@ public class SearchShopActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop);
         ButterKnife.bind(this);
+        setHeight(back, searchLl, cancel);
         initView();
     }
 
@@ -80,7 +82,7 @@ public class SearchShopActivity extends BaseActivity {
 
     private void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(searchEt.getWindowToken(),0);
+        inputMethodManager.hideSoftInputFromWindow(searchEt.getWindowToken(), 0);
     }
 
     @Override

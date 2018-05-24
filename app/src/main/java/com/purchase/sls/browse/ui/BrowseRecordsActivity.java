@@ -86,6 +86,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_records);
         ButterKnife.bind(this);
+        setHeight(back,title,edit);
         initView();
     }
 

@@ -56,6 +56,7 @@ public class CouponListActivity extends BaseActivity implements CouponContract.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_list);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

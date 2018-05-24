@@ -80,6 +80,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

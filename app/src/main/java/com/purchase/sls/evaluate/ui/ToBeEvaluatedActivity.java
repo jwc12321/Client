@@ -64,6 +64,7 @@ public class ToBeEvaluatedActivity extends BaseActivity implements EvaluateContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_be_evaluated);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

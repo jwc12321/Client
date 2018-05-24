@@ -97,6 +97,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_first);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

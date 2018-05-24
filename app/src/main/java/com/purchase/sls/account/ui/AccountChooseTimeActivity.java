@@ -83,6 +83,7 @@ public class AccountChooseTimeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_choose_time);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

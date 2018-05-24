@@ -79,6 +79,7 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_login);
         ButterKnife.bind(this);
+        setHeight(back,null,null);
         persionAppPreferences=new PersionAppPreferences(this);
         sendAuthCode.setOnResetListener(this);
     }

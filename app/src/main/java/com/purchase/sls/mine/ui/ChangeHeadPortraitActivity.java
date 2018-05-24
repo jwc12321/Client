@@ -9,6 +9,9 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -16,7 +19,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
-import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.customeview.ActionSheet;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -38,11 +40,17 @@ import butterknife.OnClick;
  * 修改头像
  */
 
-public class ChangeHeadPortraitActivity extends BaseActivity implements PersonalCenterContract.PersonalImView,ActionSheet.OnPictureChoseListener {
+public class ChangeHeadPortraitActivity extends BaseActivity implements PersonalCenterContract.PersonalImView, ActionSheet.OnPictureChoseListener {
     @BindView(R.id.photo)
     RoundedImageView photo;
     @BindView(R.id.change_bt)
     Button changeBt;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.title_rel)
+    RelativeLayout titleRel;
 
     private ActionSheet actionSheet;
     private String headPhone;
@@ -54,8 +62,8 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     private PersionInfoResponse persionInfoResponse;
     private Gson gson;
 
-    public static void start(Context context){
-        Intent intent=new Intent(context,ChangeHeadPortraitActivity.class);
+    public static void start(Context context) {
+        Intent intent = new Intent(context, ChangeHeadPortraitActivity.class);
         context.startActivity(intent);
     }
 
@@ -64,10 +72,11 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_head_portrait);
         ButterKnife.bind(this);
+        setHeight(back, title, null);
         initVeiw();
     }
 
-    private void initVeiw(){
+    private void initVeiw() {
         persionAppPreferences = new PersionAppPreferences(this);
         persionInfoStr = persionAppPreferences.getPersionInfo();
         gson = new Gson();
@@ -138,12 +147,12 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if(actionSheet!=null){
+            if (actionSheet != null) {
                 actionSheet.dismiss();
             }
             this.finish();
             return false;
-        }else {
+        } else {
             return super.onKeyDown(keyCode, event);
         }
 
