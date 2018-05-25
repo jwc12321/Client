@@ -28,6 +28,7 @@ import com.purchase.sls.common.unit.HandleBackUtil;
 import com.purchase.sls.common.unit.WeiboDialogUtils;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.login.ui.AccountLoginActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;
 
@@ -152,7 +153,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
     }
 
     public Snackbar makePrimaryColorSnackBar(@StringRes int resId, int duration) {
-        return makeColorSnackBar(resId, duration, getResources().getColor(R.color.colorPrimary));
+        return makeColorSnackBar(resId, duration, Color.parseColor("#ff6528"));
     }
 
 
@@ -205,4 +206,15 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

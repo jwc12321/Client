@@ -77,6 +77,14 @@
             android:name="com.amap.api.v2.apikey"
             android:value="4fa5cf480a40e2e6bc4680c349aaa2c1" />
 
+        <!-- 友盟统计参数配置开始 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5ab7102aa40fa357cb000ba3"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${channel}"/>
+
         <activity
             android:name=".splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

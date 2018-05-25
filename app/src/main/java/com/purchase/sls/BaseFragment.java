@@ -2,6 +2,7 @@ package com.purchase.sls;
 
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -110,7 +111,7 @@ public class BaseFragment extends Fragment implements LoadDataView, HandleBackIn
     }
 
     public Snackbar makePrimaryColorSnackBar(@StringRes int resId, int duration) {
-        return makeColorSnackBar(resId, duration, getResources().getColor(R.color.colorPrimary));
+        return makeColorSnackBar(resId, duration, Color.parseColor("#ff6528"));
     }
 
     public ApplicationComponent getApplicationComponent() {

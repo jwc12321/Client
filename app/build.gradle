@@ -165,6 +165,12 @@ dependencies {
     compile 'cn.jiguang.sdk:jpush:3.0.0'
     compile 'cn.jiguang.sdk:jcore:1.0.0'
 
+    //检测更新
     compile 'com.afollestad.material-dialogs:core:0.9.1.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
+
+    //友盟
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+
 }

@@ -280,7 +280,8 @@
 
     <RelativeLayout
         android:id="@+id/title_rel"
-        style="@style/title_rl_style">
+        style="@style/title_rl_style"
+        android:background="@color/backGround3">
 
         <ImageView
             android:id="@+id/back"
