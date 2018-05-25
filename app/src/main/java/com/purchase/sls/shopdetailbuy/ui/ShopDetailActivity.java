@@ -24,8 +24,10 @@ import android.widget.Toast;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.OpenLocalMapUtil;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
@@ -289,17 +291,18 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     @Override
-    public void addRemoveSuccess(String tyepe) {
-        if (TextUtils.equals("1", tyepe)) {
+    public void addRemoveSuccess(String type) {
+        if (TextUtils.equals("1", type)) {
             Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "收藏取消", Toast.LENGTH_SHORT).show();
         }
-
+        UmengEventUtils.statisticsClick(this, UMStaticData.COLLECT,type,UMStaticData.COLLECT_STORE);
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
+        UmengEventUtils.statisticsClick(this,UMStaticData.KEY,UMStaticData.SELECT_INFO,UMStaticData.SELECT_LIKE);
         ShopDetailActivity.start(this, storeid);
         this.finish();
     }
@@ -356,10 +359,12 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     return;
                 }
                 if (storeInfo != null) {
+                    UmengEventUtils.statisticsClick(this,UMStaticData.PAY_WITH_INFO);
                     PaymentOrderActivity.start(this, storeInfo.getTitle(), storeInfo.getzPics(), storeid);
                 }
                 break;
             case R.id.look_all_comment_rl://查看全部评论
+                UmengEventUtils.statisticsClick(this, UMStaticData.SHOW_COLLECTION);
                 AllEvaluationActivity.start(this, storeid);
                 break;
             case R.id.cancel:

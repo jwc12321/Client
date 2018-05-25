@@ -30,6 +30,8 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.entity.CouponInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
@@ -407,6 +409,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
     @Override
     public void generatingOrderSuccess(GeneratingOrderInfo generatingOrderInfo) {
+        UmengEventUtils.statisticsClick(this, UMStaticData.PAY_SUCCESS);
         PaySuccessActivity.start(this, businessName, generatingOrderInfo.getOrderno());
         this.finish();
     }
@@ -418,6 +421,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
     @Override
     public void onRechargeSuccess() {
+        UmengEventUtils.statisticsClick(this, UMStaticData.PAY_SUCCESS);
         PaySuccessActivity.start(this, businessName, ordreno);
         this.finish();
     }
@@ -455,6 +459,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     //支付成功
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPaySuccess(WXSuccessPayEvent event) {
+        UmengEventUtils.statisticsClick(this, UMStaticData.PAY_SUCCESS);
         PaySuccessActivity.start(this, businessName, ordreno);
         this.finish();
     }

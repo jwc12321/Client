@@ -213,10 +213,10 @@ public class LimitScrollerView extends LinearLayout implements View.OnClickListe
     }
     private LimitScrollAdapter adapter;
 
-    interface OnItemClickListener{
+    public interface OnItemClickListener{
         public void onItemClick(Object obj);
     }
-    private OnItemClickListener clickListener;
+    public OnItemClickListener clickListener;
     /**********************public API 以下为暴露的接口***********************/
 
     /**

@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.UmengEventUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +66,7 @@ public class SearchShopActivity extends BaseActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideKeyboard();
                     if (!TextUtils.isEmpty(searchEt.getText().toString()))
+                        UmengEventUtils.statisticsClick(SearchShopActivity.this, UMStaticData.KEY,searchEt.getText().toString(),UMStaticData.SEARCH_STORE);
                         ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", searchEt.getText().toString());
                     return true;
                 }

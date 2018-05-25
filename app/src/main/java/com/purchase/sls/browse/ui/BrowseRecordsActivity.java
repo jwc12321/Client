@@ -21,8 +21,10 @@ import com.purchase.sls.browse.BrowseModule;
 import com.purchase.sls.browse.DaggerBrowseComponent;
 import com.purchase.sls.browse.adapter.BrowseRecordsAdapter;
 import com.purchase.sls.browse.presenter.BrowsePresenter;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.data.entity.BrowseInfo;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
@@ -187,6 +189,7 @@ public class BrowseRecordsActivity extends BaseActivity implements BrowseContrac
 
     @Override
     public void goShopDetail(String storeid) {
+        UmengEventUtils.statisticsClick(this, UMStaticData.REVIEW_STORE);
         ShopDetailActivity.start(this, storeid);
     }
 

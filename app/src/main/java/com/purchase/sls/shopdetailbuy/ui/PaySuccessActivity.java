@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.MyClickRatingBar;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
@@ -177,6 +179,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     public void submitSuccess() {
+        UmengEventUtils.statisticsClick(this, UMStaticData.COMMENT_STORE);
         finish();
     }
 }

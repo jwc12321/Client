@@ -37,6 +37,8 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.unit.ViewUtil;
 import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
@@ -430,6 +432,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     @Override
     public void onInfoWindowClick(Marker marker) {
         mapMarkerInfo = (MapMarkerInfo) marker.getObject();
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_STORE_WITH_MAP);
         ShopDetailActivity.start(getActivity(), mapMarkerInfo.getId());
     }
 

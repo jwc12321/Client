@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
 import com.purchase.sls.homepage.HomePageContract;
@@ -115,6 +117,7 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     public void onScanQRCodeSuccess(String result) {
         Log.d(TAG, "onScanQRCodeSuccess: " + result);
+        UmengEventUtils.statisticsClick(this, UMStaticData.SCAN_CODE);
         if (!TextUtils.isEmpty(result)) {
             if(TextUtils.isEmpty(TokenManager.getToken())){
                 AccountLoginActivity.start(this, "1");

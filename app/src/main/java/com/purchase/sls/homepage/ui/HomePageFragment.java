@@ -23,18 +23,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.location.LocationHelper;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PermissionUtil;
-import com.purchase.sls.common.unit.StatusBarUtil;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
@@ -252,6 +251,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
             @Override
             public void OnBannerClick(View view, int position) {
 //                showMessage("点击了第" + position + "张图片");
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
                 if (bannerInfos != null && bannerInfos.size() >= position) {
                     BannerHotResponse.BannerInfo bannerInfo = bannerInfos.get(position - 1);
                 }
@@ -265,6 +265,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         //API:1、设置数据适配器
         myLimitScrollAdapter = new MyLimitScrollAdapter();
         limitScroll.setDataAdapter(myLimitScrollAdapter);
+        //API：4、设置条目点击事件
+       limitScroll.setOnItemClickListener(new LimitScrollerView.OnItemClickListener() {
+           @Override
+           public void onItemClick(Object obj) {
+               UmengEventUtils.statisticsClick(getActivity(),UMStaticData.CLIENT_MAIN_Toutiao);
+           }
+       });
     }
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
@@ -444,11 +451,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
+        UmengEventUtils.statisticsClick(getActivity(),UMStaticData.KEY,storecateInfo.getName(),UMStaticData.SELECT_TYPE);
         ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
+        UmengEventUtils.statisticsClick(getActivity(),UMStaticData.KEY,UMStaticData.SELECT_MAIN,UMStaticData.SELECT_LIKE);
         ShopDetailActivity.start(getActivity(), storeid);
     }
 

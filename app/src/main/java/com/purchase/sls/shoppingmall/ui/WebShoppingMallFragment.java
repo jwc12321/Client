@@ -21,7 +21,9 @@ import android.webkit.WebViewClient;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.PersionAppPreferences;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.webview.unit.BridgeImpl;
 import com.purchase.sls.webview.unit.JSBridge;
@@ -165,6 +167,7 @@ public class WebShoppingMallFragment extends BaseFragment {
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 if(webView!=null) {
+                    UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOPPING_MALL);
                     webView.loadUrl("http://s.365neng.com/home");
                 }
                 isFirstLoad = false;

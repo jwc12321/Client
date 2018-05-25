@@ -20,9 +20,11 @@ import com.purchase.sls.account.ui.AccountListActivity;
 import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
@@ -154,15 +156,19 @@ public class PersonalCenterFragment extends BaseFragment {
                 MessageNotificationActivity.start(getActivity());
                 break;
             case R.id.item_persion_im://个人主页
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_MY_INFO);
                 PersonalInformationActivity.start(getActivity());
                 break;
             case R.id.collection_ll://收藏
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_COLLECTION);
                 CollectionListActivity.start(getActivity());
                 break;
             case R.id.comment_ll://点评
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_COMMANDS);
                 ToBeEvaluatedActivity.start(getActivity());
                 break;
             case R.id.account_ll://账单
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_BILL);
                 AccountListActivity.start(getActivity());
                 break;
             case R.id.item_energy://能量
