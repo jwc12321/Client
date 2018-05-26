@@ -186,10 +186,12 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
         //获取手机系统的所有APP包名，然后进行一一比较
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        for (int i = 0; i < pinfo.size(); i++) {
-            if (((PackageInfo) pinfo.get(i)).packageName
-                    .equalsIgnoreCase(packageName))
-                return true;
+        if(pinfo!=null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                if (((PackageInfo) pinfo.get(i)).packageName
+                        .equalsIgnoreCase(packageName))
+                    return true;
+            }
         }
         return false;
     }
@@ -217,7 +219,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         mLocationHelper.addOnLocatedListener(new LocationHelper.OnLocatedListener() {
             @Override
             public void onLocated(AMapLocation aMapLocation) {
-                if (TextUtils.isEmpty(aMapLocation.getCity()) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLongitude())) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLatitude()))) {
+                if (aMapLocation==null||(TextUtils.isEmpty(aMapLocation.getCity()) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLongitude())) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLatitude())))) {
                     choiceCity.setText("定位失败，请重新定位");
                     city = "";
                     longitude = "";

@@ -168,7 +168,7 @@ public class WebShoppingMallFragment extends BaseFragment {
             if (getUserVisibleHint()) {
                 if(webView!=null) {
                     UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOPPING_MALL);
-                    webView.loadUrl("http://s.365neng.com/home");
+                    webView.loadUrl("https://s.365neng.com/home");
                 }
                 isFirstLoad = false;
             }

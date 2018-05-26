@@ -66,6 +66,8 @@ public class MainFrameActivity extends BaseActivity {
     ImageView shoppingmallIv;
     @BindView(R.id.viewPager)
     ViewPagerSlide viewPager;
+    @BindView(R.id.main_rl)
+    RelativeLayout mainRl;
 
 
     private RelativeLayout[] relativeLayouts;
@@ -77,8 +79,9 @@ public class MainFrameActivity extends BaseActivity {
     private String goFirst;
     private CommonAppPreferences commonAppPreferences;
     private String mianGo;
-    public static void start(Context context){
-        Intent intent=new Intent(context,MainFrameActivity.class);
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, MainFrameActivity.class);
         context.startActivity(intent);
     }
 
@@ -87,7 +90,7 @@ public class MainFrameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainfram);
         ButterKnife.bind(this);
-        commonAppPreferences=new CommonAppPreferences(this);
+        commonAppPreferences = new CommonAppPreferences(this);
         initView();
     }
 
@@ -153,21 +156,22 @@ public class MainFrameActivity extends BaseActivity {
 
     @Override
     public View getSnackBarHolderView() {
-        return null;
+        return mainRl;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mianGo=commonAppPreferences.getMainGoWhere();
-        if(TextUtils.equals("3",mianGo)){
+        mianGo = commonAppPreferences.getMainGoWhere();
+        if (TextUtils.equals("3", mianGo)) {
             viewPager.setCurrentItem(3);
             commonAppPreferences.setMianGoWhere("100");
-        }else if(TextUtils.equals("0",mianGo)){
+        } else if (TextUtils.equals("0", mianGo)) {
             viewPager.setCurrentItem(0);
             commonAppPreferences.setMianGoWhere("100");
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();

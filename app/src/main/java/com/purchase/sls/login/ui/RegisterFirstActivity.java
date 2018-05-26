@@ -145,7 +145,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
         public void onClick(View widget) {
             webViewDetailInfo = new WebViewDetailInfo();
             webViewDetailInfo.setTitle("用户协议");
-            webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/rAgreement");
+            webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/rAgreement");
             WebViewActivity.start(RegisterFirstActivity.this, webViewDetailInfo);
         }
     };

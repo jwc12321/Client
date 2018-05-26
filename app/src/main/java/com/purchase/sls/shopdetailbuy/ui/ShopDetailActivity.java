@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -47,7 +46,6 @@ import com.purchase.sls.shopdetailbuy.adapter.ChoiceMapAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.ShopDetailPresenter;
 import com.purchase.sls.webview.ui.WebViewActivity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +128,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     LinearLayout blackBackground;
     @BindView(R.id.map_ll)
     LinearLayout mapLl;
+    @BindView(R.id.shop_detail_rl)
+    RelativeLayout shopDetailRl;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -162,7 +162,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
         ButterKnife.bind(this);
-        setHeight(back,title,collection);
+        setHeight(back, title, collection);
         initView();
     }
 
@@ -195,7 +195,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void OnBannerClick(View view, int position) {
-                url = "http://open.365neng.com/api/home/index/storeAlbum?storeid=" + storeid;
+                url = "https://open.365neng.com/api/home/index/storeAlbum?storeid=" + storeid;
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("商家相册");
                 webViewDetailInfo.setUrl(url);
@@ -219,7 +219,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     public View getSnackBarHolderView() {
-        return null;
+        return shopDetailRl;
     }
 
     @Override
@@ -260,10 +260,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     String[] addressStr = addressXY.split(",");
                     addressX = addressStr[0];
                     addressY = addressStr[1];
-                    if(!TextUtils.isEmpty(addressX)&&!TextUtils.isEmpty(addressY)){
-                        double[] bdLatLon=gaoDeToBaidu(Double.parseDouble(addressX),Double.parseDouble(addressY));
-                        baiduX=String.valueOf(bdLatLon[0]);
-                        baiduY=String.valueOf(bdLatLon[1]);
+                    if (!TextUtils.isEmpty(addressX) && !TextUtils.isEmpty(addressY)) {
+                        double[] bdLatLon = gaoDeToBaidu(Double.parseDouble(addressX), Double.parseDouble(addressY));
+                        baiduX = String.valueOf(bdLatLon[0]);
+                        baiduY = String.valueOf(bdLatLon[1]);
                     }
                 }
                 if (TextUtils.equals("1", storeInfo.getFavo())) {
@@ -297,12 +297,12 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         } else {
             Toast.makeText(getApplicationContext(), "收藏取消", Toast.LENGTH_SHORT).show();
         }
-        UmengEventUtils.statisticsClick(this, UMStaticData.COLLECT,type,UMStaticData.COLLECT_STORE);
+        UmengEventUtils.statisticsClick(this, UMStaticData.COLLECT, type, UMStaticData.COLLECT_STORE);
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
-        UmengEventUtils.statisticsClick(this,UMStaticData.KEY,UMStaticData.SELECT_INFO,UMStaticData.SELECT_LIKE);
+        UmengEventUtils.statisticsClick(this, UMStaticData.KEY, UMStaticData.SELECT_INFO, UMStaticData.SELECT_LIKE);
         ShopDetailActivity.start(this, storeid);
         this.finish();
     }
@@ -333,7 +333,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 }
                 break;
             case R.id.shop_info_rl:
-                url = "http://open.365neng.com/api/home/index/storeDetails?storeid=" + storeid;
+                url = "https://open.365neng.com/api/home/index/storeDetails?storeid=" + storeid;
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("商家介绍");
                 webViewDetailInfo.setUrl(url);
@@ -359,7 +359,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     return;
                 }
                 if (storeInfo != null) {
-                    UmengEventUtils.statisticsClick(this,UMStaticData.PAY_WITH_INFO);
+                    UmengEventUtils.statisticsClick(this, UMStaticData.PAY_WITH_INFO);
                     PaymentOrderActivity.start(this, storeInfo.getTitle(), storeInfo.getzPics(), storeid);
                 }
                 break;
@@ -423,15 +423,16 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     /**
      * 检查手机上是否安装了指定的软件
+     *
      * @param packageName
      * @return
      */
-    public boolean isAvilible(String packageName,List<String> packageNames) {
+    public boolean isAvilible(String packageName, List<String> packageNames) {
         // 判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
         return packageNames.contains(packageName);
     }
 
-    public  List<String> packNames(Context context) {
+    public List<String> packNames(Context context) {
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
         List<String> packageNames = new ArrayList<String>();
@@ -447,7 +448,6 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
 
-
     private List<ChoiceMapInfo> choiceMapInfos;
     private ChoiceMapAdapter choiceMapAdapter;
 
@@ -458,17 +458,17 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         if (choiceMapInfos == null) {
             choiceMapInfos = new ArrayList<>();
         }
-        packageNames=packNames(this);
+        packageNames = packNames(this);
 
-        if (isAvilible("com.baidu.BaiduMap",packageNames)) {
+        if (isAvilible("com.baidu.BaiduMap", packageNames)) {
             ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.baidu.BaiduMap", "百度地图");
             choiceMapInfos.add(choiceMapInfo);
         }
-        if (isAvilible("com.autonavi.minimap",packageNames)) {
+        if (isAvilible("com.autonavi.minimap", packageNames)) {
             ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.autonavi.minimap", "高德地图");
             choiceMapInfos.add(choiceMapInfo);
         }
-        if (isAvilible("com.tencent.map",packageNames)) {
+        if (isAvilible("com.tencent.map", packageNames)) {
             ChoiceMapInfo choiceMapInfo = new ChoiceMapInfo("com.tencent.map", "腾讯地图");
             choiceMapInfos.add(choiceMapInfo);
         }
@@ -486,7 +486,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         } else if (TextUtils.equals("高德地图", choiceMapInfo.getAppName())) {
             openGaoDeMap(addressY, addressX, addressStr);
         } else if (TextUtils.equals("腾讯地图", choiceMapInfo.getAppName())) {
-            openTengXunMap(this, "drive", null, null, null, addressStr, addressY+","+addressX, null, "textApp");
+            openTengXunMap(this, "drive", null, null, null, addressStr, addressY + "," + addressX, null, "textApp");
         }
 //        else if (TextUtils.equals("谷歌地图", choiceMapInfo.getAppName())) {
 //            openGooaleMap(addressY, addressX);
@@ -535,10 +535,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         }
     }
 
-    private void openBaiduMap(String dlat, String dlon, String dname){
+    private void openBaiduMap(String dlat, String dlon, String dname) {
         Intent intent = new Intent();
         String url = "baidumap://map/direction?" +
-                "destination=name:"+dname+"|latlng:"+dlat + "," + dlon+
+                "destination=name:" + dname + "|latlng:" + dlat + "," + dlon +
                 "&mode=driving&sy=3&index=0&target=1";
         Uri uri = Uri.parse(url);
         //将功能Scheme以URI的方式传入data

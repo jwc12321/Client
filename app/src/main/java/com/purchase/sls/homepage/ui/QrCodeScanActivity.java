@@ -16,6 +16,7 @@ import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
+import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
 import com.purchase.sls.homepage.HomePageContract;
 import com.purchase.sls.homepage.HomePageModule;
@@ -23,6 +24,7 @@ import com.purchase.sls.homepage.presenter.QrCodePresenter;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.login.ui.RegisterFirstActivity;
 import com.purchase.sls.shopdetailbuy.ui.PaymentOrderActivity;
+import com.purchase.sls.webview.ui.WebViewActivity;
 
 import javax.inject.Inject;
 
@@ -36,6 +38,7 @@ import cn.bingoogolapple.qrcode.zxing.ZXingView;
 public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Delegate,HomePageContract.QrCodeView {
 
     private static final String TAG = "QrCodeScanActivity";
+    private WebViewDetailInfo webViewDetailInfo;
 
     private static final boolean DEBUG = false;
     @BindView(R.id.back)
@@ -133,7 +136,14 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
                             this.finish();
                         }
                     }
-                } else {
+                }else if(result.contains("home/register/adduser")){
+                    webViewDetailInfo = new WebViewDetailInfo();
+                    webViewDetailInfo.setTitle("推荐注册");
+                    webViewDetailInfo.setUrl(result);
+                    WebViewActivity.start(this, webViewDetailInfo);
+                    this.finish();
+                }
+                else {
                     String[] results = result.split("[?]");
                     if (results[1] != null && results[1].startsWith("storeid")) {
                         String[] ids = results[1].split("=");

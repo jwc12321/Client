@@ -15,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,14 +44,12 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-import static android.view.View.VISIBLE;
-
 /**
  * Created by JWC on 2018/5/5.
  * 评价商店
  */
 
-public class SubmitEvaluateActivity extends BaseActivity implements EvaluateContract.SubmitEvaluateView, AddPhotoAdapter.AddPhotoListener, ActionSheet.OnPictureChoseListener,MyClickRatingBar.OnStarItemClickListener {
+public class SubmitEvaluateActivity extends BaseActivity implements EvaluateContract.SubmitEvaluateView, AddPhotoAdapter.AddPhotoListener, ActionSheet.OnPictureChoseListener, MyClickRatingBar.OnStarItemClickListener {
 
 
     @BindView(R.id.back)
@@ -79,6 +76,8 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     TextView agreement;
     @BindView(R.id.registration_agreement_ll)
     LinearLayout registrationAgreementLl;
+    @BindView(R.id.submit_ll)
+    LinearLayout submitLl;
 
     private String typeAnonymous;
 
@@ -108,13 +107,14 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_evaluate);
         ButterKnife.bind(this);
+        setHeight(back, title, submit);
         initView();
     }
 
     private void initView() {
         uploadFiles = new ArrayList<>();
         typeAnonymous = "1";
-        starts="1";
+        starts = "1";
         storeId = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         orderId = getIntent().getStringExtra(StaticData.ORDER_ID);
         businessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
@@ -150,7 +150,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
 
     @Override
     public View getSnackBarHolderView() {
-        return null;
+        return submitLl;
     }
 
     @Override
@@ -235,7 +235,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
             actionSheet.setOnPictureChoseListener(SubmitEvaluateActivity.this);
         }
         actionSheet.show(this);
-        Log.d("111","数据"+photoPaths.size());
+        Log.d("111", "数据" + photoPaths.size());
         if (photoPaths.size() > 8) {
             showMessage("至多选择9张照片");
             return;
@@ -279,6 +279,6 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
 
     @Override
     public void onItemClick(View view, int pos) {
-        starts = String.valueOf(pos+1);
+        starts = String.valueOf(pos + 1);
     }
 }

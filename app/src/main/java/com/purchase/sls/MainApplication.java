@@ -37,7 +37,6 @@ public class MainApplication  extends MultiDexApplication {
 
         //友盟统计
         String channelId = WalleChannelReader.getChannel(this.getApplicationContext());
-        Log.d("1111","channelId="+channelId);
         MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));
         /**
          * 预先加载一级列表所有城市的数据

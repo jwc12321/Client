@@ -112,7 +112,7 @@ public class CouponMessageFragment extends BaseListFragment<MessageListInfo.Mess
             ToBeEvaluatedActivity.start(getActivity());
         }else {
             if(!TextUtils.isEmpty(messageid)){
-                String url="http://open.365neng.com/api/home/message/info?id="+messageid;
+                String url="https://open.365neng.com/api/home/message/info?id="+messageid;
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("消息详情");
                 webViewDetailInfo.setUrl(url);

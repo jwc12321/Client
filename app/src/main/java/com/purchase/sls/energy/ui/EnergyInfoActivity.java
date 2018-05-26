@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,6 +55,8 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
     HeaderViewLayout refreshLayout;
     @BindView(R.id.energy_explain)
     Button energyExplain;
+    @BindView(R.id.frozen_number)
+    TextView frozenNumber;
 
     @Inject
     EnergyInfoPresente energyInfoPresente;
@@ -71,7 +74,7 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_energy_info);
         ButterKnife.bind(this);
-        setHeight(back,title,null);
+        setHeight(back, title, null);
         initView();
     }
 
@@ -79,14 +82,14 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         energyItemAdapter = new EnergyItemAdapter();
         energyRv.setAdapter(energyItemAdapter);
-        energyInfoPresente.getEnergyInfo("1","2");
+        energyInfoPresente.getEnergyInfo("1", "2");
     }
 
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            energyInfoPresente.getEnergyInfo("0","2");
+            energyInfoPresente.getEnergyInfo("0", "2");
         }
 
         @Override
@@ -124,7 +127,10 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
         refreshLayout.stopRefresh();
         if (energyInfo != null) {
             if (energyInfo.getSumPower() != null) {
-                energyNumber.setText(KeywordUtil.matcherActivity(2.0f,"当前" + energyInfo.getSumPower().getPower() + "个能量"));
+                energyNumber.setText(KeywordUtil.matcherActivity(2.0f, "当前" + energyInfo.getSumPower().getPower() + "个能量"));
+                if(!TextUtils.isEmpty(energyInfo.getSumPower().getDpower())&&!TextUtils.equals("0.00",energyInfo.getSumPower().getDpower())){
+                    frozenNumber.setText(KeywordUtil.matcherActivity(2.0f, "冻结" + energyInfo.getSumPower().getDpower() + "个能量"));
+                }
             }
             if (energyInfo.getUserlog() != null && energyInfo.getUserlog().getEnergyIncomeDetails() != null && energyInfo.getUserlog().getEnergyIncomeDetails().size() > 0) {
                 emptyView.setVisibility(View.GONE);
@@ -159,7 +165,7 @@ public class EnergyInfoActivity extends BaseActivity implements EnergyContract.E
             case R.id.energy_explain:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("能量明细");
-                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/power/powerInfo");
+                webViewDetailInfo.setUrl("https://open.365neng.com/api/home/power/powerInfo");
                 WebViewActivity.start(this, webViewDetailInfo);
                 break;
             default:

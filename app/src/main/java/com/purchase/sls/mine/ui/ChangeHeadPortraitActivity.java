@@ -51,6 +51,8 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     TextView title;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
+    @BindView(R.id.change_head_rl)
+    RelativeLayout changeHeadRl;
 
     private ActionSheet actionSheet;
     private String headPhone;
@@ -98,7 +100,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
 
     @Override
     public View getSnackBarHolderView() {
-        return null;
+        return changeHeadRl;
     }
 
     @OnClick({R.id.back, R.id.change_bt})

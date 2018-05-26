@@ -66,6 +66,7 @@
     <string name="add_note">添加备注（20字以内）</string>
     <string name="confirm_payment">确认支付</string>
     <string name="coupon">优惠券</string>
+    <string name="rdcode">我的推荐码</string>
     <string name="pay_result">支付结果</string>
     <string name="complete">完成</string>
 

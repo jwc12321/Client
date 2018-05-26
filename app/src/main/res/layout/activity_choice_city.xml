@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/choice_city_ll">
 
     <RelativeLayout
         android:id="@+id/title_rel"

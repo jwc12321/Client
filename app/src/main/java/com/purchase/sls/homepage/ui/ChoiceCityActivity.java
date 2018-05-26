@@ -1,7 +1,6 @@
 package com.purchase.sls.homepage.ui;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,6 +67,8 @@ public class ChoiceCityActivity extends BaseActivity {
     SideBar sidrbar;
     @BindView(R.id.location_again)
     TextView locationAgain;
+    @BindView(R.id.choice_city_ll)
+    LinearLayout choiceCityLl;
 
     private ChoiceCityLocationHelper mLocationHelper;
     private String city;
@@ -78,7 +80,7 @@ public class ChoiceCityActivity extends BaseActivity {
 
     @Override
     public View getSnackBarHolderView() {
-        return null;
+        return choiceCityLl;
     }
 
 
@@ -290,7 +292,7 @@ public class ChoiceCityActivity extends BaseActivity {
                 Log.d("1111", "城市" + city + "经纬度====" + longitude + "," + latitude);
                 currentCity.setText(city);
                 commonAppPreferences.setLocalAddress(city, longitude, latitude);
-                if(TextUtils.isEmpty(city)&&TextUtils.equals("0.0",longitude)&&TextUtils.equals("0.0",latitude)){
+                if (TextUtils.isEmpty(city) && TextUtils.equals("0.0", longitude) && TextUtils.equals("0.0", latitude)) {
                     currentCity.setText("定位失败，请重新定位");
                     Toast.makeText(getApplicationContext(), "查看定位权限有没有开", Toast.LENGTH_SHORT).show();
                 }

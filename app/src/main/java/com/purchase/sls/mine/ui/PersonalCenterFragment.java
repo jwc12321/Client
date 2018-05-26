@@ -3,7 +3,6 @@ package com.purchase.sls.mine.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,7 @@ import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.UMStaticData;
-import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PersionAppPreferences;
-import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -75,6 +72,8 @@ public class PersonalCenterFragment extends BaseFragment {
     FrameLayout itemAboutNeng;
     @BindView(R.id.item_persion_im)
     ImageView itemPersionIm;
+    @BindView(R.id.item_rdcode)
+    FrameLayout itemRdcode;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -83,6 +82,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private Gson gson;
     private WebViewDetailInfo webViewDetailInfo;
     private String phoneNumber;
+    private String qrCodeUrl;
 
     public PersonalCenterFragment() {
     }
@@ -109,7 +109,7 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHeight(settingIv,null,informationIv);
+        setHeight(settingIv, null, informationIv);
     }
 
     @Override
@@ -139,6 +139,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
                 persionName.setText(persionInfoResponse.getUsername());
                 phoneNumber = persionInfoResponse.getTel();
+                qrCodeUrl=persionInfoResponse.getQrcode();
             } else {
                 AccountLoginActivity.start(getActivity());
             }
@@ -146,7 +147,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode,R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -177,25 +178,28 @@ public class PersonalCenterFragment extends BaseFragment {
             case R.id.item_voucher://优惠券
                 CouponListActivity.start(getActivity());
                 break;
+            case R.id.item_rdcode:
+                RdCodeActivity.start(getActivity(),qrCodeUrl);
+                break;
             case R.id.item_browse_records://浏览记录
                 BrowseRecordsActivity.start(getActivity());
                 break;
             case R.id.item_customer_service_center:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("客服中心");
-                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/services");
+                webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/services");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_want_cooperate://我要合作
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("我要合作");
-                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/admission");
+                webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/admission");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_about_neng://关于我们
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("关于能购");
-                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/androidAbout");
+                webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/androidAbout");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             default:

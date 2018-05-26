@@ -155,24 +155,26 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
             choiceItem.setVisibility(TextUtils.equals("1", behavior) ? View.GONE : View.VISIBLE);
             choiceItem.setChecked(false);
             BrowseInfo.BrowseItemInfo.Store store = browseItemInfo.getStore();
-            GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.app_icon, shopIcon);
-            storeName.setText(store.getTitle());
-            popularityNumber.setText("月均人气" + store.getBuzz());
-            perCapita.setText("人均" + store.getAverage() + "元");
-            shopName.setText(store.getName());
-            shopCity.setText(city);
-            String addressXy = store.getAddressXy();
-            if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
-                shopDistance.setVisibility(View.GONE);
-            } else {
-                String[] addressXys = addressXy.split(",");
-                if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
-                    shopDistance.setVisibility(View.VISIBLE);
-                    shopDistance.setText(String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1]))) + "米");
-                } else {
+            if(store!=null) {
+                GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.app_icon, shopIcon);
+                storeName.setText(store.getTitle());
+                popularityNumber.setText("月均人气" + store.getBuzz());
+                perCapita.setText("人均" + store.getAverage() + "元");
+                shopName.setText(store.getName());
+                shopCity.setText(city);
+                String addressXy = store.getAddressXy();
+                if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     shopDistance.setVisibility(View.GONE);
+                } else {
+                    String[] addressXys = addressXy.split(",");
+                    if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
+                        shopDistance.setVisibility(View.VISIBLE);
+                        shopDistance.setText(String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1]))) + "米");
+                    } else {
+                        shopDistance.setVisibility(View.GONE);
+                    }
+                    shopDistance.setVisibility(View.VISIBLE);
                 }
-                shopDistance.setVisibility(View.VISIBLE);
             }
         }
     }

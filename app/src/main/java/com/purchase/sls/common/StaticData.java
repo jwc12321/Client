@@ -67,4 +67,6 @@ public class StaticData {
     public static final String HOMEURL="http://s.365neng.com/home";
     //用户的id
     public static final String APP_USER_ID="appUserId";
+    //用户的推荐码
+    public static final String RD_CODE="rdCode";
 }

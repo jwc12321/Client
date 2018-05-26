@@ -264,6 +264,9 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
             case R.id.gallery_choose:
                 chooseFromGallery();
                 break;
+            case R.id.cancel:
+                dismiss();
+                break;
             default:
                 dismiss();
         }

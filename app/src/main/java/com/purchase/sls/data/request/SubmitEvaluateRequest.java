@@ -21,6 +21,16 @@ public class SubmitEvaluateRequest {
     private String type;
     @SerializedName("orderid")
     private String orderid;
+    @SerializedName("orderno")
+    private String orderno;
+
+    public String getOrderno() {
+        return orderno;
+    }
+
+    public void setOrderno(String orderno) {
+        this.orderno = orderno;
+    }
 
     public String getStoreid() {
         return storeid;

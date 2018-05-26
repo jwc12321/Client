@@ -162,7 +162,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                 break;
             case R.id.complete:
                 SubmitEvaluateRequest submitEvaluateRequest=new SubmitEvaluateRequest();
-                submitEvaluateRequest.setOrderid(orderno);
+                submitEvaluateRequest.setOrderno(orderno);
                 submitEvaluateRequest.setStarts(evaluateStars);
                 submitEvaluateRequest.setStoreid(storeId);
                 orderDetailPresenter.submitEvaluate(submitEvaluateRequest);

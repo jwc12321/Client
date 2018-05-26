@@ -33,6 +33,14 @@
             android:layout_centerInParent="true"
             android:textColor="@color/appText1"
             android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/frozen_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/appText1"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/energy_number"/>
         <Button
             android:id="@+id/energy_explain"
             android:layout_width="@dimen/common_sixty_five_margin"

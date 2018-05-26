@@ -5,22 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.InputType;
 import android.text.TextUtils;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
-import com.purchase.sls.common.unit.AccountUtils;
-import com.purchase.sls.common.unit.CommonAppPreferences;
-import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.PermissionUtil;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
@@ -40,8 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import cn.jpush.android.api.JPushInterface;
-
-import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
 
 /**
  * Created by JWC on 2018/4/17.
@@ -69,6 +65,20 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     TextView immediateRegistration;
     @BindView(R.id.sms_login)
     ImageView smsLogin;
+    @BindView(R.id.title_rel)
+    RelativeLayout titleRel;
+    @BindView(R.id.icon)
+    ImageView icon;
+    @BindView(R.id.input_number_rel)
+    RelativeLayout inputNumberRel;
+    @BindView(R.id.input_password_rel)
+    RelativeLayout inputPasswordRel;
+    @BindView(R.id.login_type)
+    TextView loginType;
+    @BindView(R.id.other_rel)
+    RelativeLayout otherRel;
+    @BindView(R.id.login_cl)
+    ConstraintLayout loginCl;
 
     //登录按钮是否可点击
     private boolean loginEnable = false;
@@ -88,7 +98,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
 
     @Override
     public View getSnackBarHolderView() {
-        return null;
+        return loginCl;
     }
 
 
@@ -97,9 +107,9 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         context.startActivity(intent);
     }
 
-    public static void start(Context context,String goType){
+    public static void start(Context context, String goType) {
         Intent intent = new Intent(context, AccountLoginActivity.class);
-        intent.putExtra(StaticData.GO_TYPE,goType);
+        intent.putExtra(StaticData.GO_TYPE, goType);
         context.startActivity(intent);
     }
 
@@ -108,10 +118,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
         ButterKnife.bind(this);
-        persionAppPreferences=new PersionAppPreferences(this);
-        goType=getIntent().getStringExtra(StaticData.GO_TYPE);
-        if(TextUtils.equals("1",goType)){
-            RegisterFirstActivity.start(this, StaticData.REGISTER,"");
+        persionAppPreferences = new PersionAppPreferences(this);
+        goType = getIntent().getStringExtra(StaticData.GO_TYPE);
+        if (TextUtils.equals("1", goType)) {
+            RegisterFirstActivity.start(this, StaticData.REGISTER, "");
         }
     }
 
@@ -124,7 +134,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 .inject(this);
     }
 
-    @OnClick({R.id.clean_account_number, R.id.clean_password, R.id.hidden_password, R.id.login_in, R.id.sms_login, R.id.forget_password, R.id.immediate_registration,R.id.back})
+    @OnClick({R.id.clean_account_number, R.id.clean_password, R.id.hidden_password, R.id.login_in, R.id.sms_login, R.id.forget_password, R.id.immediate_registration, R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.clean_account_number:
@@ -140,14 +150,14 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
                 login();
                 break;
             case R.id.sms_login:
-                Intent intent=new Intent(this,SmsLoginActivity.class);
-                startActivityForResult(intent,CODE_SMS_LOGIN);
+                Intent intent = new Intent(this, SmsLoginActivity.class);
+                startActivityForResult(intent, CODE_SMS_LOGIN);
                 break;
             case R.id.forget_password:
-                RegisterFirstActivity.start(this, StaticData.CHANGEPWD,"");
+                RegisterFirstActivity.start(this, StaticData.CHANGEPWD, "");
                 break;
             case R.id.immediate_registration:
-                RegisterFirstActivity.start(this, StaticData.REGISTER,"");
+                RegisterFirstActivity.start(this, StaticData.REGISTER, "");
                 break;
             case R.id.back:
                 finish();
@@ -211,14 +221,14 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     @Override
     public void accountLoginSuccess(PersionInfoResponse persionInfoResponse) {
         TokenManager.saveToken(persionInfoResponse.getToken());
-        Gson gson=new Gson();
-        String persionInfoResponseStr=gson.toJson(persionInfoResponse);
+        Gson gson = new Gson();
+        String persionInfoResponseStr = gson.toJson(persionInfoResponse);
         persionAppPreferences.setPersionInfo(persionInfoResponseStr);
         persionAppPreferences.setShopMallId(persionInfoResponse.getId());
         JPushInterface.setAliasAndTags(getApplicationContext(),
                 persionInfoResponse.getTel(),
                 null,
-               null);
+                null);
         finish();
     }
 

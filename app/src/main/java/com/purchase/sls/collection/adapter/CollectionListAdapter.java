@@ -158,30 +158,32 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
             choiceItem.setVisibility(TextUtils.equals("1", behavior) ? View.GONE : View.VISIBLE);
             choiceItem.setChecked(false);
             CollectionStoreInfo collectionStoreInfo = collectionListInfo.getCollectionStoreInfo();
-            GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
-            storeName.setText(collectionStoreInfo.getTitle());
-            popularityNumber.setText("月均人气" + collectionStoreInfo.getBuzz());
-            perCapita.setText("人均" + collectionStoreInfo.getAverage() + "元");
-            shopName.setText(collectionStoreInfo.getName());
-            shopCity.setText(city);
-            String addressXy = collectionStoreInfo.getAddressXy();
-            if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
-                shopDistance.setVisibility(View.GONE);
-            } else {
-                String[] addressXys = addressXy.split(",");
-                if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
-                    shopDistance.setVisibility(View.VISIBLE);
-                    shopDistance.setText(String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])))+"米");
-                } else {
+            if(collectionStoreInfo!=null) {
+                GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
+                storeName.setText(collectionStoreInfo.getTitle());
+                popularityNumber.setText("月均人气" + collectionStoreInfo.getBuzz());
+                perCapita.setText("人均" + collectionStoreInfo.getAverage() + "元");
+                shopName.setText(collectionStoreInfo.getName());
+                shopCity.setText(city);
+                String addressXy = collectionStoreInfo.getAddressXy();
+                if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     shopDistance.setVisibility(View.GONE);
+                } else {
+                    String[] addressXys = addressXy.split(",");
+                    if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
+                        shopDistance.setVisibility(View.VISIBLE);
+                        shopDistance.setText(String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1]))) + "米");
+                    } else {
+                        shopDistance.setVisibility(View.GONE);
+                    }
+                    shopDistance.setVisibility(View.VISIBLE);
                 }
-                shopDistance.setVisibility(View.VISIBLE);
-            }
-            if (TextUtils.isEmpty(collectionStoreInfo.getRebate())||TextUtils.equals("0", collectionStoreInfo.getRebate())) {
-                returnLl.setVisibility(View.GONE);
-            }else {
-                returnEnergy.setText("每消费一单返消费金额的"+collectionStoreInfo.getRebate()+"%的能量");
-                returnLl.setVisibility(View.VISIBLE);
+                if (TextUtils.isEmpty(collectionStoreInfo.getRebate()) || TextUtils.equals("0", collectionStoreInfo.getRebate())) {
+                    returnLl.setVisibility(View.GONE);
+                } else {
+                    returnEnergy.setText("每消费一单返消费金额的" + collectionStoreInfo.getRebate() + "%的能量");
+                    returnLl.setVisibility(View.VISIBLE);
+                }
             }
         }
     }

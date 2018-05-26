@@ -128,7 +128,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
             case R.id.item_user_protocol:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("用户协议");
-                webViewDetailInfo.setUrl("http://open.365neng.com/api/home/index/Agreement");
+                webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/Agreement");
                 WebViewActivity.start(this, webViewDetailInfo);
                 break;
             case R.id.item_new_version_detection:
