@@ -155,7 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
     }
 
     public Snackbar makePrimaryColorSnackBar(@StringRes int resId, int duration) {
-        return makeColorSnackBar(resId, duration, Color.parseColor("#ff6528"));
+        return makeColorSnackBar(resId, duration, Color.parseColor("#3F51B5"));
     }
 
 
