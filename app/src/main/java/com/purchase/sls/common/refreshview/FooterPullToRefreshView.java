@@ -67,7 +67,8 @@ class FooterPullToRefreshView extends View {
         } else if (state == HeaderViewLayout.PTR_STATE_LOADING) {
             move = Math.min(move + MOVE_INCREASE, total);
             int dy = (int) (moveInterpolator.getInterpolation((float) move / (float) total) * total);
-            int topY = top - bmpLogo.getHeight() - dy;
+//            int topY = top - bmpLogo.getHeight() - dy;
+            int topY = top - bmpLogo.getHeight()-20;
             canvas.drawBitmap(bmpLogo, width / 2 - bmpLogo.getWidth() / 2, topY, null);
             if (refreshing) {
                 degree = (degree + DEGREE_INCREASE) % 360;

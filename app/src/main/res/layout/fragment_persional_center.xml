@@ -175,8 +175,8 @@
 
                 <TextView
                     style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/voucher"
-                    android:drawableStart="@mipmap/voucher"
+                    android:drawableLeft="@mipmap/my_records"
+                    android:drawableStart="@mipmap/my_records"
                     android:text="@string/rdcode" />
             </FrameLayout>
 
