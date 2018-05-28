@@ -150,6 +150,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     private String proportion; //能量兑换比例  如果是200，就是一个能量相当于2块钱
     private int digits = 2;
 
+    boolean moneyDouble=true;
+    boolean energyDouble=true;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -201,9 +204,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(moneyEt.getText().toString())) {
-                    limitedDecimal(moneyEt.getText().toString(),moneyEt);
-                    confirmPayBg.setEnabled(true);
+                if (TextUtils.isEmpty(moneyEt.getText().toString())) {
+                    confirmPayBg.setEnabled(false);
+                    moneyDouble=true;
                     if (mHandler != null) {
                         mHandler.removeCallbacksAndMessages(null);
                         mHandler.sendEmptyMessageDelayed(UPDATE_TOTAL_MONEY, 1000);
@@ -211,7 +214,28 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                         mHandler.sendEmptyMessageDelayed(UPDATE_TOTAL_MONEY, 1000);
                     }
                 } else {
-                    confirmPayBg.setEnabled(false);
+                    try {
+                        Double db = Double.valueOf(moneyEt.getText().toString());
+                        moneyDouble = true;
+                        System.out.println("OK");
+                    } catch (Exception e) {
+                        moneyDouble = false;
+                        System.out.println("failed");
+                    }
+                    if (moneyDouble) {
+                        if (!TextUtils.isEmpty(moneyEt.getText().toString())) {
+                            limitedDecimal(moneyEt.getText().toString(), moneyEt);
+                            confirmPayBg.setEnabled(true);
+                            if (mHandler != null) {
+                                mHandler.removeCallbacksAndMessages(null);
+                                mHandler.sendEmptyMessageDelayed(UPDATE_TOTAL_MONEY, 1000);
+                            } else {
+                                mHandler.sendEmptyMessageDelayed(UPDATE_TOTAL_MONEY, 1000);
+                            }
+                        } else {
+                            confirmPayBg.setEnabled(false);
+                        }
+                    }
                 }
             }
 
@@ -228,14 +252,34 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!TextUtils.isEmpty(addEnergyEt.getText().toString())&&!TextUtils.equals("0",addEnergyEt.getText().toString())
-                        &&!TextUtils.equals("0.0",addEnergyEt.getText().toString())&&!TextUtils.equals("0.0",addEnergyEt.getText().toString())) {
-                    limitedDecimal(addEnergyEt.getText().toString(),addEnergyEt);
+                if (TextUtils.isEmpty(addEnergyEt.getText().toString())) {
+                    energyDouble=true;
                     if (mHandler != null) {
                         mHandler.removeCallbacksAndMessages(null);
                         mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
                     } else {
                         mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
+                    }
+                } else {
+                    try {
+                        Double db = Double.valueOf(addEnergyEt.getText().toString());
+                        energyDouble = true;
+                        System.out.println("OK");
+                    } catch (Exception e) {
+                        energyDouble = false;
+                        System.out.println("failed");
+                    }
+                    if (energyDouble) {
+                        if (!TextUtils.isEmpty(addEnergyEt.getText().toString()) && !TextUtils.equals("0", addEnergyEt.getText().toString())
+                                && !TextUtils.equals("0.0", addEnergyEt.getText().toString()) && !TextUtils.equals("0.0", addEnergyEt.getText().toString())) {
+                            limitedDecimal(addEnergyEt.getText().toString(), addEnergyEt);
+                            if (mHandler != null) {
+                                mHandler.removeCallbacksAndMessages(null);
+                                mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
+                            } else {
+                                mHandler.sendEmptyMessageDelayed(UPDATE_ENERGY, 1000);
+                            }
+                        }
                     }
                 }
             }
@@ -287,10 +331,14 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
             if (activity != null) {
                 switch (msg.what) {
                     case UPDATE_TOTAL_MONEY:
-                        fillNumber();
+                        if(moneyDouble&&energyDouble) {
+                            fillNumber();
+                        }
                         break;
                     case UPDATE_ENERGY:
-                        fillNumber();
+                        if(moneyDouble&&energyDouble) {
+                            fillNumber();
+                        }
                         break;
                 }
             }
