@@ -217,10 +217,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                     try {
                         Double db = Double.valueOf(moneyEt.getText().toString());
                         moneyDouble = true;
-                        System.out.println("OK");
                     } catch (Exception e) {
                         moneyDouble = false;
-                        System.out.println("failed");
+                        Toast.makeText(PaymentOrderActivity.this, "请正确填写", Toast.LENGTH_SHORT).show();
                     }
                     if (moneyDouble) {
                         if (!TextUtils.isEmpty(moneyEt.getText().toString())) {
@@ -264,10 +263,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                     try {
                         Double db = Double.valueOf(addEnergyEt.getText().toString());
                         energyDouble = true;
-                        System.out.println("OK");
                     } catch (Exception e) {
                         energyDouble = false;
-                        System.out.println("failed");
+                        Toast.makeText(PaymentOrderActivity.this, "请正确填写", Toast.LENGTH_SHORT).show();
                     }
                     if (energyDouble) {
                         if (!TextUtils.isEmpty(addEnergyEt.getText().toString()) && !TextUtils.equals("0", addEnergyEt.getText().toString())
@@ -551,12 +549,16 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
                 fillNumber();
                 break;
             case R.id.confirm_pay_bg:
-                if (TextUtils.equals("1", payTypeWhat)) {
-                    paymentOrderPresenter.getAlipaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
-                } else if (TextUtils.equals("2", payTypeWhat)) {
-                    paymentOrderPresenter.getWXPaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
-                } else {
-                    paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                if(moneyDouble&&energyDouble) {
+                    if (TextUtils.equals("1", payTypeWhat)) {
+                        paymentOrderPresenter.getAlipaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                    } else if (TextUtils.equals("2", payTypeWhat)) {
+                        paymentOrderPresenter.getWXPaySign(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                    } else {
+                        paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                    }
+                }else {
+                    Toast.makeText(PaymentOrderActivity.this, "请正确填写", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
