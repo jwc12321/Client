@@ -7,22 +7,35 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.unit.APKVersionCodeUtils;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.DownloadService;
 import com.purchase.sls.common.widget.ViewPagerSlide;
+import com.purchase.sls.common.widget.dialog.CommonDialog;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.energy.ui.EnergyFragment;
 import com.purchase.sls.homepage.ui.HomePageFragment;
+import com.purchase.sls.mainframe.DaggerMainFrameComponent;
+import com.purchase.sls.mainframe.MainFrameContract;
+import com.purchase.sls.mainframe.MainFrameModule;
 import com.purchase.sls.mainframe.adapter.MainPagerAdapter;
+import com.purchase.sls.mainframe.presenter.MainFramePresenter;
 import com.purchase.sls.mine.ui.PersonalCenterFragment;
 import com.purchase.sls.nearbymap.ui.NearbyMapFragment;
 import com.purchase.sls.shoppingmall.ui.WebShoppingMallFragment;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +44,7 @@ import butterknife.ButterKnife;
  * Created by JWC on 2018/4/19.
  */
 
-public class MainFrameActivity extends BaseActivity {
+public class MainFrameActivity extends BaseActivity implements MainFrameContract.MainFrameView{
 
 
     @BindView(R.id.homepage_iv)
@@ -79,6 +92,9 @@ public class MainFrameActivity extends BaseActivity {
     private String goFirst;
     private CommonAppPreferences commonAppPreferences;
     private String mianGo;
+
+    @Inject
+    MainFramePresenter mainFramePresenter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MainFrameActivity.class);
@@ -129,6 +145,9 @@ public class MainFrameActivity extends BaseActivity {
         viewPager.setCurrentItem(0);
         imageViews[0].setSelected(true);
         textViews[0].setSelected(true);
+        if(!TextUtils.equals("1",commonAppPreferences.getToUpdate())) {
+            mainFramePresenter.detectionVersion(String.valueOf(APKVersionCodeUtils.getVerName(this)), "android");
+        }
     }
 
 
@@ -175,5 +194,67 @@ public class MainFrameActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void setPresenter(MainFrameContract.MainFramePresenter presenter) {
+
+    }
+
+    private CommonDialog dialogUpdate;
+    @Override
+    public void detectionSuccess(final ChangeAppInfo changeAppInfo) {
+        if(changeAppInfo!=null&&TextUtils.equals("1",changeAppInfo.getStatus())){
+            commonAppPreferences.setToUpdate("1");
+            if ( dialogUpdate == null )
+                dialogUpdate = new CommonDialog.Builder()
+                        .setTitle("版本更新")
+                        .setContent(changeAppInfo.getTitle())
+                        .setContentGravity(Gravity.CENTER)
+                        .setCancelButton("忽略", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogUpdate.dismiss();
+                            }
+                        })
+                        .setConfirmButton("更新", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showMessage("开始下载");
+                                updateApk(changeAppInfo.getUrl());
+                            }
+                        }).create();
+            dialogUpdate.show(getSupportFragmentManager(), "");
+        }
+    }
+    private MaterialDialog materialDialog;
+    private void updateApk(String downUrl) {
+        materialDialog = new MaterialDialog.Builder(MainFrameActivity.this)
+
+                .title("版本升级")
+                .content("正在下载安装包，请稍候")
+
+                .progress(false, 100, false)
+                .cancelable(false)
+                .negativeText("取消")
+
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        DownloadService.stopDownload();
+                    }
+                })
+                .show();
+        DownloadService.setMaterialDialog(materialDialog);
+        DownloadService.start(MainFrameActivity.this, downUrl, "6F7FBCECD46341DF08BE8B11A09E6925");
+    }
+
+    @Override
+    protected void initializeInjector() {
+        DaggerMainFrameComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .mainFrameModule(new MainFrameModule(this))
+                .build()
+                .inject(this);
     }
 }

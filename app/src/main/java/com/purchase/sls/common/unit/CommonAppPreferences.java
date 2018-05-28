@@ -51,4 +51,14 @@ public class CommonAppPreferences {
         return sharedPreferences.getString(StaticData.MAIN_GO,"");
     }
 
+    public void setToUpdate(String update){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(StaticData.TO_UPDATE,update);
+        editor.commit();
+    }
+
+    public String getToUpdate(){
+        return sharedPreferences.getString(StaticData.TO_UPDATE,"");
+    }
+
 }

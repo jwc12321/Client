@@ -69,4 +69,6 @@ public class StaticData {
     public static final String APP_USER_ID="appUserId";
     //用户的推荐码
     public static final String RD_CODE="rdCode";
+    //第一次提醒更新
+    public static final String TO_UPDATE="toUpdate";
 }

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -73,6 +75,10 @@ public class WebShoppingMallFragment extends BaseFragment {
     private void initView() {
         persionAppPreferences = new PersionAppPreferences(getActivity());
         WebSettings settings = webView.getSettings();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(
+                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
         settings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new JSBridgeWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
@@ -127,6 +133,15 @@ public class WebShoppingMallFragment extends BaseFragment {
                 super.onPageFinished(view, url);
                 dismissLoading();
             }
+
+            @Override
+            public void onReceivedSslError(WebView view,
+                                           SslErrorHandler handler, SslError error) {
+                // TODO Auto-generated method stub
+                // handler.cancel();// Android默认的处理方式
+                handler.proceed();// 接受所有网站的证书
+                // handleMessage(Message msg);// 进行其他处理
+            }
         });
 //        webView.loadUrl("http://s.365neng.com/home");
         bridge = new BridgeImpl(getActivity());
@@ -166,7 +181,7 @@ public class WebShoppingMallFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
-                if(webView!=null) {
+                if (webView != null) {
                     UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOPPING_MALL);
                     webView.loadUrl("https://s.365neng.com/home");
                 }

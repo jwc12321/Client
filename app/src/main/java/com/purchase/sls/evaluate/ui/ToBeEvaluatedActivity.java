@@ -73,9 +73,13 @@ public class ToBeEvaluatedActivity extends BaseActivity implements EvaluateContr
         toBeEvaluateAdapter = new ToBeEvaluateAdapter(this);
         toBeEvaluateAdapter.setOnItemClickListener(this);
         toBeEvaluationRv.setAdapter(toBeEvaluateAdapter);
-        toBeEvaluationPresenter.getToBeEvaluation("1");
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toBeEvaluationPresenter.getToBeEvaluation("1");
+    }
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
