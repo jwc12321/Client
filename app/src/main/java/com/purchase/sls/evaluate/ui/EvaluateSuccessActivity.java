@@ -41,6 +41,7 @@ public class EvaluateSuccessActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_success);
         ButterKnife.bind(this);
+        setHeight(back,title,complete);
     }
 
     @Override
