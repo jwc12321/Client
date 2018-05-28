@@ -71,6 +71,7 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_evaluation);
         ButterKnife.bind(this);
+        setHeight(back,title,null);
         initView();
     }
 

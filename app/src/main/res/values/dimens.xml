@@ -51,6 +51,7 @@
     <dimen name="common_sixty_one_margin">61dp</dimen>
     <dimen name="common_sixty_five_margin">65dp</dimen>
     <dimen name="common_sixty_six_margin">66dp</dimen>
+    <dimen name="common_sixty_nine_margin">69dp</dimen>
     <dimen name="common_seventy_margin">70dp</dimen>
     <dimen name="common_seventy_two_margin">72dp</dimen>
     <dimen name="common_eighty_two_margin">82dp</dimen>

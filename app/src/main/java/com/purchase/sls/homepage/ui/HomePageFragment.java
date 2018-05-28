@@ -157,6 +157,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         if(testOldVersion("com.nenggou.syn")){
             textDialog();
         }
+        refreshLayout.setCanLoadMore(false);
     }
 
     private void textDialog(){

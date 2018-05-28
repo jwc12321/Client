@@ -306,7 +306,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         }
         energyDecimal = new BigDecimal(TextUtils.isEmpty(addEnergyEt.getText().toString()) ? "0" : addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
         couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
-        totalStCdDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).divide(proportionDecimal,2,BigDecimal.ROUND_HALF_UP).multiply(percentageDecimal);
+        totalStCdDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).divide((proportionDecimal.divide(percentageDecimal,2,BigDecimal.ROUND_HALF_UP)),2,BigDecimal.ROUND_HALF_UP);
         if(totalStCdDecimal.doubleValue()>0) {
             if (energyDecimal.compareTo(maxEnergyDecial) > 0) {//输入能量大于最多的能量
                 toast("能量最多只能填写" + maxEnergyDecial.toString());

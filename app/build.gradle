@@ -9,8 +9,8 @@ android {
         applicationId "com.purchase.sls"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 58
-        versionName "5.5.2"
+        versionCode 59
+        versionName "5.5.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "long", "DEFAULT_CONNECTION_TIMEOUT_SEC", "30"
