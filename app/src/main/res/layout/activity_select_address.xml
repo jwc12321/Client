@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/select_address" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/search_address_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:layout_below="@id/title_rel"
+        android:textColor="@color/appText1">
+
+        <TextView
+            android:id="@+id/local_city"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/common_fifteen_margin"
+            android:paddingRight="@dimen/common_eleven_margin"
+            android:textColor="@color/appText5"
+            tools:text="杭州" />
+
+        <LinearLayout
+            android:id="@+id/search_ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toRightOf="@id/local_city"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/common_seven_margin"
+            android:paddingRight="@dimen/common_fifteen_margin"
+            android:paddingTop="@dimen/common_seven_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_edittext_bg">
+
+                <EditText
+                    android:id="@+id/address_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_text_left"
+                    android:layout_marginStart="@dimen/common_text_left"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:drawableLeft="@mipmap/search"
+                    android:drawablePadding="7dp"
+                    android:drawableStart="@mipmap/search"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:hint="@string/search_address"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/appText8"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/map_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_two_hundred_margin"
+        android:layout_below="@id/search_address_rl">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_two_hundred_margin" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/marker_icon"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/address_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/map_rl"
+        app:layoutManager="@string/layoutManager_LinearLayout" />
+</RelativeLayout>

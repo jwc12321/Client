@@ -16,6 +16,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.account.ui.AccountListActivity;
+import com.purchase.sls.address.ui.AddAddressActivity;
+import com.purchase.sls.address.ui.SelectAddressActivity;
 import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
@@ -74,6 +76,8 @@ public class PersonalCenterFragment extends BaseFragment {
     ImageView itemPersionIm;
     @BindView(R.id.item_rdcode)
     FrameLayout itemRdcode;
+    @BindView(R.id.item_address)
+    FrameLayout itemAddress;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -139,7 +143,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
                 persionName.setText(persionInfoResponse.getUsername());
                 phoneNumber = persionInfoResponse.getTel();
-                qrCodeUrl=persionInfoResponse.getQrcode();
+                qrCodeUrl = persionInfoResponse.getQrcode();
             } else {
                 AccountLoginActivity.start(getActivity());
             }
@@ -147,7 +151,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode,R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode, R.id.item_address,R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -178,8 +182,11 @@ public class PersonalCenterFragment extends BaseFragment {
             case R.id.item_voucher://优惠券
                 CouponListActivity.start(getActivity());
                 break;
-            case R.id.item_rdcode:
-                RdCodeActivity.start(getActivity(),qrCodeUrl);
+            case R.id.item_address:
+                AddAddressActivity.start(getActivity(),"1");
+                break;
+            case R.id.item_rdcode://我的推荐码
+                RdCodeActivity.start(getActivity(), qrCodeUrl);
                 break;
             case R.id.item_browse_records://浏览记录
                 BrowseRecordsActivity.start(getActivity());

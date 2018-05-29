@@ -99,7 +99,9 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
                 loginPhoneNumberEt.setText("");
                 break;
             case R.id.send_auth_code:
-                sendCode();
+                if(!TextUtils.isEmpty(phoneNumberStr)) {
+                    sendCode();
+                }
                 break;
             case R.id.clean_verificationcode:
                 break;

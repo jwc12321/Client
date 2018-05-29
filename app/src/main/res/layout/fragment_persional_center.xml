@@ -169,6 +169,17 @@
                     android:text="@string/coupon" />
             </FrameLayout>
             <FrameLayout
+                android:id="@+id/item_address"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_records"
+                    android:drawableStart="@mipmap/my_records"
+                    android:text="@string/item_address" />
+            </FrameLayout>
+            <FrameLayout
                 android:id="@+id/item_rdcode"
                 style="@style/persion_item_fl_style"
                 android:layout_marginTop="1dp">

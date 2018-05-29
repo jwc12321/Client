@@ -71,4 +71,8 @@ public class StaticData {
     public static final String RD_CODE="rdCode";
     //第一次提醒更新
     public static final String TO_UPDATE="toUpdate";
+    //地址的type
+    public static final String ADD_EDIT_TYPE="addEditType";
+    //是否要回调地址
+    public static final String BACK_ADDRESS="backAddress";
 }

@@ -189,7 +189,9 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
                 finish();
                 break;
             case R.id.send_auth_code:
-                sendCode();
+                if(!TextUtils.isEmpty(phoneNumberStr)) {
+                    sendCode();
+                }
                 break;
             case R.id.next:
                 loginPresenter.checkCode(phoneNumberStr, phoneCodeStr, type);

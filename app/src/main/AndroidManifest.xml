@@ -255,6 +255,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".mine.ui.RdCodeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".address.ui.SelectAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".address.ui.AddAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".address.ui.AddressListActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

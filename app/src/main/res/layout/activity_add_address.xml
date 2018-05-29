@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            tools:text="@string/add_address" />
+
+        <TextView
+            android:id="@+id/complete"
+            style="@style/title_text_right_style"
+            android:text="@string/complete" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/add_address_left_tv"
+            android:text="@string/consignee" />
+
+        <EditText
+            android:id="@+id/consignee_et"
+            style="@style/add_address_right_tv"
+            android:hint="请填写收货人" />
+    </LinearLayout>
+
+    <View
+        style="@style/fengexian_style"
+        android:layout_marginLeft="@dimen/common_ten_margin"
+        android:layout_marginRight="@dimen/common_ten_margin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/add_address_left_tv"
+            android:text="@string/phone_number" />
+
+        <EditText
+            android:id="@+id/phone_number_et"
+            style="@style/add_address_right_tv"
+            android:inputType="phone"
+            android:hint="请填写手机号码" />
+    </LinearLayout>
+
+    <View
+        style="@style/fengexian_style"
+        android:layout_marginLeft="@dimen/common_ten_margin"
+        android:layout_marginRight="@dimen/common_ten_margin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/add_address_left_tv"
+            android:text="@string/region" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/region"
+                style="@style/add_address_right_tv"
+                android:hint="请选择地区" />
+
+            <ImageView style="@style/go_arrow" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/fengexian_style"
+        android:layout_marginLeft="@dimen/common_ten_margin"
+        android:layout_marginRight="@dimen/common_ten_margin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/add_address_left_tv"
+            android:text="@string/detailed_address" />
+
+        <EditText
+            android:id="@+id/detailed_address_et"
+            style="@style/add_address_right_tv"
+            android:hint="请填写详细地址" />
+    </LinearLayout>
+
+    <View
+        style="@style/fengexian_style"
+        android:layout_marginLeft="@dimen/common_ten_margin"
+        android:layout_marginRight="@dimen/common_ten_margin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_twenty_margin"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/common_fifteen_margin"
+        android:layout_marginLeft="@dimen/common_sixteen_margin">
+
+        <CheckBox
+            android:id="@+id/agreement_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/checkbox"
+            android:padding="5dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否设为默认"
+            android:textColor="@color/appText2"
+            android:textSize="13sp"/>
+    </LinearLayout>
+</LinearLayout>

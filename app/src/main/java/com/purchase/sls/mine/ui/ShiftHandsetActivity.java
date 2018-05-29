@@ -183,7 +183,9 @@ public class ShiftHandsetActivity extends BaseActivity implements PersonalCenter
                 okButton();
                 break;
             case R.id.send_auth_code:
-                sendCode();
+                if(!TextUtils.isEmpty(photoNumberEt.getText().toString())) {
+                    sendCode();
+                }
                 break;
             default:
         }
