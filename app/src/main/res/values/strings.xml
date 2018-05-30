@@ -119,5 +119,7 @@
     <string name="phone_number">手机号码</string>
     <string name="region">地区</string>
     <string name="detailed_address">详细地址</string>
+    <string name="delete">删除</string>
+    <string name="edit">编辑</string>
 
 </resources>
