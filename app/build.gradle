@@ -159,7 +159,8 @@ dependencies {
     compile "com.android.support:multidex:$rootProject.ext.multidexVersion"
     implementation files('libs/classes.jar')
     implementation files('libs/alipaySdk.jar')
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    //    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
     //极光推送
     compile 'cn.jiguang.sdk:jpush:3.0.0'
@@ -168,7 +169,7 @@ dependencies {
     //检测更新
     compile 'com.afollestad.material-dialogs:core:0.9.1.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
-
-
-
+    implementation files('libs/open_sdk_r5990_lite.jar')
+    implementation files('libs/umeng-share-wechat-full-6.9.2.jar')
+    implementation files('libs/umeng-common-1.5.3.jar')
 }

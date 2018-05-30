@@ -92,17 +92,19 @@ public class WebShoppingMallFragment extends BaseFragment {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 String url = request.getUrl().toString();
-                if (!TextUtils.equals(StaticData.HOMEURL, url)) {
-                    if (TextUtils.isEmpty(persionAppPreferences.getShopMallId())) {
-                        AccountLoginActivity.start(getActivity());
-                        return true;
-                    } else {
-                        if (url.contains("?")) {
-                            webView.loadUrl(url + "&appuserid=" + persionAppPreferences.getShopMallId());
+                if (url.contains("s.365neng.com")) {
+                    if (!TextUtils.equals(StaticData.HOMEURL, url)) {
+                        if (TextUtils.isEmpty(persionAppPreferences.getShopMallId())) {
+                            AccountLoginActivity.start(getActivity());
                             return true;
                         } else {
-                            webView.loadUrl(url + "?appuserid=" + persionAppPreferences.getShopMallId());
-                            return true;
+                            if (url.contains("?")) {
+                                webView.loadUrl(url + "&appuserid=" + persionAppPreferences.getShopMallId());
+                                return true;
+                            } else {
+                                webView.loadUrl(url + "?appuserid=" + persionAppPreferences.getShopMallId());
+                                return true;
+                            }
                         }
                     }
                 }
@@ -111,17 +113,19 @@ public class WebShoppingMallFragment extends BaseFragment {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (!TextUtils.equals(StaticData.HOMEURL, url)) {
-                    if (TextUtils.isEmpty(persionAppPreferences.getShopMallId())) {
-                        AccountLoginActivity.start(getActivity());
-                        return true;
-                    } else {
-                        if (url.contains("?")) {
-                            webView.loadUrl(url + "&appuserid=" + persionAppPreferences.getShopMallId());
+                if (url.contains("s.365neng.com")) {
+                    if (!TextUtils.equals(StaticData.HOMEURL, url)) {
+                        if (TextUtils.isEmpty(persionAppPreferences.getShopMallId())) {
+                            AccountLoginActivity.start(getActivity());
                             return true;
                         } else {
-                            webView.loadUrl(url + "?appuserid=" + persionAppPreferences.getShopMallId());
-                            return true;
+                            if (url.contains("?")) {
+                                webView.loadUrl(url + "&appuserid=" + persionAppPreferences.getShopMallId());
+                                return true;
+                            } else {
+                                webView.loadUrl(url + "?appuserid=" + persionAppPreferences.getShopMallId());
+                                return true;
+                            }
                         }
                     }
                 }

@@ -35,6 +35,7 @@
     <dimen name="common_twenty_four_margin">24dp</dimen>
     <dimen name="common_twenty_five_margin">25dp</dimen>
     <dimen name="common_twenty_six_margin">26dp</dimen>
+    <dimen name="common_twenty_seven_margin">27dp</dimen>
     <dimen name="common_twenty_eight_margin">28dp</dimen>
     <dimen name="common_thirty_margin">30dp</dimen>
     <dimen name="common_thirty_three_margin">33dp</dimen>
@@ -67,6 +68,7 @@
     <dimen name="common_one_hundred_and_ten_margin">110dp</dimen>
     <dimen name="common_one_hundred_and_twenty_five_margin">125dp</dimen>
     <dimen name="common_two_hundred_margin">200dp</dimen>
+    <dimen name="common_two_hundred_and_fifty_margin">250dp</dimen>
     <dimen name="common_three_hundred_margin">300dp</dimen>
 
     <!--刷新控件参数-->

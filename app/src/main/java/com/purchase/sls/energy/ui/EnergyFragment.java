@@ -1,5 +1,7 @@
 package com.purchase.sls.energy.ui;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -14,16 +16,15 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.widget.dialog.ShareDialog;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
-import com.purchase.sls.coupon.ui.AvailableCouponFragment;
-import com.purchase.sls.coupon.ui.InvalidCouponFragment;
-import com.purchase.sls.splash.SplashActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JWC on 2018/4/19.
@@ -41,11 +42,19 @@ public class EnergyFragment extends BaseFragment {
     TabLayout indicator;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
+    @BindView(R.id.sign_in)
+    ImageView signIn;
+    @BindView(R.id.sign_rl)
+    RelativeLayout signRl;
+    @BindView(R.id.red_iv)
+    ImageView redIv;
     private boolean isFirstLoad = true;
 
     private List<Fragment> fragmentList;
     private List<String> titleList;
     private BaseListAdapter baseListAdapter;
+
+    private AnimationDrawable anim;
 
     public EnergyFragment() {
     }
@@ -71,7 +80,7 @@ public class EnergyFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHeight(null,title,share);
+        setHeight(null, title, share);
         initView();
     }
 
@@ -105,9 +114,8 @@ public class EnergyFragment extends BaseFragment {
         viewpager.setCurrentItem(0);
         indicator.removeAllTabs();
         indicator.setupWithViewPager(viewpager);
+        initSign();
     }
-
-
 
 
     @Override
@@ -119,4 +127,34 @@ public class EnergyFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
+
+    private void share() {
+        ShareDialog shareDialog = new ShareDialog(getActivity());
+        shareDialog.setUrl("http://d.365neng.com/share/download.html");
+        shareDialog.show();
+    }
+
+    @OnClick({R.id.share, R.id.sign_in,R.id.red_iv})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.share:
+                share();
+                break;
+            case R.id.sign_in:
+                redIv.setVisibility(View.VISIBLE);
+                break;
+            case R.id.red_iv:
+                anim.setOneShot(true);
+                anim.start();
+                break;
+            default:
+        }
+    }
+
+    private void initSign() {
+        redIv.setBackgroundResource(R.drawable.red_envelope);
+        anim = (AnimationDrawable) redIv.getBackground();
+    }
+
 }
