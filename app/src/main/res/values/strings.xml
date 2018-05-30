@@ -121,5 +121,7 @@
     <string name="detailed_address">详细地址</string>
     <string name="delete">删除</string>
     <string name="edit">编辑</string>
+    <!--能量-->
+    <string name="energy_center">能量中心</string>
 
 </resources>

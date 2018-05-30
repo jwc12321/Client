@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/title"
             style="@style/title_text_style"
-            android:text="@string/setting" />
+            android:text="@string/energy_center" />
 
         <ImageView
             android:id="@+id/share"
