@@ -118,11 +118,11 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
     }
 
     private void sendCode() {
-        if (!isAccountValid(phoneNumberStr)) {
-            showError(getString(R.string.invalid_account_input));
-            return;
-        } else if (TextUtils.isEmpty(phoneNumberStr)) {
+        if (TextUtils.isEmpty(phoneNumberStr)) {
             showMessage(getString(R.string.empty_account));
+            return;
+        } else if (!isAccountValid(phoneNumberStr)) {
+            showError(getString(R.string.invalid_account_input));
             return;
         }
         loginPresenter.sendCode(phoneNumberStr, "login");

@@ -17,6 +17,7 @@ import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.account.ui.AccountListActivity;
 import com.purchase.sls.address.ui.AddAddressActivity;
+import com.purchase.sls.address.ui.AddressListActivity;
 import com.purchase.sls.address.ui.SelectAddressActivity;
 import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
@@ -183,7 +184,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 CouponListActivity.start(getActivity());
                 break;
             case R.id.item_address:
-                AddAddressActivity.start(getActivity(),"1");
+                AddressListActivity.start(getActivity(),"0");
                 break;
             case R.id.item_rdcode://我的推荐码
                 RdCodeActivity.start(getActivity(), qrCodeUrl);

@@ -18,7 +18,7 @@
             android:text="@string/item_address" />
 
         <TextView
-            android:id="@+id/add"
+            android:id="@+id/add_address"
             style="@style/title_text_right_style"
             android:text="添加" />
     </RelativeLayout>

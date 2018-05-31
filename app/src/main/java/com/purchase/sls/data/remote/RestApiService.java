@@ -4,6 +4,7 @@ package com.purchase.sls.data.remote;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
+import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
@@ -28,6 +29,7 @@ import com.purchase.sls.data.entity.UserpowerInfo;
 import com.purchase.sls.data.entity.WXPaySignResponse;
 import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
+import com.purchase.sls.data.request.AddAddressRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
 import com.purchase.sls.data.request.ChangepwdRequest;
@@ -39,6 +41,7 @@ import com.purchase.sls.data.request.CouponListRequest;
 import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
+import com.purchase.sls.data.request.IdRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
@@ -56,6 +59,7 @@ import com.purchase.sls.data.request.SendNewVCodeRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.data.request.StoreIdPageRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
+import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
 
 import java.util.List;
@@ -222,5 +226,18 @@ public interface RestApiService {
     //消息中心
     @POST("home/user/Message")
     Flowable<RemoteDataWrapper<MessageListInfo>> getMessageListInfo(@Body MessageListRequest messageListRequest);
+
+    //地址列表
+    @POST("home/address/addresslist")
+    Flowable<RemoteDataWrapper<List<AddressInfo>>> getAddressList(@Body TokenRequest tokenRequest);
+    //设为默认
+    @POST("home/address/setDefault")
+    Flowable<RemoteDataWrapper<Ignore>> setDefault(@Body IdRequest idRequest);
+    //删除地址
+    @POST("home/address/delete")
+    Flowable<RemoteDataWrapper<Ignore>> deleteAddress(@Body IdRequest idRequest);
+    //修改添加地址
+    @POST("home/address/post")
+    Flowable<RemoteDataWrapper<String>> addAddress(@Body AddAddressRequest addAddressRequest);
 
 }

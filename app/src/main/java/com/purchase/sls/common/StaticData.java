@@ -75,4 +75,6 @@ public class StaticData {
     public static final String ADD_EDIT_TYPE="addEditType";
     //是否要回调地址
     public static final String BACK_ADDRESS="backAddress";
+    //地址信息
+    public static final String ADDRESSINFO="addressInfo";
 }

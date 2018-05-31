@@ -1,14 +1,21 @@
 package com.purchase.sls.address.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.purchase.sls.R;
+import com.purchase.sls.data.entity.AddressInfo;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.AddressListView> {
     private LayoutInflater layoutInflater;
+    private List<AddressInfo> addressInfos;
 
     @Override
     public AddressListView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,17 +39,53 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
     @Override
     public void onBindViewHolder(AddressListView holder, int position) {
+        final AddressInfo addressInfo = addressInfos.get(holder.getAdapterPosition());
+        holder.bindData(addressInfo);
+        holder.checkDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEventClickListener != null) {
+                    onEventClickListener.checkDfAdderss(addressInfo.getId());
+                }
+            }
+        });
+        holder.deleteAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEventClickListener != null) {
+                    onEventClickListener.deleteAddress(addressInfo.getId());
+                }
+            }
+        });
+        holder.editAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEventClickListener != null) {
+                    onEventClickListener.editAddress(addressInfo);
+                }
+            }
+        });
+    }
 
+    public void setData(List<AddressInfo> addressInfos) {
+        this.addressInfos = addressInfos;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return addressInfos == null ? 0 : addressInfos.size();
     }
 
     public class AddressListView extends RecyclerView.ViewHolder {
-        @BindView(R.id.agreement_check)
-        CheckBox agreementCheck;
+        @BindView(R.id.name)
+        TextView name;
+        @BindView(R.id.tel)
+        TextView tel;
+        @BindView(R.id.address)
+        TextView address;
+        @BindView(R.id.check_default)
+        ImageView checkDefault;
         @BindView(R.id.delete_address)
         Button deleteAddress;
         @BindView(R.id.edit_address)
@@ -54,18 +98,26 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData() {
+        public void bindData(AddressInfo addressInfo) {
+            name.setText(addressInfo.getUsername());
+            tel.setText(addressInfo.getTel());
+            address.setText(addressInfo.getProvince() + addressInfo.getCity() + addressInfo.getCountry() + addressInfo.getAddress());
+            if (TextUtils.equals("1", addressInfo.getType())) {
+                checkDefault.setSelected(true);
+            } else {
+                checkDefault.setSelected(false);
+            }
         }
     }
 
     public interface OnEventClickListener {
-        void checkDfAdderss();//设置为默认地址
+        void checkDfAdderss(String id);//设置为默认地址
 
-        void deleteAddress();//删除地址
+        void deleteAddress(String id);//删除地址
 
-        void editAddress();//编辑地址
+        void editAddress(AddressInfo addressInfo);//编辑地址
 
-        void backAddress();//返回地址
+        void backAddress(AddressInfo addressInfo);//返回地址
     }
 
     private OnEventClickListener onEventClickListener;

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/appText1">
 
     <RelativeLayout
         android:id="@+id/title_rel"
@@ -124,10 +125,10 @@
         android:layout_marginLeft="@dimen/common_sixteen_margin">
 
         <CheckBox
-            android:id="@+id/agreement_check"
+            android:id="@+id/check_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/checkbox"
+            android:button="@drawable/checkbox_address"
             android:padding="5dp" />
         <TextView
             android:layout_width="wrap_content"
