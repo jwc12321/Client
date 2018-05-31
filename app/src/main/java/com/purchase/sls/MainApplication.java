@@ -1,24 +1,21 @@
 package com.purchase.sls;
 
-import android.app.Application;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.StrictMode;
-import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
-
 import com.meituan.android.walle.WalleChannelReader;
-import com.purchase.sls.ApplicationComponent;
-import com.purchase.sls.ApplicationModule;
-import com.purchase.sls.DaggerApplicationComponent;
 import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.unit.NetUtils;
 import com.purchase.sls.common.unit.SPManager;
 import com.purchase.sls.data.local.GreenDaoModule;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.PlatformConfig;
 
 import cn.jpush.android.api.JPushInterface;
+
+import static com.purchase.sls.BuildConfig.QQ_ZONE_APP_ID;
+import static com.purchase.sls.BuildConfig.QQ_ZONE_APP_KEY;
+import static com.purchase.sls.BuildConfig.WECHAT_APP_ID;
+import static com.purchase.sls.BuildConfig.WECHAT_APP_SECRET;
 
 /**
  * Created by Administrator on 2017/12/15.
@@ -38,6 +35,10 @@ public class MainApplication  extends MultiDexApplication {
         //友盟统计
         String channelId = WalleChannelReader.getChannel(this.getApplicationContext());
         MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));
+
+        PlatformConfig.setWeixin(WECHAT_APP_ID,WECHAT_APP_SECRET);
+        //QQ和QQ空间
+        PlatformConfig.setQQZone(QQ_ZONE_APP_ID,QQ_ZONE_APP_KEY);
         /**
          * 预先加载一级列表所有城市的数据
          */

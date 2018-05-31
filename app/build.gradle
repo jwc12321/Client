@@ -34,6 +34,11 @@ android {
                 PACKAGE_NAME : applicationId,
 
         ]
+
+        buildConfigField "String", "WECHAT_APP_ID", "\"wxfadbb165f04ab402\""
+        buildConfigField "String", "WECHAT_APP_SECRET", "\"2693febaf33e2723f77c4681c86417d4\""
+        buildConfigField "String", "QQ_ZONE_APP_ID", "\"1106855095\""
+        buildConfigField "String", "QQ_ZONE_APP_KEY", "\"b1b0iDB6r6pCSGZy\""
     }
 
     signingConfigs {
