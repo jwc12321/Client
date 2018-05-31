@@ -16,6 +16,7 @@ import static com.purchase.sls.BuildConfig.QQ_ZONE_APP_ID;
 import static com.purchase.sls.BuildConfig.QQ_ZONE_APP_KEY;
 import static com.purchase.sls.BuildConfig.WECHAT_APP_ID;
 import static com.purchase.sls.BuildConfig.WECHAT_APP_SECRET;
+import com.umeng.commonsdk.UMConfigure;
 
 /**
  * Created by Administrator on 2017/12/15.
@@ -33,12 +34,11 @@ public class MainApplication  extends MultiDexApplication {
         StrictMode.setVmPolicy(builder.build());
 
         //友盟统计
+        UMConfigure.setLogEnabled(true);
+//        UMShareAPI.get(this);//初始化sdk
         String channelId = WalleChannelReader.getChannel(this.getApplicationContext());
-        MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));
-
-        PlatformConfig.setWeixin(WECHAT_APP_ID,WECHAT_APP_SECRET);
-        //QQ和QQ空间
-        PlatformConfig.setQQZone(QQ_ZONE_APP_ID,QQ_ZONE_APP_KEY);
+//        MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));
+        UMConfigure.init(this, "5ab7102aa40fa357cb000ba3", channelId, UMConfigure.DEVICE_TYPE_PHONE, "");
         /**
          * 预先加载一级列表所有城市的数据
          */
@@ -46,6 +46,12 @@ public class MainApplication  extends MultiDexApplication {
         SPManager.getInstance().register(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+    }
+
+    {
+        PlatformConfig.setWeixin(WECHAT_APP_ID,WECHAT_APP_SECRET);
+        //QQ和QQ空间
+        PlatformConfig.setQQZone(QQ_ZONE_APP_ID,QQ_ZONE_APP_KEY);
     }
     private void initDaggerComponent() {
         mApplicationComponent = DaggerApplicationComponent.builder()

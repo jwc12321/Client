@@ -85,7 +85,9 @@ public class WebShoppingMallFragment extends BaseFragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                showLoading();
+                if (url.contains("s.365neng.com")) {
+                    showLoading();
+                }
             }
 
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)

@@ -305,7 +305,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
                 latitude = amapLocation.getLatitude() + "";
                 longitude = amapLocation.getLongitude() + "";
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);

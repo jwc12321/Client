@@ -66,6 +66,7 @@ public class ShareDialog extends BottomSheetDialog {
                 if (DEBUG)
                     Log.d(TAG, "url: "+url);
                 UMWeb web = new UMWeb(url);//连接地址
+                web.setTitle("能购");
                 shareAction.withMedia(web);
 
             }
@@ -92,7 +93,7 @@ public class ShareDialog extends BottomSheetDialog {
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getContext(), " 分享失败啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onError: ");
         }
 

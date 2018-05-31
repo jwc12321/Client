@@ -34,6 +34,7 @@ import com.purchase.sls.mainframe.presenter.MainFramePresenter;
 import com.purchase.sls.mine.ui.PersonalCenterFragment;
 import com.purchase.sls.nearbymap.ui.NearbyMapFragment;
 import com.purchase.sls.shoppingmall.ui.WebShoppingMallFragment;
+import com.umeng.socialize.UMShareAPI;
 
 import javax.inject.Inject;
 
@@ -256,5 +257,11 @@ public class MainFrameActivity extends BaseActivity implements MainFrameContract
                 .mainFrameModule(new MainFrameModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
     }
 }

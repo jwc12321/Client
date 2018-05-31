@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.account.ui.AccountListActivity;
 import com.purchase.sls.address.AddressContract;
 import com.purchase.sls.address.AddressModule;
 import com.purchase.sls.address.DaggerAddressComponent;
