@@ -23,6 +23,8 @@
     <color name="appText12">#5F5F5F</color>
     <color name="appText13">#888888</color>
     <color name="appText14">#0c92c0</color>
+    <color name="appText15">#191919</color>
+    <color name="appText16">#444444</color>
 
     <color name="backGround1">#f4f4f4</color>
     <color name="backGround2">#dadada</color>

@@ -60,6 +60,7 @@ import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.data.request.StoreIdPageRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.data.request.TokenRequest;
+import com.purchase.sls.data.request.UploadXyRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
 
 import java.util.List;
@@ -239,5 +240,8 @@ public interface RestApiService {
     //修改添加地址
     @POST("home/address/post")
     Flowable<RemoteDataWrapper<String>> addAddress(@Body AddAddressRequest addAddressRequest);
+    //上传坐标
+    @POST("home/user/userRoute")
+    Flowable<RemoteDataWrapper<Ignore>> uploadXy(@Body UploadXyRequest uploadXyRequest);
 
 }

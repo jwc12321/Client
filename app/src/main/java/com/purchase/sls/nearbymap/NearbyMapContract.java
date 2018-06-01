@@ -15,9 +15,11 @@ public interface NearbyMapContract {
     interface NearbyPresenter extends BasePresenter{
         void getNearbyInfo(String address);
         void getMapMarkerInfo(String cid, String addressXy);
+        void uploadXy(String addressX,String addressY);
     }
     interface NearbyView extends BaseView<NearbyPresenter>{
         void nearbyInfo(List<NearbyInfoResponse> nearbyInfoResponses);
         void renderapMarkers(List<MapMarkerInfo> mapMarkerInfos);
+        void uploadXySuccess();
     }
 }

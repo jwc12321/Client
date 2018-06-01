@@ -48,6 +48,7 @@ import com.purchase.sls.homepage.HomePageModule;
 import com.purchase.sls.homepage.adapter.HotServiceAdapter;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.homepage.presenter.HomePagePresenter;
+import com.purchase.sls.mainframe.ui.MainFrameActivity;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import java.util.ArrayList;
@@ -143,7 +144,6 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         initView();
 
     }
-
     private void initView() {
         commonAppPreferences = new CommonAppPreferences(getActivity());
         scrollview.setScrollViewListener(this);
@@ -266,7 +266,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     //设置上下轮播图
     private void scrollerUpDown() {
         //API:1、设置数据适配器
-        myLimitScrollAdapter = new MyLimitScrollAdapter();
+        myLimitScrollAdapter = new MyLimitScrollAdapter(getActivity());
         limitScroll.setDataAdapter(myLimitScrollAdapter);
         //API：4、设置条目点击事件
        limitScroll.setOnItemClickListener(new LimitScrollerView.OnItemClickListener() {
@@ -481,7 +481,12 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     //TODO 修改适配器绑定数据
     class MyLimitScrollAdapter implements LimitScrollerView.LimitScrollAdapter {
 
+        private Context context;
         private List<BannerHotResponse.ArticleInfo.Datainfo> datas;
+
+        public MyLimitScrollAdapter(Context context) {
+            this.context=context;
+        }
 
         public void setDatas(List<BannerHotResponse.ArticleInfo.Datainfo> datas) {
             this.datas = datas;
@@ -496,7 +501,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
         @Override
         public View getView(int index) {
-            View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.limit_scroller_item, null, false);
+            View itemView = LayoutInflater.from(context).inflate(R.layout.limit_scroller_item, null, false);
             ImageView iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
             TextView tv_text = (TextView) itemView.findViewById(R.id.tv_text);
 

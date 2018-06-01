@@ -1,6 +1,7 @@
 package com.purchase.sls.mainframe.ui;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -263,5 +264,11 @@ public class MainFrameActivity extends BaseActivity implements MainFrameContract
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//         super.onSaveInstanceState(outState);
     }
 }

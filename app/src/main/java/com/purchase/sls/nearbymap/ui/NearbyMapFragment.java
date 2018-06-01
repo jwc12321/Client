@@ -38,6 +38,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.unit.ViewUtil;
 import com.purchase.sls.data.entity.MapMarkerInfo;
@@ -133,7 +134,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         super.setUserVisibleHint(isVisibleToUser);
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
-                if(isFirstLoad&&mlocationClient!=null) {
+                if (isFirstLoad && mlocationClient != null) {
                     mlocationClient.startLocation();
                 }
                 isFirstLoad = false;
@@ -234,8 +235,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         itemLastPosition = 0;
         if (nearbyInfoResponses != null && nearbyInfoResponses.size() > 0) {
             nearbyLl.setVisibility(View.VISIBLE);
-            nearbyMunuAdapter.setMunuList(nearbyInfoResponses,munuLastPosition);
-            nearbyItemAdapter.setItemList(nearbyInfoResponses.get(0).getCateInfos(),itemLastPosition);
+            nearbyMunuAdapter.setMunuList(nearbyInfoResponses, munuLastPosition);
+            nearbyItemAdapter.setItemList(nearbyInfoResponses.get(0).getCateInfos(), itemLastPosition);
             if (nearbyInfoResponses.get(0).getCateInfos() != null && nearbyInfoResponses.get(0).getCateInfos().size() > 0) {
                 nearbyMapPresenter.getMapMarkerInfo(nearbyInfoResponses.get(0).getCateInfos().get(0).getId(), (longitude + "," + latitude));
             }
@@ -252,7 +253,12 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         }
     }
 
-    private void removeMarker(){
+    @Override
+    public void uploadXySuccess() {
+
+    }
+
+    private void removeMarker() {
         List<Marker> saveMarkerList = aMap.getMapScreenMarkers();
         if (saveMarkerList == null || saveMarkerList.size() <= 0)
             return;
@@ -280,8 +286,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     public void menuItemClickListener(int menuPosition) {
         nearbyMunuAdapter.setPosittion(munuLastPosition, menuPosition);
         munuLastPosition = menuPosition;
-        itemLastPosition=0;
-        nearbyItemAdapter.setItemList(nearbyInfoResponses.get(menuPosition).getCateInfos(),itemLastPosition);
+        itemLastPosition = 0;
+        nearbyItemAdapter.setItemList(nearbyInfoResponses.get(menuPosition).getCateInfos(), itemLastPosition);
         if (nearbyInfoResponses.get(menuPosition).getCateInfos() != null && nearbyInfoResponses.get(menuPosition).getCateInfos().size() > 0) {
             nearbyMapPresenter.getMapMarkerInfo(nearbyInfoResponses.get(menuPosition).getCateInfos().get(0).getId(), (longitude + "," + latitude));
         }
@@ -301,7 +307,10 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
                 if (!TextUtils.isEmpty(amapLocation.getCity())) {
                     nearbyMapPresenter.getNearbyInfo(amapLocation.getCity());
                 }
-                Log.d("jjj0", "精度和纬度" + amapLocation.getLatitude() + "=====" + amapLocation.getLongitude());
+                if (!TextUtils.isEmpty(TokenManager.getToken()) && !TextUtils.isEmpty(amapLocation.getLatitude() + "") && !TextUtils.isEmpty(amapLocation.getLongitude() + "")) {
+                    nearbyMapPresenter.uploadXy(String.valueOf(amapLocation.getLongitude()), String.valueOf(amapLocation.getLatitude()));
+                }
+                Log.d("nearbyFragment", "精度和纬度" + amapLocation.getLatitude() + "=====" + amapLocation.getLongitude());
                 latitude = amapLocation.getLatitude() + "";
                 longitude = amapLocation.getLongitude() + "";
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点

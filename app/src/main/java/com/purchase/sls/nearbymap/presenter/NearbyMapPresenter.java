@@ -3,12 +3,14 @@ package com.purchase.sls.nearbymap.presenter;
 import android.util.Log;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.MapMarkerRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
+import com.purchase.sls.data.request.UploadXyRequest;
 import com.purchase.sls.nearbymap.NearbyMapContract;
 
 import java.util.ArrayList;
@@ -46,7 +48,6 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
      */
     @Override
     public void getNearbyInfo(String address) {
-        nearbyView.showLoading();
         NearbyInfoRequest nearbyInfoRequest = new NearbyInfoRequest(address);
         Disposable disposable = restApiService.getNearbyInfo(nearbyInfoRequest)
                 .flatMap(new RxRemoteDataParse<List<NearbyInfoResponse>>())
@@ -54,13 +55,11 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
                 .subscribe(new Consumer<List<NearbyInfoResponse>>() {
                     @Override
                     public void accept(List<NearbyInfoResponse> nearbyInfoResponses) throws Exception {
-                        nearbyView.dismissLoading();
                         nearbyView.nearbyInfo(nearbyInfoResponses);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        nearbyView.dismissLoading();
                         nearbyView.showError(throwable);
                     }
                 });
@@ -70,7 +69,6 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
 
     @Override
     public void getMapMarkerInfo(String cid, String addressXy) {
-        nearbyView.showLoading();
         MapMarkerRequest mapMarkerRequest = new MapMarkerRequest(cid, addressXy);
         Disposable disposable = restApiService.getMapMarkerInfo(mapMarkerRequest)
                 .flatMap(new RxRemoteDataParse<List<MapMarkerInfo>>())
@@ -78,14 +76,31 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
                 .subscribe(new Consumer<List<MapMarkerInfo>>() {
                     @Override
                     public void accept(List<MapMarkerInfo> mapMarkerInfos) throws Exception {
-                        nearbyView.dismissLoading();
                         nearbyView.renderapMarkers(mapMarkerInfos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        nearbyView.dismissLoading();
                         nearbyView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void uploadXy(String addressX, String addressY) {
+        UploadXyRequest uploadXyRequest = new UploadXyRequest(addressX, addressY);
+        Disposable disposable = restApiService.uploadXy(uploadXyRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        nearbyView.uploadXySuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
                     }
                 });
         mDisposableList.add(disposable);
