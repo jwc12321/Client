@@ -34,7 +34,7 @@ public class MainApplication  extends MultiDexApplication {
         StrictMode.setVmPolicy(builder.build());
 
         //友盟统计
-        UMConfigure.setLogEnabled(true);
+//        UMConfigure.setLogEnabled(true);
 //        UMShareAPI.get(this);//初始化sdk
         String channelId = WalleChannelReader.getChannel(this.getApplicationContext());
 //        MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));

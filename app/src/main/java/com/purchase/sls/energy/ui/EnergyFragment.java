@@ -1,12 +1,10 @@
 package com.purchase.sls.energy.ui;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +14,7 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.common.widget.dialog.ShareDialog;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
 
@@ -32,6 +31,7 @@ import butterknife.OnClick;
  */
 
 public class EnergyFragment extends BaseFragment {
+
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.share)
@@ -41,13 +41,7 @@ public class EnergyFragment extends BaseFragment {
     @BindView(R.id.indicator)
     TabLayout indicator;
     @BindView(R.id.viewpager)
-    ViewPager viewpager;
-    @BindView(R.id.sign_in)
-    ImageView signIn;
-    @BindView(R.id.sign_rl)
-    RelativeLayout signRl;
-    @BindView(R.id.red_iv)
-    ImageView redIv;
+    ViewPagerSlide viewpager;
     private boolean isFirstLoad = true;
 
     private List<Fragment> fragmentList;
@@ -114,7 +108,6 @@ public class EnergyFragment extends BaseFragment {
         viewpager.setCurrentItem(0);
         indicator.removeAllTabs();
         indicator.setupWithViewPager(viewpager);
-        initSign();
     }
 
 
@@ -135,26 +128,13 @@ public class EnergyFragment extends BaseFragment {
         shareDialog.show();
     }
 
-    @OnClick({R.id.share, R.id.sign_in,R.id.red_iv})
+    @OnClick({R.id.share})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.share:
                 share();
                 break;
-            case R.id.sign_in:
-                redIv.setVisibility(View.VISIBLE);
-                break;
-            case R.id.red_iv:
-                anim.setOneShot(true);
-                anim.start();
-                break;
             default:
         }
     }
-
-    private void initSign() {
-        redIv.setBackgroundResource(R.drawable.red_envelope);
-        anim = (AnimationDrawable) redIv.getBackground();
-    }
-
 }

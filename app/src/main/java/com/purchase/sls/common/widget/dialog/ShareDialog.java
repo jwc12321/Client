@@ -64,7 +64,7 @@ public class ShareDialog extends BottomSheetDialog {
 
             if (url != null) {
                 if (DEBUG)
-                    Log.d(TAG, "url: "+url);
+                    Log.d(TAG, "url: " + url);
                 UMWeb web = new UMWeb(url);//连接地址
                 web.setTitle("能购");
                 shareAction.withMedia(web);
@@ -72,7 +72,7 @@ public class ShareDialog extends BottomSheetDialog {
             }
             if (image != null) {
                 if (DEBUG)
-                    Log.d(TAG, "image: "+image);
+                    Log.d(TAG, "image: " + image);
                 shareAction.withMedia(image);
             }
             shareAction.share();
@@ -89,18 +89,21 @@ public class ShareDialog extends BottomSheetDialog {
         public void onResult(SHARE_MEDIA platform) {
             Toast.makeText(getContext(), " 分享成功啦", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onResult: " + platform);
+            dismiss();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onError: ");
+            dismiss();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
             Toast.makeText(getContext(), " 分享取消了", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onCancel: ");
+            dismiss();
         }
     };
 
@@ -133,7 +136,7 @@ public class ShareDialog extends BottomSheetDialog {
         this.image = image;
     }
 
-    public void setUmShareListener(UMShareListener listener){
+    public void setUmShareListener(UMShareListener listener) {
         umShareListener = listener;
     }
 

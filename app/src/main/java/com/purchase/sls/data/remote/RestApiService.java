@@ -4,6 +4,7 @@ package com.purchase.sls.data.remote;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
+import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
@@ -60,6 +61,7 @@ import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.data.request.StoreIdPageRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.data.request.TokenRequest;
+import com.purchase.sls.data.request.TypeRequest;
 import com.purchase.sls.data.request.UploadXyRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
 
@@ -243,5 +245,8 @@ public interface RestApiService {
     //上传坐标
     @POST("home/user/userRoute")
     Flowable<RemoteDataWrapper<Ignore>> uploadXy(@Body UploadXyRequest uploadXyRequest);
+    //获取活动
+    @POST("home/activityList/list")
+    Flowable<RemoteDataWrapper<List<ActivityInfo>>> getActivityInfos(@Body TypeRequest typeRequest);
 
 }

@@ -69,6 +69,7 @@
     <dimen name="common_one_hundred_and_ten_margin">110dp</dimen>
     <dimen name="common_one_hundred_and_twenty_five_margin">125dp</dimen>
     <dimen name="common_one_hundred_and_forty_margin">140dp</dimen>
+    <dimen name="common_one_hundred_and_sixty_five_margin">165dp</dimen>
     <dimen name="common_two_hundred_margin">200dp</dimen>
     <dimen name="common_two_hundred_and_fifty_margin">250dp</dimen>
     <dimen name="common_three_hundred_margin">300dp</dimen>

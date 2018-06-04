@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appText1">
 
-</android.support.constraint.ConstraintLayout>
+    <com.purchase.sls.common.refreshview.HeaderViewLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refreshMode="LIST_LOAD">
+
+        <com.purchase.sls.common.widget.GradationScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/sign_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_two_hundred_and_fifty_margin"
+                    android:background="@mipmap/welfare_icon">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/common_twenty_seven_margin"
+                        android:textColor="@color/appText1"
+                        tools:text="哈哈哈" />
+
+                    <ImageView
+                        android:id="@+id/sign_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="@dimen/common_six_margin"
+                        android:src="@mipmap/sign_in_icon" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/spike_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_fifteen_margin"
+                    android:textColor="@color/appText12"
+                    android:textSize="14sp"
+                    tools:text="3" />
+
+                <View style="@style/fengexian_style" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/spike_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
+            </LinearLayout>
+        </com.purchase.sls.common.widget.GradationScrollView>
+    </com.purchase.sls.common.refreshview.HeaderViewLayout>
+
+    <ImageView
+        android:id="@+id/red_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>
