@@ -2,29 +2,36 @@ package com.purchase.sls.energy.ui;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.StaticHandler;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSameSpacesItemDecoration;
-import com.purchase.sls.common.widget.GridSpacesItemDecoration;
+import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.entity.ActivityInfo;
+import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
 import com.purchase.sls.energy.EnergyContract;
 import com.purchase.sls.energy.EnergyModule;
 import com.purchase.sls.energy.adapter.ExchangeAdapter;
 import com.purchase.sls.energy.presenter.ActivityPresenter;
+import com.purchase.sls.login.ui.AccountLoginActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,11 +58,18 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     HeaderViewLayout refreshLayout;
     @BindView(R.id.red_iv)
     ImageView redIv;
+    @BindView(R.id.energy_number)
+    TextView energyNumber;
+    @BindView(R.id.sign_bg)
+    RelativeLayout signBg;
+    @BindView(R.id.energy_total)
+    TextView energyTotal;
 
     private ExchangeAdapter exchangeAdapter;
     @Inject
     ActivityPresenter activityPresenter;
     private AnimationDrawable anim;
+    private String energyStr;
 
     public static ExchangeFragment newInstance() {
         ExchangeFragment exchangeFragment = new ExchangeFragment();
@@ -91,7 +105,8 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("1");
+            activityPresenter.getActivitys("2");
+            getEnergy();
         }
 
         @Override
@@ -108,7 +123,8 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("1");
+                activityPresenter.getActivitys("2");
+                getEnergy();
             }
         }
     }
@@ -122,9 +138,16 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("1");
+                    activityPresenter.getActivitys("2");
+                    getEnergy();
                 }
             }
+        }
+    }
+
+    private void getEnergy() {
+        if (!TextUtils.isEmpty(TokenManager.getToken())) {
+            activityPresenter.getEnergyInfo("2");
         }
     }
 
@@ -160,6 +183,19 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     }
 
     @Override
+    public void signInSuccess(String energy) {
+        signBg.setVisibility(View.VISIBLE);
+        energyStr = energy;
+    }
+
+    @Override
+    public void renderEnergyInfo(EnergyInfo energyInfo) {
+        if (energyInfo != null && energyInfo.getSumPower() != null) {
+            energyTotal.setText(KeywordUtil.matcherActivity(2.0f, "当前" + energyInfo.getSumPower().getPower() + "个能量"));
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
@@ -169,15 +205,24 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
 
     }
 
-    @OnClick({R.id.sign_in, R.id.red_iv})
+    @OnClick({R.id.sign_in, R.id.red_iv, R.id.sign_bg})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
-                redIv.setVisibility(View.VISIBLE);
+                if (TextUtils.isEmpty(TokenManager.getToken())) {
+                    AccountLoginActivity.start(getActivity());
+                    return;
+                } else {
+                    activityPresenter.signIn();
+                }
                 break;
             case R.id.red_iv:
                 anim.setOneShot(true);
                 anim.start();
+                mHandler.sendEmptyMessageDelayed(EXCHANGE_WHAT, 1200);
+                break;
+            case R.id.sign_bg:
+                signBg.setVisibility(View.GONE);
                 break;
             default:
         }
@@ -186,5 +231,28 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     private void initSign() {
         redIv.setBackgroundResource(R.drawable.red_envelope);
         anim = (AnimationDrawable) redIv.getBackground();
+    }
+
+    public static class MyHandler extends StaticHandler<ExchangeFragment> {
+
+        public MyHandler(ExchangeFragment target) {
+            super(target);
+        }
+
+        @Override
+        public void handle(ExchangeFragment target, Message msg) {
+            switch (msg.what) {
+                case EXCHANGE_WHAT:
+                    target.showToast();
+                    break;
+            }
+        }
+    }
+
+    private Handler mHandler = new MyHandler(this);
+    private static final int EXCHANGE_WHAT = 0;
+
+    public void showToast() {
+        energyNumber.setText(energyStr);
     }
 }

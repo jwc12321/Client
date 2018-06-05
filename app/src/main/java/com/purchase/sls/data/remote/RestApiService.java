@@ -233,20 +233,29 @@ public interface RestApiService {
     //地址列表
     @POST("home/address/addresslist")
     Flowable<RemoteDataWrapper<List<AddressInfo>>> getAddressList(@Body TokenRequest tokenRequest);
+
     //设为默认
     @POST("home/address/setDefault")
     Flowable<RemoteDataWrapper<Ignore>> setDefault(@Body IdRequest idRequest);
+
     //删除地址
     @POST("home/address/delete")
     Flowable<RemoteDataWrapper<Ignore>> deleteAddress(@Body IdRequest idRequest);
+
     //修改添加地址
     @POST("home/address/post")
     Flowable<RemoteDataWrapper<String>> addAddress(@Body AddAddressRequest addAddressRequest);
+
     //上传坐标
     @POST("home/user/userRoute")
     Flowable<RemoteDataWrapper<Ignore>> uploadXy(@Body UploadXyRequest uploadXyRequest);
+
     //获取活动
     @POST("home/activityList/list")
     Flowable<RemoteDataWrapper<List<ActivityInfo>>> getActivityInfos(@Body TypeRequest typeRequest);
+
+    //签到
+    @POST("home/signin/sign")
+    Flowable<RemoteDataWrapper<String>> signIn(@Body TokenRequest tokenRequest);
 
 }

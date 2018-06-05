@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.common.widget.dialog.ShareDialog;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
+import com.purchase.sls.login.ui.AccountLoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +92,9 @@ public class EnergyFragment extends BaseFragment {
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
+                if(TextUtils.isEmpty(TokenManager.getToken())){
+                    AccountLoginActivity.start(getActivity());
+                }
             }
         }
     }

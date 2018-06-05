@@ -5,7 +5,7 @@ package com.purchase.sls.wxapi;
  */
 public class Constants {
     // APP_ID 申请的APPID
-    public static final String APP_ID = "wx9edcfee3f5d6fc11";
+    public static final String APP_ID = "wxfadbb165f04ab402";
 
     public static class ShowMsgActivity {
         public static final String STitle = "showmsg_title";

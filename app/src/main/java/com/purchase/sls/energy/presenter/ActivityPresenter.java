@@ -5,9 +5,11 @@ import android.text.TextUtils;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
+import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.EnergyInfoRequest;
+import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.data.request.TypeRequest;
 import com.purchase.sls.energy.EnergyContract;
 
@@ -60,7 +62,6 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
     }
 
     /**
-     *
      * @param type：1，秒杀 2：兑换 3：抽奖
      */
     @Override
@@ -80,6 +81,49 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         activityView.dismissLoading();
+                        activityView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void signIn() {
+        activityView.showLoading();
+        TokenRequest tokenRequest = new TokenRequest();
+        Disposable disposable = restApiService.signIn(tokenRequest)
+                .flatMap(new RxRemoteDataParse<String>())
+                .compose(new RxSchedulerTransformer<String>())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String energy) throws Exception {
+                        activityView.dismissLoading();
+                        activityView.signInSuccess(energy);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityView.dismissLoading();
+                        activityView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void getEnergyInfo(String pool) {
+        EnergyInfoRequest energyInfoRequest = new EnergyInfoRequest(pool, String.valueOf(1));
+        Disposable disposable = restApiService.getEnergyInfo(energyInfoRequest)
+                .flatMap(new RxRemoteDataParse<EnergyInfo>())
+                .compose(new RxSchedulerTransformer<EnergyInfo>())
+                .subscribe(new Consumer<EnergyInfo>() {
+                    @Override
+                    public void accept(EnergyInfo energyInfo) throws Exception {
+                        activityView.renderEnergyInfo(energyInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
                         activityView.showError(throwable);
                     }
                 });

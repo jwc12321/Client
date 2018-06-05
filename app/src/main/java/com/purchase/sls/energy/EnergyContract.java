@@ -25,8 +25,12 @@ public interface EnergyContract {
 
     interface ActivityPresenter extends BasePresenter{
         void getActivitys(String type);
+        void signIn();
+        void getEnergyInfo(String pool);
     }
     interface ActivityView extends BaseView<ActivityPresenter>{
         void renderActivitys(List<ActivityInfo> activityInfos);
+        void signInSuccess(String energy);
+        void renderEnergyInfo(EnergyInfo energyInfo);
     }
 }
