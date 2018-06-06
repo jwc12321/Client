@@ -251,8 +251,7 @@
 
             <RelativeLayout
                 android:id="@+id/weixin_rl"
-                style="@style/pay_item_fl_style"
-                android:visibility="gone">
+                style="@style/pay_item_fl_style">
 
 
                 <TextView

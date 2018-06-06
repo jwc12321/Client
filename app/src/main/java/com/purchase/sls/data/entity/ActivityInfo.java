@@ -2,11 +2,14 @@ package com.purchase.sls.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by JWC on 2018/6/4.
  */
 
-public class ActivityInfo {
+public class ActivityInfo implements Serializable {
     @SerializedName("id")
     private String id;
     @SerializedName("type")

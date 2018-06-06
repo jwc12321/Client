@@ -46,6 +46,7 @@ import com.purchase.sls.shopdetailbuy.presenter.PaymentOrderPresenter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -160,6 +161,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         setContentView(R.layout.activity_payment_order);
         ButterKnife.bind(this);
         setHeight(back,title,null);
+        EventBus.getDefault().register(this);
         initView();
     }
 

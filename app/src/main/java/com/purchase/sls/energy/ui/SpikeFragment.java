@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.StaticHandler;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.entity.ActivityInfo;
@@ -105,7 +108,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("1");
+            activityPresenter.getActivitys("0","1");
             getEnergy();
         }
 
@@ -123,7 +126,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("1");
+                activityPresenter.getActivitys("0","1");
                 getEnergy();
             }
         }
@@ -134,19 +137,21 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()){
+            getEnergy();
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("1");
-                    getEnergy();
+                    activityPresenter.getActivitys("0","1");
                 }
             }
         }
     }
 
     private void getEnergy() {
-        if (!TextUtils.isEmpty(TokenManager.getToken())) {
+        if (!TextUtils.isEmpty(TokenManager.getToken())&&activityPresenter!=null) {
             activityPresenter.getEnergyInfo("2");
         }
     }
@@ -186,13 +191,14 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
 
     @Override
     public void signInSuccess(String energy) {
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
         signBg.setVisibility(View.VISIBLE);
         energyStr = energy;
     }
 
     @Override
     public void renderEnergyInfo(EnergyInfo energyInfo) {
-        if (energyInfo != null && energyInfo.getSumPower() != null) {
+        if (energyInfo != null && energyInfo.getSumPower() != null&&energyTotal!=null) {
             energyTotal.setText(KeywordUtil.matcherActivity(2.0f, "当前" + energyInfo.getSumPower().getPower() + "个能量"));
         }
     }
@@ -204,7 +210,8 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
 
     @Override
     public void goSpike(ActivityInfo activityInfo) {
-
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_MIAO_SHA);
+        SkEcLtActivity.start(getActivity(),activityInfo);
     }
 
     @OnClick({R.id.sign_in, R.id.red_iv, R.id.sign_bg})
@@ -256,5 +263,6 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
 
     public void showToast() {
         energyNumber.setText(energyStr);
+        getEnergy();
     }
 }

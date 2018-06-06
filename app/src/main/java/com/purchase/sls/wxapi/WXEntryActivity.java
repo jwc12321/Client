@@ -24,12 +24,12 @@ public class WXEntryActivity extends WXCallbackActivity {
 
     @Override
     public void onResp(BaseResp resp) {
-        Log.i(TAG, "onResp: 支付回调！");
+        Log.d(TAG, "onResp: 支付回调！");
 
         super.onResp(resp);
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (resp.errCode == 0) {//支付成功
-                Log.i(TAG, "onResp: 支付成功！");
+                Log.d(TAG, "onResp: 支付成功！");
                 EventBus.getDefault().post(new PayAbortEvent("支付成功",0));
                 this.finish();
             } else if (resp.errCode == -2) {

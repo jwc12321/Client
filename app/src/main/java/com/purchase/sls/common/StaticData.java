@@ -77,4 +77,8 @@ public class StaticData {
     public static final String BACK_ADDRESS="backAddress";
     //地址信息
     public static final String ADDRESSINFO="addressInfo";
+    //活动详情
+    public static final String ACTIVITY_DETAIL="activityDetail";
+    //选择地址
+    public static final String CHOICE_ADDRESS="choiceAddress";
 }

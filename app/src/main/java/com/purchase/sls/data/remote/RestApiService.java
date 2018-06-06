@@ -60,6 +60,7 @@ import com.purchase.sls.data.request.SendNewVCodeRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.data.request.StoreIdPageRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
+import com.purchase.sls.data.request.SubmitSpikeRequest;
 import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.data.request.TypeRequest;
 import com.purchase.sls.data.request.UploadXyRequest;
@@ -257,5 +258,9 @@ public interface RestApiService {
     //签到
     @POST("home/signin/sign")
     Flowable<RemoteDataWrapper<String>> signIn(@Body TokenRequest tokenRequest);
+
+    //秒杀下单
+    @POST("home/secKill")
+    Flowable<RemoteDataWrapper<String>> submitSpike(@Body SubmitSpikeRequest submitSpikeRequest);
 
 }

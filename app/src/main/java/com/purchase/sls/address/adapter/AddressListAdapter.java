@@ -65,6 +65,14 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                 }
             }
         });
+        holder.backAddressLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEventClickListener != null) {
+                    onEventClickListener.backAddress(addressInfo);
+                }
+            }
+        });
     }
 
     public void setData(List<AddressInfo> addressInfos) {

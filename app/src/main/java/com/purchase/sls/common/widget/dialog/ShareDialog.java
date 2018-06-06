@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -41,18 +43,21 @@ public class ShareDialog extends BottomSheetDialog {
             switch (v.getId()) {
                 case R.id.wechat:
                     shareAction.setPlatform(SHARE_MEDIA.WEIXIN);
+                    UmengEventUtils.statisticsClick(activity,UMStaticData.KEY,"微信",UMStaticData.ENG_SHARE);
                     break;
                 case R.id.wechat_circle:
                     shareAction.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
                     break;
                 case R.id.qq_friend:
                     shareAction.setPlatform(SHARE_MEDIA.QQ);
+                    UmengEventUtils.statisticsClick(activity,UMStaticData.KEY,"QQ",UMStaticData.ENG_SHARE);
                     break;
                 case R.id.qq_zone:
                     shareAction.setPlatform(SHARE_MEDIA.QZONE);
                     break;
                 case R.id.sms:
                     shareAction.setPlatform(SHARE_MEDIA.SMS);
+                    UmengEventUtils.statisticsClick(activity,UMStaticData.KEY,"短信",UMStaticData.ENG_SHARE);
                     break;
                 case R.id.cancel:
                     dismiss();

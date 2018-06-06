@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.StaticHandler;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.entity.ActivityInfo;
@@ -105,7 +108,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("3");
+            activityPresenter.getActivitys("0", "3");
             getEnergy();
         }
 
@@ -123,7 +126,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("3");
+                activityPresenter.getActivitys("0", "3");
                 getEnergy();
             }
         }
@@ -135,19 +138,21 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            getEnergy();
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("3");
-                    getEnergy();
+                    activityPresenter.getActivitys("1", "3");
                 }
             }
         }
     }
 
     private void getEnergy() {
-        if (!TextUtils.isEmpty(TokenManager.getToken())) {
+        if (!TextUtils.isEmpty(TokenManager.getToken())&&activityPresenter!=null) {
             activityPresenter.getEnergyInfo("2");
         }
     }
@@ -187,6 +192,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
 
     @Override
     public void signInSuccess(String energy) {
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
         signBg.setVisibility(View.VISIBLE);
         energyStr = energy;
     }
@@ -205,7 +211,8 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
 
     @Override
     public void goLottery(ActivityInfo activityInfo) {
-
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_CHOU_JIANG);
+        SkEcLtActivity.start(getActivity(), activityInfo);
     }
 
 
@@ -258,5 +265,6 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
 
     public void showToast() {
         energyNumber.setText(energyStr);
+        getEnergy();
     }
 }

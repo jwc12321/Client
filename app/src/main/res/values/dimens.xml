@@ -66,6 +66,7 @@
     <dimen name="common_one_hundred_and_fifty_five_margin">155dp</dimen>
     <dimen name="common_one_hundred_margin">100dp</dimen>
     <dimen name="common_one_hundred_and_six_margin">106dp</dimen>
+    <dimen name="common_one_hundred_and_seven_margin">107dp</dimen>
     <dimen name="common_one_hundred_and_ten_margin">110dp</dimen>
     <dimen name="common_one_hundred_and_twenty_five_margin">125dp</dimen>
     <dimen name="common_one_hundred_and_forty_margin">140dp</dimen>
@@ -73,6 +74,7 @@
     <dimen name="common_two_hundred_margin">200dp</dimen>
     <dimen name="common_two_hundred_and_fifty_margin">250dp</dimen>
     <dimen name="common_three_hundred_margin">300dp</dimen>
+    <dimen name="common_four_hundred_and_tex_margin">410dp</dimen>
 
     <!--刷新控件参数-->
     <dimen name="refresh_view_height">300dp</dimen>

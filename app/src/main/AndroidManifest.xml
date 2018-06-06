@@ -301,6 +301,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".address.ui.AddressListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".energy.ui.SkEcLtActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -44,5 +44,14 @@ public class UMStaticData {
     public static final String SHOW_STORE_WITH_MAP="showStoreWithMap";
     //通用的key
     public static final String KEY="key";
-
+    //能量抽奖
+    public static final String ENG_CHOU_JIANG="engChoujiang";
+    //能量兑换
+    public static final String ENG_DUI_HUAN="engDuihuan";
+    //能量秒杀
+    public static final String ENG_MIAO_SHA="engMiaosha";
+    //能量签到
+    public static final String ENG_QIAN_DAO="engQiandao";
+    //能量分享
+    public static final String ENG_SHARE="engShare";
 }

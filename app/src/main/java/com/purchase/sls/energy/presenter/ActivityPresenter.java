@@ -65,8 +65,10 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
      * @param type：1，秒杀 2：兑换 3：抽奖
      */
     @Override
-    public void getActivitys(String type) {
-        activityView.showLoading();
+    public void getActivitys(String refreshType, String type) {
+        if (TextUtils.equals("1", refreshType)) {
+            activityView.showLoading();
+        }
         TypeRequest typeRequest = new TypeRequest(type);
         Disposable disposable = restApiService.getActivityInfos(typeRequest)
                 .flatMap(new RxRemoteDataParse<List<ActivityInfo>>())

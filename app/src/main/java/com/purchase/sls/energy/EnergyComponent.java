@@ -9,6 +9,7 @@ import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.energy.ui.ExchangeFragment;
 import com.purchase.sls.energy.ui.LotteryFragment;
+import com.purchase.sls.energy.ui.SkEcLtActivity;
 import com.purchase.sls.energy.ui.SpikeFragment;
 
 import dagger.Component;
@@ -20,4 +21,5 @@ public interface EnergyComponent {
     void inject(SpikeFragment spikeFragment);
     void inject(ExchangeFragment exchangeFragment);
     void inject(LotteryFragment lotteryFragment);
+    void inject(SkEcLtActivity skEcLtActivity);
 }

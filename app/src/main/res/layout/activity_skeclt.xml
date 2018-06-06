@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.GradationScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_rel"
+        android:layout_marginBottom="@dimen/common_forty_five_margin"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backGround2"
+            android:orientation="vertical">
+
+            <com.purchase.sls.common.widget.Banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_four_hundred_and_tex_margin"
+                app:indicator_drawable_selected="@drawable/selected_radius"
+                app:indicator_drawable_unselected="@drawable/unselected_radius" />
+
+            <LinearLayout
+                android:id="@+id/energy_ll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_forty_four_margin"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@mipmap/spike_energy_bg"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/need_energy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/appText1"
+                        android:textSize="20sp"
+                        tools:text="5能量" />
+
+                    <TextView
+                        android:id="@+id/original_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_five_margin"
+                        android:textColor="@color/appText1"
+                        android:textSize="12sp"
+                        tools:text="¥10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/backGround16"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/spike_explain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/appText3"
+                        android:textSize="11sp"
+                        tools:text="距离秒杀开始" />
+
+                    <com.purchase.sls.common.widget.TearDownView
+                        android:id="@+id/count_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/appText3"
+                        android:textSize="11sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/surplus_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/appText3"
+                        android:textSize="11sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.purchase.sls.common.widget.GradationScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:layout_alignParentBottom="true">
+
+        <View style="@style/fengexian_style" />
+
+        <LinearLayout
+            android:id="@+id/choice_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/common_five_margin"
+            android:layout_toLeftOf="@+id/spike_bt"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/add_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="点击添加地址"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_five_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:textSize="13sp"
+                android:visibility="gone"
+                tools:text="小余 18758458745" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:layout_marginLeft="@dimen/common_fifteen_margin"
+                android:textSize="13sp"
+                android:visibility="gone"
+                tools:text="浙江省杭州市下城区" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/spike_bt"
+            android:layout_width="@dimen/common_one_hundred_and_seven_margin"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/spike_bt_bg"
+            android:textColor="@color/appText1"
+            android:textSize="15sp"
+            tools:text="秒杀" />
+    </RelativeLayout>
+    sp
+</RelativeLayout>

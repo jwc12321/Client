@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/appText3"
             android:textSize="14sp"
-            tools:text="100" />
+            tools:text="100"
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/name"
@@ -34,6 +35,7 @@
             android:textColor="@color/appText12"
             android:textSize="14sp"
             tools:text="测试"
-            android:layout_marginLeft="@dimen/common_five_margin"/>
+            android:layout_marginLeft="@dimen/common_five_margin"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 </RelativeLayout>

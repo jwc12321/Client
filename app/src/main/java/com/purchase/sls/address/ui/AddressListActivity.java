@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -159,7 +160,14 @@ public class AddressListActivity extends BaseActivity implements AddressContract
 
     @Override
     public void backAddress(AddressInfo addressInfo) {
-
+        if(TextUtils.equals("1",backAddressStr)) {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(StaticData.CHOICE_ADDRESS, addressInfo);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     @OnClick({R.id.back, R.id.add_address})

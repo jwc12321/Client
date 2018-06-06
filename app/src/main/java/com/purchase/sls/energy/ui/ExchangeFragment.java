@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.StaticHandler;
 import com.purchase.sls.common.unit.TokenManager;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSameSpacesItemDecoration;
 import com.purchase.sls.common.widget.KeywordUtil;
@@ -105,7 +108,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("2");
+            activityPresenter.getActivitys("0","2");
             getEnergy();
         }
 
@@ -123,7 +126,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("2");
+                activityPresenter.getActivitys("0","2");
                 getEnergy();
             }
         }
@@ -134,19 +137,21 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()){
+            getEnergy();
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("2");
-                    getEnergy();
+                    activityPresenter.getActivitys("1","2");
                 }
             }
         }
     }
 
     private void getEnergy() {
-        if (!TextUtils.isEmpty(TokenManager.getToken())) {
+        if (!TextUtils.isEmpty(TokenManager.getToken())&&activityPresenter!=null) {
             activityPresenter.getEnergyInfo("2");
         }
     }
@@ -184,6 +189,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
 
     @Override
     public void signInSuccess(String energy) {
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
         signBg.setVisibility(View.VISIBLE);
         energyStr = energy;
     }
@@ -202,7 +208,8 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
 
     @Override
     public void goExchange(ActivityInfo activityInfo) {
-
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_DUI_HUAN);
+        SkEcLtActivity.start(getActivity(),activityInfo);
     }
 
     @OnClick({R.id.sign_in, R.id.red_iv, R.id.sign_bg})
@@ -254,5 +261,6 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
 
     public void showToast() {
         energyNumber.setText(energyStr);
+        getEnergy();
     }
 }

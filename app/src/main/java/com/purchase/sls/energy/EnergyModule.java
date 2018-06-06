@@ -11,6 +11,7 @@ import dagger.Provides;
 public class EnergyModule {
     private EnergyContract.EnergyInfoView energyInfoView;
     private EnergyContract.ActivityView activityView;
+    private EnergyContract.ActivityDetailView activityDetailView;
 
     public EnergyModule(EnergyContract.EnergyInfoView energyInfoView) {
         this.energyInfoView = energyInfoView;
@@ -18,6 +19,10 @@ public class EnergyModule {
 
     public EnergyModule(EnergyContract.ActivityView activityView) {
         this.activityView = activityView;
+    }
+
+    public EnergyModule(EnergyContract.ActivityDetailView activityDetailView) {
+        this.activityDetailView = activityDetailView;
     }
 
     @Provides
@@ -28,5 +33,10 @@ public class EnergyModule {
     @Provides
     EnergyContract.ActivityView provideActivityView(){
         return activityView;
+    }
+
+    @Provides
+    EnergyContract.ActivityDetailView provideActivityDetailView(){
+        return activityDetailView;
     }
 }
