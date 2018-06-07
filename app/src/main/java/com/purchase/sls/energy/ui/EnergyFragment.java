@@ -81,7 +81,6 @@ public class EnergyFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHeight(order, title, share);
-        initView();
     }
 
     @Override
@@ -98,6 +97,7 @@ public class EnergyFragment extends BaseFragment {
                 if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(getActivity());
                 }
+                initView();
             }
         }
     }

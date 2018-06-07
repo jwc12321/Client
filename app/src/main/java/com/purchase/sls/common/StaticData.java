@@ -81,4 +81,6 @@ public class StaticData {
     public static final String ACTIVITY_DETAIL="activityDetail";
     //选择地址
     public static final String CHOICE_ADDRESS="choiceAddress";
+    //签到获得的能量值
+    public static final String ENERGY_NUMBER="energyNumber";
 }

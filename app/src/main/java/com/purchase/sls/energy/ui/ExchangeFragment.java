@@ -59,20 +59,12 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     GradationScrollView scrollview;
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
-    @BindView(R.id.red_iv)
-    ImageView redIv;
-    @BindView(R.id.energy_number)
-    TextView energyNumber;
-    @BindView(R.id.sign_bg)
-    RelativeLayout signBg;
     @BindView(R.id.energy_total)
     TextView energyTotal;
 
     private ExchangeAdapter exchangeAdapter;
     @Inject
     ActivityPresenter activityPresenter;
-    private AnimationDrawable anim;
-    private String energyStr;
 
     public static ExchangeFragment newInstance() {
         ExchangeFragment exchangeFragment = new ExchangeFragment();
@@ -101,7 +93,6 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     private void initView() {
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         refreshLayout.setCanLoadMore(false);
-        initSign();
         addAdapter();
     }
 
@@ -190,8 +181,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     @Override
     public void signInSuccess(String energy) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
-        signBg.setVisibility(View.VISIBLE);
-        energyStr = energy;
+        SignInActivity.start(getActivity(),energy);
     }
 
     @Override
@@ -212,7 +202,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
         SkEcLtActivity.start(getActivity(),activityInfo);
     }
 
-    @OnClick({R.id.sign_in, R.id.red_iv, R.id.sign_bg})
+    @OnClick({R.id.sign_in})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
@@ -223,44 +213,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
                     activityPresenter.signIn();
                 }
                 break;
-            case R.id.red_iv:
-                anim.setOneShot(true);
-                anim.start();
-                mHandler.sendEmptyMessageDelayed(EXCHANGE_WHAT, 1200);
-                break;
-            case R.id.sign_bg:
-                signBg.setVisibility(View.GONE);
-                break;
             default:
         }
-    }
-
-    private void initSign() {
-        redIv.setBackgroundResource(R.drawable.red_envelope);
-        anim = (AnimationDrawable) redIv.getBackground();
-    }
-
-    public static class MyHandler extends StaticHandler<ExchangeFragment> {
-
-        public MyHandler(ExchangeFragment target) {
-            super(target);
-        }
-
-        @Override
-        public void handle(ExchangeFragment target, Message msg) {
-            switch (msg.what) {
-                case EXCHANGE_WHAT:
-                    target.showToast();
-                    break;
-            }
-        }
-    }
-
-    private Handler mHandler = new MyHandler(this);
-    private static final int EXCHANGE_WHAT = 0;
-
-    public void showToast() {
-        energyNumber.setText(energyStr);
-        getEnergy();
     }
 }

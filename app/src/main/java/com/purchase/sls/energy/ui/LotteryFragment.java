@@ -59,20 +59,12 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     GradationScrollView scrollview;
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
-    @BindView(R.id.red_iv)
-    ImageView redIv;
-    @BindView(R.id.energy_number)
-    TextView energyNumber;
-    @BindView(R.id.sign_bg)
-    RelativeLayout signBg;
     @BindView(R.id.energy_total)
     TextView energyTotal;
 
     private LotteryAdapter lotteryAdapter;
     @Inject
     ActivityPresenter activityPresenter;
-    private AnimationDrawable anim;
-    private String energyStr;
 
     public static LotteryFragment newInstance() {
         LotteryFragment lotteryFragment = new LotteryFragment();
@@ -101,7 +93,6 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     private void initView() {
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         refreshLayout.setCanLoadMore(false);
-        initSign();
         addAdapter();
     }
 
@@ -193,8 +184,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     @Override
     public void signInSuccess(String energy) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
-        signBg.setVisibility(View.VISIBLE);
-        energyStr = energy;
+        SignInActivity.start(getActivity(),energy);
     }
 
     @Override
@@ -216,7 +206,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     }
 
 
-    @OnClick({R.id.sign_in, R.id.red_iv, R.id.sign_bg})
+    @OnClick({R.id.sign_in})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
@@ -227,44 +217,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
                     activityPresenter.signIn();
                 }
                 break;
-            case R.id.red_iv:
-                anim.setOneShot(true);
-                anim.start();
-                mHandler.sendEmptyMessageDelayed(LOTTERY_WHAT, 1200);
-                break;
-            case R.id.sign_bg:
-                signBg.setVisibility(View.GONE);
-                break;
             default:
         }
-    }
-
-    private void initSign() {
-        redIv.setBackgroundResource(R.drawable.red_envelope);
-        anim = (AnimationDrawable) redIv.getBackground();
-    }
-
-    public static class MyHandler extends StaticHandler<LotteryFragment> {
-
-        public MyHandler(LotteryFragment target) {
-            super(target);
-        }
-
-        @Override
-        public void handle(LotteryFragment target, Message msg) {
-            switch (msg.what) {
-                case LOTTERY_WHAT:
-                    target.showToast();
-                    break;
-            }
-        }
-    }
-
-    private Handler mHandler = new MyHandler(this);
-    private static final int LOTTERY_WHAT = 1;
-
-    public void showToast() {
-        energyNumber.setText(energyStr);
-        getEnergy();
     }
 }

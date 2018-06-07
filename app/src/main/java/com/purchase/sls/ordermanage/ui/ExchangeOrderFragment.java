@@ -47,6 +47,9 @@ public class ExchangeOrderFragment extends BaseListFragment<ActivityOrderInfo> i
     @Override
     public void onResume() {
         super.onResume();
+        if(!isFirstLoad&&activityOrderListPresenter!=null){
+            activityOrderListPresenter.getActivityOrderList("2");
+        }
     }
 
     private boolean isFirstLoad = true;

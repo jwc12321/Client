@@ -60,19 +60,11 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     GradationScrollView scrollview;
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
-    @BindView(R.id.red_iv)
-    ImageView redIv;
-    @BindView(R.id.energy_number)
-    TextView energyNumber;
-    @BindView(R.id.sign_bg)
-    RelativeLayout signBg;
     @BindView(R.id.energy_total)
     TextView energyTotal;
     private SpikeAdapter spikeAdapter;
     @Inject
     ActivityPresenter activityPresenter;
-    private AnimationDrawable anim;
-    private String energyStr;
 
     public static SpikeFragment newInstance() {
         SpikeFragment spikeFragment = new SpikeFragment();
@@ -101,14 +93,13 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     private void initView() {
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         refreshLayout.setCanLoadMore(false);
-        initSign();
         addAdapter();
     }
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("0","1");
+            activityPresenter.getActivitys("0", "1");
             getEnergy();
         }
 
@@ -126,7 +117,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("0","1");
+                activityPresenter.getActivitys("0", "1");
                 getEnergy();
             }
         }
@@ -137,21 +128,21 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()){
+        if (getUserVisibleHint()) {
             getEnergy();
         }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("0","1");
+                    activityPresenter.getActivitys("1", "1");
                 }
             }
         }
     }
 
     private void getEnergy() {
-        if (!TextUtils.isEmpty(TokenManager.getToken())&&activityPresenter!=null) {
+        if (!TextUtils.isEmpty(TokenManager.getToken()) && activityPresenter != null) {
             activityPresenter.getEnergyInfo("2");
         }
     }
@@ -192,13 +183,12 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void signInSuccess(String energy) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
-        signBg.setVisibility(View.VISIBLE);
-        energyStr = energy;
+        SignInActivity.start(getActivity(), energy);
     }
 
     @Override
     public void renderEnergyInfo(EnergyInfo energyInfo) {
-        if (energyInfo != null && energyInfo.getSumPower() != null&&energyTotal!=null) {
+        if (energyInfo != null && energyInfo.getSumPower() != null && energyTotal != null) {
             energyTotal.setText(KeywordUtil.matcherActivity(2.0f, "当前" + energyInfo.getSumPower().getPower() + "个能量"));
         }
     }
@@ -211,10 +201,10 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void goSpike(ActivityInfo activityInfo) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_MIAO_SHA);
-        SkEcLtActivity.start(getActivity(),activityInfo);
+        SkEcLtActivity.start(getActivity(), activityInfo);
     }
 
-    @OnClick({R.id.sign_in, R.id.red_iv, R.id.sign_bg})
+    @OnClick({R.id.sign_in})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
@@ -225,44 +215,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
                     activityPresenter.signIn();
                 }
                 break;
-            case R.id.red_iv:
-                anim.setOneShot(true);
-                anim.start();
-                mHandler.sendEmptyMessageDelayed(SPIKE_WHAT, 1200);
-                break;
-            case R.id.sign_bg:
-                signBg.setVisibility(View.GONE);
-                break;
             default:
         }
-    }
-
-    private void initSign() {
-        redIv.setBackgroundResource(R.drawable.red_envelope);
-        anim = (AnimationDrawable) redIv.getBackground();
-    }
-
-    public static class MyHandler extends StaticHandler<SpikeFragment> {
-
-        public MyHandler(SpikeFragment target) {
-            super(target);
-        }
-
-        @Override
-        public void handle(SpikeFragment target, Message msg) {
-            switch (msg.what) {
-                case SPIKE_WHAT:
-                    target.showToast();
-                    break;
-            }
-        }
-    }
-
-    private Handler mHandler = new MyHandler(this);
-    private static final int SPIKE_WHAT = 1;
-
-    public void showToast() {
-        energyNumber.setText(energyStr);
-        getEnergy();
     }
 }

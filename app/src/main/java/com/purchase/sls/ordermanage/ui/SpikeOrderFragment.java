@@ -47,6 +47,9 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
     @Override
     public void onResume() {
         super.onResume();
+        if (!isFirstLoad && activityOrderListPresenter != null) {
+            activityOrderListPresenter.getActivityOrderList("2");
+        }
     }
 
     private boolean isFirstLoad = true;
@@ -57,7 +60,7 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if(activityOrderListPresenter!=null){
+                if (activityOrderListPresenter != null) {
                     activityOrderListPresenter.getActivityOrderList("1");
                 }
             }

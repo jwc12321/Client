@@ -72,25 +72,4 @@
             </LinearLayout>
         </com.purchase.sls.common.widget.GradationScrollView>
     </com.purchase.sls.common.refreshview.HeaderViewLayout>
-
-    <RelativeLayout
-        android:id="@+id/sign_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backGround3"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/red_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
-        <TextView
-            android:id="@+id/energy_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/appText1"
-            android:textSize="15sp" />
-    </RelativeLayout>
 </RelativeLayout>

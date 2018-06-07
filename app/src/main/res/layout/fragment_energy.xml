@@ -23,7 +23,7 @@
             android:layout_toLeftOf="@id/share"
             android:background="@null"
             android:padding="@dimen/common_eleven_margin"
-            android:src="@mipmap/share_icon" />
+            android:src="@mipmap/activity_order" />
 
         <ImageView
             android:id="@+id/share"
