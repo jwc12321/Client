@@ -268,8 +268,8 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         if (countDown != null) {
             countDown.cancel();
         }

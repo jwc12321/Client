@@ -139,11 +139,11 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/common_five_margin"
-                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:layout_marginLeft="@dimen/common_fifteen_margin"
+                android:layout_marginTop="@dimen/common_five_margin"
                 android:textSize="13sp"
-                android:visibility="gone"
-                tools:text="小余 18758458745" />
+                tools:text="小余 18758458745"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/address"
@@ -152,8 +152,8 @@
                 android:layout_below="@id/name"
                 android:layout_marginLeft="@dimen/common_fifteen_margin"
                 android:textSize="13sp"
-                android:visibility="gone"
-                tools:text="浙江省杭州市下城区" />
+                tools:text="浙江省杭州市下城区"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <Button

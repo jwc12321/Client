@@ -123,5 +123,7 @@
     <string name="edit">编辑</string>
     <!--能量-->
     <string name="energy_center">能量中心</string>
+    <!--订单-->
+    <string name="order_list">订单列表</string>
 
 </resources>

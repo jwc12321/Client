@@ -5,6 +5,7 @@ import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
 import com.purchase.sls.data.entity.ActivityInfo;
+import com.purchase.sls.data.entity.ActivityOrderListResponse;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
@@ -30,6 +31,7 @@ import com.purchase.sls.data.entity.UserpowerInfo;
 import com.purchase.sls.data.entity.WXPaySignResponse;
 import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
+import com.purchase.sls.data.request.ActivityOrderListRequest;
 import com.purchase.sls.data.request.AddAddressRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
@@ -262,5 +264,9 @@ public interface RestApiService {
     //秒杀下单
     @POST("home/secKill")
     Flowable<RemoteDataWrapper<String>> submitSpike(@Body SubmitSpikeRequest submitSpikeRequest);
+
+    //活动的订单列表
+    @POST("home/orderList")
+    Flowable<RemoteDataWrapper<ActivityOrderListResponse>> getActivityOrderList(@Body ActivityOrderListRequest activityOrderListRequest);
 
 }

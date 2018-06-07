@@ -103,10 +103,15 @@ public class RestApiModule {
 //                    FormBody dstBody = builder.build();
                 Request request;
                 if (TextUtils.isEmpty(TokenManager.getToken())) {
-                    request = original.newBuilder().build();
+                    request = original.newBuilder()
+                            .header("platform","android")
+                            .header("version",BuildConfig.VERSION_NAME)
+                            .build();
                 } else {
                     request = original.newBuilder()
                             .header("Token", TokenManager.getToken() + "")
+                            .header("platform","android")
+                            .header("version",BuildConfig.VERSION_NAME)
                             .build();
                 }
                 return chain.proceed(request);

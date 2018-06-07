@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/item_ll"
+    android:background="@color/appText1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_margin"
+        android:layout_marginLeft="@dimen/common_fifteen_margin"
+        android:layout_marginRight="@dimen/common_fifteen_margin">
+
+        <TextView
+            android:id="@+id/order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/appText12"
+            android:textSize="14sp"
+            tools:text="下单时间2018-05-20" />
+
+        <TextView
+            android:id="@+id/order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/appText12"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View style="@style/fengexian_style" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_seventy_five_margin"
+        android:layout_marginLeft="@dimen/common_fifteen_margin"
+        android:layout_marginRight="@dimen/common_fifteen_margin"
+        android:layout_marginTop="@dimen/common_twelve_margin">
+
+        <ImageView
+            android:id="@+id/shop_iv"
+            android:layout_width="@dimen/common_seventy_five_margin"
+            android:layout_height="@dimen/common_seventy_five_margin"
+            android:scaleType="fitXY"
+            tools:src="@mipmap/app_icon" />
+        <ImageView
+            android:id="@+id/activity_type_iv"
+            android:layout_width="@dimen/common_thirty_seven_margin"
+            android:layout_height="@dimen/common_thirty_seven_margin"
+            android:scaleType="fitXY"
+            tools:src="@mipmap/spike"
+            android:layout_marginLeft="@dimen/common_thirty_eight_margin"/>
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_nine_margin"
+            android:layout_marginTop="@dimen/common_nine_margin"
+            android:layout_toRightOf="@id/shop_iv"
+            android:textColor="@color/appText12"
+            android:textSize="14sp"
+            tools:text="杭州老鸭煲" />
+
+        <TextView
+            android:id="@+id/energy_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/common_thirty_one_margin"
+            android:textColor="@color/appText12"
+            android:textSize="13sp"
+            tools:text="60能量" />
+
+        <TextView
+            android:id="@+id/original_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/common_nine_margin"
+            android:textColor="@color/appText12"
+            android:textSize="11sp"
+            tools:text="50" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/delete_bt"
+        android:layout_width="@dimen/common_seventy_margin"
+        android:layout_height="@dimen/common_twenty_eight_margin"
+        android:layout_gravity="end"
+        android:layout_marginRight="@dimen/common_fifteen_margin"
+        android:layout_marginTop="@dimen/common_five_margin"
+        android:background="@drawable/common_frame_bg"
+        android:text="删除订单"
+        android:textColor="@color/appText12"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_ten_margin"
+        android:layout_marginTop="@dimen/common_twelve_margin"
+        android:background="@color/backGround1" />
+</LinearLayout>

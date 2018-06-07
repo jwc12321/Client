@@ -303,6 +303,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".energy.ui.SkEcLtActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ordermanage.ui.ActivityOrderActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

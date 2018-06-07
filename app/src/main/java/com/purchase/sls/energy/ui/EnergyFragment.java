@@ -20,6 +20,7 @@ import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.common.widget.dialog.ShareDialog;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
 import com.purchase.sls.login.ui.AccountLoginActivity;
+import com.purchase.sls.ordermanage.ui.ActivityOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class EnergyFragment extends BaseFragment {
     TabLayout indicator;
     @BindView(R.id.viewpager)
     ViewPagerSlide viewpager;
+    @BindView(R.id.order)
+    ImageView order;
     private boolean isFirstLoad = true;
 
     private List<Fragment> fragmentList;
@@ -77,7 +80,7 @@ public class EnergyFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHeight(null, title, share);
+        setHeight(order, title, share);
         initView();
     }
 
@@ -92,7 +95,7 @@ public class EnergyFragment extends BaseFragment {
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if(TextUtils.isEmpty(TokenManager.getToken())){
+                if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(getActivity());
                 }
             }
@@ -134,11 +137,14 @@ public class EnergyFragment extends BaseFragment {
         shareDialog.show();
     }
 
-    @OnClick({R.id.share})
+    @OnClick({R.id.share,R.id.order})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.share:
                 share();
+                break;
+            case R.id.order:
+                ActivityOrderActivity.start(getActivity());
                 break;
             default:
         }

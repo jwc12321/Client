@@ -611,4 +611,10 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         }
         return false;
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 }
