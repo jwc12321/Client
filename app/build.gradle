@@ -175,4 +175,6 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.1.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
     implementation files('libs/open_sdk_r5990_lite.jar')
+
+    compile "com.bm.photoview:library:$rootProject.ext.photoviewVersion"
 }

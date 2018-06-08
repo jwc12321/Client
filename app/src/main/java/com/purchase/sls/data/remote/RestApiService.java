@@ -54,6 +54,7 @@ import com.purchase.sls.data.request.LoginRequest;
 import com.purchase.sls.data.request.MapMarkerRequest;
 import com.purchase.sls.data.request.MessageListRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
+import com.purchase.sls.data.request.OrderCodeRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
@@ -287,5 +288,9 @@ public interface RestApiService {
     //删除订单
     @POST("home/actorder/deleteOrder")
     Flowable<RemoteDataWrapper<Ignore>> deleteActivityOrder(@Body IdRequest idRequest);
+
+    //确认收货
+    @POST("home/actorder/confirmOrder")
+    Flowable<RemoteDataWrapper<Ignore>> confirmActivityOrder(@Body OrderCodeRequest orderCodeRequest);
 
 }

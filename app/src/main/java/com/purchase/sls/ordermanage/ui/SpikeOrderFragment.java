@@ -107,8 +107,8 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
     }
 
     @Override
-    public void confirmOrder(String id) {
-
+    public void confirmOrder(String orderCode) {
+        activityOrderListPresenter.confirmActivityOrder(orderCode);
     }
 
     @Override
@@ -118,11 +118,16 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
 
     @Override
     public void activityOrderDetail(ActivityOrderDetailInfo activityOrderDetailInfo) {
-        ActivityOrderDetailActivity.start(getActivity(),activityOrderDetailInfo);
+        ActivityOrderDetailActivity.start(getActivity(), activityOrderDetailInfo);
     }
 
     @Override
     public void deleteSuccess() {
+        activityOrderListPresenter.getActivityOrderList("1");
+    }
+
+    @Override
+    public void confirmSuccess() {
         activityOrderListPresenter.getActivityOrderList("1");
     }
 }

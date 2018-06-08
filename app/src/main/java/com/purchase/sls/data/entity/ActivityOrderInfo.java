@@ -23,6 +23,8 @@ public class ActivityOrderInfo {
     private String goodsPrice;
     @SerializedName("status")
     private String status;
+    @SerializedName("orderNum")
+    private String orderNum;
 
     public String getId() {
         return id;
@@ -86,5 +88,13 @@ public class ActivityOrderInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
     }
 }

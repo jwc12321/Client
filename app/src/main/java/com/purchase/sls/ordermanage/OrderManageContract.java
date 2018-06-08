@@ -18,12 +18,14 @@ public interface OrderManageContract {
         void getMoreActivityOrderList(String type);
         void getActivityOrderDetail(String id);
         void deleteActivityOrder(String id);
+        void confirmActivityOrder(String orderCode);
     }
     interface ActivityOrderListView extends BaseView<ActivityOrderListPresenter>{
         void render(List<ActivityOrderInfo> activityOrderInfos);
         void renderMore(List<ActivityOrderInfo> activityOrderInfos);
         void activityOrderDetail(ActivityOrderDetailInfo activityOrderDetailInfo);
         void deleteSuccess();
+        void confirmSuccess();
     }
 
     interface ActivityDetailInfoPresenter extends BasePresenter{

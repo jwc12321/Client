@@ -78,7 +78,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
             @Override
             public void onClick(View v) {
                 if(hostAction!=null){
-                    hostAction.confirmOrder(activityOrderInfo.getId());
+                    hostAction.confirmOrder(activityOrderInfo.getOrderNum());
                 }
             }
         });
@@ -199,7 +199,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
 
     public interface HostAction {
         void deleteOrder(String id);
-        void confirmOrder(String id);
+        void confirmOrder(String orderCode);
         void goOrderDetail(String id);
     }
 

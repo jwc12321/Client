@@ -106,8 +106,8 @@ public class LotteryOrderFragment extends BaseListFragment<ActivityOrderInfo> im
     }
 
     @Override
-    public void confirmOrder(String id) {
-
+    public void confirmOrder(String orderCode) {
+        activityOrderListPresenter.confirmActivityOrder(orderCode);
     }
 
     @Override
@@ -122,6 +122,11 @@ public class LotteryOrderFragment extends BaseListFragment<ActivityOrderInfo> im
 
     @Override
     public void deleteSuccess() {
+        activityOrderListPresenter.getActivityOrderList("3");
+    }
+
+    @Override
+    public void confirmSuccess() {
         activityOrderListPresenter.getActivityOrderList("3");
     }
 }

@@ -10,6 +10,7 @@ import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.ActivityOrderListRequest;
 import com.purchase.sls.data.request.IdRequest;
+import com.purchase.sls.data.request.OrderCodeRequest;
 import com.purchase.sls.ordermanage.OrderManageContract;
 
 import java.util.ArrayList;
@@ -162,6 +163,29 @@ public class ActivityOrderListPresenter implements OrderManageContract.ActivityO
                     public void accept(Ignore ignore) throws Exception {
                         activityOrderListView.dismissLoading();
                         activityOrderListView.deleteSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityOrderListView.dismissLoading();
+                        activityOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void confirmActivityOrder(String orderCode) {
+        activityOrderListView.showLoading();
+        OrderCodeRequest orderCodeRequest = new OrderCodeRequest(orderCode);
+        Disposable disposable = restApiService.confirmActivityOrder(orderCodeRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        activityOrderListView.dismissLoading();
+                        activityOrderListView.confirmSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

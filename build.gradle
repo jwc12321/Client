@@ -66,5 +66,6 @@ ext{
     nineoldandroidsVersion="2.4.0"
     jpushVersion="3.0.0"
     jcoreVersion="1.0.0"
+    photoviewVersion="1.4.1"
 
 }
