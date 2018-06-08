@@ -56,13 +56,13 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
 
     @Override
     public void onBindViewHolder(final ActivityOrderView holder, int position) {
-        ActivityOrderInfo activityOrderInfo = activityOrderInfos.get(holder.getAdapterPosition());
+        final ActivityOrderInfo activityOrderInfo = activityOrderInfos.get(holder.getAdapterPosition());
         holder.bindData(activityOrderInfo);
         holder.deleteBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (hostAction != null) {
-                    hostAction.deleteOrder();
+                    hostAction.deleteOrder(activityOrderInfo.getId());
                 }
             }
         });
@@ -70,7 +70,15 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
             @Override
             public void onClick(View v) {
                 if (hostAction != null) {
-                    hostAction.goOrderDetail();
+                    hostAction.goOrderDetail(activityOrderInfo.getId());
+                }
+            }
+        });
+        holder.confirmBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hostAction!=null){
+                    hostAction.confirmOrder(activityOrderInfo.getId());
                 }
             }
         });
@@ -111,10 +119,13 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
         TextView originalPrice;
         @BindView(R.id.delete_bt)
         Button deleteBt;
+        @BindView(R.id.confirm_bt)
+        Button confirmBt;
         @BindView(R.id.item_ll)
         LinearLayout itemLl;
         @BindView(R.id.activity_type_iv)
         ImageView activityTypeIv;
+
         public ActivityOrderView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -125,13 +136,18 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
             setOrderStatus(activityOrderInfo.getStatus(), activityOrderInfo.getActType());
             GlideHelper.load((Activity) context, activityOrderInfo.getGoodsLogo(), R.mipmap.app_icon, shopIv);
             shopName.setText(activityOrderInfo.getGoodsName());
-            energyNumber.setText(activityOrderInfo.getPrice()+"能量");
+            energyNumber.setText(activityOrderInfo.getPrice() + "能量");
             originalPrice.setText("¥" + activityOrderInfo.getGoodsPrice());
             originalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             if (TextUtils.equals("2", activityOrderInfo.getStatus()) || TextUtils.equals("11", activityOrderInfo.getStatus())) {
                 deleteBt.setVisibility(View.VISIBLE);
             } else {
                 deleteBt.setVisibility(View.GONE);
+            }
+            if (TextUtils.equals("1", activityOrderInfo.getStatus())) {
+                confirmBt.setVisibility(View.VISIBLE);
+            } else {
+                confirmBt.setVisibility(View.GONE);
             }
             if (TextUtils.equals("1", activityOrderInfo.getActType())) {
                 activityTypeIv.setBackgroundResource(R.mipmap.spike);
@@ -142,7 +158,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
             }
         }
 
-        //设置状态 0未收获,1已发货,2已收获,10未开将,11未中奖',
+        //设置状态 待发货,1已发货,2已收获,10未开将,11未中奖',
         private void setOrderStatus(String status, String actType) {
             if (TextUtils.equals("3", actType)) {
                 if (TextUtils.equals("0", status)) {
@@ -182,9 +198,9 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
     }
 
     public interface HostAction {
-        void deleteOrder();
-
-        void goOrderDetail();
+        void deleteOrder(String id);
+        void confirmOrder(String id);
+        void goOrderDetail(String id);
     }
 
     private HostAction hostAction;

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/logistics_details" />
+    </RelativeLayout>
+
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/logistics_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_fifteen_margin"
+                android:layout_marginTop="@dimen/common_twenty_one_margin"
+                android:textColor="@color/appText5"
+                android:textSize="15sp"
+                tools:text="圆通快递" />
+
+            <TextView
+                android:id="@+id/logistics_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_fifteen_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:textColor="@color/appText5"
+                android:textSize="15sp"
+                tools:text="快递编号" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/logistics_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_fifteen_margin"
+                android:layout_marginRight="@dimen/common_fifteen_margin"
+                android:layout_marginTop="@dimen/common_eight_margin"
+                app:layoutManager="@string/layoutManager_LinearLayout" />
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

@@ -3,10 +3,13 @@ package com.purchase.sls.ordermanage.presenter;
 import android.text.TextUtils;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.entity.ActivityOrderListResponse;
+import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.ActivityOrderListRequest;
+import com.purchase.sls.data.request.IdRequest;
 import com.purchase.sls.ordermanage.OrderManageContract;
 
 import java.util.ArrayList;
@@ -117,6 +120,53 @@ public class ActivityOrderListPresenter implements OrderManageContract.ActivityO
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        activityOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void getActivityOrderDetail(String id) {
+        activityOrderListView.showLoading();
+        IdRequest idRequest = new IdRequest(id);
+        Disposable disposable = restApiService.getActivityOrderDetail(idRequest)
+                .flatMap(new RxRemoteDataParse<ActivityOrderDetailInfo>())
+                .compose(new RxSchedulerTransformer<ActivityOrderDetailInfo>())
+                .subscribe(new Consumer<ActivityOrderDetailInfo>() {
+                    @Override
+                    public void accept(ActivityOrderDetailInfo activityOrderDetailInfo) throws Exception {
+                        activityOrderListView.dismissLoading();
+                        activityOrderListView.activityOrderDetail(activityOrderDetailInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityOrderListView.dismissLoading();
+                        activityOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+
+    }
+
+    @Override
+    public void deleteActivityOrder(String id) {
+        activityOrderListView.showLoading();
+        IdRequest idRequest = new IdRequest(id);
+        Disposable disposable = restApiService.deleteActivityOrder(idRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        activityOrderListView.dismissLoading();
+                        activityOrderListView.deleteSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityOrderListView.dismissLoading();
                         activityOrderListView.showError(throwable);
                     }
                 });

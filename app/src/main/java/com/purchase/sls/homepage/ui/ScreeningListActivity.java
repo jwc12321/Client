@@ -209,7 +209,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         typeSecondRy.setAdapter(screeningSecondAdapter);
         secondBlackBackground.setAlpha(0.4f);
         comprehensiveInfos = new ArrayList<>();
-        ComprehensiveInfo comprehensiveInfo1 = new ComprehensiveInfo("普通排序", "1");
+        ComprehensiveInfo comprehensiveInfo1 = new ComprehensiveInfo("智能排序", "1");
         ComprehensiveInfo comprehensiveInfo2 = new ComprehensiveInfo("人气排序", "2");
         ComprehensiveInfo comprehensiveInfo3 = new ComprehensiveInfo("人均排序", "3");
         comprehensiveInfos.add(comprehensiveInfo1);

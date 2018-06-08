@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/item_ll"
-    android:background="@color/appText1">
+    android:background="@color/appText1"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,13 +47,15 @@
             android:layout_height="@dimen/common_seventy_five_margin"
             android:scaleType="fitXY"
             tools:src="@mipmap/app_icon" />
+
         <ImageView
             android:id="@+id/activity_type_iv"
             android:layout_width="@dimen/common_thirty_seven_margin"
             android:layout_height="@dimen/common_thirty_seven_margin"
+            android:layout_marginLeft="@dimen/common_thirty_eight_margin"
             android:scaleType="fitXY"
-            tools:src="@mipmap/spike"
-            android:layout_marginLeft="@dimen/common_thirty_eight_margin"/>
+            tools:src="@mipmap/spike" />
+
         <TextView
             android:id="@+id/shop_name"
             android:layout_width="wrap_content"
@@ -70,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_nine_margin"
             android:layout_marginTop="@dimen/common_thirty_one_margin"
             android:textColor="@color/appText12"
             android:textSize="13sp"
@@ -82,24 +85,46 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/common_nine_margin"
+            android:layout_marginRight="@dimen/common_nine_margin"
             android:textColor="@color/appText12"
             android:textSize="11sp"
             tools:text="50" />
+
+        <ImageView
+            android:layout_width="@dimen/common_seven_margin"
+            android:layout_height="@dimen/common_thirteen_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_indicator" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/delete_bt"
-        android:layout_width="@dimen/common_seventy_margin"
-        android:layout_height="@dimen/common_twenty_eight_margin"
-        android:layout_gravity="end"
-        android:layout_marginRight="@dimen/common_fifteen_margin"
-        android:layout_marginTop="@dimen/common_five_margin"
-        android:background="@drawable/common_frame_bg"
-        android:text="删除订单"
-        android:textColor="@color/appText12"
-        android:textSize="14sp"
-        android:visibility="gone" />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_five_margin">
+        <Button
+            android:id="@+id/delete_bt"
+            android:layout_width="@dimen/common_seventy_margin"
+            android:layout_height="@dimen/common_twenty_eight_margin"
+            android:layout_marginRight="@dimen/common_fifteen_margin"
+            android:background="@drawable/common_frame_bg"
+            android:text="删除订单"
+            android:textColor="@color/appText12"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"/>
+        <Button
+            android:id="@+id/confirm_bt"
+            android:layout_width="@dimen/common_seventy_margin"
+            android:layout_height="@dimen/common_twenty_eight_margin"
+            android:layout_marginRight="@dimen/common_fifteen_margin"
+            android:background="@drawable/common_frame_bg"
+            android:text="确认收货"
+            android:textColor="@color/appText12"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_ten_margin"

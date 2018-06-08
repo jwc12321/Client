@@ -3,10 +3,12 @@ package com.purchase.sls.ordermanage.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.widget.list.BaseListFragment;
+import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.entity.ActivityOrderInfo;
 import com.purchase.sls.ordermanage.DaggerOrderManageComponent;
 import com.purchase.sls.ordermanage.OrderManageContract;
@@ -47,7 +49,7 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
     @Override
     public void onResume() {
         super.onResume();
-        if(activityOrderListPresenter!=null){
+        if (activityOrderListPresenter != null) {
             activityOrderListPresenter.getActivityOrderList("0");
         }
     }
@@ -60,7 +62,8 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if(activityOrderListPresenter!=null){
+                Log.d("1111", "执行这里" + activityOrderListPresenter);
+                if (activityOrderListPresenter != null) {
                     activityOrderListPresenter.getActivityOrderList("0");
                 }
             }
@@ -100,12 +103,27 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
     }
 
     @Override
-    public void deleteOrder() {
+    public void deleteOrder(String id) {
+        activityOrderListPresenter.deleteActivityOrder(id);
+    }
+
+    @Override
+    public void confirmOrder(String id) {
 
     }
 
     @Override
-    public void goOrderDetail() {
+    public void goOrderDetail(String id) {
+        activityOrderListPresenter.getActivityOrderDetail(id);
+    }
 
+    @Override
+    public void activityOrderDetail(ActivityOrderDetailInfo activityOrderDetailInfo) {
+        ActivityOrderDetailActivity.start(getActivity(), activityOrderDetailInfo);
+    }
+
+    @Override
+    public void deleteSuccess() {
+        activityOrderListPresenter.getActivityOrderList("0");
     }
 }

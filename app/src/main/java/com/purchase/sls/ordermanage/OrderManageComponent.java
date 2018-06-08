@@ -6,6 +6,7 @@ package com.purchase.sls.ordermanage;
 
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
+import com.purchase.sls.ordermanage.ui.ActivityOrderDetailActivity;
 import com.purchase.sls.ordermanage.ui.AllActivityOrderFragment;
 import com.purchase.sls.ordermanage.ui.ExchangeOrderFragment;
 import com.purchase.sls.ordermanage.ui.LotteryOrderFragment;
@@ -20,4 +21,5 @@ public interface OrderManageComponent {
     void inject(SpikeOrderFragment spikeOrderFragment);
     void inject(ExchangeOrderFragment exchangeOrderFragment);
     void inject(LotteryOrderFragment lotteryOrderFragment);
+    void inject(ActivityOrderDetailActivity activityOrderDetailActivity);
 }

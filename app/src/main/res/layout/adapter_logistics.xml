@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="@dimen/common_eighteen_margin"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/up_icon"
+            android:layout_width="@dimen/common_two_margin"
+            android:layout_height="match_parent"
+            android:layout_above="@id/in_icon"
+            android:layout_centerHorizontal="true"
+            tools:src="@drawable/yellow_line" />
+
+        <ImageView
+            android:id="@+id/in_icon"
+            android:layout_width="@dimen/common_eight_margin"
+            android:layout_height="@dimen/common_eight_margin"
+            android:layout_centerInParent="true"
+            tools:src="@mipmap/yellow_point" />
+
+        <ImageView
+            android:id="@+id/down_icon"
+            android:layout_width="@dimen/common_two_margin"
+            android:layout_height="match_parent"
+            android:layout_below="@id/in_icon"
+            android:layout_centerHorizontal="true"
+            tools:src="@drawable/yellow_line" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/logistic_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_ten_margin"
+        android:layout_marginLeft="@dimen/common_fifteen_margin"
+        android:layout_marginRight="@dimen/common_fifteen_margin"
+        android:layout_marginTop="@dimen/common_ten_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/logistics_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_fourteen_margin"
+            android:textSize="13sp"
+            tools:text="浙江省杭州市" />
+
+        <TextView
+            android:id="@+id/logistics_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_fourteen_margin"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_ten_margin"
+            android:textSize="13sp"
+            tools:text="2018-12:30" />
+    </LinearLayout>
+</LinearLayout>

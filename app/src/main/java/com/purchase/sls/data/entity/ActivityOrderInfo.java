@@ -9,52 +9,20 @@ import com.google.gson.annotations.SerializedName;
 public class ActivityOrderInfo {
     @SerializedName("id")
     private String id;
-    @SerializedName("orderNum")
-    private String orderNum;
-    @SerializedName("act_id")
-    private String actId;
-    @SerializedName("user_id")
-    private String userId;
-    @SerializedName("p_id")
-    private String pId;
     @SerializedName("createTime")
     private String createTime;
-    @SerializedName("address")
-    private String address;
-    @SerializedName("tel")
-    private String tel;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("status")
-    private String status;
-    @SerializedName("province")
-    private String province;
-    @SerializedName("city")
-    private String city;
-    @SerializedName("area")
-    private String area;
-    @SerializedName("expressNum")
-    private String expressNum;
-    @SerializedName("expressName")
-    private String expressName;
+    @SerializedName("goods_logo")
+    private String goodsLogo;
     @SerializedName("price")
     private String price;
     @SerializedName("act_type")
     private String actType;
-    @SerializedName("sendTime")
-    private String sendTime;
-    @SerializedName("confirmTime")
-    private String confirmTime;
-    @SerializedName("created_at")
-    private String createdAt;
-    @SerializedName("updated_at")
-    private String updatedAt;
     @SerializedName("goods_name")
     private String goodsName;
     @SerializedName("goods_price")
     private String goodsPrice;
-    @SerializedName("goods_logo")
-    private String goodsLogo;
+    @SerializedName("status")
+    private String status;
 
     public String getId() {
         return id;
@@ -62,38 +30,6 @@ public class ActivityOrderInfo {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
-    }
-
-    public String getActId() {
-        return actId;
-    }
-
-    public void setActId(String actId) {
-        this.actId = actId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getpId() {
-        return pId;
-    }
-
-    public void setpId(String pId) {
-        this.pId = pId;
     }
 
     public String getCreateTime() {
@@ -104,76 +40,12 @@ public class ActivityOrderInfo {
         this.createTime = createTime;
     }
 
-    public String getAddress() {
-        return address;
+    public String getGoodsLogo() {
+        return goodsLogo;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getExpressNum() {
-        return expressNum;
-    }
-
-    public void setExpressNum(String expressNum) {
-        this.expressNum = expressNum;
-    }
-
-    public String getExpressName() {
-        return expressName;
-    }
-
-    public void setExpressName(String expressName) {
-        this.expressName = expressName;
+    public void setGoodsLogo(String goodsLogo) {
+        this.goodsLogo = goodsLogo;
     }
 
     public String getPrice() {
@@ -192,38 +64,6 @@ public class ActivityOrderInfo {
         this.actType = actType;
     }
 
-    public String getSendTime() {
-        return sendTime;
-    }
-
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
-    }
-
-    public String getConfirmTime() {
-        return confirmTime;
-    }
-
-    public void setConfirmTime(String confirmTime) {
-        this.confirmTime = confirmTime;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public String getGoodsName() {
         return goodsName;
     }
@@ -240,11 +80,11 @@ public class ActivityOrderInfo {
         this.goodsPrice = goodsPrice;
     }
 
-    public String getGoodsLogo() {
-        return goodsLogo;
+    public String getStatus() {
+        return status;
     }
 
-    public void setGoodsLogo(String goodsLogo) {
-        this.goodsLogo = goodsLogo;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

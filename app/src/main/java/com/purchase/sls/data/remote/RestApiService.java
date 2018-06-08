@@ -1,10 +1,12 @@
 package com.purchase.sls.data.remote;
 
 
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
 import com.purchase.sls.data.entity.ActivityInfo;
+import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.entity.ActivityOrderListResponse;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
@@ -31,6 +33,7 @@ import com.purchase.sls.data.entity.UserpowerInfo;
 import com.purchase.sls.data.entity.WXPaySignResponse;
 import com.purchase.sls.data.request.AccountDetailRequest;
 import com.purchase.sls.data.request.AccountListRequest;
+import com.purchase.sls.data.request.ActivityIdRequest;
 import com.purchase.sls.data.request.ActivityOrderListRequest;
 import com.purchase.sls.data.request.AddAddressRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
@@ -261,12 +264,28 @@ public interface RestApiService {
     @POST("home/signin/sign")
     Flowable<RemoteDataWrapper<String>> signIn(@Body TokenRequest tokenRequest);
 
-    //秒杀下单
+    //秒杀和兑换下单
     @POST("home/secKill")
-    Flowable<RemoteDataWrapper<String>> submitSpike(@Body SubmitSpikeRequest submitSpikeRequest);
+    Flowable<RemoteDataWrapper<ActivityOrderDetailInfo>> submitSpike(@Body SubmitSpikeRequest submitSpikeRequest);
+
+    //抽奖下单
+    @POST("home/drawOrder")
+    Flowable<RemoteDataWrapper<ActivityOrderDetailInfo>> submitLottery(@Body SubmitSpikeRequest submitSpikeRequest);
 
     //活动的订单列表
     @POST("home/orderList")
     Flowable<RemoteDataWrapper<ActivityOrderListResponse>> getActivityOrderList(@Body ActivityOrderListRequest activityOrderListRequest);
+
+    //活动订单详情
+    @POST("home/actorder/orderDetail")
+    Flowable<RemoteDataWrapper<ActivityOrderDetailInfo>> getActivityOrderDetail(@Body IdRequest idRequest);
+
+    //活动详情接口
+    @POST("home/activityList/detail")
+    Flowable<RemoteDataWrapper<ActivityInfo>> getActivityInfo(@Body ActivityIdRequest activityIdRequest);
+
+    //删除订单
+    @POST("home/actorder/deleteOrder")
+    Flowable<RemoteDataWrapper<Ignore>> deleteActivityOrder(@Body IdRequest idRequest);
 
 }

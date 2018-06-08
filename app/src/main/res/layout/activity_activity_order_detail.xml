@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_detail_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/order_detail" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_eighteen_margin"
+                    android:textColor="@color/appText5"
+                    android:textSize="16sp"
+                    tools:text="待发货" />
+
+                <RelativeLayout
+                    android:id="@+id/express_if"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginRight="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                    <ImageView
+                        android:id="@+id/express_car"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/express_car" />
+
+                    <TextView
+                        android:id="@+id/express_where"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_fifteen_margin"
+                        android:layout_marginRight="@dimen/common_fifteen_margin"
+                        android:layout_toRightOf="@id/express_car"
+                        android:textColor="@color/appText12"
+                        android:textSize="14sp"
+                        tools:text="浙江省杭州市下城区" />
+
+                    <TextView
+                        android:id="@+id/express_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/express_where"
+                        android:layout_marginLeft="@dimen/common_fifteen_margin"
+                        android:layout_marginTop="@dimen/common_fifteen_margin"
+                        android:layout_toRightOf="@id/express_car"
+                        android:textColor="@color/appText12"
+                        android:textSize="10sp"
+                        tools:text="2018-20-30" />
+
+                    <ImageView
+                        android:layout_width="@dimen/common_seven_margin"
+                        android:layout_height="@dimen/common_thirteen_margin"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/arrow_indicator" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_twenty_margin"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginRight="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_nineteen_margin">
+
+                    <ImageView
+                        android:id="@+id/local_addrsss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/local_address" />
+
+                    <TextView
+                        android:id="@+id/consignee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_fifteen_margin"
+                        android:layout_toRightOf="@id/local_addrsss"
+                        android:textColor="@color/appText12"
+                        android:textSize="14sp"
+                        tools:text="收货人小余" />
+
+                    <TextView
+                        android:id="@+id/tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/appText12"
+                        android:textSize="11sp"
+                        tools:text="18758652365" />
+
+                    <TextView
+                        android:id="@+id/receiving_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/consignee"
+                        android:layout_marginLeft="@dimen/common_fifteen_margin"
+                        android:layout_marginTop="@dimen/common_thirteen_margin"
+                        android:layout_toRightOf="@id/local_addrsss"
+                        android:textColor="@color/appText12"
+                        android:textSize="14sp"
+                        tools:text="浙江省杭州下城地方大幅度发" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/shop_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_seventy_five_margin"
+                    android:layout_margin="@dimen/common_fifteen_margin">
+
+                    <ImageView
+                        android:id="@+id/shop_iv"
+                        android:layout_width="@dimen/common_seventy_five_margin"
+                        android:layout_height="@dimen/common_seventy_five_margin"
+                        android:scaleType="fitXY"
+                        tools:src="@mipmap/app_icon" />
+
+                    <ImageView
+                        android:id="@+id/activity_type_iv"
+                        android:layout_width="@dimen/common_thirty_seven_margin"
+                        android:layout_height="@dimen/common_thirty_seven_margin"
+                        android:layout_marginLeft="@dimen/common_thirty_eight_margin"
+                        android:scaleType="fitXY"
+                        tools:src="@mipmap/spike" />
+
+                    <TextView
+                        android:id="@+id/shop_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_nine_margin"
+                        android:layout_marginTop="@dimen/common_nine_margin"
+                        android:layout_toRightOf="@id/shop_iv"
+                        android:textColor="@color/appText12"
+                        android:textSize="14sp"
+                        tools:text="杭州老鸭煲" />
+
+                    <TextView
+                        android:id="@+id/energy_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/common_nine_margin"
+                        android:layout_marginTop="@dimen/common_thirty_one_margin"
+                        android:textColor="@color/appText12"
+                        android:textSize="13sp"
+                        tools:text="60能量" />
+
+                    <TextView
+                        android:id="@+id/original_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/common_nine_margin"
+                        android:layout_marginRight="@dimen/common_nine_margin"
+                        android:textColor="@color/appText12"
+                        android:textSize="11sp"
+                        tools:text="50" />
+
+                    <ImageView
+                        android:layout_width="@dimen/common_seven_margin"
+                        android:layout_height="@dimen/common_thirteen_margin"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/arrow_indicator" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/call_kefu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_forty_six_margin"
+                android:layout_marginTop="@dimen/common_ten_margin"
+                android:background="@color/appText1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/call_kefu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_nine_margin"
+                    android:text="联系客服"
+                    android:textColor="@color/appText12"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_ten_margin"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/order_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText13"
+                    android:textSize="12sp"
+                    tools:text="订单编号" />
+
+                <TextView
+                    android:id="@+id/create_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText13"
+                    android:textSize="12sp"
+                    tools:text="创建时间" />
+
+                <TextView
+                    android:id="@+id/pay_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText13"
+                    android:textSize="12sp"
+                    tools:text="支付时间" />
+
+                <TextView
+                    android:id="@+id/deliver_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_twelve_margin"
+                    android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText13"
+                    android:textSize="12sp"
+                    tools:text="发货时间" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

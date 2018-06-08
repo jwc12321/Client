@@ -125,5 +125,6 @@
     <string name="energy_center">能量中心</string>
     <!--订单-->
     <string name="order_list">订单列表</string>
-
+    <string name="order_detail">订单详情</string>
+    <string name="logistics_details">物流详情</string>
 </resources>

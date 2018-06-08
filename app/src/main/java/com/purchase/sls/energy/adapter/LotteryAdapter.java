@@ -77,25 +77,21 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
         TextView spikeName;
         @BindView(R.id.spike_iv)
         ImageView spikeIv;
-        @BindView(R.id.original_tv)
-        TextView originalTv;
-        @BindView(R.id.original_price)
-        TextView originalPrice;
+        @BindView(R.id.surplus_number)
+        TextView surplusNumber;
         @BindView(R.id.go_spike)
         RelativeLayout goSpike;
-
         public LotteryVeiw(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         public void bindData(ActivityInfo activityInfo) {
-            startTime.setText("开始时间:"+FormatUtil.formatDateByLine(activityInfo.getStartTime()));
+            startTime.setText("开始时间:" + FormatUtil.formatDateByLine(activityInfo.getStartTime()));
             spikeEnergy.setText(activityInfo.getPrice());
             spikeName.setText(activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, spikeIv);
-            originalPrice.setText(activityInfo.getpPrice());
-            originalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            surplusNumber.setText("剩余名额"+activityInfo.getCount()+"份");
         }
     }
 

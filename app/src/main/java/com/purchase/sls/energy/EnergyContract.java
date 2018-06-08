@@ -3,6 +3,7 @@ package com.purchase.sls.energy;
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.ActivityInfo;
+import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 
 import java.util.List;
@@ -42,9 +43,11 @@ public interface EnergyContract {
 
     interface ActivityDetailPresenter extends BasePresenter {
         void submitSpike(String id, String aid);
+        void submitLottery(String id,String aid);
     }
 
     interface ActivityDetailView extends BaseView<ActivityDetailPresenter> {
-        void submitSpikeSuccess(String orderNumber);
+        void submitSpikeSuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
+        void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
     }
 }

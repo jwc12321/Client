@@ -83,4 +83,12 @@ public class StaticData {
     public static final String CHOICE_ADDRESS="choiceAddress";
     //签到获得的能量值
     public static final String ENERGY_NUMBER="energyNumber";
+    //活动商品详情
+    public static final String ACTIVITY_ORDER_DETAIL="activityOrderDetail";
+    //快递公司
+    public static final String EXPTESS_NAME="expressName";
+    //快递编号
+    public static final String EXPTESS_NUM="expressNum";
+    //物流信息
+    public static final String EXPTESS_LOGIS="expressLogis";
 }

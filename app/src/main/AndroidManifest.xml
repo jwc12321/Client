@@ -308,6 +308,10 @@
         <activity android:name=".energy.ui.SignInActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme" />
+        <activity android:name=".ordermanage.ui.ActivityOrderDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ordermanage.ui.LogisticsDetailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

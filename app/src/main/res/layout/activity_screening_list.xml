@@ -72,7 +72,7 @@
                 android:id="@+id/choice_second_tt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nearby"
+                android:text="排序"
                 android:textColor="@drawable/bottom_text_select"
                 android:textSize="14sp" />
 

@@ -2,6 +2,7 @@ package com.purchase.sls.energy.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ActivityInfo;
+import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.SubmitSpikeRequest;
@@ -57,15 +58,38 @@ public class ActivityDetailPresenter implements EnergyContract.ActivityDetailPre
     @Override
     public void submitSpike(String id, String aid) {
         activityDetailView.showLoading();
-        SubmitSpikeRequest submitSpikeRequest=new SubmitSpikeRequest(id,aid);
+        SubmitSpikeRequest submitSpikeRequest = new SubmitSpikeRequest(id, aid);
         Disposable disposable = restApiService.submitSpike(submitSpikeRequest)
-                .flatMap(new RxRemoteDataParse<String>())
-                .compose(new RxSchedulerTransformer<String>())
-                .subscribe(new Consumer<String>() {
+                .flatMap(new RxRemoteDataParse<ActivityOrderDetailInfo>())
+                .compose(new RxSchedulerTransformer<ActivityOrderDetailInfo>())
+                .subscribe(new Consumer<ActivityOrderDetailInfo>() {
                     @Override
-                    public void accept(String orderNumber) throws Exception {
+                    public void accept(ActivityOrderDetailInfo activityOrderDetailInfo) throws Exception {
                         activityDetailView.dismissLoading();
-                        activityDetailView.submitSpikeSuccess(orderNumber);
+                        activityDetailView.submitSpikeSuccess(activityOrderDetailInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityDetailView.dismissLoading();
+                        activityDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void submitLottery(String id, String aid) {
+        activityDetailView.showLoading();
+        SubmitSpikeRequest submitSpikeRequest = new SubmitSpikeRequest(id, aid);
+        Disposable disposable = restApiService.submitLottery(submitSpikeRequest)
+                .flatMap(new RxRemoteDataParse<ActivityOrderDetailInfo>())
+                .compose(new RxSchedulerTransformer<ActivityOrderDetailInfo>())
+                .subscribe(new Consumer<ActivityOrderDetailInfo>() {
+                    @Override
+                    public void accept(ActivityOrderDetailInfo activityOrderDetailInfo) throws Exception {
+                        activityDetailView.dismissLoading();
+                        activityDetailView.submitSpikeSuccess(activityOrderDetailInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

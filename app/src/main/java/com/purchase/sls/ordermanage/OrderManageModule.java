@@ -9,13 +9,23 @@ import dagger.Provides;
 @Module
 public class OrderManageModule {
     private OrderManageContract.ActivityOrderListView activityOrderListView;
+    private OrderManageContract.ActivityDetailInfoView activityDetailInfoView;
 
     public OrderManageModule(OrderManageContract.ActivityOrderListView activityOrderListView) {
         this.activityOrderListView = activityOrderListView;
     }
 
+    public OrderManageModule(OrderManageContract.ActivityDetailInfoView activityDetailInfoView) {
+        this.activityDetailInfoView = activityDetailInfoView;
+    }
+
     @Provides
     OrderManageContract.ActivityOrderListView provideActivityOrderView() {
         return activityOrderListView;
+    }
+
+    @Provides
+    OrderManageContract.ActivityDetailInfoView provideActivityDetailInfoView(){
+        return activityDetailInfoView;
     }
 }

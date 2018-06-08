@@ -28,11 +28,13 @@ import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.TearDownView;
 import com.purchase.sls.data.entity.ActivityInfo;
+import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
 import com.purchase.sls.energy.EnergyContract;
 import com.purchase.sls.energy.EnergyModule;
 import com.purchase.sls.energy.presenter.ActivityDetailPresenter;
+import com.purchase.sls.ordermanage.ui.ActivityOrderDetailActivity;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
 import java.util.ArrayList;
@@ -119,6 +121,9 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.VISIBLE);
             spikeBt.setText("抽奖");
+            spikeExplain.setText("剩余名额");
+            surplusNumber.setVisibility(View.VISIBLE);
+            surplusNumber.setText(activityInfo.getCount() + "份");
         } else {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.GONE);
@@ -231,7 +236,11 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                 if (addressInfo == null) {
                     choiceAddress();
                 } else {
-                    activityDetailPresenter.submitSpike(activityInfo.getId(), addressInfo.getId());
+                    if (TextUtils.equals("3", activityInfo.getType())) {
+                        activityDetailPresenter.submitLottery(activityInfo.getId(), addressInfo.getId());
+                    } else {
+                        activityDetailPresenter.submitSpike(activityInfo.getId(), addressInfo.getId());
+                    }
                 }
                 break;
             default:
@@ -281,7 +290,12 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
     }
 
     @Override
-    public void submitSpikeSuccess(String orderNumber) {
+    public void submitSpikeSuccess(ActivityOrderDetailInfo activityOrderDetailInfo) {
+        ActivityOrderDetailActivity.start(this,activityOrderDetailInfo);
+    }
 
+    @Override
+    public void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo) {
+        ActivityOrderDetailActivity.start(this,activityOrderDetailInfo);
     }
 }
