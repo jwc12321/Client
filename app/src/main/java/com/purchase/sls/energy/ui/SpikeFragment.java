@@ -117,7 +117,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("1", "1");
+                activityPresenter.getActivitys("0", "1");
                 getEnergy();
             }
         }

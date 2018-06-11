@@ -56,4 +56,12 @@ public interface EnergyContract {
     interface SignInView extends BaseView<SignInPresenter> {
         void signInSuccess(String energy);
     }
+
+    interface SharePresenter extends BasePresenter{
+        void share();
+    }
+
+    interface ShareView extends BaseView<SharePresenter>{
+        void success(String energy);
+    }
 }

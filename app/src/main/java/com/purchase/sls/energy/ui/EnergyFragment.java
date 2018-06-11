@@ -1,6 +1,5 @@
 package com.purchase.sls.energy.ui;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -19,11 +18,17 @@ import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.common.widget.dialog.ShareDialog;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
+import com.purchase.sls.energy.DaggerEnergyComponent;
+import com.purchase.sls.energy.EnergyContract;
+import com.purchase.sls.energy.EnergyModule;
+import com.purchase.sls.energy.presenter.SharePresenter;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.ordermanage.ui.ActivityOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +39,7 @@ import butterknife.OnClick;
  * 能量
  */
 
-public class EnergyFragment extends BaseFragment {
+public class EnergyFragment extends BaseFragment implements ShareDialog.ShareListen,EnergyContract.ShareView{
 
     @BindView(R.id.title)
     TextView title;
@@ -54,7 +59,8 @@ public class EnergyFragment extends BaseFragment {
     private List<String> titleList;
     private BaseListAdapter baseListAdapter;
 
-    private AnimationDrawable anim;
+    @Inject
+    SharePresenter sharePresenter;
 
     public EnergyFragment() {
     }
@@ -85,7 +91,11 @@ public class EnergyFragment extends BaseFragment {
 
     @Override
     protected void initializeInjector() {
-        super.initializeInjector();
+        DaggerEnergyComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .energyModule(new EnergyModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -134,6 +144,7 @@ public class EnergyFragment extends BaseFragment {
     private void share() {
         ShareDialog shareDialog = new ShareDialog(getActivity());
         shareDialog.setUrl("http://d.365neng.com/share/download.html");
+        shareDialog.setShareListen(this);
         shareDialog.show();
     }
 
@@ -148,5 +159,19 @@ public class EnergyFragment extends BaseFragment {
                 break;
             default:
         }
+    }
+
+    @Override
+    public void shareSuccess() {
+        sharePresenter.share();
+    }
+
+    @Override
+    public void setPresenter(EnergyContract.SharePresenter presenter) {
+
+    }
+
+    @Override
+    public void success(String energy) {
     }
 }

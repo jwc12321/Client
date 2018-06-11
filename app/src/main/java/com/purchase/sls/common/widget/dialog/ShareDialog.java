@@ -93,21 +93,21 @@ public class ShareDialog extends BottomSheetDialog {
         @Override
         public void onResult(SHARE_MEDIA platform) {
             Toast.makeText(getContext(), " 分享成功啦", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onResult: " + platform);
+            if(shareListen!=null){
+                shareListen.shareSuccess();
+            }
             dismiss();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onError: ");
             dismiss();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
             Toast.makeText(getContext(), " 分享取消了", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onCancel: ");
             dismiss();
         }
     };
@@ -143,6 +143,16 @@ public class ShareDialog extends BottomSheetDialog {
 
     public void setUmShareListener(UMShareListener listener) {
         umShareListener = listener;
+    }
+
+    public interface ShareListen {
+        void shareSuccess();
+    }
+
+    private ShareListen shareListen;
+
+    public void setShareListen(ShareListen shareListen) {
+        this.shareListen = shareListen;
     }
 
 }

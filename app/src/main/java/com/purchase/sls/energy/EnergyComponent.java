@@ -6,6 +6,7 @@ package com.purchase.sls.energy;
 
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
+import com.purchase.sls.energy.ui.EnergyFragment;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.energy.ui.ExchangeFragment;
 import com.purchase.sls.energy.ui.LotteryFragment;
@@ -24,4 +25,5 @@ public interface EnergyComponent {
     void inject(LotteryFragment lotteryFragment);
     void inject(SkEcLtActivity skEcLtActivity);
     void inject(SignInActivity signInActivity);
+    void inject(EnergyFragment energyFragment);
 }

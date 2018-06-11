@@ -93,6 +93,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     private String starts;
     private String businessName;
     private List<String> uploadFiles;
+    private List<String> waitUploadFiles;
     private int successPhoto;
 
     @Inject
@@ -166,6 +167,9 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     public void uploadFileSuccess(String photoUrl) {
         successPhoto = successPhoto + 1;
         uploadFiles.add(photoUrl);
+        if(successPhoto<waitUploadFiles.size()) {
+            submitEvaluatePresenter.uploadFile(waitUploadFiles.get(successPhoto));
+        }
         if (successPhoto == photoPaths.size()) {
             submitEvaluate();
         }
@@ -175,6 +179,9 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     public void showError(Throwable e) {
         super.showError(e);
         successPhoto = successPhoto + 1;
+        if(successPhoto<waitUploadFiles.size()) {
+            submitEvaluatePresenter.uploadFile(waitUploadFiles.get(successPhoto));
+        }
         if (successPhoto == photoPaths.size()) {
             submitEvaluate();
         }
@@ -269,7 +276,6 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         for (int i = 0; i < selectedImgs.size(); i++) {
             photoPaths.add(selectedImgs.get(i).getPath());
         }
-        Log.d("111","photoPaths.size"+photoPaths.size());
         photoAdapter.setPaths(photoPaths);
     }
 
@@ -290,8 +296,9 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
 
                 @Override
                 public void success(List<String> list) {
-                    for (int i = 0; i < list.size(); i++) {
-                        submitEvaluatePresenter.uploadFile(list.get(i));
+                    if(list!=null&&list.size()>0){
+                        waitUploadFiles=list;
+                        submitEvaluatePresenter.uploadFile(waitUploadFiles.get(0));
                     }
                 }
             });

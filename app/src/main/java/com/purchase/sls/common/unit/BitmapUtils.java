@@ -29,7 +29,7 @@ public class BitmapUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         int options = 100;
-        while (baos.toByteArray().length / 1024 > 100) {
+        while (baos.toByteArray().length / 1024 > 200) {
             baos.reset();
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);
             options -= 10;

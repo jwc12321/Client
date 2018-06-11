@@ -48,7 +48,6 @@ import com.purchase.sls.homepage.HomePageModule;
 import com.purchase.sls.homepage.adapter.HotServiceAdapter;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.homepage.presenter.HomePagePresenter;
-import com.purchase.sls.mainframe.ui.MainFrameActivity;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
 import java.util.ArrayList;
@@ -140,10 +139,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mContext = getActivity();
-        setHeight(choiceCity,searchLl,scan);
+        setHeight(choiceCity, searchLl, scan);
         initView();
 
     }
+
     private void initView() {
         commonAppPreferences = new CommonAppPreferences(getActivity());
         scrollview.setScrollViewListener(this);
@@ -154,14 +154,14 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         likeStore();
         homePagePresenter.getBannerHotInfo("1", "");//防止定位慢不去请求数据就空白，后台默认衢州
         mapLocal();
-        if(testOldVersion("com.nenggou.syn")){
+        if (testOldVersion("com.nenggou.syn")) {
             textDialog();
         }
         refreshLayout.setCanLoadMore(false);
     }
 
-    private void textDialog(){
-        if ( testingDialog == null )
+    private void textDialog() {
+        if (testingDialog == null)
             testingDialog = new CommonDialog.Builder()
                     .showTitle(false)
                     .setContent("检测到您当前手机含有旧能购APP，为了不影响您的使用，请先删除旧版本的APP")
@@ -182,12 +182,12 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         limitScroll.startScroll();
     }
 
-    private boolean testOldVersion(String packageName){
-        PackageManager packageManager =getActivity().getPackageManager();
+    private boolean testOldVersion(String packageName) {
+        PackageManager packageManager = getActivity().getPackageManager();
 
         //获取手机系统的所有APP包名，然后进行一一比较
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        if(pinfo!=null) {
+        if (pinfo != null) {
             for (int i = 0; i < pinfo.size(); i++) {
                 if (((PackageInfo) pinfo.get(i)).packageName
                         .equalsIgnoreCase(packageName))
@@ -220,7 +220,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         mLocationHelper.addOnLocatedListener(new LocationHelper.OnLocatedListener() {
             @Override
             public void onLocated(AMapLocation aMapLocation) {
-                if (aMapLocation==null||(TextUtils.isEmpty(aMapLocation.getCity()) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLongitude())) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLatitude())))) {
+                if (aMapLocation == null || (TextUtils.isEmpty(aMapLocation.getCity()) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLongitude())) && TextUtils.equals("0.0", String.valueOf(aMapLocation.getLatitude())))) {
                     choiceCity.setText("定位失败，请重新定位");
                     city = "";
                     longitude = "";
@@ -269,12 +269,12 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         myLimitScrollAdapter = new MyLimitScrollAdapter(getActivity());
         limitScroll.setDataAdapter(myLimitScrollAdapter);
         //API：4、设置条目点击事件
-       limitScroll.setOnItemClickListener(new LimitScrollerView.OnItemClickListener() {
-           @Override
-           public void onItemClick(Object obj) {
-               UmengEventUtils.statisticsClick(getActivity(),UMStaticData.CLIENT_MAIN_Toutiao);
-           }
-       });
+        limitScroll.setOnItemClickListener(new LimitScrollerView.OnItemClickListener() {
+            @Override
+            public void onItemClick(Object obj) {
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_Toutiao);
+            }
+        });
     }
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
@@ -344,7 +344,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         refreshLayout.stopRefresh();
         if (collectionStoreInfos != null && collectionStoreInfos.size() > 0) {
             refreshLayout.setCanLoadMore(true);
-        }else{
+        } else {
             refreshLayout.setCanLoadMore(false);
         }
         likeStoreAdapter.setLikeInfos(collectionStoreInfos);
@@ -454,13 +454,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
      */
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
-        UmengEventUtils.statisticsClick(getActivity(),UMStaticData.KEY,storecateInfo.getName(),UMStaticData.SELECT_TYPE);
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, storecateInfo.getName(), UMStaticData.SELECT_TYPE);
         ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
     }
 
     @Override
     public void likeStoreClickListener(String storeid) {
-        UmengEventUtils.statisticsClick(getActivity(),UMStaticData.KEY,UMStaticData.SELECT_MAIN,UMStaticData.SELECT_LIKE);
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, UMStaticData.SELECT_MAIN, UMStaticData.SELECT_LIKE);
         ShopDetailActivity.start(getActivity(), storeid);
     }
 
@@ -485,7 +485,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         private List<BannerHotResponse.ArticleInfo.Datainfo> datas;
 
         public MyLimitScrollAdapter(Context context) {
-            this.context=context;
+            this.context = context;
         }
 
         public void setDatas(List<BannerHotResponse.ArticleInfo.Datainfo> datas) {

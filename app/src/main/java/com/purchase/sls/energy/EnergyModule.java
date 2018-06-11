@@ -13,6 +13,7 @@ public class EnergyModule {
     private EnergyContract.ActivityView activityView;
     private EnergyContract.ActivityDetailView activityDetailView;
     private EnergyContract.SignInView signInView;
+    private EnergyContract.ShareView shareView;
 
     public EnergyModule(EnergyContract.EnergyInfoView energyInfoView) {
         this.energyInfoView = energyInfoView;
@@ -24,6 +25,10 @@ public class EnergyModule {
 
     public EnergyModule(EnergyContract.ActivityDetailView activityDetailView) {
         this.activityDetailView = activityDetailView;
+    }
+
+    public EnergyModule(EnergyContract.ShareView shareView) {
+        this.shareView = shareView;
     }
 
     public EnergyModule(EnergyContract.SignInView signInView) {
@@ -48,5 +53,10 @@ public class EnergyModule {
     @Provides
     EnergyContract.SignInView provideSignInView(){
         return signInView;
+    }
+
+    @Provides
+    EnergyContract.ShareView provideShareView(){
+        return shareView;
     }
 }

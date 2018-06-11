@@ -293,4 +293,8 @@ public interface RestApiService {
     @POST("home/actorder/confirmOrder")
     Flowable<RemoteDataWrapper<Ignore>> confirmActivityOrder(@Body OrderCodeRequest orderCodeRequest);
 
+    //分享
+    @POST("home/share")
+    Flowable<RemoteDataWrapper<String>> share(@Body TokenRequest tokenRequest);
+
 }
