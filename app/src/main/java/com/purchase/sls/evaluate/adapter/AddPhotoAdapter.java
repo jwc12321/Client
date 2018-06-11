@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.purchase.sls.R;
 
 import java.io.File;
@@ -110,8 +111,15 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.Holder
                     });
                     break;
                 case TYPE_PHOTO://查看照片
-                    photo.setImageBitmap(BitmapFactory.decodeFile(paths.get(getAdapterPosition())));
-                    Glide.with(context).load(new File(paths.get(getAdapterPosition()))).into(photo);
+//                    photo.setImageBitmap(BitmapFactory.decodeFile(paths.get(getAdapterPosition())));
+//                    Glide.with(context).load(new File(paths.get(getAdapterPosition()))).into(photo);
+                    Glide.with(context)
+                            .load(new File(paths.get(getAdapterPosition())))
+                            .asBitmap()
+                            .placeholder(R.mipmap.app_icon)
+                            .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                            .override(70,70)
+                            .into(photo);
                     photo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -121,9 +129,9 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.Holder
                     delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            paths.remove(getAdapterPosition());
+//                            paths.remove(getAdapterPosition());
                             photoListener.removePhoto(getAdapterPosition());
-                            notifyItemRemoved(getAdapterPosition());
+//                            notifyItemRemoved(getAdapterPosition());
                         }
                     });
                     break;

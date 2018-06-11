@@ -212,7 +212,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void evaluateAdapter() {
-        allEvaluateAdapter = new AllEvaluateAdapter(this, "1");
+        allEvaluateAdapter = new AllEvaluateAdapter(this, "1",ShopDetailActivity.this);
         evaluateRv.setAdapter(allEvaluateAdapter);
     }
 

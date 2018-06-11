@@ -143,7 +143,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     }
 
     private void getEnergy() {
-        if (!TextUtils.isEmpty(TokenManager.getToken())&&activityPresenter!=null) {
+        if (!TextUtils.isEmpty(TokenManager.getToken()) && activityPresenter != null) {
             activityPresenter.getEnergyInfo("2");
         }
     }
@@ -182,12 +182,6 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     }
 
     @Override
-    public void signInSuccess(String energy) {
-        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
-        SignInActivity.start(getActivity(),energy);
-    }
-
-    @Override
     public void renderEnergyInfo(EnergyInfo energyInfo) {
         if (energyInfo != null && energyInfo.getSumPower() != null) {
             energyTotal.setText(KeywordUtil.matcherActivity(2.0f, "当前" + energyInfo.getSumPower().getPower() + "个能量"));
@@ -214,7 +208,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
                     AccountLoginActivity.start(getActivity());
                     return;
                 } else {
-                    activityPresenter.signIn();
+                    SignInActivity.start(getActivity());
                 }
                 break;
             default:

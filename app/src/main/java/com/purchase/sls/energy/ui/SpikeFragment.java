@@ -117,7 +117,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
         super.onResume();
         if (!isFirstLoad) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("0", "1");
+                activityPresenter.getActivitys("1", "1");
                 getEnergy();
             }
         }
@@ -181,12 +181,6 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     }
 
     @Override
-    public void signInSuccess(String energy) {
-        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_QIAN_DAO);
-        SignInActivity.start(getActivity(), energy);
-    }
-
-    @Override
     public void renderEnergyInfo(EnergyInfo energyInfo) {
         if (energyInfo != null && energyInfo.getSumPower() != null && energyTotal != null) {
             energyTotal.setText(KeywordUtil.matcherActivity(2.0f, "当前" + energyInfo.getSumPower().getPower() + "个能量"));
@@ -212,7 +206,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
                     AccountLoginActivity.start(getActivity());
                     return;
                 } else {
-                    activityPresenter.signIn();
+                    SignInActivity.start(getActivity());
                 }
                 break;
             default:

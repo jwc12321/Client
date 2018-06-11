@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.makeramen.roundedimageview.RoundedImageView;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.purchase.sls.R;
-import com.purchase.sls.common.GlideHelper;
 
 import java.util.List;
 
@@ -23,9 +25,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
     private LayoutInflater layoutInflater;
     private List<String> photoList;
     private Context context;
+    private Activity activity;
 
-    public PhotoAdapter(Context context) {
+    public PhotoAdapter(Context context,Activity activity) {
         this.context = context;
+        this.activity=activity;
     }
 
     public void setPhotoList(List<String> photoList) {
@@ -45,7 +49,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
     @Override
     public void onBindViewHolder(final PhotoView holder, int position) {
         final String photoUrl = photoList.get(holder.getAdapterPosition());
-        GlideHelper.load((Activity) context, photoUrl, R.mipmap.app_icon, holder.photo);
+        Glide.with(context)
+                .load(photoUrl)
+                .asBitmap()
+                .placeholder(R.mipmap.app_icon)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .override(70,70)
+                .into(holder.photo);
         if (onPictureOnClickListener != null) {
             holder.photo.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +73,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
 
     public static class PhotoView extends RecyclerView.ViewHolder {
         @BindView(R.id.photo)
-        RoundedImageView photo;
+        ImageView photo;
         public PhotoView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

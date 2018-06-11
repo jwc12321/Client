@@ -89,7 +89,7 @@ public class ActivityDetailPresenter implements EnergyContract.ActivityDetailPre
                     @Override
                     public void accept(ActivityOrderDetailInfo activityOrderDetailInfo) throws Exception {
                         activityDetailView.dismissLoading();
-                        activityDetailView.submitSpikeSuccess(activityOrderDetailInfo);
+                        activityDetailView.submitLotterySuccess(activityOrderDetailInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +36,8 @@ import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
 import com.purchase.sls.common.unit.ImageSizeUtil;
 import com.purchase.sls.common.unit.PermissionUtil;
+import com.purchase.sls.common.widget.pickphoto.beans.ImgBean;
+import com.purchase.sls.common.widget.pickphoto.dialog.PhotoListDialog;
 
 import java.io.File;
 import java.io.Serializable;
@@ -92,6 +96,14 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
 
     public static ActionSheet newInstance() {
         return newInstance(false, 480, 480);
+    }
+
+    private int maxCount;
+    private String type;//1头像2：评价
+
+    public void setMax(int maxCount, String type) {
+        this.maxCount = maxCount;
+        this.type = type;
     }
 
 
@@ -275,21 +287,25 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
+        switch (requestCode) {
             case PERMISSION_READ_SD:
-                for (int gra :grantResults){
-                    if (gra != PackageManager.PERMISSION_GRANTED){
+                for (int gra : grantResults) {
+                    if (gra != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
                 }
                 //打开相册选择图片
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, CODE_GALLERY);
+                if (TextUtils.equals("1", type)) {
+                    Intent intent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, CODE_GALLERY);
+                } else {
+                    openAlbum(maxCount);
+                }
                 break;
             case PERMISSION_CAMERA:
-                for (int gra :grantResults){
-                    if (gra != PackageManager.PERMISSION_GRANTED){
+                for (int gra : grantResults) {
+                    if (gra != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
                 }
@@ -312,7 +328,7 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
         List<String> groups = new ArrayList<>();
         groups.add(Manifest.permission_group.CAMERA);
         groups.add(Manifest.permission_group.STORAGE);
-        if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups,null),PERMISSION_CAMERA)){
+        if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups, null), PERMISSION_CAMERA)) {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 // 设置系统相机拍照后的输出路径
@@ -329,36 +345,39 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
 
 
     public void chooseFromGallery() {
-
         List<String> groups = new ArrayList<>();
         groups.add(Manifest.permission_group.STORAGE);
-        if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups,null),PERMISSION_READ_SD)){
+        if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups, null), PERMISSION_READ_SD)) {
             //打开相册选择图片
+            if (TextUtils.equals("1", type)) {
             Intent intent = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, CODE_GALLERY);
+            }else {
+                openAlbum(maxCount);
+            }
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult: " + (data != null));
-        if ( resultCode == Activity.RESULT_OK ) {
+        if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case CODE_GALLERY:
-                    if ( data != null ) {
+                    if (data != null) {
                         Uri selectedImage = data.getData();
                         String picturePath;
-                        if ( "file".equals(selectedImage.getScheme()) ) {
+                        if ("file".equals(selectedImage.getScheme())) {
                             picturePath = selectedImage.getPath();
                             tempFile = createTempFile(filePath);
                             crop(picturePath, 1, 1, 400, 400);
-                        } else if ( "content".equals(selectedImage.getScheme()) ) {
+                        } else if ("content".equals(selectedImage.getScheme())) {
 
                             String[] filePathColumn = {MediaStore.Images.Media.DATA};
                             Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                                     filePathColumn, null, null, null);
-                            if ( cursor != null ) {
+                            if (cursor != null) {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 
@@ -420,7 +439,7 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (tempFile != null)
-            outState.putSerializable(TEMP_FILE,tempFile);
+            outState.putSerializable(TEMP_FILE, tempFile);
     }
 
     public void setOnPictureChoseListener(OnPictureChoseListener mOnPictureChoseListener) {
@@ -430,5 +449,24 @@ public class ActionSheet extends BaseFragment implements View.OnClickListener {
     public interface OnPictureChoseListener extends Serializable {
 
         void onPictureChose(File filePath);
+
+        void onPhotoResult(List<ImgBean> selectedImgs);
+    }
+
+    //打开相册
+    private void openAlbum(int maxcount) {
+        PhotoListDialog photoListDialog = new PhotoListDialog(context, getActivity());
+        photoListDialog.setMAX_COUNT(maxcount);
+//        photoListDialog.setAlreadySelectedImgs(selectedImgs);
+        photoListDialog.show();
+        photoListDialog.setOnChoicePhotoListener(new PhotoListDialog.OnChoicePhotoListener() {
+            @Override
+            public void onResult(List<ImgBean> imgBeens) {
+                if (mOnPictureChoseListener != null) {
+                    mOnPictureChoseListener.onPhotoResult(imgBeens);
+                }
+                dismiss();
+            }
+        });
     }
 }

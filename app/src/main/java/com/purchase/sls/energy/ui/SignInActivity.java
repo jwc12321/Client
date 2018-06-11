@@ -20,9 +20,17 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.StaticHandler;
+import com.purchase.sls.common.unit.UmengEventUtils;
+import com.purchase.sls.energy.DaggerEnergyComponent;
+import com.purchase.sls.energy.EnergyContract;
+import com.purchase.sls.energy.EnergyModule;
+import com.purchase.sls.energy.presenter.SignInPresenter;
 
 import java.lang.reflect.Field;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +40,7 @@ import butterknife.OnClick;
  * Created by JWC on 2018/6/7.
  */
 
-public class SignInActivity extends BaseActivity {
+public class SignInActivity extends BaseActivity implements EnergyContract.SignInView{
     @BindView(R.id.red_iv)
     ImageView redIv;
     @BindView(R.id.energy_number)
@@ -42,10 +50,11 @@ public class SignInActivity extends BaseActivity {
 
     private AnimationDrawable anim;
     private String energyNb;
+    @Inject
+    SignInPresenter signInPresenter;
 
-    public static void start(Context context, String energyNb) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, SignInActivity.class);
-        intent.putExtra(StaticData.ENERGY_NUMBER, energyNb);
         context.startActivity(intent);
     }
 
@@ -60,15 +69,22 @@ public class SignInActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
         initSign();
-        energyNb = getIntent().getStringExtra(StaticData.ENERGY_NUMBER);
     }
+
+    @Override
+    protected void initializeInjector() {
+        DaggerEnergyComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .energyModule(new EnergyModule(this))
+                .build()
+                .inject(this);
+    }
+
     @OnClick({R.id.red_iv, R.id.sign_bg})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.red_iv:
-                anim.setOneShot(true);
-                anim.start();
-                mHandler.sendEmptyMessageDelayed(SPIKE_WHAT, 1200);
+                signInPresenter.signIn();
                 break;
             case R.id.sign_bg:
                 finish();
@@ -82,6 +98,27 @@ public class SignInActivity extends BaseActivity {
         redIv.setBackgroundResource(R.drawable.red_envelope);
         anim = (AnimationDrawable) redIv.getBackground();
     }
+
+    @Override
+    public void setPresenter(EnergyContract.SignInPresenter presenter) {
+
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        super.showError(e);
+        finish();
+    }
+
+    @Override
+    public void signInSuccess(String energy) {
+        this.energyNb=energy;
+        UmengEventUtils.statisticsClick(this, UMStaticData.ENG_QIAN_DAO);
+        anim.setOneShot(true);
+        anim.start();
+        mHandler.sendEmptyMessageDelayed(SPIKE_WHAT, 1200);
+    }
+
 
     public static class MyHandler extends StaticHandler<SignInActivity> {
 

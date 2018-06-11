@@ -22,9 +22,12 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.BitmapUtils;
+import com.purchase.sls.common.unit.CompressPhotoUtils;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.MyClickRatingBar;
 import com.purchase.sls.common.widget.customeview.ActionSheet;
+import com.purchase.sls.common.widget.pickphoto.beans.ImgBean;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.evaluate.DaggerEvaluateComponent;
 import com.purchase.sls.evaluate.EvaluateContract;
@@ -90,6 +93,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     private String starts;
     private String businessName;
     private List<String> uploadFiles;
+    private int successPhoto;
 
     @Inject
     SubmitEvaluatePresenter submitEvaluatePresenter;
@@ -160,13 +164,27 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
 
     @Override
     public void uploadFileSuccess(String photoUrl) {
+        successPhoto = successPhoto + 1;
         uploadFiles.add(photoUrl);
+        if (successPhoto == photoPaths.size()) {
+            submitEvaluate();
+        }
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        super.showError(e);
+        successPhoto = successPhoto + 1;
+        if (successPhoto == photoPaths.size()) {
+            submitEvaluate();
+        }
     }
 
     @Override
     public void submitSuccess() {
         UmengEventUtils.statisticsClick(this, UMStaticData.COMMENT_STORE);
         EvaluateSuccessActivity.start(this);
+        BitmapUtils.deleteCacheFile();
         this.finish();
     }
 
@@ -210,7 +228,8 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
 
     @Override
     public void removePhoto(int position) {
-        uploadFiles.remove(position);
+        photoPaths.remove(position);
+        photoAdapter.setPaths(photoPaths);
     }
 
     @OnClick({R.id.add_photo, R.id.submit, R.id.back})
@@ -234,19 +253,24 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
             actionSheet = ActionSheet.newInstance(true, 90, 90);
             actionSheet.setOnPictureChoseListener(SubmitEvaluateActivity.this);
         }
+        actionSheet.setMax(9 - photoPaths.size(), "2");
         actionSheet.show(this);
-        Log.d("111", "数据" + photoPaths.size());
-        if (photoPaths.size() > 8) {
-            showMessage("至多选择9张照片");
-            return;
-        }
     }
 
     @Override
     public void onPictureChose(File filePath) {
         photoPaths.add(filePath.getAbsolutePath());
         photoAdapter.setPaths(photoPaths);
-        submitEvaluatePresenter.uploadFile(filePath.getAbsolutePath());
+    }
+
+    @Override
+    public void onPhotoResult(List<ImgBean> selectedImgs) {
+        actionSheet.dismiss();
+        for (int i = 0; i < selectedImgs.size(); i++) {
+            photoPaths.add(selectedImgs.get(i).getPath());
+        }
+        Log.d("111","photoPaths.size"+photoPaths.size());
+        photoAdapter.setPaths(photoPaths);
     }
 
     @OnCheckedChanged({R.id.agreement_check})
@@ -259,6 +283,24 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     }
 
     private void submit() {
+        showLoading();
+        if (photoPaths != null && photoPaths.size() > 0) {
+            successPhoto = 0;
+            new CompressPhotoUtils().CompressPhoto(SubmitEvaluateActivity.this, photoPaths, new CompressPhotoUtils.CompressCallBack() {
+
+                @Override
+                public void success(List<String> list) {
+                    for (int i = 0; i < list.size(); i++) {
+                        submitEvaluatePresenter.uploadFile(list.get(i));
+                    }
+                }
+            });
+        } else {
+            submitEvaluate();
+        }
+    }
+
+    private void submitEvaluate() {
         String picsStr = "";
         SubmitEvaluateRequest submitEvaluateRequest = new SubmitEvaluateRequest();
         submitEvaluateRequest.setStoreid(storeId);

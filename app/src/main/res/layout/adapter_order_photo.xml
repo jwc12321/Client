@@ -3,19 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/common_eleven_margin">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <ImageView
         android:id="@+id/photo"
         android:layout_width="@dimen/common_seventy_margin"
         android:layout_height="@dimen/common_seventy_margin"
-        android:src="@mipmap/app_icon"
-        app:riv_border_color="@color/appText3"
-        app:riv_border_width="0dp"
-        app:riv_corner_radius="10dip"
-        app:riv_mutate_background="true"
-        app:riv_oval="false"
-        app:riv_tile_mode="repeat"
-        android:scaleType="fitXY"/>
+        tools:src="@mipmap/app_icon"
+        android:scaleType="fitXY"
+        android:padding="@dimen/common_five_margin"/>
 </LinearLayout>

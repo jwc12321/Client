@@ -33,9 +33,11 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
     private List<EvaluateInfo.EvaluateItemInfo> evaluateItemInfos;
     private Context context;
     private String type;//1：图片不显示2：图片显示
+    private Activity activity;
 
-    public AllEvaluateAdapter(Context context,String type) {
+    public AllEvaluateAdapter(Context context,String type,Activity activity) {
         this.context = context;
+        this.activity=activity;
         this.type=type;
     }
 
@@ -92,7 +94,7 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
         public AllEvaluateView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            photoAdapter=new PhotoAdapter(context);
+            photoAdapter=new PhotoAdapter(context,activity);
             photoAdapter.setOnPictureOnClickListener(this);
             photoRecyclerView.setLayoutManager(new GridLayoutManager(context, 3));
             photoRecyclerView.setAdapter(photoAdapter);

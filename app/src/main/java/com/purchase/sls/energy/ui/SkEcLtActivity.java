@@ -38,6 +38,7 @@ import com.purchase.sls.ordermanage.ui.ActivityOrderDetailActivity;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -113,8 +114,11 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         activityInfo = (ActivityInfo) getIntent().getSerializableExtra(StaticData.ACTIVITY_DETAIL);
         title.setText(activityInfo.getpName());
         bannerInitialization();
-        List<String> ce = new ArrayList<>();
-        banner.setImages(ce);
+        if(!TextUtils.isEmpty(activityInfo.getpPics())){
+            String[] bannerUrl=activityInfo.getpPics().split(",");
+            List<String> bannerUrls=Arrays.asList(bannerUrl);
+            banner.setImages(bannerUrls);
+        }
         needEnergy.setText(activityInfo.getPrice() + "能量");
         originalPrice.setText("¥" + activityInfo.getpPrice());
         if (TextUtils.equals("3", activityInfo.getType())) {
@@ -168,6 +172,23 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
             }
         }
         initWeb(activityInfo.getpId());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        surplusNumber();
+    }
+
+    private void surplusNumber(){
+        if (TextUtils.equals("3", activityInfo.getType())) {
+            countDown.setVisibility(View.GONE);
+            surplusNumber.setVisibility(View.VISIBLE);
+            spikeBt.setText("抽奖");
+            spikeExplain.setText("剩余名额");
+            surplusNumber.setVisibility(View.VISIBLE);
+            surplusNumber.setText(activityInfo.getCount() + "份");
+        }
     }
 
     private void initWeb(String id) {

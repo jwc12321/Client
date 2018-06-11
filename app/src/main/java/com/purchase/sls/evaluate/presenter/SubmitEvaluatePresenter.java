@@ -96,7 +96,6 @@ public class SubmitEvaluatePresenter implements EvaluateContract.SubmitEvaluateP
 
     @Override
     public void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest) {
-        submitEvaluateView.showLoading();
         Disposable disposable = restApiService.submitEvalute(submitEvaluateRequest)
                 .flatMap(new RxRemoteDataParse<String>())
                 .compose(new RxSchedulerTransformer<String>())

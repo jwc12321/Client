@@ -21,6 +21,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.customeview.ActionSheet;
+import com.purchase.sls.common.widget.pickphoto.beans.ImgBean;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.mine.DaggerPersonalCenterComponent;
 import com.purchase.sls.mine.PersonalCenterContract;
@@ -28,6 +29,7 @@ import com.purchase.sls.mine.PersonalCenterModule;
 import com.purchase.sls.mine.presenter.PersonalImPresenter;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -114,6 +116,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
                     actionSheet = ActionSheet.newInstance(false, photo.getWidth(), photo.getHeight());
                     actionSheet.setOnPictureChoseListener(ChangeHeadPortraitActivity.this);
                 }
+                actionSheet.setMax(1,"1");
                 actionSheet.show(this);
                 break;
         }
@@ -125,6 +128,11 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
         headPhone = filePath.getAbsolutePath();
         photo.setImageBitmap(BitmapFactory.decodeFile(headPhone));
         personalImPresenter.changeHeadPortrait(headPhone);
+    }
+
+    @Override
+    public void onPhotoResult(List<ImgBean> selectedImgs) {
+
     }
 
     @Override

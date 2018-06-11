@@ -28,26 +28,32 @@ public interface EnergyContract {
     interface ActivityPresenter extends BasePresenter {
         void getActivitys(String refreshType, String type);
 
-        void signIn();
-
         void getEnergyInfo(String pool);
     }
 
     interface ActivityView extends BaseView<ActivityPresenter> {
         void renderActivitys(List<ActivityInfo> activityInfos);
 
-        void signInSuccess(String energy);
-
         void renderEnergyInfo(EnergyInfo energyInfo);
     }
 
     interface ActivityDetailPresenter extends BasePresenter {
         void submitSpike(String id, String aid);
-        void submitLottery(String id,String aid);
+
+        void submitLottery(String id, String aid);
     }
 
     interface ActivityDetailView extends BaseView<ActivityDetailPresenter> {
         void submitSpikeSuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
+
         void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
+    }
+
+    interface SignInPresenter extends BasePresenter {
+        void signIn();
+    }
+
+    interface SignInView extends BaseView<SignInPresenter> {
+        void signInSuccess(String energy);
     }
 }
