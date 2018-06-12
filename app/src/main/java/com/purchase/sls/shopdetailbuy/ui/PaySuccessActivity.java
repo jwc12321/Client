@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
@@ -17,14 +20,15 @@ import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.MyClickRatingBar;
 import com.purchase.sls.data.entity.OrderDetailInfo;
+import com.purchase.sls.data.entity.QuanInfo;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.shopdetailbuy.DaggerShopDetailBuyComponent;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
+import com.purchase.sls.shopdetailbuy.adapter.ReceiveCouponAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.OrderDetailPresenter;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -36,7 +40,7 @@ import butterknife.OnClick;
  * Created by JWC on 2018/4/28.
  */
 
-public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyContract.OrderDetailView, MyClickRatingBar.OnStarItemClickListener {
+public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyContract.OrderDetailView, MyClickRatingBar.OnStarItemClickListener,ReceiveCouponAdapter.OnEventClicking {
 
     @BindView(R.id.back)
     ImageView back;
@@ -66,11 +70,29 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
     TextView energyNumber;
     @BindView(R.id.rating_bar)
     MyClickRatingBar ratingBar;
+    @BindView(R.id.coupon_number)
+    TextView couponNumber;
+    @BindView(R.id.choice_coupon)
+    LinearLayout choiceCoupon;
+    @BindView(R.id.coupon_text)
+    TextView couponText;
+    @BindView(R.id.coupon_rv)
+    RecyclerView couponRv;
+    @BindView(R.id.coupon_rv_ll)
+    LinearLayout couponRvLl;
+    @BindView(R.id.coupon_black_background)
+    LinearLayout couponBlackBackground;
+    @BindView(R.id.coupon_rl)
+    RelativeLayout couponRl;
     private String businessName;
     private String orderno;
     private String storeId;
     private OrderDetailInfo.OrderItem orderItem;
     private String evaluateStars;
+    private List<QuanInfo> quanInfos;
+    private ReceiveCouponAdapter receiveCouponAdapter;
+    private int choicePosition;
+    private String mut;
 
     @Inject
     OrderDetailPresenter orderDetailPresenter;
@@ -87,17 +109,25 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paysuccess);
         ButterKnife.bind(this);
-        setHeight(back,title,complete);
+        setHeight(back, title, complete);
         initView();
     }
 
     private void initView() {
-        evaluateStars="1";
+        evaluateStars = "1";
         businessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         orderno = getIntent().getStringExtra(StaticData.ORDER_NO);
         shopName.setText(businessName);
         orderDetailPresenter.getOrderDetailInfo(orderno);
         ratingBar.setmStarItemClickListener(this);
+        couponBlackBackground.setAlpha(0.4f);
+        addAdapter();
+    }
+
+    private void addAdapter(){
+        receiveCouponAdapter=new ReceiveCouponAdapter();
+        receiveCouponAdapter.setOnEventClicking(this);
+        couponRv.setAdapter(receiveCouponAdapter);
     }
 
     @Override
@@ -124,18 +154,18 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
         if (orderDetailInfo != null) {
             if (orderDetailInfo.getOrderItem() != null) {
                 orderItem = orderDetailInfo.getOrderItem();
-                storeId=orderItem.getStoreid();
+                storeId = orderItem.getStoreid();
                 totalPrice.setText(orderItem.getAllprice());
-                if(!TextUtils.equals("0.00",orderItem.getPower())&&!TextUtils.equals("0.00",orderItem.getQuannum())){
+                if (!TextUtils.equals("0.00", orderItem.getPower()) && !TextUtils.equals("0.00", orderItem.getQuannum())) {
                     couponType.setText("能量+优惠券");
-                    preferentialPrice.setText("¥"+orderItem.getPower()+"¥"+orderItem.getQuannum());
-                }else if(TextUtils.equals("0.00",orderItem.getPower())&&!TextUtils.equals("0.00",orderItem.getQuannum())){
+                    preferentialPrice.setText("¥" + orderItem.getPower() + "+¥" + orderItem.getQuannum());
+                } else if (TextUtils.equals("0.00", orderItem.getPower()) && !TextUtils.equals("0.00", orderItem.getQuannum())) {
                     couponType.setText("优惠券");
-                    preferentialPrice.setText("¥"+orderItem.getQuannum());
-                }else if(!TextUtils.equals("0.00",orderItem.getPower())&&TextUtils.equals("0.00",orderItem.getQuannum())){
+                    preferentialPrice.setText("¥" + orderItem.getQuannum());
+                } else if (!TextUtils.equals("0.00", orderItem.getPower()) && TextUtils.equals("0.00", orderItem.getQuannum())) {
                     couponType.setText("能量");
-                    preferentialPrice.setText("¥"+orderItem.getPower());
-                }else {
+                    preferentialPrice.setText("¥" + orderItem.getPower());
+                } else {
                     couponType.setText("");
                     preferentialPrice.setText("");
                 }
@@ -144,28 +174,52 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                 } else {
                     payType.setText("微信支付");
                 }
-                payPrice.setText("¥"+orderItem.getPrice());
+                payPrice.setText("¥" + orderItem.getPrice());
             }
-            if (orderDetailInfo.getResultsItem() != null && !TextUtils.isEmpty(orderDetailInfo.getResultsItem().getPower())) {
-                energyNumber.setText(orderDetailInfo.getResultsItem().getPower());
-            } else {
-                energyNumber.setText("0");
+
+            if (orderDetailInfo.getResultsItem() != null) {
+                OrderDetailInfo.ResultsItem resultsItem = orderDetailInfo.getResultsItem();
+                if (!TextUtils.isEmpty(resultsItem.getPower())) {
+                    energyNumber.setText(resultsItem.getPower());
+                } else {
+                    energyNumber.setText("0");
+                }
+                quanInfos = resultsItem.getQuanInfos();
+                mut=resultsItem.getMut();
+                if(quanInfos==null&&quanInfos.size()==0){
+                    couponNumber.setText("无优惠券可领");
+                }else {
+                    if(TextUtils.equals("1",mut)){
+                        couponNumber.setText("你有"+quanInfos.size()+"张优惠券可领");
+                    }else {
+                        couponNumber.setText("你有1张优惠券可领");
+                    }
+                    receiveCouponAdapter.setData(quanInfos);
+                }
             }
         }
     }
 
-    @OnClick({R.id.back, R.id.complete})
+    @OnClick({R.id.back, R.id.complete, R.id.choice_coupon,R.id.coupon_black_background})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.complete:
-                SubmitEvaluateRequest submitEvaluateRequest=new SubmitEvaluateRequest();
+                SubmitEvaluateRequest submitEvaluateRequest = new SubmitEvaluateRequest();
                 submitEvaluateRequest.setOrderno(orderno);
                 submitEvaluateRequest.setStarts(evaluateStars);
                 submitEvaluateRequest.setStoreid(storeId);
                 orderDetailPresenter.submitEvaluate(submitEvaluateRequest);
+                break;
+            case R.id.choice_coupon:
+                if(quanInfos!=null&&quanInfos.size()>0){
+                    couponRl.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.coupon_black_background:
+                couponRl.setVisibility(View.GONE);
                 break;
             default:
         }
@@ -173,7 +227,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     public void onItemClick(View view, int pos) {
-        evaluateStars=String.valueOf(pos+1);
+        evaluateStars = String.valueOf(pos + 1);
     }
 
 
@@ -181,5 +235,36 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
     public void submitSuccess() {
         UmengEventUtils.statisticsClick(this, UMStaticData.COMMENT_STORE);
         finish();
+    }
+
+    @Override
+    public void receiveCouponSuccess() {
+        Toast.makeText(getApplicationContext(), "领取成功！", Toast.LENGTH_SHORT).show();
+        if(TextUtils.equals("1",mut)){
+            quanInfos.get(choicePosition).setCanReceive("0");
+            int number=0;
+            for(int i=0;i<quanInfos.size();i++){
+                if(TextUtils.equals("1",quanInfos.get(i).getCanReceive())){
+                    number++;
+                }
+            }
+            if(TextUtils.equals("0",String.valueOf(number))){
+                couponNumber.setText("无优惠券可领");
+            }else {
+                couponNumber.setText("你有"+number+"张优惠券可领");
+            }
+;        }else {
+            for(int i=0;i<quanInfos.size();i++){
+                quanInfos.get(i).setCanReceive("0");
+            }
+            couponNumber.setText("无优惠券可领");
+        }
+        receiveCouponAdapter.setData(quanInfos);
+    }
+
+    @Override
+    public void couponItemClick(String id,int position) {
+        choicePosition=position;
+        orderDetailPresenter.receiveCoupon(id,orderno);
     }
 }

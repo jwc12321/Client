@@ -58,6 +58,7 @@ import com.purchase.sls.data.request.OrderCodeRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
+import com.purchase.sls.data.request.ReceiveCouponRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
 import com.purchase.sls.data.request.RemoveBrowseRequest;
 import com.purchase.sls.data.request.ScreeningListRequest;
@@ -230,7 +231,7 @@ public interface RestApiService {
     Flowable<RemoteDataWrapper<String>> uploadFile(@PartMap Map<String, RequestBody> multipartParams);
 
     //订单详情
-    @POST("home/quan/present")
+    @POST("home/quan/getpresent")
     Flowable<RemoteDataWrapper<OrderDetailInfo>> getOrderDetailInfo(@Body OrderDetailRequest orderDetailRequest);
 
     //消息中心
@@ -296,5 +297,10 @@ public interface RestApiService {
     //分享
     @POST("home/share")
     Flowable<RemoteDataWrapper<String>> share(@Body TokenRequest tokenRequest);
+
+    //领取优惠券
+    @POST("home/quan/receive")
+    Flowable<RemoteDataWrapper<Ignore>> receiveCoupon(@Body ReceiveCouponRequest receiveCouponRequest);
+
 
 }

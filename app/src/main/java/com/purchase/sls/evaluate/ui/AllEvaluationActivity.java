@@ -169,4 +169,9 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
         previewDialog.setIndex(position);
         previewDialog.show(getSupportFragmentManager(), null);
     }
+
+    @Override
+    public void goAllEvalute() {
+
+    }
 }

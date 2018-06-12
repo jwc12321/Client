@@ -78,7 +78,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/common_ten_margin"
-                android:text="我要抽奖"
+                android:text="立即抽奖"
                 android:textColor="@color/appText3"
                 android:textSize="13sp" />
         </RelativeLayout>

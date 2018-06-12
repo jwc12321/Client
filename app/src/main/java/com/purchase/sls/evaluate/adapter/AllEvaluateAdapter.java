@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -16,7 +16,6 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.common.widget.MyRatingBar;
-import com.purchase.sls.data.entity.CollectionListInfo;
 import com.purchase.sls.data.entity.EvaluateInfo;
 
 import java.util.List;
@@ -35,10 +34,10 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
     private String type;//1：图片不显示2：图片显示
     private Activity activity;
 
-    public AllEvaluateAdapter(Context context,String type,Activity activity) {
+    public AllEvaluateAdapter(Context context, String type, Activity activity) {
         this.context = context;
-        this.activity=activity;
-        this.type=type;
+        this.activity = activity;
+        this.type = type;
     }
 
     public void setData(List<EvaluateInfo.EvaluateItemInfo> evaluateItemInfos) {
@@ -66,6 +65,14 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
     public void onBindViewHolder(AllEvaluateView holder, int position) {
         EvaluateInfo.EvaluateItemInfo evaluateItemInfo = evaluateItemInfos.get(holder.getAdapterPosition());
         holder.bindData(evaluateItemInfo);
+        holder.choiceItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onPictureOnClickListener!=null){
+                    onPictureOnClickListener.goAllEvalute();
+                }
+            }
+        });
     }
 
     @Override
@@ -73,7 +80,7 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
         return evaluateItemInfos == null ? 0 : evaluateItemInfos.size();
     }
 
-    public class AllEvaluateView extends RecyclerView.ViewHolder implements PhotoAdapter.OnPictureOnClickListener{
+    public class AllEvaluateView extends RecyclerView.ViewHolder implements PhotoAdapter.OnPictureOnClickListener {
 
 
         @BindView(R.id.people_icon)
@@ -88,13 +95,15 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
         TextView evaluateTv;
         @BindView(R.id.photo_recycler_view)
         RecyclerView photoRecyclerView;
+        @BindView(R.id.choice_item)
+        LinearLayout choiceItem;
 
         PhotoAdapter photoAdapter;
 
         public AllEvaluateView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            photoAdapter=new PhotoAdapter(context,activity);
+            photoAdapter = new PhotoAdapter(context, activity);
             photoAdapter.setOnPictureOnClickListener(this);
             photoRecyclerView.setLayoutManager(new GridLayoutManager(context, 3));
             photoRecyclerView.setAdapter(photoAdapter);
@@ -108,17 +117,17 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
             }
             ratingBar.setmScope(Float.parseFloat(evaluateItemInfo.getStarts()));
             peopleTime.setText(FormatUtil.formatDate(evaluateItemInfo.getCreatedAt()));
-            if(TextUtils.equals("1",type)){
+            if (TextUtils.equals("1", type)) {
                 evaluateTv.setVisibility(View.GONE);
                 photoRecyclerView.setVisibility(View.GONE);
-            }else {
+            } else {
                 evaluateTv.setVisibility(View.VISIBLE);
                 photoRecyclerView.setVisibility(View.VISIBLE);
                 evaluateTv.setText(evaluateItemInfo.getWords());
-                if(evaluateItemInfo.getPics()!=null&&evaluateItemInfo.getPics().size()>0){
+                if (evaluateItemInfo.getPics() != null && evaluateItemInfo.getPics().size() > 0) {
                     photoAdapter.setPhotoList(evaluateItemInfo.getPics());
                     photoRecyclerView.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     photoRecyclerView.setVisibility(View.GONE);
                 }
             }
@@ -127,14 +136,16 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
 
         @Override
         public void zomm(int position, List<String> photos) {
-            if ( onPictureOnClickListener != null )
+            if (onPictureOnClickListener != null)
                 onPictureOnClickListener.zoom(position, photos);
         }
     }
 
-    public interface OnPictureOnClickListener{
+    public interface OnPictureOnClickListener {
         void zoom(int position, List<String> photos);
+        void goAllEvalute();
     }
+
     private OnPictureOnClickListener onPictureOnClickListener;
 
     public void setOnPictureOnClickListener(OnPictureOnClickListener onPictureOnClickListener) {

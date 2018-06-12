@@ -30,11 +30,13 @@ public class OrderDetailInfo {
         this.orderItem = orderItem;
     }
 
-    public static class ResultsItem{
-        @SerializedName("quans")
+    public static class ResultsItem {
+        @SerializedName("platform")
         List<QuanInfo> quanInfos;
         @SerializedName("power")
         private String power;
+        @SerializedName("mut")
+        private String mut;
 
         public List<QuanInfo> getQuanInfos() {
             return quanInfos;
@@ -51,8 +53,17 @@ public class OrderDetailInfo {
         public void setPower(String power) {
             this.power = power;
         }
+
+        public String getMut() {
+            return mut;
+        }
+
+        public void setMut(String mut) {
+            this.mut = mut;
+        }
     }
-    public static class OrderItem{
+
+    public static class OrderItem {
         @SerializedName("id")
         private String id;
         @SerializedName("storeid")

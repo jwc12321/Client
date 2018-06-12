@@ -91,7 +91,7 @@ public class SpikeAdapter extends RecyclerView.Adapter<SpikeAdapter.SpikeVeiw> {
             spikeEnergy.setText(activityInfo.getPrice());
             spikeName.setText(activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, spikeIv);
-            surplusNumber.setText(activityInfo.getCount());
+            surplusNumber.setText("剩余"+activityInfo.getCount()+"件");
         }
     }
 

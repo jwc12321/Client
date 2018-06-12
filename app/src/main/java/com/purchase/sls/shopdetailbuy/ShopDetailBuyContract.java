@@ -44,9 +44,11 @@ public interface ShopDetailBuyContract {
     interface OrderDetailPresenter extends BasePresenter{
         void getOrderDetailInfo(String orderno);
         void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest);
+        void receiveCoupon(String id,String orderno);
     }
     interface OrderDetailView extends BaseView<OrderDetailPresenter>{
         void renderOrderDetail(OrderDetailInfo orderDetailInfo);
         void submitSuccess();
+        void receiveCouponSuccess();
     }
 }

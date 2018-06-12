@@ -216,7 +216,8 @@
                     android:layout_marginLeft="@dimen/common_eleven_margin"
                     android:layout_marginTop="@dimen/common_text_left"
                     android:textColor="@color/appText4"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:text="网友评论"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/evaluate_rv"

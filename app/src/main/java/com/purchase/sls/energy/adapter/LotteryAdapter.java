@@ -91,7 +91,7 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
             spikeEnergy.setText(activityInfo.getPrice());
             spikeName.setText(activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, spikeIv);
-            surplusNumber.setText("剩余名额"+activityInfo.getCount()+"份");
+            surplusNumber.setText("剩余"+activityInfo.getCount()+"名额");
         }
     }
 

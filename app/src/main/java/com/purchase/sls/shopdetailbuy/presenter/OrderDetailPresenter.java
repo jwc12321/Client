@@ -1,10 +1,12 @@
 package com.purchase.sls.shopdetailbuy.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.OrderDetailRequest;
+import com.purchase.sls.data.request.ReceiveCouponRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 
@@ -59,8 +61,8 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
     @Override
     public void getOrderDetailInfo(String orderno) {
         orderDetailView.showLoading();
-        OrderDetailRequest orderDetailRequest=new OrderDetailRequest(orderno);
-        Disposable disposable=restApiService.getOrderDetailInfo(orderDetailRequest)
+        OrderDetailRequest orderDetailRequest = new OrderDetailRequest(orderno);
+        Disposable disposable = restApiService.getOrderDetailInfo(orderDetailRequest)
                 .flatMap(new RxRemoteDataParse<OrderDetailInfo>())
                 .compose(new RxSchedulerTransformer<OrderDetailInfo>())
                 .subscribe(new Consumer<OrderDetailInfo>() {
@@ -90,6 +92,29 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
                     public void accept(String string) throws Exception {
                         orderDetailView.dismissLoading();
                         orderDetailView.submitSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        orderDetailView.dismissLoading();
+                        orderDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void receiveCoupon(String id, String orderno) {
+        orderDetailView.showLoading();
+        ReceiveCouponRequest receiveCouponRequest = new ReceiveCouponRequest(id, orderno);
+        Disposable disposable = restApiService.receiveCoupon(receiveCouponRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        orderDetailView.dismissLoading();
+                        orderDetailView.receiveCouponSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

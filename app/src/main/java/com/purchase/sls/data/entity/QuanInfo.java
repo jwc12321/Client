@@ -39,6 +39,17 @@ public class QuanInfo {
     @SerializedName("deleted_at")
     private String deletedAt;
 
+    //是否能领取
+    private String canReceive="1";
+
+    public String getCanReceive() {
+        return canReceive;
+    }
+
+    public void setCanReceive(String canReceive) {
+        this.canReceive = canReceive;
+    }
+
     public String getId() {
         return id;
     }

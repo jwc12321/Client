@@ -60,7 +60,7 @@ import butterknife.OnClick;
  * 商品详情页面
  */
 
-public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener, ChoiceMapAdapter.OnMapItemClick {
+public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener, ChoiceMapAdapter.OnMapItemClick,AllEvaluateAdapter.OnPictureOnClickListener {
 
     @BindView(R.id.banner)
     Banner banner;
@@ -213,6 +213,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     private void evaluateAdapter() {
         allEvaluateAdapter = new AllEvaluateAdapter(this, "1", ShopDetailActivity.this);
+        allEvaluateAdapter.setOnPictureOnClickListener(this);
         evaluateRv.setAdapter(allEvaluateAdapter);
     }
 
@@ -276,11 +277,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             }
             if (shopDetailsInfo.getEvaluateResult() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo() != null
                     && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() > 0) {
-                evaluateNumber.setText("网友评论(" + shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() + ")");
+//                evaluateNumber.setText("网友评论(" + shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() + ")");
                 allEvaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
                 lookAllCommentRl.setVisibility(View.VISIBLE);
             } else {
-                evaluateNumber.setText("网友评论(0)");
+//                evaluateNumber.setText("网友评论(0)");
                 lookAllCommentRl.setVisibility(View.GONE);
             }
             if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos() != null) {
@@ -597,4 +598,13 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         context.startActivity(intent);
     }
 
+    @Override
+    public void zoom(int position, List<String> photos) {
+
+    }
+
+    @Override
+    public void goAllEvalute() {
+        AllEvaluationActivity.start(this,storeid);
+    }
 }

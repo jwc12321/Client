@@ -1,220 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:myrating="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appText1"
-    android:orientation="vertical">
+    android:background="@color/appText1">
 
-    <RelativeLayout
-        android:id="@+id/title_rel"
-        style="@style/title_rl_style">
-
-        <ImageView
-            android:id="@+id/back"
-            style="@style/title_left_back_style" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/title_text_style"
-            android:text="@string/pay_result" />
-
-        <TextView
-            android:id="@+id/complete"
-            style="@style/title_text_right_style"
-            android:text="@string/complete" />
-    </RelativeLayout>
-
-    <com.purchase.sls.common.widget.ReboundScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdge="none"
-        android:overScrollMode="never">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_twenty_four_margin"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/common_thirty_margin"
-                    android:layout_height="@dimen/common_thirty_margin"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/hook_icon" />
-
-                <TextView
-                    android:id="@+id/shop_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/common_fourteen_margin"
-                    android:textColor="@color/appText5"
-                    android:textSize="17sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/total_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/common_twenty_five_margin"
-                android:textColor="@color/appText5"
-                android:textSize="25sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/common_seventeen_margin">
-
-                <TextView
-                    android:id="@+id/preferential_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_text_left"
-                    android:text="优惠明细"
-                    android:textColor="@color/appText6"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/coupon_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_thirteen_margin"
-                    android:layout_toRightOf="@id/preferential_details"
-                    android:textColor="@color/appText3"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/preferential_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/common_text_left"
-                    android:textColor="@color/appText3"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/common_seventeen_margin"
-                android:layout_marginTop="@dimen/common_eleven_margin">
-
-                <TextView
-                    android:id="@+id/pay_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_text_left"
-                    android:text="付款信息"
-                    android:textColor="@color/appText6"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/pay_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_thirteen_margin"
-                    android:layout_toRightOf="@id/pay_details"
-                    android:textColor="@color/appText3"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/pay_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/common_text_left"
-                    android:textColor="@color/appText3"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/title_rel"
+            style="@style/title_rl_style">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_eleven_margin"
-                android:src="@mipmap/lace_icon" />
+                android:id="@+id/back"
+                style="@style/title_left_back_style" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/common_fifty_five_margin">
+            <TextView
+                android:id="@+id/title"
+                style="@style/title_text_style"
+                android:text="@string/pay_result" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="本次消费获得"
-                    android:textColor="@color/appText6"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/complete"
+                style="@style/title_text_right_style"
+                android:text="@string/complete" />
+        </RelativeLayout>
+
+        <com.purchase.sls.common.widget.ReboundScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never">
 
             <LinearLayout
-                android:layout_width="@dimen/common_one_hundred_and_fifty_five_margin"
-                android:layout_height="@dimen/common_one_hundred_and_ten_margin"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/coupon_info_bg"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_twenty_four_margin"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/common_thirty_margin"
+                        android:layout_height="@dimen/common_thirty_margin"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/hook_icon" />
+
+                    <TextView
+                        android:id="@+id/shop_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/common_fourteen_margin"
+                        android:textColor="@color/appText5"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
                 <TextView
+                    android:id="@+id/total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/energy"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_twenty_five_margin"
                     android:textColor="@color/appText5"
-                    android:textSize="15sp" />
+                    android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/energy_number"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_seventeen_margin">
+
+                    <TextView
+                        android:id="@+id/preferential_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_text_left"
+                        android:text="优惠明细"
+                        android:textColor="@color/appText6"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/coupon_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_thirteen_margin"
+                        android:layout_toRightOf="@id/preferential_details"
+                        android:textColor="@color/appText3"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/preferential_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_text_left"
+                        android:textColor="@color/appText3"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_seventeen_margin"
+                    android:layout_marginTop="@dimen/common_eleven_margin">
+
+                    <TextView
+                        android:id="@+id/pay_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_text_left"
+                        android:text="付款信息"
+                        android:textColor="@color/appText6"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/pay_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_thirteen_margin"
+                        android:layout_toRightOf="@id/pay_details"
+                        android:textColor="@color/appText3"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/pay_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_text_left"
+                        android:textColor="@color/appText3"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_eleven_margin"
+                    android:src="@mipmap/lace_icon" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_fifty_five_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="本次消费获得"
+                        android:textColor="@color/appText6"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/common_one_hundred_and_fifty_five_margin"
+                        android:layout_height="@dimen/common_one_hundred_and_ten_margin"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/coupon_info_bg"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/energy"
+                            android:textColor="@color/appText5"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/energy_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/common_fourteen_margin"
+                            android:textColor="@color/appText11"
+                            android:textSize="15sp"
+                            tools:text="60" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/choice_coupon"
+                        android:layout_width="@dimen/common_one_hundred_and_fifty_five_margin"
+                        android:layout_height="@dimen/common_one_hundred_and_ten_margin"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/common_ten_margin"
+                        android:background="@drawable/coupon_info_bg"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="优惠券"
+                            android:textColor="@color/appText5"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/coupon_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/common_five_margin"
+                            android:textColor="@color/appText11"
+                            android:textSize="15sp"
+                            tools:text="60" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/common_five_margin"
+                            android:text="查看详情"
+                            android:textColor="@color/appText11"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_fifty_five_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="亲,评价一下吧"
+                        android:textColor="@color/appText6"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <com.purchase.sls.common.widget.MyClickRatingBar
+                    android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/common_fourteen_margin"
-                    android:textColor="@color/appText11"
-                    android:textSize="15sp"
-                    tools:text="60" />
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_twenty_one_margin"
+                    myrating:mClickImageId="@mipmap/star_in"
+                    myrating:mDefaultImageId="@mipmap/star_out"
+                    myrating:mHalfImageId="@mipmap/star3"
+                    myrating:mImageHeight="@dimen/common_thirty_margin"
+                    myrating:mImageWidth="@dimen/common_thirty_margin"
+                    myrating:mMargin="1px"
+                    myrating:mScope="1"
+                    myrating:mStarChoose="1"
+                    myrating:mStarNum="5" />
             </LinearLayout>
+        </com.purchase.sls.common.widget.ReboundScrollView>
+    </LinearLayout>
 
-            <RelativeLayout
+    <RelativeLayout
+        android:id="@+id/coupon_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/coupon_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/coupon_rv_ll"
+            android:layout_centerHorizontal="true"
+            android:background="@color/backGround1"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/common_nine_margin"
+            android:paddingTop="@dimen/common_twenty_four_margin"
+            android:text="@string/coupon"
+            android:textColor="@color/appText5"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:id="@+id/coupon_rv_ll"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/backGround1"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/coupon_rv"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/common_fifty_five_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="亲,评价一下吧"
-                    android:textColor="@color/appText6"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <com.purchase.sls.common.widget.MyClickRatingBar
-                android:id="@+id/rating_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/common_twenty_one_margin"
-                myrating:mClickImageId="@mipmap/star_in"
-                myrating:mDefaultImageId="@mipmap/star_out"
-                myrating:mHalfImageId="@mipmap/star3"
-                myrating:mImageHeight="@dimen/common_thirty_margin"
-                myrating:mImageWidth="@dimen/common_thirty_margin"
-                myrating:mMargin="1px"
-                myrating:mScope="1"
-                myrating:mStarChoose="1"
-                myrating:mStarNum="5" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/common_eleven_margin"
+                android:layout_marginRight="@dimen/common_eleven_margin"
+                android:background="@color/backGround1"
+                app:layoutManager="@string/layoutManager_LinearLayout" />
         </LinearLayout>
-    </com.purchase.sls.common.widget.ReboundScrollView>
-</LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/coupon_black_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/coupon_text"
+            android:background="@color/appText4"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+</RelativeLayout>
