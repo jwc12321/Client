@@ -168,7 +168,7 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
                 orderStatus.setText("已中奖 待收货");
                 orderStatus.setTextColor(Color.parseColor("#E8192D"));
             } else if (TextUtils.equals("2", status)) {
-                orderStatus.setText("已中奖 已收获");
+                orderStatus.setText("已中奖 已收货");
                 orderStatus.setTextColor(Color.parseColor("#198732"));
             } else if (TextUtils.equals("10", status)) {
                 orderStatus.setText("未开将");
@@ -184,7 +184,7 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
                 orderStatus.setText("待收货");
                 orderStatus.setTextColor(Color.parseColor("#E8192D"));
             } else if (TextUtils.equals("2", status)) {
-                orderStatus.setText("已收获");
+                orderStatus.setText("已收货");
                 orderStatus.setTextColor(Color.parseColor("#198732"));
             } else if (TextUtils.equals("10", status)) {
                 orderStatus.setText("未开将");

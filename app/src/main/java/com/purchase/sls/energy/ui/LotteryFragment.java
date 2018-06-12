@@ -1,13 +1,10 @@
 package com.purchase.sls.energy.ui;
 
-import android.graphics.drawable.AnimationDrawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +16,6 @@ import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
-import com.purchase.sls.common.unit.StaticHandler;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
@@ -208,7 +204,10 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
                     AccountLoginActivity.start(getActivity());
                     return;
                 } else {
-                    SignInActivity.start(getActivity());
+//                    SignInActivity.start(getActivity());
+                    Intent intent = new Intent(getActivity(), SignInActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                 }
                 break;
             default:

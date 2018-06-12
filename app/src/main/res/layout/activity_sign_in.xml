@@ -20,4 +20,14 @@
         android:layout_marginTop="@dimen/common_three_hundred_and_ninety_margin"
         android:textColor="@color/appText1"
         android:textSize="20sp" />
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="@dimen/common_forty_margin"
+        android:layout_height="@dimen/common_forty_margin"
+        android:background="@drawable/sign_in"
+        android:textSize="20sp"
+        android:text="签"
+        android:textColor="@color/appText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_three_hundred_and_eighty_margin" />
 </RelativeLayout>

@@ -212,7 +212,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void evaluateAdapter() {
-        allEvaluateAdapter = new AllEvaluateAdapter(this, "1",ShopDetailActivity.this);
+        allEvaluateAdapter = new AllEvaluateAdapter(this, "1", ShopDetailActivity.this);
         evaluateRv.setAdapter(allEvaluateAdapter);
     }
 
@@ -522,6 +522,15 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             e.printStackTrace();
         }
     }
+//
+//   private void openGaoDeMap(String dlat, String dlon, String dname) {
+//        try {
+//            Intent intent = Intent.getIntent("androidamap://route?sourceApplication=softname&sname=我的位置&dlat=" + dlat + "&dlon=" + dlon + "&dname=" + dname+ "&dev=0&m=0&t=1");
+//            startActivity(intent);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void openBaiduMap(String slat, String slon, String sname,
                               String dlat, String dlon, String dname, String city) {

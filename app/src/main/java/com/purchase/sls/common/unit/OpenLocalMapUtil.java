@@ -13,7 +13,7 @@ public class OpenLocalMapUtil {
      *7 躲避收费和拥堵；8 不走高速躲避收费和拥堵)
      */
     public static String getGdMapUri(String appName, String dlat, String dlon, String dname) {
-        String newUri = "androidamap://navi?sourceApplication=%1$s&poiname=%2$s&lat=%3$s&lon=%4$s&dev=1&style=2";
+        String newUri = "androidamap://navi?sourceApplication=%1$s&poiname=%2$s&lat=%3$s&lon=%4$s&dev=0&style=2";
         return String.format(newUri, appName, dname, dlat, dlon);
     }
 

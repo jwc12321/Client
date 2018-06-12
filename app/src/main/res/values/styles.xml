@@ -401,6 +401,7 @@
     <style name="TranslucentFullScreenTheme" parent="FullScreenTheme">
         <item name="android:windowBackground">@color/backGround3</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
     <!--全屏-->
     <style name="FullScreenTheme" parent="AppTheme">

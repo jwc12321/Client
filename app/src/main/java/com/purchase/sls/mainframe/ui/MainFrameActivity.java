@@ -266,7 +266,6 @@ public class MainFrameActivity extends BaseActivity implements MainFrameContract
         UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
     }
 
-    @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 //         super.onSaveInstanceState(outState);

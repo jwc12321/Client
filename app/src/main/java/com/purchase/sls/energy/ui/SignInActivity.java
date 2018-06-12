@@ -3,23 +3,19 @@ package com.purchase.sls.energy.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.StaticHandler;
 import com.purchase.sls.common.unit.UmengEventUtils;
@@ -27,8 +23,6 @@ import com.purchase.sls.energy.DaggerEnergyComponent;
 import com.purchase.sls.energy.EnergyContract;
 import com.purchase.sls.energy.EnergyModule;
 import com.purchase.sls.energy.presenter.SignInPresenter;
-
-import java.lang.reflect.Field;
 
 import javax.inject.Inject;
 
@@ -40,13 +34,15 @@ import butterknife.OnClick;
  * Created by JWC on 2018/6/7.
  */
 
-public class SignInActivity extends BaseActivity implements EnergyContract.SignInView{
+public class SignInActivity extends BaseActivity implements EnergyContract.SignInView {
     @BindView(R.id.red_iv)
     ImageView redIv;
     @BindView(R.id.energy_number)
     TextView energyNumber;
     @BindView(R.id.sign_bg)
     RelativeLayout signBg;
+    @BindView(R.id.sign_in)
+    Button signIn;
 
     private AnimationDrawable anim;
     private String energyNb;
@@ -80,14 +76,15 @@ public class SignInActivity extends BaseActivity implements EnergyContract.SignI
                 .inject(this);
     }
 
-    @OnClick({R.id.red_iv, R.id.sign_bg})
+    @OnClick({R.id.sign_bg,R.id.sign_in})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.red_iv:
-                signInPresenter.signIn();
-                break;
             case R.id.sign_bg:
                 finish();
+                this.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                break;
+            case R.id.sign_in:
+                signInPresenter.signIn();
                 break;
             default:
         }
@@ -108,11 +105,13 @@ public class SignInActivity extends BaseActivity implements EnergyContract.SignI
     public void showError(Throwable e) {
         super.showError(e);
         finish();
+        this.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
     }
 
     @Override
     public void signInSuccess(String energy) {
-        this.energyNb=energy;
+        signIn.setVisibility(View.GONE);
+        this.energyNb = energy;
         UmengEventUtils.statisticsClick(this, UMStaticData.ENG_QIAN_DAO);
         anim.setOneShot(true);
         anim.start();
@@ -140,6 +139,7 @@ public class SignInActivity extends BaseActivity implements EnergyContract.SignI
     private static final int SPIKE_WHAT = 1;
 
     public void showToast() {
-        energyNumber.setText("获得"+energyNb+"能量");
+        energyNumber.setText("获得" + energyNb + "能量");
     }
+
 }

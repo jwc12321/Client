@@ -3,6 +3,7 @@ package com.purchase.sls.energy.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -121,6 +122,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         }
         needEnergy.setText(activityInfo.getPrice() + "能量");
         originalPrice.setText("¥" + activityInfo.getpPrice());
+        originalPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
         if (TextUtils.equals("3", activityInfo.getType())) {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.VISIBLE);

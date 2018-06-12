@@ -78,6 +78,7 @@
     <dimen name="common_two_hundred_margin">200dp</dimen>
     <dimen name="common_two_hundred_and_fifty_margin">250dp</dimen>
     <dimen name="common_three_hundred_margin">300dp</dimen>
+    <dimen name="common_three_hundred_and_eighty_margin">380dp</dimen>
     <dimen name="common_three_hundred_and_ninety_margin">390dp</dimen>
     <dimen name="common_four_hundred_and_tex_margin">410dp</dimen>
 
