@@ -56,6 +56,7 @@ import com.purchase.sls.data.request.MessageListRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.OrderCodeRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
+import com.purchase.sls.data.request.OrdernoRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.ReceiveCouponRequest;
@@ -301,6 +302,10 @@ public interface RestApiService {
     //领取优惠券
     @POST("home/quan/receive")
     Flowable<RemoteDataWrapper<Ignore>> receiveCoupon(@Body ReceiveCouponRequest receiveCouponRequest);
+
+    //领取商城抵用券
+    @POST("home/quan/screceive")
+    Flowable<RemoteDataWrapper<Ignore>> recevieShopV(@Body OrdernoRequest ordernoRequest);
 
 
 }

@@ -47,6 +47,7 @@ public class ShareDialog extends BottomSheetDialog {
                     break;
                 case R.id.wechat_circle:
                     shareAction.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
+                    UmengEventUtils.statisticsClick(activity,UMStaticData.KEY,"微信朋友圈",UMStaticData.ENG_SHARE);
                     break;
                 case R.id.qq_friend:
                     shareAction.setPlatform(SHARE_MEDIA.QQ);

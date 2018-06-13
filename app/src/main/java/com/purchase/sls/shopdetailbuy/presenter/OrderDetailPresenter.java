@@ -6,6 +6,7 @@ import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.OrderDetailRequest;
+import com.purchase.sls.data.request.OrdernoRequest;
 import com.purchase.sls.data.request.ReceiveCouponRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
@@ -114,7 +115,30 @@ public class OrderDetailPresenter implements ShopDetailBuyContract.OrderDetailPr
                     @Override
                     public void accept(Ignore ignore) throws Exception {
                         orderDetailView.dismissLoading();
-                        orderDetailView.receiveCouponSuccess();
+                        orderDetailView.receiveSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        orderDetailView.dismissLoading();
+                        orderDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void receiveShopV(String orderno) {
+        orderDetailView.showLoading();
+        OrdernoRequest ordernoRequest = new OrdernoRequest(orderno);
+        Disposable disposable = restApiService.recevieShopV(ordernoRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        orderDetailView.dismissLoading();
+                        orderDetailView.receiveSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

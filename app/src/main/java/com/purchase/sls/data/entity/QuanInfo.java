@@ -42,6 +42,16 @@ public class QuanInfo {
     //是否能领取
     private String canReceive="1";
 
+    private String addSc;
+
+    public String getAddSc() {
+        return addSc;
+    }
+
+    public void setAddSc(String addSc) {
+        this.addSc = addSc;
+    }
+
     public String getCanReceive() {
         return canReceive;
     }

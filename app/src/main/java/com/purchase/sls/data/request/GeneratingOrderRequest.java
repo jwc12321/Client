@@ -19,13 +19,16 @@ public class GeneratingOrderRequest {
     private String paytype;
     @SerializedName("notes")
     private String notes;
+    @SerializedName("type")
+    private String type;
 
-    public GeneratingOrderRequest(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
+    public GeneratingOrderRequest(String allprice, String storeid, String coupon, String power, String paytype, String notes,String type) {
         this.allprice = allprice;
         this.storeid = storeid;
         this.coupon = coupon;
         this.power = power;
         this.paytype = paytype;
         this.notes = notes;
+        this.type=type;
     }
 }

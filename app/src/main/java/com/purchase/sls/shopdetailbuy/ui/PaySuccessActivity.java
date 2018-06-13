@@ -185,10 +185,19 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                     energyNumber.setText("0");
                 }
                 quanInfos = resultsItem.getQuanInfos();
+                if(!TextUtils.isEmpty(resultsItem.getScquan())&&!TextUtils.equals("0.00",resultsItem.getScquan())){
+                    QuanInfo quanInfo=new QuanInfo();
+                    quanInfo.setCanReceive("1");
+                    quanInfo.setPrice(resultsItem.getScquan());
+                    quanInfo.setAddSc("3");
+                    quanInfos.add(0,quanInfo);
+                }
                 mut=resultsItem.getMut();
-                if(quanInfos==null&&quanInfos.size()==0){
+                if(quanInfos==null||quanInfos.size()==0){
                     couponNumber.setText("无优惠券可领");
+                    choiceCoupon.setVisibility(View.GONE);
                 }else {
+                    choiceCoupon.setVisibility(View.VISIBLE);
                     if(TextUtils.equals("1",mut)){
                         couponNumber.setText("你有"+quanInfos.size()+"张优惠券可领");
                     }else {
@@ -238,7 +247,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     @Override
-    public void receiveCouponSuccess() {
+    public void receiveSuccess() {
         Toast.makeText(getApplicationContext(), "领取成功！", Toast.LENGTH_SHORT).show();
         if(TextUtils.equals("1",mut)){
             quanInfos.get(choicePosition).setCanReceive("0");
@@ -262,9 +271,17 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
         receiveCouponAdapter.setData(quanInfos);
     }
 
+
+
     @Override
     public void couponItemClick(String id,int position) {
         choicePosition=position;
         orderDetailPresenter.receiveCoupon(id,orderno);
+    }
+
+    @Override
+    public void shopVItemClick(int position) {
+        choicePosition=position;
+        orderDetailPresenter.receiveShopV(orderno);
     }
 }

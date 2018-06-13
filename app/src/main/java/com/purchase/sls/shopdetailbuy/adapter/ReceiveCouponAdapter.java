@@ -49,7 +49,11 @@ public class ReceiveCouponAdapter extends RecyclerView.Adapter<ReceiveCouponAdap
             @Override
             public void onClick(View v) {
                 if (onEventClicking != null) {
-                    onEventClicking.couponItemClick(quanInfo.getId(),holder.getAdapterPosition());
+                    if (TextUtils.equals("3", quanInfo.getAddSc())) {
+                        onEventClicking.shopVItemClick(holder.getAdapterPosition());
+                    } else {
+                        onEventClicking.couponItemClick(quanInfo.getId(), holder.getAdapterPosition());
+                    }
                 }
             }
         });
@@ -86,16 +90,23 @@ public class ReceiveCouponAdapter extends RecyclerView.Adapter<ReceiveCouponAdap
             } else {
                 canUseTt.setSelected(false);
                 choiceItem.setEnabled(false);
-                canUseTt.setText("无法领取");
+                canUseTt.setText("已领取");
             }
             price.setText(quanInfo.getPrice());
-            leastCost.setText("满" + quanInfo.getLeastCost() + "可用");
-            validday.setText("领取后" + quanInfo.getValidday() + "天有效");
+            if (TextUtils.equals("3", quanInfo.getAddSc())) {
+                leastCost.setText("商城抵用券");
+                validday.setText("永久");
+            } else {
+                leastCost.setText("满" + quanInfo.getLeastCost() + "可用");
+                validday.setText("领取后" + quanInfo.getValidday() + "天有效");
+            }
         }
     }
 
     public interface OnEventClicking {
-        void couponItemClick(String id,int position);
+        void couponItemClick(String id, int position);
+
+        void shopVItemClick(int position);
     }
 
     private OnEventClicking onEventClicking;

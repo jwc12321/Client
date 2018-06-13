@@ -37,7 +37,7 @@ public class MainApplication  extends MultiDexApplication {
 //        UMConfigure.setLogEnabled(true);
 //        UMShareAPI.get(this);//初始化sdk
         String channelId = WalleChannelReader.getChannel(this.getApplicationContext());
-//        MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));
+        MobclickAgent. startWithConfigure(new MobclickAgent.UMAnalyticsConfig(getApplicationContext(),"5ab7102aa40fa357cb000ba3",channelId));
         UMConfigure.init(this, "5ab7102aa40fa357cb000ba3", channelId, UMConfigure.DEVICE_TYPE_PHONE, "");
         /**
          * 预先加载一级列表所有城市的数据

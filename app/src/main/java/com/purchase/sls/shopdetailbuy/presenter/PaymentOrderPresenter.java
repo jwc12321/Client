@@ -104,7 +104,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
     @Override
     public void setGeneratingOrder(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
         paymentOrderView.showLoading();
-        GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes);
+        GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes,"android");
         Disposable disposable=restApiService.getGeneratingOrderInfo(generatingOrderRequest)
                 .flatMap(new RxRemoteDataParse<GeneratingOrderInfo>())
                 .compose(new RxSchedulerTransformer<GeneratingOrderInfo>())
@@ -136,7 +136,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
     @Override
     public void getAlipaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
         paymentOrderView.showLoading();
-        GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes);
+        GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes,"android");
         Disposable disposable=restApiService.getAliPaySignResponse(generatingOrderRequest)
                 .flatMap(new RxRemoteDataParse<AliPaySignResponse>())
                 .compose(new RxSchedulerTransformer<AliPaySignResponse>())
@@ -170,7 +170,7 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
     @Override
     public void getWXPaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes) {
         paymentOrderView.showLoading();
-        GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes);
+        GeneratingOrderRequest generatingOrderRequest=new GeneratingOrderRequest(allprice,storeid,coupon,power,paytype,notes,"android");
         Disposable disposable=restApiService.getWXPaySignResponse(generatingOrderRequest)
                 .flatMap(new RxRemoteDataParse<WXPaySignResponse>())
                 .compose(new RxSchedulerTransformer<WXPaySignResponse>())

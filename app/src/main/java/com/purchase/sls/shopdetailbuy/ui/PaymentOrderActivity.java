@@ -351,10 +351,11 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         if (totalPriceBigDecimal.compareTo(leastCostDecimal) < 0) {
             couponMoney = "0";
             reelNumber.setText("");
+            couponId="";
         }
         energyDecimal = new BigDecimal(TextUtils.isEmpty(addEnergyEt.getText().toString()) ? "0" : addEnergyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);
         couponDecimal = new BigDecimal(TextUtils.isEmpty(couponMoney) ? "0" : couponMoney).setScale(2, RoundingMode.HALF_UP);
-        totalStCdDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).divide((proportionDecimal.divide(percentageDecimal,2,BigDecimal.ROUND_HALF_UP)),2,BigDecimal.ROUND_HALF_UP);
+        totalStCdDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).divide((proportionDecimal.divide(percentageDecimal,2,BigDecimal.ROUND_DOWN)),2,BigDecimal.ROUND_DOWN);
         if(totalStCdDecimal.doubleValue()>0) {
             if (energyDecimal.compareTo(maxEnergyDecial) > 0) {//输入能量大于最多的能量
                 toast("能量最多只能填写" + maxEnergyDecial.toString());
@@ -363,7 +364,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
             }
         }
         if (energyDecimal.compareTo(totalStCdDecimal) < 0) {//需要微信和支付包支付
-            zfpayDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).subtract(energyDecimal.multiply(proportionDecimal).divide(percentageDecimal,2,BigDecimal.ROUND_HALF_UP));
+            zfpayDecimal = (totalPriceBigDecimal.subtract(couponDecimal)).subtract(energyDecimal.multiply(proportionDecimal).divide(percentageDecimal,2,BigDecimal.ROUND_DOWN));
             if (TextUtils.equals("1", payType)) {
                 payExplainStr = "能量支付" + energyDecimal.toString() + ",支付宝支付" + zfpayDecimal.toString() + "元";
                 payTypeWhat = "1";
@@ -444,7 +445,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         energyStr = userpowerInfo.getPersionInfoResponse().getPower();
         maxEnergyDecial = new BigDecimal(TextUtils.isEmpty(energyStr) ? "0" : energyStr).setScale(2, RoundingMode.HALF_UP);
         proportionDecimal = new BigDecimal(TextUtils.isEmpty(proportion) ? "0" : proportion).setScale(2, RoundingMode.HALF_UP);
-        offsetCashDecimal = maxEnergyDecial.multiply(proportionDecimal).divide(percentageDecimal,2,BigDecimal.ROUND_HALF_UP);
+        offsetCashDecimal = maxEnergyDecial.multiply(proportionDecimal).divide(percentageDecimal,2,BigDecimal.ROUND_DOWN);
         addEnergyEt.setHint("请输入金额(可用" + energyStr + "能量，抵用现金" + (offsetCashDecimal.toString()) + "元)");
         couponInfos = userpowerInfo.getCouponInfos();
         if (couponInfos != null && couponInfos.size() > 0) {

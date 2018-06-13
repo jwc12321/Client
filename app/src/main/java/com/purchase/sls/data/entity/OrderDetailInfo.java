@@ -37,6 +37,8 @@ public class OrderDetailInfo {
         private String power;
         @SerializedName("mut")
         private String mut;
+        @SerializedName("scquan")
+        private String scquan;
 
         public List<QuanInfo> getQuanInfos() {
             return quanInfos;
@@ -60,6 +62,14 @@ public class OrderDetailInfo {
 
         public void setMut(String mut) {
             this.mut = mut;
+        }
+
+        public String getScquan() {
+            return scquan;
+        }
+
+        public void setScquan(String scquan) {
+            this.scquan = scquan;
         }
     }
 

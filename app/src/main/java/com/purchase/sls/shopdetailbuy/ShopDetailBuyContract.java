@@ -45,10 +45,11 @@ public interface ShopDetailBuyContract {
         void getOrderDetailInfo(String orderno);
         void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest);
         void receiveCoupon(String id,String orderno);
+        void receiveShopV(String orderno);
     }
     interface OrderDetailView extends BaseView<OrderDetailPresenter>{
         void renderOrderDetail(OrderDetailInfo orderDetailInfo);
         void submitSuccess();
-        void receiveCouponSuccess();
+        void receiveSuccess();
     }
 }

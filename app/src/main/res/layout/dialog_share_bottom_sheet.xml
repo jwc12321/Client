@@ -43,8 +43,7 @@
             android:gravity="center"
             android:text="微信朋友圈"
             android:textColor="@color/appText12"
-            android:textSize="13sp"
-            android:visibility="gone"/>
+            android:textSize="13sp" />
         <TextView
             android:id="@+id/sms"
             android:layout_width="0dp"
@@ -54,7 +53,8 @@
             android:gravity="center"
             android:text="短信"
             android:textColor="@color/appText12"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/qq_friend"
             android:layout_width="0dp"
