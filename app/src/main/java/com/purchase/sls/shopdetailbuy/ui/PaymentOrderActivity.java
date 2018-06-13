@@ -442,7 +442,11 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     public void userpowerInfo(UserpowerInfo userpowerInfo) {
         this.userpowerInfo = userpowerInfo;
         proportion = userpowerInfo.getProportion();
-        energyStr = userpowerInfo.getPersionInfoResponse().getPower();
+        if(userpowerInfo.getPersionInfoResponse()!=null&&userpowerInfo.getPersionInfoResponse().getPower()!=null) {
+            energyStr = userpowerInfo.getPersionInfoResponse().getPower();
+        }else {
+            energyStr="0";
+        }
         maxEnergyDecial = new BigDecimal(TextUtils.isEmpty(energyStr) ? "0" : energyStr).setScale(2, RoundingMode.HALF_UP);
         proportionDecimal = new BigDecimal(TextUtils.isEmpty(proportion) ? "0" : proportion).setScale(2, RoundingMode.HALF_UP);
         offsetCashDecimal = maxEnergyDecial.multiply(proportionDecimal).divide(percentageDecimal,2,BigDecimal.ROUND_DOWN);

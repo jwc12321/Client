@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.BaseActivity;
+import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
 import com.purchase.sls.address.ui.AddressListActivity;
 import com.purchase.sls.common.StaticData;
@@ -216,7 +217,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                 // handleMessage(Message msg);// 进行其他处理
             }
         });
-        String url = "http://test.365neng.com/api/home/product/productdetail?id=" + id;
+        String url =BuildConfig.API_BASE_URL+ "home/product/productdetail?id=" + id;
         webView.loadUrl(url);
     }
 
