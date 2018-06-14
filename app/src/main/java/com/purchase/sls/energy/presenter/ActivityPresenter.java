@@ -5,15 +5,11 @@ import android.text.TextUtils;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
-import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.EnergyInfoRequest;
-import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.data.request.TypeRequest;
 import com.purchase.sls.energy.EnergyContract;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

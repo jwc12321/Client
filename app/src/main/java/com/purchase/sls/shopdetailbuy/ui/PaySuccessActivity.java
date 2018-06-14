@@ -28,6 +28,7 @@ import com.purchase.sls.shopdetailbuy.ShopDetailBuyModule;
 import com.purchase.sls.shopdetailbuy.adapter.ReceiveCouponAdapter;
 import com.purchase.sls.shopdetailbuy.presenter.OrderDetailPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -185,7 +186,16 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                     energyNumber.setText("0");
                 }
                 quanInfos = resultsItem.getQuanInfos();
+                if(resultsItem.getBusinessQInfos()!=null&&resultsItem.getBusinessQInfos().size()>0){
+                    if(quanInfos==null){
+                        quanInfos=new ArrayList<>();
+                    }
+                    quanInfos.addAll(resultsItem.getBusinessQInfos());
+                }
                 if(!TextUtils.isEmpty(resultsItem.getScquan())&&!TextUtils.equals("0.00",resultsItem.getScquan())){
+                    if(quanInfos==null){
+                        quanInfos=new ArrayList<>();
+                    }
                     QuanInfo quanInfo=new QuanInfo();
                     quanInfo.setCanReceive("1");
                     quanInfo.setPrice(resultsItem.getScquan());

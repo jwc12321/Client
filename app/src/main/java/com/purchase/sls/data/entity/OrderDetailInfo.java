@@ -33,6 +33,8 @@ public class OrderDetailInfo {
     public static class ResultsItem {
         @SerializedName("platform")
         List<QuanInfo> quanInfos;
+        @SerializedName("business")
+        List<QuanInfo> businessQInfos;
         @SerializedName("power")
         private String power;
         @SerializedName("mut")
@@ -70,6 +72,14 @@ public class OrderDetailInfo {
 
         public void setScquan(String scquan) {
             this.scquan = scquan;
+        }
+
+        public List<QuanInfo> getBusinessQInfos() {
+            return businessQInfos;
+        }
+
+        public void setBusinessQInfos(List<QuanInfo> businessQInfos) {
+            this.businessQInfos = businessQInfos;
         }
     }
 
