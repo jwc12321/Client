@@ -112,7 +112,6 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("111","数据LotteryFragment"+getUserVisibleHint());
         if (!isFirstLoad&&getUserVisibleHint()) {
             if (activityPresenter != null) {
                 activityPresenter.getActivitys("0", "3");

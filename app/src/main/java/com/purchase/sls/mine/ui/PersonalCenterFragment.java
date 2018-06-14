@@ -88,6 +88,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private WebViewDetailInfo webViewDetailInfo;
     private String phoneNumber;
     private String qrCodeUrl;
+    private String firstIn="0";
 
     public PersonalCenterFragment() {
     }
@@ -136,7 +137,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
     private void initVeiw() {
-        if (!isFirstLoad) {
+        if (!isFirstLoad&&getUserVisibleHint()&&TextUtils.equals("0",firstIn)) {
             persionInfoStr = persionAppPreferences.getPersionInfo();
             gson = new Gson();
             if (!TextUtils.isEmpty(persionInfoStr)) {
@@ -145,6 +146,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 persionName.setText(persionInfoResponse.getUsername());
                 phoneNumber = persionInfoResponse.getTel();
                 qrCodeUrl = persionInfoResponse.getQrcode();
+                firstIn="1";
             } else {
                 AccountLoginActivity.start(getActivity());
             }
@@ -156,12 +158,14 @@ public class PersonalCenterFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
+                firstIn="0";
                 SettingActivity.start(getActivity(), phoneNumber);
                 break;
             case R.id.information_iv:
                 MessageNotificationActivity.start(getActivity());
                 break;
             case R.id.item_persion_im://个人主页
+                firstIn="0";
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_MY_INFO);
                 PersonalInformationActivity.start(getActivity());
                 break;

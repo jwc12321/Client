@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface OrderManageContract {
     interface ActivityOrderListPresenter extends BasePresenter{
-        void getActivityOrderList(String type);
+        void getActivityOrderList(String refreshType,String type);
         void getMoreActivityOrderList(String type);
         void getActivityOrderDetail(String id);
         void deleteActivityOrder(String id);

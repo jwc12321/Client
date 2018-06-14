@@ -112,7 +112,6 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("111","数据SpikeFragment"+getUserVisibleHint());
         if (!isFirstLoad&&getUserVisibleHint()) {
             if (activityPresenter != null) {
                 activityPresenter.getActivitys("0", "1");

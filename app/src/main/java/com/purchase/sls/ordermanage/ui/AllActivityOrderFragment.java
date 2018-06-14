@@ -3,6 +3,7 @@ package com.purchase.sls.ordermanage.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -29,6 +30,7 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
     @Inject
     ActivityOrderListPresenter activityOrderListPresenter;
     private ActivityOrderAdatper activityOrderAdatper;
+    private String firstIn="0";
 
     public static AllActivityOrderFragment newInstance() {
         AllActivityOrderFragment fragment = new AllActivityOrderFragment();
@@ -49,8 +51,9 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
     @Override
     public void onResume() {
         super.onResume();
-        if (activityOrderListPresenter != null) {
-            activityOrderListPresenter.getActivityOrderList("0");
+        if (activityOrderListPresenter != null&&getUserVisibleHint()&& TextUtils.equals("0",firstIn)) {
+            activityOrderListPresenter.getActivityOrderList("1","0");
+            firstIn="1";
         }
     }
 
@@ -62,9 +65,8 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                Log.d("1111", "执行这里" + activityOrderListPresenter);
                 if (activityOrderListPresenter != null) {
-                    activityOrderListPresenter.getActivityOrderList("0");
+                    activityOrderListPresenter.getActivityOrderList("0","0");
                 }
             }
         }
@@ -80,7 +82,7 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
 
     @Override
     public void onRefresh() {
-        activityOrderListPresenter.getActivityOrderList("0");
+        activityOrderListPresenter.getActivityOrderList("0","0");
     }
 
     @Override
@@ -124,11 +126,11 @@ public class AllActivityOrderFragment extends BaseListFragment<ActivityOrderInfo
 
     @Override
     public void deleteSuccess() {
-        activityOrderListPresenter.getActivityOrderList("0");
+        activityOrderListPresenter.getActivityOrderList("0","0");
     }
 
     @Override
     public void confirmSuccess() {
-        activityOrderListPresenter.getActivityOrderList("0");
+        activityOrderListPresenter.getActivityOrderList("0","0");
     }
 }

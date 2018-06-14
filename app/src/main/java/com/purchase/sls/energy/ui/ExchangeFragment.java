@@ -112,7 +112,6 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("111","数据ExchangeFragment"+getUserVisibleHint());
         if (!isFirstLoad&&getUserVisibleHint()) {
             if (activityPresenter != null) {
                 activityPresenter.getActivitys("0","2");

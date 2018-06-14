@@ -62,7 +62,7 @@ public class ExchangeOrderFragment extends BaseListFragment<ActivityOrderInfo> i
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityOrderListPresenter != null) {
-                    activityOrderListPresenter.getActivityOrderList("2");
+                    activityOrderListPresenter.getActivityOrderList("1","2");
                 }
             }
         }
@@ -78,7 +78,7 @@ public class ExchangeOrderFragment extends BaseListFragment<ActivityOrderInfo> i
 
     @Override
     public void onRefresh() {
-        activityOrderListPresenter.getActivityOrderList("2");
+        activityOrderListPresenter.getActivityOrderList("0","2");
     }
 
     @Override
@@ -122,11 +122,11 @@ public class ExchangeOrderFragment extends BaseListFragment<ActivityOrderInfo> i
 
     @Override
     public void deleteSuccess() {
-        activityOrderListPresenter.getActivityOrderList("2");
+        activityOrderListPresenter.getActivityOrderList("0","2");
     }
 
     @Override
     public void confirmSuccess() {
-        activityOrderListPresenter.getActivityOrderList("2");
+        activityOrderListPresenter.getActivityOrderList("0","2");
     }
 }

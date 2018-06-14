@@ -63,7 +63,7 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityOrderListPresenter != null) {
-                    activityOrderListPresenter.getActivityOrderList("1");
+                    activityOrderListPresenter.getActivityOrderList("1","1");
                 }
             }
         }
@@ -79,7 +79,7 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
 
     @Override
     public void onRefresh() {
-        activityOrderListPresenter.getActivityOrderList("1");
+        activityOrderListPresenter.getActivityOrderList("0","1");
     }
 
     @Override
@@ -123,11 +123,11 @@ public class SpikeOrderFragment extends BaseListFragment<ActivityOrderInfo> impl
 
     @Override
     public void deleteSuccess() {
-        activityOrderListPresenter.getActivityOrderList("1");
+        activityOrderListPresenter.getActivityOrderList("0","1");
     }
 
     @Override
     public void confirmSuccess() {
-        activityOrderListPresenter.getActivityOrderList("1");
+        activityOrderListPresenter.getActivityOrderList("0","1");
     }
 }

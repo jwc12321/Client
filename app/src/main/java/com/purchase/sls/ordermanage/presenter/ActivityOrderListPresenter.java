@@ -66,7 +66,10 @@ public class ActivityOrderListPresenter implements OrderManageContract.ActivityO
     }
 
     @Override
-    public void getActivityOrderList(String type) {
+    public void getActivityOrderList(String refreshType,String type) {
+        if (TextUtils.equals("1", refreshType)) {
+            activityOrderListView.showLoading();
+        }
         if (TextUtils.equals("0", type)) {
             allCurrentIndex = 1;
         } else if (TextUtils.equals("1", type)) {
@@ -83,11 +86,13 @@ public class ActivityOrderListPresenter implements OrderManageContract.ActivityO
                 .subscribe(new Consumer<ActivityOrderListResponse>() {
                     @Override
                     public void accept(ActivityOrderListResponse activityOrderListResponse) throws Exception {
+                        activityOrderListView.dismissLoading();
                         activityOrderListView.render(activityOrderListResponse.getOrderInfos());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        activityOrderListView.dismissLoading();
                         activityOrderListView.showError(throwable);
                     }
                 });

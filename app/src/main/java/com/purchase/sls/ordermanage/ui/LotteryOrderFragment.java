@@ -62,7 +62,7 @@ public class LotteryOrderFragment extends BaseListFragment<ActivityOrderInfo> im
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if(activityOrderListPresenter!=null){
-                    activityOrderListPresenter.getActivityOrderList("3");
+                    activityOrderListPresenter.getActivityOrderList("1","3");
                 }
             }
         }
@@ -78,7 +78,7 @@ public class LotteryOrderFragment extends BaseListFragment<ActivityOrderInfo> im
 
     @Override
     public void onRefresh() {
-        activityOrderListPresenter.getActivityOrderList("3");
+        activityOrderListPresenter.getActivityOrderList("0","3");
     }
 
     @Override
@@ -122,11 +122,11 @@ public class LotteryOrderFragment extends BaseListFragment<ActivityOrderInfo> im
 
     @Override
     public void deleteSuccess() {
-        activityOrderListPresenter.getActivityOrderList("3");
+        activityOrderListPresenter.getActivityOrderList("0","3");
     }
 
     @Override
     public void confirmSuccess() {
-        activityOrderListPresenter.getActivityOrderList("3");
+        activityOrderListPresenter.getActivityOrderList("0","3");
     }
 }
