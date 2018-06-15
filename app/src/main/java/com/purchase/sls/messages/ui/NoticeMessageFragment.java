@@ -34,6 +34,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
     MessageListPresenter messageListPresenter;
     private MessageAdapter messageAdapter;
     private WebViewDetailInfo webViewDetailInfo;
+    private String firstIn = "0";
 
     public static NoticeMessageFragment newInstance() {
         NoticeMessageFragment fragment = new NoticeMessageFragment();
@@ -48,8 +49,9 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
     @Override
     public void onResume() {
         super.onResume();
-        if (messageListPresenter != null) {
-            messageListPresenter.getMessageList("1","1");
+        if (messageListPresenter != null && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
+            messageListPresenter.getMessageList("1", "1");
+            firstIn = "1";
         }
     }
 
@@ -74,7 +76,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 if (messageListPresenter != null) {
-                    messageListPresenter.getMessageList("1","1");
+                    messageListPresenter.getMessageList("1", "1");
                 }
                 isFirstLoad = false;
             }
@@ -83,7 +85,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
 
     @Override
     public void onRefresh() {
-        messageListPresenter.getMessageList("0","1");
+        messageListPresenter.getMessageList("0", "1");
     }
 
     @Override

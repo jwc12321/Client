@@ -47,9 +47,9 @@ public class CouponMessageFragment extends BaseListFragment<MessageListInfo.Mess
     @Override
     public void onResume() {
         super.onResume();
-        if (messageListPresenter != null) {
-            messageListPresenter.getMessageList("1","0");
-        }
+//        if (messageListPresenter != null) {
+//            messageListPresenter.getMessageList("1","0");
+//        }
     }
 
     @Override
