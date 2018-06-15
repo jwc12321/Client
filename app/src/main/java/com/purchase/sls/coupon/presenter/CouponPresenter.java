@@ -76,7 +76,9 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                         couponListView.dismissLoading();
                         if(couponListInfo!=null) {
                             List<CouponInfo> couponInfos;
-                            if (TextUtils.equals("0", type)) {
+                            if (TextUtils.equals("0", type)&&couponListInfo.getScItem()!=null
+                                    &&!TextUtils.isEmpty(couponListInfo.getScItem().getQuannum())
+                                    &&!TextUtils.equals("0.00",couponListInfo.getScItem().getQuannum())) {
                                 CouponInfo couponInfo = new CouponInfo();
                                 couponInfo.setAddSc("3");
                                 couponInfo.setStatus("0");

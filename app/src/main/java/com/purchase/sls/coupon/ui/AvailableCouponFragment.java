@@ -47,7 +47,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     @Override
     public void onResume() {
         super.onResume();
-        if(couponPresenter!=null) {
+        if(couponPresenter!=null&&getUserVisibleHint()) {
             couponPresenter.getCouponList("1","0");
         }
     }
