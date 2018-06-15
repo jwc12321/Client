@@ -161,8 +161,10 @@ public class ChoiceCityLocationHelper {
 
     public void destroyLocation(){
         if (null != mLocationClient) {
-            mOnLocatedListeners.clear();
             mLocationClient.stopLocation();
+        }
+        if(mOnLocatedListeners!=null) {
+            mOnLocatedListeners.clear();
         }
     }
 

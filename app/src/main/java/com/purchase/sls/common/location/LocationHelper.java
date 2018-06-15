@@ -163,6 +163,15 @@ public class LocationHelper {
         }
     }
 
+    public void cancelListen(){
+        if (null != mLocationClient) {
+            mLocationClient.stopLocation();
+        }
+        if(mOnLocatedListeners!=null) {
+            mOnLocatedListeners.clear();
+        }
+    }
+
     /**
      * 添加一个定位监听
      *

@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
@@ -522,6 +523,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mLocationHelper.destroyLocation();
+        if(mLocationHelper!=null) {
+            mLocationHelper.cancelListen();
+        }
     }
 }
