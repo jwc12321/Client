@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -39,8 +38,6 @@ public class ReboundScrollView extends NestedScrollView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        Log.d(TAG, "onFinishInflate");
-
     }
 
     @Override
@@ -60,7 +57,6 @@ public class ReboundScrollView extends NestedScrollView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        Log.d(TAG, "onlayout");
         if (getChildCount() > 0)
             childView = getChildAt(0);
         if (childView == null)

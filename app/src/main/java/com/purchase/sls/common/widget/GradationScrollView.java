@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.ScrollView;
 
 /**
  * 带滚动监听的scrollview
@@ -62,7 +61,6 @@ public class GradationScrollView extends NestedScrollView {
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		super.onLayout(changed, l, t, r, b);
-		Log.d(TAG, "onlayout");
 		if (getChildCount() > 0)
 			childView = getChildAt(0);
 		if (childView == null)

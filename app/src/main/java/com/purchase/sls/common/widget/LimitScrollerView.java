@@ -8,7 +8,6 @@ import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -73,9 +72,6 @@ public class LimitScrollerView extends LinearLayout implements View.OnClickListe
             durationTime = ta.getInt(R.styleable.LimitScroller_durationTime, 1000);
             periodTime = ta.getInt(R.styleable.LimitScroller_periodTime, 1000);
             ta.recycle();  //注意回收
-            Log.v(TAG, "limit="+limit);
-            Log.v(TAG, "durationTime="+durationTime);
-            Log.v(TAG, "periodTime="+periodTime);
         }
     }
 
@@ -113,7 +109,6 @@ public class LimitScrollerView extends LinearLayout implements View.OnClickListe
     private void startAnimation(){
         if(isCancel)
             return;
-        Log.i(TAG, "滚动");
         //当前展示的容器，从当前位置（0）,向上滚动scrollHeight
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(ll_now, "Y",ll_now.getY(), ll_now.getY()-scrollHeight);
         //预备容器，从当前位置，向上滚动scrollHeight
@@ -241,7 +236,6 @@ public class LimitScrollerView extends LinearLayout implements View.OnClickListe
             handler.sendEmptyMessage(MSG_SETDATA);
         }
         isCancel = false;
-        Log.e(TAG, "开始滚动");
         handler.removeMessages(MSG_SCROL);   //先清空所有滚动消息，避免滚动错乱
         handler.sendEmptyMessageDelayed(MSG_SCROL, periodTime);
     }
@@ -251,7 +245,6 @@ public class LimitScrollerView extends LinearLayout implements View.OnClickListe
      */
     public void cancel(){
         isCancel = true;
-        Log.e(TAG, "停止滚动");
     }
 
     /**
