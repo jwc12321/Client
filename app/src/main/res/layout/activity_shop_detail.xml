@@ -37,7 +37,7 @@
                 <RelativeLayout
                     android:id="@+id/shop_info_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="67dp">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:id="@+id/popularity_ll"
@@ -95,8 +95,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/common_eleven_margin"
                             android:layout_marginTop="8dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
                             android:textColor="@color/appText6"
                             android:textSize="12sp"
                             tools:text="哈哈" />

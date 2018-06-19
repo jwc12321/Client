@@ -91,4 +91,7 @@ public class StaticData {
     public static final String EXPTESS_NUM="expressNum";
     //物流信息
     public static final String EXPTESS_LOGIS="expressLogis";
+
+    public static final String CURR_X="currX";
+    public static final String CURR_Y="currY";
 }

@@ -237,6 +237,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 homePagePresenter.getLikeStore(city);
                 Log.d("1111", "城市" + city + "经纬度" + longitude + "," + latitude);
                 commonAppPreferences.setLocalAddress(city, longitude, latitude);
+                commonAppPreferences.setCurrLocalAddress(longitude,latitude);
             }
         });
 

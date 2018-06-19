@@ -72,17 +72,22 @@
             <TextView
                 android:id="@+id/shop_name"
                 style="@style/like_adapter_text_style"
-                tools:text="1111"/>
+                tools:text="我们都是一家人大家都是一家人"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:ellipsize="end"  />
 
             <TextView
                 android:id="@+id/shop_city"
                 style="@style/like_adapter_text_style"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                tools:text="丽水市"/>
 
             <TextView
                 android:id="@+id/shop_distance"
                 style="@style/like_adapter_text_style"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                tools:text="20.5km"/>
 
 
         </LinearLayout>

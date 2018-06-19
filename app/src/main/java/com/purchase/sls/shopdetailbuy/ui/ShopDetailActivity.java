@@ -24,6 +24,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.OpenLocalMapUtil;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
@@ -150,6 +151,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private String cityName;
     private String baiduY;//百度地图的纬度
     private String baiduX;//百度地图的经度
+    private CommonAppPreferences commonAppPreferences;
+    private String currX;
+    private String currY;
 
     public static void start(Context context, String storeid) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
@@ -167,6 +171,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     }
 
     private void initView() {
+        commonAppPreferences = new CommonAppPreferences(this);
+        if(commonAppPreferences!=null){
+            currX=commonAppPreferences.getCurrLongitude();
+            currY=commonAppPreferences.getCurrLatitude();
+        }
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         scrollview.setScrollViewListener(this);
         blackBackground.setAlpha(0.4f);
@@ -342,8 +351,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 break;
             case R.id.address_rl:
                 if (choiceMapInfos.isEmpty()) {
-                    if (!TextUtils.isEmpty(addressXY)) {
-                        url = "http://uri.amap.com/navigation?from=%" + addressX + ",%" + addressY + ",start&to=%" + addressX + ",%" + addressY + ",end&mode=car&policy=1&callnative=1";
+                    if (!TextUtils.isEmpty(addressX)&&!TextUtils.isEmpty(addressY)
+                            &&!TextUtils.isEmpty(currX)&&!TextUtils.isEmpty(currY)) {
+                        url = "http://uri.amap.com/navigation?from=" + currX + "," + currY + ",start&to=" + addressX + "," + addressY + ",end&mode=car&policy=1&callnative=1";
                         webViewDetailInfo = new WebViewDetailInfo();
                         webViewDetailInfo.setTitle("地图");
                         webViewDetailInfo.setUrl(url);
