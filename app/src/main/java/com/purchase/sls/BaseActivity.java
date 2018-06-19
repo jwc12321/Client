@@ -13,17 +13,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.purchase.sls.MainApplication;
 import com.purchase.sls.common.unit.HandleBackUtil;
 import com.purchase.sls.common.unit.WeiboDialogUtils;
 import com.purchase.sls.data.RemoteDataException;
