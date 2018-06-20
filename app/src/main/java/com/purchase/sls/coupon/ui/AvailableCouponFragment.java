@@ -16,7 +16,9 @@ import com.purchase.sls.coupon.DaggerCouponComponent;
 import com.purchase.sls.coupon.adapter.CouponListAdapter;
 import com.purchase.sls.coupon.presenter.CouponPresenter;
 import com.purchase.sls.data.entity.CouponInfo;
+import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.mainframe.ui.MainFrameActivity;
+import com.purchase.sls.webview.ui.WebViewActivity;
 
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     CouponPresenter couponPresenter;
     private CouponListAdapter couponListAdapter;
     private CommonAppPreferences commonAppPreferences;
+    private WebViewDetailInfo webViewDetailInfo;
 
     public static AvailableCouponFragment newInstance() {
         AvailableCouponFragment fragment = new AvailableCouponFragment();
@@ -109,5 +112,14 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     public void btClick(String mainGo) {
         commonAppPreferences.setMianGoWhere(mainGo);
         MainFrameActivity.start(getActivity());
+    }
+
+    @Override
+    public void couponDetail(String qid) {
+        webViewDetailInfo = new WebViewDetailInfo();
+        webViewDetailInfo.setTitle("优惠券详情");
+        String url="https://open.365neng.com/api/home/codeWeb?id="+qid;
+        webViewDetailInfo.setUrl(url);
+        WebViewActivity.start(getActivity(), webViewDetailInfo);
     }
 }

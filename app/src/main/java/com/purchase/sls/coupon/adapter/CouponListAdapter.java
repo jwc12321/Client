@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
@@ -56,11 +57,19 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
             @Override
             public void onClick(View v) {
                 if (onBtClick != null) {
-                    if(TextUtils.equals("3",couponInfo.getAddSc())){
+                    if (TextUtils.equals("3", couponInfo.getAddSc())) {
                         onBtClick.btClick("3");
-                    }else {
+                    } else {
                         onBtClick.btClick("0");
                     }
+                }
+            }
+        });
+        holder.couponDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onBtClick!=null){
+                    onBtClick.couponDetail(couponInfo.getQid());
                 }
             }
         });
@@ -97,6 +106,8 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
         TextView businessTime;
         @BindView(R.id.use_bt)
         Button useBt;
+        @BindView(R.id.coupon_detail)
+        RelativeLayout couponDetail;
 
         public CouponListView(View itemView) {
             super(itemView);
@@ -105,33 +116,38 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
 
         public void bindData(CouponInfo couponInfo) {
             price.setText(couponInfo.getQuanInfo().getPrice());
-            if(TextUtils.equals("3",couponInfo.getAddSc())){
+            if (TextUtils.equals("3", couponInfo.getAddSc())) {
                 leastCost.setText("抵金劵");
                 businessTime.setText("永久");
-            }else {
+            } else {
                 leastCost.setText("满" + couponInfo.getQuanInfo().getLeastCost() + "可用");
                 businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + FormatUtil.formatDateYear(couponInfo.getExpire_at()));
             }
             priceLl.setSelected(TextUtils.equals("0", availableType) ? true : false);
             businessName.setText(couponInfo.getQuanInfo().getTitle());
-            if(TextUtils.equals("0",couponInfo.getStatus())){
+            if (TextUtils.equals("0", couponInfo.getStatus())) {
                 useBt.setEnabled(true);
                 useBt.setText("立即使用");
                 useBt.setTextColor(Color.rgb(255, 101, 40));
-            }else if(TextUtils.equals("1",couponInfo.getStatus())){
+                couponDetail.setEnabled(true);
+            } else if (TextUtils.equals("1", couponInfo.getStatus())) {
                 useBt.setEnabled(false);
                 useBt.setText("已使用");
                 useBt.setTextColor(Color.rgb(224, 224, 224));
-            }else {
+                couponDetail.setEnabled(false);
+            } else {
                 useBt.setEnabled(false);
                 useBt.setText("已失效");
                 useBt.setTextColor(Color.rgb(224, 224, 224));
+                couponDetail.setEnabled(false);
             }
         }
     }
 
     public interface OnBtClick {
         void btClick(String mainGo);
+
+        void couponDetail(String qid);
     }
 
     private OnBtClick onBtClick;
