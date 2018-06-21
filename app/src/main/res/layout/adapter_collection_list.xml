@@ -113,7 +113,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="17dp"
+                    android:layout_width="34dp"
                     android:layout_height="17dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/return_energy" />
