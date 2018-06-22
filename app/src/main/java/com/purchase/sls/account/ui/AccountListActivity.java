@@ -78,7 +78,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_list);
         ButterKnife.bind(this);
-        setHeight(back,title,null);
+        setHeight(back, title, null);
         initView();
     }
 
@@ -86,7 +86,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         accountData.setText(FormatUtil.formatDateMonth(System.currentTimeMillis()));
         addAdapter();
-        accountListPresenter.getAccountList("1","", "");
+        accountListPresenter.getAccountList("1", "", "");
     }
 
     private void addAdapter() {
@@ -99,11 +99,11 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         @Override
         public void onRefresh() {
             if (TextUtils.isEmpty(chooseTimeType)) {
-                accountListPresenter.getAccountList("0","", "");
+                accountListPresenter.getAccountList("0", "", "");
             } else if (TextUtils.equals("1", chooseTimeType)) {
-                accountListPresenter.getAccountList("0",monthlyTime, "");
+                accountListPresenter.getAccountList("0", monthlyTime, "");
             } else {
-                accountListPresenter.getAccountList("0",startTime, endTime);
+                accountListPresenter.getAccountList("0", startTime, endTime);
             }
         }
 
@@ -152,7 +152,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
             if (accountListInfo.getAccountpowers() != null && accountListInfo.getAccountpowers().size() > 0) {
                 totalPower = accountListInfo.getAccountpowers().get(0).getPower();
             }
-            accountSum.setText("总支付¥" + (TextUtils.isEmpty(totalSum)?0:totalSum)+ " 能量收入¥" + (TextUtils.isEmpty(totalPower)?0:totalPower));
+            accountSum.setText("总支付¥" + (TextUtils.isEmpty(totalSum) ? 0 : totalSum) + " 能量收入¥" + (TextUtils.isEmpty(totalPower) ? 0 : totalPower));
             if (accountListInfo.getAccountItemList() != null && accountListInfo.getAccountItemList().getAccountItemInfos() != null && accountListInfo.getAccountItemList().getAccountItemInfos().size() > 0) {
                 refreshLayout.setCanLoadMore(true);
                 accountListAdapter.setData(accountListInfo.getAccountItemList().getAccountItemInfos());
@@ -206,15 +206,16 @@ public class AccountListActivity extends BaseActivity implements AccountContract
                     chooseTimeType = data.getStringExtra(StaticData.CHOOSE_TIME_TYPE);
                     if (TextUtils.equals("1", chooseTimeType)) {
                         monthlyTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);
-                        accountListPresenter.getAccountList("1",monthlyTime, "");
+                        accountListPresenter.getAccountList("1", monthlyTime, "");
                         accountData.setText(monthlyTime);
                     } else {
                         startTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);
                         endTime = data.getStringExtra(StaticData.CHOOSE_TIME_SECOND);
-                        accountListPresenter.getAccountList("1",startTime, endTime);
-                        accountData.setText(startTime+"到"+endTime);
+                        accountListPresenter.getAccountList("1", startTime, endTime);
+                        accountData.setText(startTime + "到" + endTime);
                     }
-                    return;
+                    break;
+                default:
             }
         }
     }
