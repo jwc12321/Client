@@ -28,7 +28,8 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
     private CouponContract.CouponListView couponListView;
-    private int currentIndex = 1;  //待接单当前index
+    private int avCurrentIndex = 1;  //可用
+    private int ivCurrentIndex = 1;  //失效
 
     @Inject
     public CouponPresenter(RestApiService restApiService, CouponContract.CouponListView couponListView) {
@@ -61,12 +62,16 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
     }
 
     @Override
-    public void getCouponList(String refreshType,final String type) {
-        if(TextUtils.equals("1",refreshType)){
+    public void getCouponList(String refreshType, final String type) {
+        if (TextUtils.equals("1", refreshType)) {
             couponListView.showLoading();
         }
-        currentIndex = 1;
-        CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(currentIndex));
+        if (TextUtils.equals("0", type)) {
+            avCurrentIndex = 1;
+        } else {
+            ivCurrentIndex = 1;
+        }
+        CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(1));
         Disposable disposable = restApiService.getCouponListInfo(couponListRequest)
                 .flatMap(new RxRemoteDataParse<CouponListInfo>())
                 .compose(new RxSchedulerTransformer<CouponListInfo>())
@@ -74,11 +79,11 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                     @Override
                     public void accept(CouponListInfo couponListInfo) throws Exception {
                         couponListView.dismissLoading();
-                        if(couponListInfo!=null) {
+                        if (couponListInfo != null) {
                             List<CouponInfo> couponInfos;
-                            if (TextUtils.equals("0", type)&&couponListInfo.getScItem()!=null
-                                    &&!TextUtils.isEmpty(couponListInfo.getScItem().getQuannum())
-                                    &&!TextUtils.equals("0.00",couponListInfo.getScItem().getQuannum())) {
+                            if (TextUtils.equals("0", type) && couponListInfo.getScItem() != null
+                                    && !TextUtils.isEmpty(couponListInfo.getScItem().getQuannum())
+                                    && !TextUtils.equals("0.00", couponListInfo.getScItem().getQuannum())) {
                                 CouponInfo couponInfo = new CouponInfo();
                                 couponInfo.setAddSc("3");
                                 couponInfo.setStatus("0");
@@ -86,8 +91,8 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                                 quanInfo.setPrice(couponListInfo.getScItem().getQuannum());
                                 quanInfo.setTitle("商城抵金劵");
                                 couponInfo.setQuanInfo(quanInfo);
-                                couponInfos=couponListInfo.getCouponList().getCouponInfos();
-                                couponInfos.add(0,couponInfo);
+                                couponInfos = couponListInfo.getCouponList().getCouponInfos();
+                                couponInfos.add(0, couponInfo);
                                 couponListView.render(couponInfos);
                             } else {
                                 couponListView.render(couponListInfo.getCouponList().getCouponInfos());
@@ -106,8 +111,14 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
 
     @Override
     public void getMoreCouponList(String type) {
-        currentIndex = currentIndex + 1;
-        CouponListRequest couponListRequest = new CouponListRequest(type, String.valueOf(currentIndex));
+        CouponListRequest couponListRequest;
+        if (TextUtils.equals("0", type)) {
+            avCurrentIndex = avCurrentIndex + 1;
+            couponListRequest = new CouponListRequest(type, String.valueOf(avCurrentIndex));
+        } else {
+            ivCurrentIndex = ivCurrentIndex + 1;
+            couponListRequest = new CouponListRequest(type, String.valueOf(ivCurrentIndex));
+        }
         Disposable disposable = restApiService.getCouponListInfo(couponListRequest)
                 .flatMap(new RxRemoteDataParse<CouponListInfo>())
                 .compose(new RxSchedulerTransformer<CouponListInfo>())

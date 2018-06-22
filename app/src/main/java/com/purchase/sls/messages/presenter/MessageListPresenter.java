@@ -26,7 +26,8 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
     private MessagesContract.MessageListView messageListView;
-    private int currentIndex = 1;  //待接单当前index
+    private int couponCurrentIndex = 1;  //通知
+    private int noticeCurrentIndex = 1;  //优惠
 
     @Inject
     public MessageListPresenter(RestApiService restApiService, MessagesContract.MessageListView messageListView) {
@@ -59,12 +60,16 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
     }
 
     @Override
-    public void getMessageList(String refreshType,String type) {
-        if(TextUtils.equals("1",refreshType)){
+    public void getMessageList(String refreshType, String type) {
+        if (TextUtils.equals("1", refreshType)) {
             messageListView.showLoading();
         }
-        currentIndex = 1;
-        MessageListRequest messageListRequest = new MessageListRequest(String.valueOf(currentIndex), type);
+        if (TextUtils.equals("0", type)) {
+            couponCurrentIndex = 1;
+        } else {
+            noticeCurrentIndex = 1;
+        }
+        MessageListRequest messageListRequest = new MessageListRequest(String.valueOf(1), type);
         Disposable disposable = restApiService.getMessageListInfo(messageListRequest)
                 .flatMap(new RxRemoteDataParse<MessageListInfo>())
                 .compose(new RxSchedulerTransformer<MessageListInfo>())
@@ -86,8 +91,14 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
 
     @Override
     public void getMoreMessageList(String type) {
-        currentIndex = currentIndex + 1;
-        MessageListRequest messageListRequest = new MessageListRequest(String.valueOf(currentIndex), type);
+        MessageListRequest messageListRequest;
+        if (TextUtils.equals("0", type)) {
+            couponCurrentIndex = couponCurrentIndex + 1;
+            messageListRequest = new MessageListRequest(String.valueOf(couponCurrentIndex), type);
+        } else {
+            noticeCurrentIndex = noticeCurrentIndex + 1;
+            messageListRequest = new MessageListRequest(String.valueOf(noticeCurrentIndex), type);
+        }
         Disposable disposable = restApiService.getMessageListInfo(messageListRequest)
                 .flatMap(new RxRemoteDataParse<MessageListInfo>())
                 .compose(new RxSchedulerTransformer<MessageListInfo>())
