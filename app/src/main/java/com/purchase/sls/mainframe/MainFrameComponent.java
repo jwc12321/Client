@@ -6,12 +6,10 @@ package com.purchase.sls.mainframe;
 
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
-import com.purchase.sls.mainframe.ui.MainFrameActivity;
 
 import dagger.Component;
 
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class, modules = {MainFrameModule.class})
 public interface MainFrameComponent {
-    void inject(MainFrameActivity mainFrameActivity);
 }

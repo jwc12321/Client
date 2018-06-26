@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.BannerHotResponse;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.BannerHotRequest;
+import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.homepage.HomePageContract;
 
@@ -120,6 +122,26 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                     @Override
                     public void accept(LikeStoreResponse likeStoreResponse) throws Exception {
                         homepageView.moreLikeStroeInfo(likeStoreResponse.getCollectionStoreInfos());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        homepageView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void detectionVersion(String edition, String type) {
+        DetectionVersionRequest detectionVersionRequest=new DetectionVersionRequest(edition,type);
+        Disposable disposable=restApiService.changeApp(detectionVersionRequest)
+                .flatMap(new RxRemoteDataParse<ChangeAppInfo>())
+                .compose(new RxSchedulerTransformer<ChangeAppInfo>())
+                .subscribe(new Consumer<ChangeAppInfo>() {
+                    @Override
+                    public void accept(ChangeAppInfo changeAppInfo) throws Exception {
+                        homepageView.detectionSuccess(changeAppInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

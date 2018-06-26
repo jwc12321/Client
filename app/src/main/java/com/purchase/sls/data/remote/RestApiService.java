@@ -232,7 +232,7 @@ public interface RestApiService {
     Flowable<RemoteDataWrapper<String>> uploadFile(@PartMap Map<String, RequestBody> multipartParams);
 
     //订单详情
-    @POST("home/quan/getpresent")
+    @POST("home/quan/present")
     Flowable<RemoteDataWrapper<OrderDetailInfo>> getOrderDetailInfo(@Body OrderDetailRequest orderDetailRequest);
 
     //消息中心

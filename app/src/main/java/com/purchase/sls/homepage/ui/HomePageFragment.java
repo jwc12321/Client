@@ -24,8 +24,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.amap.api.location.AMapLocation;
 import com.purchase.sls.BaseFragment;
+import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
@@ -33,6 +35,7 @@ import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.location.LocationHelper;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.DownloadService;
 import com.purchase.sls.common.unit.PermissionUtil;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.Banner.Banner;
@@ -42,6 +45,7 @@ import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.common.widget.LimitScrollerView;
 import com.purchase.sls.common.widget.dialog.CommonDialog;
 import com.purchase.sls.data.entity.BannerHotResponse;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
 import com.purchase.sls.homepage.HomePageContract;
@@ -103,11 +107,12 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private static final int REFRESS_LOCATION_SCAN = 2;
     private static final int REFRESS_LOCATION_CODE = 3;
     private static final int REQUEST_CODE_CAMERA = 4;
+    private static final int REQUEST_PERMISSION_WRITE = 5;
 
     private String longitude;
     private String latitude;
-    private Context mContext;
-
+    private ChangeAppInfo changeAppInfo;
+    private CommonDialog dialogUpdate;
     private CommonDialog testingDialog;
 
     @Inject
@@ -139,7 +144,6 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.mContext = getActivity();
         setHeight(choiceCity, searchLl, scan);
         initView();
 
@@ -238,11 +242,14 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 Log.d("1111", "城市" + city + "经纬度" + longitude + "," + latitude);
                 commonAppPreferences.setLocalAddress(city, longitude, latitude);
                 commonAppPreferences.setCurrLocalAddress(longitude,latitude);
+                if(!TextUtils.equals("1",commonAppPreferences.getToUpdate())) {
+                    homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
+                }
             }
         });
 
-        if (requestRuntimePermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_LOCATION)) {
+        if (requestRuntimePermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION
+              }, REQUEST_PERMISSION_LOCATION)) {
             mLocationHelper.start();
         }
     }
@@ -363,6 +370,14 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         }
     }
 
+    @Override
+    public void detectionSuccess(ChangeAppInfo changeAppInfo) {
+        this.changeAppInfo = changeAppInfo;
+        if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+            showUpdate(changeAppInfo);
+        }
+    }
+
     @OnClick({R.id.choice_city, R.id.scan, R.id.search_ll})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -445,7 +460,14 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 }
                 scan();
                 break;
-
+            case REQUEST_PERMISSION_WRITE:
+                for (int gra : grantResults) {
+                    if (gra != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                }
+                showUpdate(changeAppInfo);
+                break;
         }
     }
 
@@ -528,4 +550,55 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
             mLocationHelper.cancelListen();
         }
     }
+
+    private void showUpdate(final ChangeAppInfo changeAppInfo) {
+        if (changeAppInfo != null && TextUtils.equals("1", changeAppInfo.getStatus())) {
+            commonAppPreferences.setToUpdate("1");
+            if (dialogUpdate == null)
+                dialogUpdate = new CommonDialog.Builder()
+                        .setTitle("版本更新")
+                        .setContent(changeAppInfo.getTitle())
+                        .setContentGravity(Gravity.CENTER)
+                        .setCancelButton("忽略", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogUpdate.dismiss();
+                            }
+                        })
+                        .setConfirmButton("更新", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showMessage("开始下载");
+                                updateApk(changeAppInfo.getUrl());
+                            }
+                        }).create();
+            dialogUpdate.show(getFragmentManager(), "");
+        } else if (changeAppInfo != null && TextUtils.equals("0", changeAppInfo.getStatus()) && !TextUtils.isEmpty(changeAppInfo.getTitle())) {
+            showMessage(changeAppInfo.getTitle());
+        }
+    }
+
+    private MaterialDialog materialDialog;
+
+    private void updateApk(String downUrl) {
+        materialDialog = new MaterialDialog.Builder(getActivity())
+
+                .title("版本升级")
+                .content("正在下载安装包，请稍候")
+
+                .progress(false, 100, false)
+                .cancelable(false)
+                .negativeText("取消")
+
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        DownloadService.stopDownload();
+                    }
+                })
+                .show();
+        DownloadService.setMaterialDialog(materialDialog);
+        DownloadService.start(getActivity(), downUrl, "6F7FBCECD46341DF08BE8B11A09E6925");
+    }
+
 }

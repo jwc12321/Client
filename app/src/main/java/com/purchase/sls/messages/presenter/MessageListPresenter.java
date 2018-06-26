@@ -26,8 +26,8 @@ public class MessageListPresenter implements MessagesContract.MessageListPresent
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
     private MessagesContract.MessageListView messageListView;
-    private int couponCurrentIndex = 1;  //通知
-    private int noticeCurrentIndex = 1;  //优惠
+    private int couponCurrentIndex = 1;
+    private int noticeCurrentIndex = 1;
 
     @Inject
     public MessageListPresenter(RestApiService restApiService, MessagesContract.MessageListView messageListView) {

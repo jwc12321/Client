@@ -39,7 +39,7 @@
 
             <EditText
                 android:id="@+id/set_password_et"
-                style="@style/phone_number_et_style"
+                style="@style/password_et_style"
                 android:hint="@string/input_password"
                 android:inputType="textWebPassword" />
         </RelativeLayout>
@@ -52,7 +52,7 @@
 
             <EditText
                 android:id="@+id/set_password_again_et"
-                style="@style/phone_number_et_style"
+                style="@style/password_et_style"
                 android:hint="@string/input_password_again"
                 android:inputType="textWebPassword"/>
         </RelativeLayout>

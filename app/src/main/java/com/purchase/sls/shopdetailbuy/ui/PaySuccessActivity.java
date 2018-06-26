@@ -185,36 +185,36 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                 } else {
                     energyNumber.setText("0");
                 }
-                quanInfos = resultsItem.getQuanInfos();
-                if(resultsItem.getBusinessQInfos()!=null&&resultsItem.getBusinessQInfos().size()>0){
-                    if(quanInfos==null){
-                        quanInfos=new ArrayList<>();
-                    }
-                    quanInfos.addAll(resultsItem.getBusinessQInfos());
-                }
-                if(!TextUtils.isEmpty(resultsItem.getScquan())&&!TextUtils.equals("0.00",resultsItem.getScquan())){
-                    if(quanInfos==null){
-                        quanInfos=new ArrayList<>();
-                    }
-                    QuanInfo quanInfo=new QuanInfo();
-                    quanInfo.setCanReceive("1");
-                    quanInfo.setPrice(resultsItem.getScquan());
-                    quanInfo.setAddSc("3");
-                    quanInfos.add(0,quanInfo);
-                }
-                mut=resultsItem.getMut();
-                if(quanInfos==null||quanInfos.size()==0){
-                    couponNumber.setText("无优惠券可领");
-                    choiceCoupon.setVisibility(View.GONE);
-                }else {
-                    choiceCoupon.setVisibility(View.VISIBLE);
-                    if(TextUtils.equals("1",mut)){
-                        couponNumber.setText("你有"+quanInfos.size()+"张优惠券可领");
-                    }else {
-                        couponNumber.setText("你有1张优惠券可领");
-                    }
-                    receiveCouponAdapter.setData(quanInfos);
-                }
+//                quanInfos = resultsItem.getQuanInfos();
+//                if(resultsItem.getBusinessQInfos()!=null&&resultsItem.getBusinessQInfos().size()>0){
+//                    if(quanInfos==null){
+//                        quanInfos=new ArrayList<>();
+//                    }
+//                    quanInfos.addAll(resultsItem.getBusinessQInfos());
+//                }
+//                if(!TextUtils.isEmpty(resultsItem.getScquan())&&!TextUtils.equals("0.00",resultsItem.getScquan())){
+//                    if(quanInfos==null){
+//                        quanInfos=new ArrayList<>();
+//                    }
+//                    QuanInfo quanInfo=new QuanInfo();
+//                    quanInfo.setCanReceive("1");
+//                    quanInfo.setPrice(resultsItem.getScquan());
+//                    quanInfo.setAddSc("3");
+//                    quanInfos.add(0,quanInfo);
+//                }
+//                mut=resultsItem.getMut();
+//                if(quanInfos==null||quanInfos.size()==0){
+//                    couponNumber.setText("无优惠券可领");
+//                    choiceCoupon.setVisibility(View.GONE);
+//                }else {
+//                    choiceCoupon.setVisibility(View.VISIBLE);
+//                    if(TextUtils.equals("1",mut)){
+//                        couponNumber.setText("你有"+quanInfos.size()+"张优惠券可领");
+//                    }else {
+//                        couponNumber.setText("你有1张优惠券可领");
+//                    }
+//                    receiveCouponAdapter.setData(quanInfos);
+//                }
             }
         }
     }

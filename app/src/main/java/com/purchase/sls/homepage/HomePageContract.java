@@ -3,11 +3,10 @@ package com.purchase.sls.homepage;
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.BannerHotResponse;
+import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
-import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
-import com.purchase.sls.homepage.presenter.QrCodePresenter;
 
 import java.util.List;
 
@@ -22,6 +21,8 @@ public interface HomePageContract {
         void getLikeStore(String areaname);
 
         void getMoreLikeStore(String areaname);
+
+        void detectionVersion(String edition, String type);
     }
 
     interface HomepageView extends BaseView<HomepagePresenter> {
@@ -30,6 +31,8 @@ public interface HomePageContract {
         void likeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos);
 
         void moreLikeStroeInfo(List<CollectionStoreInfo> collectionStoreInfos);
+
+        void detectionSuccess(ChangeAppInfo changeAppInfo);
     }
 
     interface ScreeningListPresenter extends BasePresenter {

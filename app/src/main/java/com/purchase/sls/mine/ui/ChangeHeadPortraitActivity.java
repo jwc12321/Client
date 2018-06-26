@@ -126,7 +126,6 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     public void onPictureChose(File filePath) {
         actionSheet.dismiss();
         headPhone = filePath.getAbsolutePath();
-        photo.setImageBitmap(BitmapFactory.decodeFile(headPhone));
         personalImPresenter.changeHeadPortrait(headPhone);
     }
 
@@ -144,6 +143,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
     public void changeHeadPortraitSuccess(String phoneUrl) {
         Toast.makeText(getApplicationContext(), "头像修改成功",
                 Toast.LENGTH_SHORT).show();
+        GlideHelper.load(this, phoneUrl, R.mipmap.app_icon, photo);
         persionInfoResponse.setAvatar(phoneUrl);
         persionInfoStr = gson.toJson(persionInfoResponse);
         persionAppPreferences.setPersionInfo(persionInfoStr);

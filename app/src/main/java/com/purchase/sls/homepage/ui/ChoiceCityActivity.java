@@ -299,8 +299,7 @@ public class ChoiceCityActivity extends BaseActivity {
             }
         });
 
-        if (requestRuntimePermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_LOCATION)) {
+        if (requestRuntimePermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION)) {
             mLocationHelper.start();
         }
     }

@@ -31,24 +31,24 @@ public class OrderDetailInfo {
     }
 
     public static class ResultsItem {
-        @SerializedName("platform")
-        List<QuanInfo> quanInfos;
-        @SerializedName("business")
-        List<QuanInfo> businessQInfos;
+//        @SerializedName("platform")
+//        List<QuanInfo> quanInfos;
+//        @SerializedName("business")
+//        List<QuanInfo> businessQInfos;
         @SerializedName("power")
         private String power;
-        @SerializedName("mut")
-        private String mut;
-        @SerializedName("scquan")
-        private String scquan;
+//        @SerializedName("mut")
+//        private String mut;
+//        @SerializedName("scquan")
+//        private String scquan;
 
-        public List<QuanInfo> getQuanInfos() {
-            return quanInfos;
-        }
-
-        public void setQuanInfos(List<QuanInfo> quanInfos) {
-            this.quanInfos = quanInfos;
-        }
+//        public List<QuanInfo> getQuanInfos() {
+//            return quanInfos;
+//        }
+//
+//        public void setQuanInfos(List<QuanInfo> quanInfos) {
+//            this.quanInfos = quanInfos;
+//        }
 
         public String getPower() {
             return power;
@@ -57,30 +57,30 @@ public class OrderDetailInfo {
         public void setPower(String power) {
             this.power = power;
         }
-
-        public String getMut() {
-            return mut;
-        }
-
-        public void setMut(String mut) {
-            this.mut = mut;
-        }
-
-        public String getScquan() {
-            return scquan;
-        }
-
-        public void setScquan(String scquan) {
-            this.scquan = scquan;
-        }
-
-        public List<QuanInfo> getBusinessQInfos() {
-            return businessQInfos;
-        }
-
-        public void setBusinessQInfos(List<QuanInfo> businessQInfos) {
-            this.businessQInfos = businessQInfos;
-        }
+//
+//        public String getMut() {
+//            return mut;
+//        }
+//
+//        public void setMut(String mut) {
+//            this.mut = mut;
+//        }
+//
+//        public String getScquan() {
+//            return scquan;
+//        }
+//
+//        public void setScquan(String scquan) {
+//            this.scquan = scquan;
+//        }
+//
+//        public List<QuanInfo> getBusinessQInfos() {
+//            return businessQInfos;
+//        }
+//
+//        public void setBusinessQInfos(List<QuanInfo> businessQInfos) {
+//            this.businessQInfos = businessQInfos;
+//        }
     }
 
     public static class OrderItem {

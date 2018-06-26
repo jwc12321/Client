@@ -84,7 +84,6 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
     private boolean loginEnable = false;
     //密码是否显示
     private boolean isPassWordVisible = true;
-    private static final int REQUEST_PHONE_STATE = 0x01;
     private PersionAppPreferences persionAppPreferences;
 
     private String accountNumber;
@@ -201,15 +200,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
      * 登录
      */
     private void login() {
-//        if (!NetUtils.isConnected()) {
-//            showMessage(getString(R.string.check_network));
-//            return;
-//        }
-        List<String> groups = new ArrayList<>();
-        groups.add(Manifest.permission_group.PHONE);
-        if (requestRuntimePermissions(PermissionUtil.permissionGroup(groups, null), REQUEST_PHONE_STATE)) {
-            loginPresenter.accountLogin(accountNumber, loginPassword, "");
-        }
+        loginPresenter.accountLogin(accountNumber, loginPassword, "");
     }
 
     @Override
