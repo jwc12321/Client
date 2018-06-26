@@ -103,7 +103,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(setPasswordET, InputMethodManager.SHOW_FORCED);
             }
-        }, 1000);
+        }, 500);
     }
 
     @Override

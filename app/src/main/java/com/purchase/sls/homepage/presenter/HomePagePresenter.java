@@ -146,7 +146,6 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        homepageView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

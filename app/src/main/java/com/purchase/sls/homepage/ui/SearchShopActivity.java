@@ -79,7 +79,7 @@ public class SearchShopActivity extends BaseActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(searchEt, InputMethodManager.SHOW_FORCED);
             }
-        }, 1000);
+        }, 500);
     }
 
 

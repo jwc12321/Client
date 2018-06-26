@@ -137,7 +137,7 @@ public class RegisterFirstActivity extends BaseActivity implements LoginContract
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(loginPhoneNumberEt, InputMethodManager.SHOW_FORCED);
             }
-        }, 1000);
+        }, 500);
     }
 
     private ClickableSpan protocolSpan = new ClickableSpan() {

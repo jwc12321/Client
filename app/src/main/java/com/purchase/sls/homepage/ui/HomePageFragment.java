@@ -241,15 +241,15 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 homePagePresenter.getLikeStore(city);
                 Log.d("1111", "城市" + city + "经纬度" + longitude + "," + latitude);
                 commonAppPreferences.setLocalAddress(city, longitude, latitude);
-                commonAppPreferences.setCurrLocalAddress(longitude,latitude);
-                if(!TextUtils.equals("1",commonAppPreferences.getToUpdate())) {
+                commonAppPreferences.setCurrLocalAddress(longitude, latitude);
+                if (!TextUtils.equals("1", commonAppPreferences.getToUpdate())) {
                     homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
                 }
             }
         });
 
         if (requestRuntimePermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION
-              }, REQUEST_PERMISSION_LOCATION)) {
+        }, REQUEST_PERMISSION_LOCATION)) {
             mLocationHelper.start();
         }
     }
@@ -373,8 +373,10 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void detectionSuccess(ChangeAppInfo changeAppInfo) {
         this.changeAppInfo = changeAppInfo;
-        if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
-            showUpdate(changeAppInfo);
+        if (changeAppInfo != null && TextUtils.equals("1", changeAppInfo.getStatus())) {
+            if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+                showUpdate(changeAppInfo);
+            }
         }
     }
 
@@ -546,36 +548,32 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mLocationHelper!=null) {
+        if (mLocationHelper != null) {
             mLocationHelper.cancelListen();
         }
     }
 
     private void showUpdate(final ChangeAppInfo changeAppInfo) {
-        if (changeAppInfo != null && TextUtils.equals("1", changeAppInfo.getStatus())) {
-            commonAppPreferences.setToUpdate("1");
-            if (dialogUpdate == null)
-                dialogUpdate = new CommonDialog.Builder()
-                        .setTitle("版本更新")
-                        .setContent(changeAppInfo.getTitle())
-                        .setContentGravity(Gravity.CENTER)
-                        .setCancelButton("忽略", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialogUpdate.dismiss();
-                            }
-                        })
-                        .setConfirmButton("更新", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showMessage("开始下载");
-                                updateApk(changeAppInfo.getUrl());
-                            }
-                        }).create();
-            dialogUpdate.show(getFragmentManager(), "");
-        } else if (changeAppInfo != null && TextUtils.equals("0", changeAppInfo.getStatus()) && !TextUtils.isEmpty(changeAppInfo.getTitle())) {
-            showMessage(changeAppInfo.getTitle());
-        }
+        commonAppPreferences.setToUpdate("1");
+        if (dialogUpdate == null)
+            dialogUpdate = new CommonDialog.Builder()
+                    .setTitle("版本更新")
+                    .setContent(changeAppInfo.getTitle())
+                    .setContentGravity(Gravity.CENTER)
+                    .setCancelButton("忽略", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialogUpdate.dismiss();
+                        }
+                    })
+                    .setConfirmButton("更新", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showMessage("开始下载");
+                            updateApk(changeAppInfo.getUrl());
+                        }
+                    }).create();
+        dialogUpdate.show(getFragmentManager(), "");
     }
 
     private MaterialDialog materialDialog;

@@ -101,8 +101,8 @@
             android:layout_marginTop="8dp">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 android:src="@mipmap/return_energy" />
 

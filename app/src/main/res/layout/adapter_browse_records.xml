@@ -115,8 +115,8 @@
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitXY"
                     android:src="@mipmap/return_energy" />
 
