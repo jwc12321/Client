@@ -143,7 +143,11 @@ public class PersonalCenterFragment extends BaseFragment {
             if (!TextUtils.isEmpty(persionInfoStr)) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
                 GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
-                persionName.setText(persionInfoResponse.getUsername());
+                if(!TextUtils.isEmpty(persionInfoResponse.getNickname())) {
+                    persionName.setText(persionInfoResponse.getNickname());
+                }else {
+                    persionName.setText(persionInfoResponse.getUsername());
+                }
                 phoneNumber = persionInfoResponse.getTel();
                 qrCodeUrl = persionInfoResponse.getQrcode();
                 firstIn="1";
