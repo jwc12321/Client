@@ -95,6 +95,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/common_eleven_margin"
                             android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
                             android:textColor="@color/appText6"
                             android:textSize="12sp"
                             tools:text="哈哈" />
