@@ -95,7 +95,8 @@
                 android:maxLines="1"
                 android:textColor="@color/appText4"
                 android:textColorHint="@color/appText4"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:layout_marginLeft="20dp"/>
 
             <ImageView
                 android:id="@+id/clean_password"
@@ -130,7 +131,8 @@
             android:background="@drawable/login_button_bg"
             android:text="@string/login_in"
             android:textColor="@color/appText1"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:enabled="false"/>
 
         <TextView
             android:id="@+id/forget_password"

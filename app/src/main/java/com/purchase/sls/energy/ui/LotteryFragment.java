@@ -138,6 +138,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
+                lotteryFirstIn = "1";
                 if (activityPresenter != null) {
                     activityPresenter.getActivitys("3");
                 }

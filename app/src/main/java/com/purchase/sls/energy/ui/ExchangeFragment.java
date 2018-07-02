@@ -137,6 +137,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
+                exchangeFirstIn="1";
                 if (activityPresenter != null) {
                     activityPresenter.getActivitys("2");
                 }
