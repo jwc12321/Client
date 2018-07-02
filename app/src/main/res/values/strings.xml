@@ -11,6 +11,7 @@
     <!--登录模块-->
     <string name="input_account_number">请输入账号</string>
     <string name="input_password">请输入密码</string>
+    <string name="input_new_password">请输入新密码</string>
     <string name="login_in">登录</string>
     <string name="forget_password">忘记密码?</string>
     <string name="immediate_registration">立即注册</string>

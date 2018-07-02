@@ -129,7 +129,7 @@ public class RegisterSecondActivity extends BaseActivity implements LoginContrac
                         loginPresenter.changepwd(phoneNumber, passwordAgain, type);
                     }
                 } else {
-                    showMessage("两次输入得密码不一样");
+                    showMessage("两次输入的密码不一样");
                 }
                 break;
             case R.id.complete:

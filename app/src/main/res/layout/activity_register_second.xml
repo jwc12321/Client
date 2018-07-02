@@ -40,7 +40,7 @@
             <EditText
                 android:id="@+id/set_password_et"
                 style="@style/password_et_style"
-                android:hint="@string/input_password"
+                android:hint="@string/input_new_password"
                 android:inputType="textWebPassword" />
         </RelativeLayout>
 

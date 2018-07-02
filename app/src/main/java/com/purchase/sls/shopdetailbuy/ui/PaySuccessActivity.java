@@ -211,7 +211,7 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
                     if(TextUtils.equals("1",mut)){
                         couponNumber.setText("你有"+quanInfos.size()+"张优惠券可领");
                     }else {
-                        couponNumber.setText("你有1张优惠券可领");
+                        couponNumber.setText("你只能有1张优惠券可领");
                     }
                     receiveCouponAdapter.setData(quanInfos);
                 }
