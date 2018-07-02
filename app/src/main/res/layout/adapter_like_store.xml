@@ -112,7 +112,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/appText7"
                 android:textSize="12sp"
-                android:layout_marginLeft="9dp"/>
+                android:layout_marginLeft="9dp"
+                android:maxLines="1"
+                android:ellipsize="end" />
         </LinearLayout>
     </LinearLayout>
     <View
