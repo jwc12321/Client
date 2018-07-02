@@ -15,8 +15,6 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.widget.list.BaseListAdapter;
-import com.purchase.sls.coupon.ui.AvailableCouponFragment;
-import com.purchase.sls.coupon.ui.InvalidCouponFragment;
 
 import java.util.ArrayList;
 import java.util.List;

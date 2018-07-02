@@ -3,10 +3,8 @@ package com.purchase.sls.coupon.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
-
-import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.widget.list.BaseListFragment;
@@ -35,6 +33,7 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     private CouponListAdapter couponListAdapter;
     private CommonAppPreferences commonAppPreferences;
     private WebViewDetailInfo webViewDetailInfo;
+    private String avFirstIn="0";
 
     public static AvailableCouponFragment newInstance() {
         AvailableCouponFragment fragment = new AvailableCouponFragment();
@@ -50,8 +49,9 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
     @Override
     public void onResume() {
         super.onResume();
-        if(couponPresenter!=null&&getUserVisibleHint()) {
+        if(!isFirstLoad&&couponPresenter!=null&&getUserVisibleHint()&& TextUtils.equals("0",avFirstIn)) {
             couponPresenter.getCouponList("1","0");
+            avFirstIn="1";
         }
     }
 

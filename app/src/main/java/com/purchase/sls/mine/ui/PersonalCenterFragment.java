@@ -16,14 +16,13 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.account.ui.AccountListActivity;
-import com.purchase.sls.address.ui.AddAddressActivity;
 import com.purchase.sls.address.ui.AddressListActivity;
-import com.purchase.sls.address.ui.SelectAddressActivity;
 import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.PersionAppPreferences;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
@@ -140,7 +139,7 @@ public class PersonalCenterFragment extends BaseFragment {
         if (!isFirstLoad&&getUserVisibleHint()&&TextUtils.equals("0",firstIn)) {
             persionInfoStr = persionAppPreferences.getPersionInfo();
             gson = new Gson();
-            if (!TextUtils.isEmpty(persionInfoStr)) {
+            if (!TextUtils.isEmpty(persionInfoStr)&&!TextUtils.isEmpty(TokenManager.getToken())) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
                 GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
                 if(!TextUtils.isEmpty(persionInfoResponse.getNickname())) {
@@ -152,6 +151,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 qrCodeUrl = persionInfoResponse.getQrcode();
                 firstIn="1";
             } else {
+                firstIn="0";
                 AccountLoginActivity.start(getActivity());
             }
         }

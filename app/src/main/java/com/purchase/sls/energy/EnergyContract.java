@@ -26,9 +26,9 @@ public interface EnergyContract {
     }
 
     interface ActivityPresenter extends BasePresenter {
-        void getActivitys(String refreshType, String type);
+        void getActivitys(String type);
 
-        void getEnergyInfo(String pool);
+        void getEnergyInfo(String refreshType,String pool);
     }
 
     interface ActivityView extends BaseView<ActivityPresenter> {

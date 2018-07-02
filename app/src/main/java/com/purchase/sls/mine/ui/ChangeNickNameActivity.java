@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.mine.DaggerPersonalCenterComponent;

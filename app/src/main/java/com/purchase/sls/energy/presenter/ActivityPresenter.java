@@ -61,10 +61,7 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
      * @param type：1，秒杀 2：兑换 3：抽奖
      */
     @Override
-    public void getActivitys(String refreshType, String type) {
-        if (TextUtils.equals("1", refreshType)) {
-            activityView.showLoading();
-        }
+    public void getActivitys(String type) {
         TypeRequest typeRequest = new TypeRequest(type);
         Disposable disposable = restApiService.getActivityInfos(typeRequest)
                 .flatMap(new RxRemoteDataParse<List<ActivityInfo>>())
@@ -72,13 +69,11 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
                 .subscribe(new Consumer<List<ActivityInfo>>() {
                     @Override
                     public void accept(List<ActivityInfo> activityInfos) throws Exception {
-                        activityView.dismissLoading();
                         activityView.renderActivitys(activityInfos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        activityView.dismissLoading();
                         activityView.showError(throwable);
                     }
                 });
@@ -86,7 +81,10 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
     }
 
     @Override
-    public void getEnergyInfo(String pool) {
+    public void getEnergyInfo(String refreshType,String pool) {
+        if (TextUtils.equals("1", refreshType)) {
+            activityView.showLoading();
+        }
         EnergyInfoRequest energyInfoRequest = new EnergyInfoRequest(pool, String.valueOf(1));
         Disposable disposable = restApiService.getEnergyInfo(energyInfoRequest)
                 .flatMap(new RxRemoteDataParse<EnergyInfo>())
@@ -94,11 +92,13 @@ public class ActivityPresenter implements EnergyContract.ActivityPresenter {
                 .subscribe(new Consumer<EnergyInfo>() {
                     @Override
                     public void accept(EnergyInfo energyInfo) throws Exception {
+                        activityView.dismissLoading();
                         activityView.renderEnergyInfo(energyInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        activityView.dismissLoading();
                         activityView.showError(throwable);
                     }
                 });

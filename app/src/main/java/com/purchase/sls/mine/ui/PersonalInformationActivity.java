@@ -3,7 +3,6 @@ package com.purchase.sls.mine.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -21,21 +20,15 @@ import com.google.gson.Gson;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.account.ui.AccountChooseTimeActivity;
 import com.purchase.sls.common.GlideHelper;
-import com.purchase.sls.common.StaticData;
-import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.widget.chooseTime.ChooseTimePicker;
-import com.purchase.sls.common.widget.customeview.ActionSheet;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.mine.DaggerPersonalCenterComponent;
 import com.purchase.sls.mine.PersonalCenterContract;
 import com.purchase.sls.mine.PersonalCenterModule;
 import com.purchase.sls.mine.presenter.PersonalImPresenter;
-
-import java.io.File;
 
 import javax.inject.Inject;
 

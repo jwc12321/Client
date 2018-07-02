@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.widget.list.BaseListFragment;
 import com.purchase.sls.coupon.ui.CouponListActivity;
@@ -49,7 +48,7 @@ public class NoticeMessageFragment extends BaseListFragment<MessageListInfo.Mess
     @Override
     public void onResume() {
         super.onResume();
-        if (messageListPresenter != null && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
+        if (!isFirstLoad&&messageListPresenter != null && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
             messageListPresenter.getMessageList("1", "1");
             firstIn = "1";
         }

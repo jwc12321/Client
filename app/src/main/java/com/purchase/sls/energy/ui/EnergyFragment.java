@@ -59,6 +59,10 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
     private List<String> titleList;
     private BaseListAdapter baseListAdapter;
 
+    private SpikeFragment spikeFragment ;
+    private ExchangeFragment exchangeFragment;
+    private LotteryFragment lotteryFragment;
+
     @Inject
     SharePresenter sharePresenter;
 
@@ -116,9 +120,12 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
         viewpager.setOffscreenPageLimit(2);
-        fragmentList.add(SpikeFragment.newInstance());
-        fragmentList.add(ExchangeFragment.newInstance());
-        fragmentList.add(LotteryFragment.newInstance());
+        spikeFragment = new SpikeFragment();
+        exchangeFragment=new ExchangeFragment();
+        lotteryFragment=new LotteryFragment();
+        fragmentList.add(spikeFragment);
+        fragmentList.add(exchangeFragment);
+        fragmentList.add(lotteryFragment);
         titleList.add("秒杀");
         titleList.add("兑换");
         titleList.add("抽奖");
@@ -173,5 +180,14 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
 
     @Override
     public void success(String energy) {
+        if(spikeFragment!=null){
+            spikeFragment.addShareEnergy();
+        }
+        if (exchangeFragment!=null){
+            exchangeFragment.addShareEnergy();
+        }
+        if(lotteryFragment!=null){
+            lotteryFragment.addShareEnergy();
+        }
     }
 }

@@ -59,13 +59,18 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     @BindView(R.id.energy_total)
     TextView energyTotal;
 
+    private String lotteryFirstIn = "0";
+
     private LotteryAdapter lotteryAdapter;
     @Inject
     ActivityPresenter activityPresenter;
 
-    public static LotteryFragment newInstance() {
-        LotteryFragment lotteryFragment = new LotteryFragment();
-        return lotteryFragment;
+    public void addShareEnergy(){
+        if (!isFirstLoad&&getUserVisibleHint()) {
+            if (activityPresenter != null) {
+                getEnergy("1");
+            }
+        }
     }
 
     @Override
@@ -96,8 +101,8 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("0", "3");
-            getEnergy();
+            activityPresenter.getActivitys("3");
+            getEnergy("0");
         }
 
         @Override
@@ -112,10 +117,11 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     @Override
     public void onResume() {
         super.onResume();
-        if (!isFirstLoad&&getUserVisibleHint()) {
+        if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", lotteryFirstIn)) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("0", "3");
-                getEnergy();
+                activityPresenter.getActivitys("3");
+                getEnergy("1");
+                lotteryFirstIn = "1";
             }
         }
     }
@@ -127,21 +133,21 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-            getEnergy();
+            getEnergy("1");
         }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("1", "3");
+                    activityPresenter.getActivitys("3");
                 }
             }
         }
     }
 
-    private void getEnergy() {
+    private void getEnergy(String refreshType) {
         if (!TextUtils.isEmpty(TokenManager.getToken()) && activityPresenter != null) {
-            activityPresenter.getEnergyInfo("2");
+            activityPresenter.getEnergyInfo(refreshType, "2");
         }
     }
 
@@ -192,6 +198,7 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
 
     @Override
     public void goLottery(ActivityInfo activityInfo) {
+        lotteryFirstIn = "0";
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_CHOU_JIANG);
         SkEcLtActivity.start(getActivity(), activityInfo);
     }
@@ -201,14 +208,14 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
+                lotteryFirstIn = "0";
                 if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(getActivity());
                     return;
                 } else {
-//                    SignInActivity.start(getActivity());
                     Intent intent = new Intent(getActivity(), SignInActivity.class);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                    getActivity().overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 }
                 break;
             default:

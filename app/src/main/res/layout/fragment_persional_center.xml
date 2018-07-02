@@ -171,8 +171,7 @@
             <FrameLayout
                 android:id="@+id/item_address"
                 style="@style/persion_item_fl_style"
-                android:layout_marginTop="1dp"
-                android:visibility="gone">
+                android:layout_marginTop="1dp">
 
                 <TextView
                     style="@style/persion_item_text_style"

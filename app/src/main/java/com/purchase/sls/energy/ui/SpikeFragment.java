@@ -63,9 +63,14 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Inject
     ActivityPresenter activityPresenter;
 
-    public static SpikeFragment newInstance() {
-        SpikeFragment spikeFragment = new SpikeFragment();
-        return spikeFragment;
+    private String spikeFirstIn="0";
+
+    public void addShareEnergy(){
+        if (!isFirstLoad&&getUserVisibleHint()) {
+            if (activityPresenter != null) {
+                getEnergy("1");
+            }
+        }
     }
 
     @Override
@@ -96,8 +101,8 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys("0", "1");
-            getEnergy();
+            activityPresenter.getActivitys( "1");
+            getEnergy("0");
         }
 
         @Override
@@ -112,10 +117,11 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void onResume() {
         super.onResume();
-        if (!isFirstLoad&&getUserVisibleHint()) {
+        if (!isFirstLoad&&getUserVisibleHint()&&TextUtils.equals("0",spikeFirstIn)) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys("0", "1");
-                getEnergy();
+                activityPresenter.getActivitys( "1");
+                getEnergy("1");
+                spikeFirstIn="1";
             }
         }
     }
@@ -126,21 +132,21 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-            getEnergy();
+            getEnergy("1");
         }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys("1", "1");
+                    activityPresenter.getActivitys( "1");
                 }
             }
         }
     }
 
-    private void getEnergy() {
+    private void getEnergy(String refreshType) {
         if (!TextUtils.isEmpty(TokenManager.getToken()) && activityPresenter != null) {
-            activityPresenter.getEnergyInfo("2");
+            activityPresenter.getEnergyInfo(refreshType,"2");
         }
     }
 
@@ -191,6 +197,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
 
     @Override
     public void goSpike(ActivityInfo activityInfo) {
+        spikeFirstIn="0";
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_MIAO_SHA);
         SkEcLtActivity.start(getActivity(), activityInfo);
     }
@@ -199,11 +206,11 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
+                spikeFirstIn="0";
                 if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(getActivity());
                     return;
                 } else {
-//                    SignInActivity.start(getActivity());
                     Intent intent = new Intent(getActivity(), SignInActivity.class);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.activity_in,R.anim.activity_out);

@@ -69,7 +69,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
             @Override
             public void onClick(View v) {
                 if(onBtClick!=null){
-//                    onBtClick.couponDetail(couponInfo.getQid());
+                    onBtClick.couponDetail(couponInfo.getQid());
                 }
             }
         });

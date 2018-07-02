@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.widget.list.BaseListFragment;
 import com.purchase.sls.coupon.ui.CouponListActivity;
