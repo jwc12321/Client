@@ -2,12 +2,12 @@ package com.purchase.sls.energy.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -76,6 +76,8 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
         RelativeLayout goExchange;
         @BindView(R.id.exchange_iv)
         ImageView exchangeIv;
+        @BindView(R.id.energy_ll)
+        LinearLayout energyLl;
 
         public ExchangeVeiw(View itemView) {
             super(itemView);
@@ -84,7 +86,7 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
 
         public void bindData(ActivityInfo activityInfo) {
             price.setText(activityInfo.getPrice());
-            name.setText(activityInfo.getpName());
+            name.setText("能量兑换"+activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, exchangeIv);
         }
     }

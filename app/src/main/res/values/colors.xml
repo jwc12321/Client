@@ -25,6 +25,7 @@
     <color name="appText14">#0c92c0</color>
     <color name="appText15">#191919</color>
     <color name="appText16">#444444</color>
+    <color name="appText17">#AAAAAA</color>
 
     <color name="backGround1">#f4f4f4</color>
     <color name="backGround2">#dadada</color>
@@ -44,4 +45,5 @@
     <color name="backGround16">#ffeee7</color>
     <color name="backGround17">#FFA850</color>
     <color name="backGround18">#EBEBEB</color>
+    <color name="backGround19">#E6E6E6</color>
 </resources>

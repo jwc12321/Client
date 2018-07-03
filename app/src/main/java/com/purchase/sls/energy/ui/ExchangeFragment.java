@@ -23,6 +23,7 @@ import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSameSpacesItemDecoration;
 import com.purchase.sls.common.widget.KeywordUtil;
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
@@ -143,6 +144,16 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
                 }
             }
         }
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        if (e != null && e instanceof RemoteDataException) {
+            if (((RemoteDataException) e).isAuthFailed()) {
+                exchangeFirstIn = "0";
+            }
+        }
+        super.showError(e);
     }
 
     private void getEnergy(String refreshType) {

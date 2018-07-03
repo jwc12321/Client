@@ -164,7 +164,7 @@
             android:background="@drawable/spike_bt_bg"
             android:textColor="@color/appText1"
             android:textSize="15sp"
-            tools:text="秒杀" />
+            tools:text="秒杀"
+            android:enabled="false"/>
     </RelativeLayout>
-    sp
 </RelativeLayout>

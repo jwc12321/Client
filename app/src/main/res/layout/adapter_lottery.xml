@@ -22,7 +22,7 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/spike_energy"
+            android:id="@+id/lottery_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/appText3"
@@ -30,7 +30,7 @@
             tools:text="100" />
 
         <TextView
-            android:id="@+id/spike_name"
+            android:id="@+id/lottery_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -46,13 +46,13 @@
         android:layout_margin="@dimen/common_fifteen_margin">
 
         <ImageView
-            android:id="@+id/spike_iv"
+            android:id="@+id/lottery_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
         <RelativeLayout
-            android:id="@+id/go_spike"
+            android:id="@+id/go_lottery"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/common_sixty_margin"
             android:layout_alignParentBottom="true"

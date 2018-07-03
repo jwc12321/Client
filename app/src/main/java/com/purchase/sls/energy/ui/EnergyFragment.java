@@ -54,6 +54,7 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
     @BindView(R.id.order)
     ImageView order;
     private boolean isFirstLoad = true;
+    private String firstIn="0";
 
     private List<Fragment> fragmentList;
     private List<String> titleList;
@@ -110,8 +111,10 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
                 isFirstLoad = false;
                 if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(getActivity());
+                    return;
                 }
                 initView();
+                firstIn="1";
             }
         }
     }
@@ -140,6 +143,14 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
     @Override
     public void onResume() {
         super.onResume();
+        if(!isFirstLoad&&getUserVisibleHint()&&TextUtils.equals("0",firstIn)) {
+            if (TextUtils.isEmpty(TokenManager.getToken())) {
+                AccountLoginActivity.start(getActivity());
+                return;
+            }
+            initView();
+            firstIn="1";
+        }
     }
 
     @Override

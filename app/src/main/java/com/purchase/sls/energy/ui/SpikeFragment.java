@@ -21,6 +21,7 @@ import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.KeywordUtil;
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
@@ -63,10 +64,10 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Inject
     ActivityPresenter activityPresenter;
 
-    private String spikeFirstIn="0";
+    private String spikeFirstIn = "0";
 
-    public void addShareEnergy(){
-        if (!isFirstLoad&&getUserVisibleHint()) {
+    public void addShareEnergy() {
+        if (!isFirstLoad && getUserVisibleHint()) {
             if (activityPresenter != null) {
                 getEnergy("1");
             }
@@ -101,7 +102,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            activityPresenter.getActivitys( "1");
+            activityPresenter.getActivitys("1");
             getEnergy("0");
         }
 
@@ -117,13 +118,23 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     @Override
     public void onResume() {
         super.onResume();
-        if (!isFirstLoad&&getUserVisibleHint()&&TextUtils.equals("0",spikeFirstIn)) {
+        if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", spikeFirstIn)) {
             if (activityPresenter != null) {
-                activityPresenter.getActivitys( "1");
+                activityPresenter.getActivitys("1");
                 getEnergy("1");
-                spikeFirstIn="1";
+                spikeFirstIn = "1";
             }
         }
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        if (e != null && e instanceof RemoteDataException) {
+            if (((RemoteDataException) e).isAuthFailed()) {
+                spikeFirstIn = "0";
+            }
+        }
+        super.showError(e);
     }
 
     private boolean isFirstLoad = true;
@@ -138,7 +149,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
                 if (activityPresenter != null) {
-                    activityPresenter.getActivitys( "1");
+                    activityPresenter.getActivitys("1");
                 }
             }
         }
@@ -146,7 +157,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
 
     private void getEnergy(String refreshType) {
         if (!TextUtils.isEmpty(TokenManager.getToken()) && activityPresenter != null) {
-            activityPresenter.getEnergyInfo(refreshType,"2");
+            activityPresenter.getEnergyInfo(refreshType, "2");
         }
     }
 
@@ -197,7 +208,7 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
 
     @Override
     public void goSpike(ActivityInfo activityInfo) {
-        spikeFirstIn="0";
+        spikeFirstIn = "0";
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.ENG_MIAO_SHA);
         SkEcLtActivity.start(getActivity(), activityInfo);
     }
@@ -206,14 +217,14 @@ public class SpikeFragment extends BaseFragment implements EnergyContract.Activi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in:
-                spikeFirstIn="0";
+                spikeFirstIn = "0";
                 if (TextUtils.isEmpty(TokenManager.getToken())) {
                     AccountLoginActivity.start(getActivity());
                     return;
                 } else {
                     Intent intent = new Intent(getActivity(), SignInActivity.class);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                    getActivity().overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 }
                 break;
             default:

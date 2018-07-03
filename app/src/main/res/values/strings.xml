@@ -128,4 +128,7 @@
     <string name="order_list">订单列表</string>
     <string name="order_detail">订单详情</string>
     <string name="logistics_details">物流详情</string>
+    
+    <!--商城-->
+    <string name="search_commodity">搜索你想要的宝贝</string>
 </resources>

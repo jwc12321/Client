@@ -2,7 +2,6 @@ package com.purchase.sls.energy.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +52,7 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
     public void onBindViewHolder(LotteryVeiw holder, int position) {
         final ActivityInfo activityInfo = activityInfos.get(holder.getAdapterPosition());
         holder.bindData(activityInfo);
-        holder.goSpike.setOnClickListener(new View.OnClickListener() {
+        holder.goLottery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onLotteryItemClickListener != null) {
@@ -71,16 +70,17 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
     public class LotteryVeiw extends RecyclerView.ViewHolder {
         @BindView(R.id.start_time)
         TextView startTime;
-        @BindView(R.id.spike_energy)
-        TextView spikeEnergy;
-        @BindView(R.id.spike_name)
-        TextView spikeName;
-        @BindView(R.id.spike_iv)
-        ImageView spikeIv;
+        @BindView(R.id.lottery_energy)
+        TextView lotteryEnergy;
+        @BindView(R.id.lottery_name)
+        TextView lotteryName;
+        @BindView(R.id.lottery_iv)
+        ImageView lotteryIv;
         @BindView(R.id.surplus_number)
         TextView surplusNumber;
-        @BindView(R.id.go_spike)
-        RelativeLayout goSpike;
+        @BindView(R.id.go_lottery)
+        RelativeLayout goLottery;
+
         public LotteryVeiw(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -88,10 +88,10 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
 
         public void bindData(ActivityInfo activityInfo) {
             startTime.setText("开始时间:" + FormatUtil.formatDateByLine(activityInfo.getStartTime()));
-            spikeEnergy.setText(activityInfo.getPrice());
-            spikeName.setText(activityInfo.getpName());
-            GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, spikeIv);
-            surplusNumber.setText("剩余"+activityInfo.getCount()+"名额");
+            lotteryEnergy.setText(activityInfo.getPrice());
+            lotteryName.setText("能量抢"+activityInfo.getpName());
+            GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, lotteryIv);
+            surplusNumber.setText("剩余" + activityInfo.getCount() + "名额");
         }
     }
 

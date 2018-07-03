@@ -89,7 +89,7 @@ public class SpikeAdapter extends RecyclerView.Adapter<SpikeAdapter.SpikeVeiw> {
         public void bindData(ActivityInfo activityInfo) {
             startTime.setText("开始时间:"+FormatUtil.formatDateByLine(activityInfo.getStartTime()));
             spikeEnergy.setText(activityInfo.getPrice());
-            spikeName.setText(activityInfo.getpName());
+            spikeName.setText("能量抢"+activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, spikeIv);
             surplusNumber.setText("剩余"+activityInfo.getCount()+"件");
         }

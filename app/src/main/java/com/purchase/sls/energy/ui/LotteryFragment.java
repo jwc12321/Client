@@ -21,6 +21,7 @@ import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.KeywordUtil;
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.energy.DaggerEnergyComponent;
@@ -144,6 +145,16 @@ public class LotteryFragment extends BaseFragment implements EnergyContract.Acti
                 }
             }
         }
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        if (e != null && e instanceof RemoteDataException) {
+            if (((RemoteDataException) e).isAuthFailed()) {
+                lotteryFirstIn = "0";
+            }
+        }
+        super.showError(e);
     }
 
     private void getEnergy(String refreshType) {

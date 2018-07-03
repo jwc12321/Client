@@ -10,11 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
-
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by JWC on 2018/6/5.
@@ -89,37 +85,32 @@ public class TearDownView extends LinearLayout {
         super.onDetachedFromWindow();
     }
 
-    public static String formatDateByLine(long timestamp) {
-        String pattern = "dd:HH:mm:ss";
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        return format.format(new Date(timestamp * 1000));
-    }
     public void tearDown() {
         if (mIsAttachedToWindow) {
-            long remainTime;
-            if (TextUtils.equals("0", type)) {
-                remainTime = System.currentTimeMillis() / 1000 - endTime;
-            } else {
-                remainTime = endTime - System.currentTimeMillis() / 1000;
-            }
-            if (remainTime > 0) {
-                String str = formatDateByLine(remainTime);
-                String[] splitStr = str.split(":");
-                if (splitStr.length == 4) {
-//                    int dayInt = 0;
-//                    if (splitStr[0].startsWith("0") && splitStr[0].length() == 2) {
-//                        dayInt = Integer.parseInt(String.valueOf(splitStr[0].charAt(1))) - 1;
-//                    } else if (!splitStr[0].startsWith("0") && splitStr[0].length() == 2) {
-//                        dayInt = Integer.parseInt(splitStr[0]) - 1;
-//                    }
-                    dayTextView.setText(String.valueOf(remainTime/(3600 * 24)));
-                    hourTextView.setText(splitStr[1]);
-                    minutsTextView.setText(splitStr[2]);
-                    secondTextView.setText(splitStr[3]);
-                }
+            long remainTime= endTime - System.currentTimeMillis() / 1000;
+            if (remainTime >0) {
+                long day = 0;
+                long hour = 0;
+                long min = 0;
+                long sec = 0;
+                day = remainTime / (24 * 60 * 60);
+                hour = (remainTime / (60 * 60) - day * 24);
+                min = (remainTime / 60 - day * 24 * 60 - hour * 60);
+                sec = (remainTime - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+                dayTextView.setText(String.valueOf(day));
+                hourTextView.setText(String.valueOf(hour));
+                minutsTextView.setText(String.valueOf(min));
+                secondTextView.setText(String.valueOf(sec));
                 mHandler.sendEmptyMessageDelayed(MESSAGE_WHAT, 1000);
             } else {
-//          setText("抢购结束");
+                if(timeOutListener!=null) {
+                    if (TextUtils.equals("0", type)) {
+                        timeOutListener.timeIn();
+                    } else {
+                        timeOutListener.timeOut();
+                        cancel();
+                    }
+                }
             }
         }
     }
@@ -146,5 +137,16 @@ public class TearDownView extends LinearLayout {
         if (mHandler != null && mHandler.hasMessages(MESSAGE_WHAT)) {
             mHandler.removeMessages(MESSAGE_WHAT);
         }
+    }
+
+    public interface TimeOutListener {
+        void timeIn();//从没开始到开始
+        void timeOut();//从还没结束到结束
+    }
+
+    private TimeOutListener timeOutListener;
+
+    public void setTimeOutListener(TimeOutListener timeOutListener) {
+        this.timeOutListener = timeOutListener;
     }
 }

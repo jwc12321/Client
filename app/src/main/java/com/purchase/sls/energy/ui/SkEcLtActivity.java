@@ -39,7 +39,6 @@ import com.purchase.sls.energy.presenter.ActivityDetailPresenter;
 import com.purchase.sls.ordermanage.ui.ActivityOrderDetailActivity;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,7 +53,7 @@ import butterknife.OnClick;
  * 秒杀，兑换，抽奖详情页
  */
 
-public class SkEcLtActivity extends BaseActivity implements EnergyContract.ActivityDetailView {
+public class SkEcLtActivity extends BaseActivity implements EnergyContract.ActivityDetailView,TearDownView.TimeOutListener {
 
     @BindView(R.id.back)
     ImageView back;
@@ -116,14 +115,14 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         activityInfo = (ActivityInfo) getIntent().getSerializableExtra(StaticData.ACTIVITY_DETAIL);
         title.setText(activityInfo.getpName());
         bannerInitialization();
-        if(!TextUtils.isEmpty(activityInfo.getpPics())){
-            String[] bannerUrl=activityInfo.getpPics().split(",");
-            List<String> bannerUrls=Arrays.asList(bannerUrl);
+        if (!TextUtils.isEmpty(activityInfo.getpPics())) {
+            String[] bannerUrl = activityInfo.getpPics().split(",");
+            List<String> bannerUrls = Arrays.asList(bannerUrl);
             banner.setImages(bannerUrls);
         }
         needEnergy.setText(activityInfo.getPrice() + "能量");
         originalPrice.setText("¥" + activityInfo.getpPrice());
-        originalPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+        originalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         if (TextUtils.equals("3", activityInfo.getType())) {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.VISIBLE);
@@ -131,6 +130,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
             spikeExplain.setText("剩余名额");
             surplusNumber.setVisibility(View.VISIBLE);
             surplusNumber.setText(activityInfo.getCount() + "份");
+            spikeBt.setEnabled(true);
         } else {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.GONE);
@@ -147,6 +147,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                         spikeBt.setText("兑换");
                         spikeBt.setEnabled(false);
                     }
+                    countDown.setTimeOutListener(this);
                     countDown.setVisibility(View.VISIBLE);
                     countDown.startTearDown(Long.parseLong(activityInfo.getStartTime()), "0");
                 } else if (distanceStart <= 0 && distanceEnd >= 0) {
@@ -159,6 +160,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                         spikeBt.setText("兑换");
                         spikeBt.setEnabled(true);
                     }
+                    countDown.setTimeOutListener(this);
                     countDown.setVisibility(View.VISIBLE);
                     countDown.startTearDown(Long.parseLong(activityInfo.getEndTime()), "1");
                 } else {
@@ -183,7 +185,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         surplusNumber();
     }
 
-    private void surplusNumber(){
+    private void surplusNumber() {
         if (TextUtils.equals("3", activityInfo.getType())) {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.VISIBLE);
@@ -217,7 +219,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                 // handleMessage(Message msg);// 进行其他处理
             }
         });
-        String url =BuildConfig.API_BASE_URL+ "home/product/productdetail?id=" + id;
+        String url = BuildConfig.API_BASE_URL + "home/product/productdetail?id=" + id;
         webView.loadUrl(url);
     }
 
@@ -315,11 +317,40 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
 
     @Override
     public void submitSpikeSuccess(ActivityOrderDetailInfo activityOrderDetailInfo) {
-        ActivityOrderDetailActivity.start(this,activityOrderDetailInfo);
+        ActivityOrderDetailActivity.start(this, activityOrderDetailInfo);
     }
 
     @Override
     public void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo) {
-        ActivityOrderDetailActivity.start(this,activityOrderDetailInfo);
+        ActivityOrderDetailActivity.start(this, activityOrderDetailInfo);
+    }
+
+    @Override
+    public void timeIn() {
+        if (TextUtils.equals("1", activityInfo.getType())) {
+            spikeExplain.setText("距离秒杀结束");
+            spikeBt.setText("秒杀");
+            spikeBt.setEnabled(true);
+        } else {
+            spikeExplain.setText("距离兑换结束");
+            spikeBt.setText("兑换");
+            spikeBt.setEnabled(true);
+        }
+        countDown.setVisibility(View.VISIBLE);
+        countDown.startTearDown(Long.parseLong(activityInfo.getEndTime()), "1");
+    }
+
+    @Override
+    public void timeOut() {
+        if (TextUtils.equals("1", activityInfo.getType())) {
+            spikeExplain.setText("秒杀结束");
+            spikeBt.setText("秒杀");
+            spikeBt.setEnabled(false);
+        } else {
+            spikeExplain.setText("兑换结束");
+            spikeBt.setText("兑换");
+            spikeBt.setEnabled(false);
+        }
+        countDown.setVisibility(View.GONE);
     }
 }

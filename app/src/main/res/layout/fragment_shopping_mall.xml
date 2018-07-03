@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="商城"/>
-</android.support.constraint.ConstraintLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/appText1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/backGround3">
+
+        <ImageView
+            android:id="@+id/shopping_cart"
+            style="@style/title_right_back_style"
+            android:layout_marginRight="1dp"
+            android:src="@mipmap/shopping_cart_icon" />
+
+        <LinearLayout
+            android:id="@+id/search_ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toLeftOf="@id/shopping_cart"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/common_eight_margin"
+            android:paddingTop="@dimen/common_eight_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_twelve_margin"
+                android:background="@drawable/search_edittext_bg">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_eleven_margin"
+                    android:src="@mipmap/search" />
+
+                <TextView
+                    android:id="@+id/search_tt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_ten_margin"
+                    android:text="@string/search_commodity"
+                    android:textColor="@color/appText17"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <com.purchase.sls.common.widget.Banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_one_hundred_margin"
+        app:indicator_drawable_selected="@drawable/selected_radius"
+        app:indicator_drawable_unselected="@drawable/unselected_radius"
+        android:visibility="gone"/>
+
+</LinearLayout>

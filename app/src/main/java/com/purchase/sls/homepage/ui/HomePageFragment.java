@@ -205,7 +205,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     //设置热门
     private void hotService() {
         hotSearchLink.setLayoutManager(new GridLayoutManager(getContext(), 5));
-        int space = getResources().getDimensionPixelSize(R.dimen.space_bootom);
+        int space = 20;
         hotSearchLink.addItemDecoration(new GridSpacesItemDecoration(space, false));
         hotServiceAdapter = new HotServiceAdapter(getActivity());
         hotServiceAdapter.setOnHotItemClickListener(this);
@@ -237,9 +237,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                     choiceCity.setText(city);
                 }
                 likeStoreAdapter.setCity(city, longitude, latitude);
-                homePagePresenter.getBannerHotInfo("1", city);
+                homePagePresenter.getBannerHotInfo("0", city);
                 homePagePresenter.getLikeStore(city);
-                Log.d("1111", "城市" + city + "经纬度" + longitude + "," + latitude);
                 commonAppPreferences.setLocalAddress(city, longitude, latitude);
                 commonAppPreferences.setCurrLocalAddress(longitude, latitude);
                 if (!TextUtils.equals("1", commonAppPreferences.getToUpdate())) {
