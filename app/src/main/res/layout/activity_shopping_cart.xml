@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround21">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/shopping_cart" />
+
+        <TextView
+            android:id="@+id/edit"
+            style="@style/title_text_right_style"
+            android:text="编辑" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/goods_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_rel"
+        android:layout_marginBottom="@dimen/common_fifty_two_margin"
+        app:layoutManager="@string/layoutManager_LinearLayout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_nine_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@color/appText1">
+
+        <CheckBox
+            android:id="@+id/select_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_eleven_margin"
+            android:button="@drawable/delete_select" />
+
+        <TextView
+            android:id="@+id/select_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_eleven_margin"
+            android:layout_toRightOf="@id/select_cb"
+            tools:text="@string/total_selection"
+            android:textColor="@color/appText5"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_nineteen_margin"
+            android:layout_toLeftOf="@id/settlement_bt"
+            android:textColor="@color/appText3"
+            android:textSize="15sp"
+            tools:text="100" />
+
+        <Button
+            android:id="@+id/settlement_bt"
+            android:layout_width="@dimen/common_one_hundred_and_ten_margin"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/settlement_bt_bg"
+            android:enabled="false"
+            android:text="@string/settlement"
+            android:textColor="@color/appText1"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

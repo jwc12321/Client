@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/appText1"
     android:orientation="vertical">
 
@@ -15,7 +15,6 @@
         <ImageView
             android:id="@+id/shopping_cart"
             style="@style/title_right_back_style"
-            android:layout_marginRight="1dp"
             android:src="@mipmap/shopping_cart_icon" />
 
         <LinearLayout
@@ -23,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_forty_four_margin"
             android:layout_toLeftOf="@id/shopping_cart"
+            android:layout_marginRight="@dimen/common_twenty_seven_margin"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/common_eight_margin"
             android:paddingTop="@dimen/common_eight_margin">
@@ -52,12 +52,127 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
     <com.purchase.sls.common.widget.Banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_one_hundred_margin"
+        android:visibility="gone"
         app:indicator_drawable_selected="@drawable/selected_radius"
-        app:indicator_drawable_unselected="@drawable/unselected_radius"
-        android:visibility="gone"/>
+        app:indicator_drawable_unselected="@drawable/unselected_radius" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:orientation="horizontal">
+
+        <LinearLayout style="@style/sort_layout" />
+
+        <LinearLayout
+            android:id="@+id/sort_sv_ll"
+            style="@style/sort_layout">
+
+            <TextView
+                android:id="@+id/sort_sv_tv"
+                style="@style/sort_text"
+                android:text="@string/sort_sales_volume" />
+
+            <ImageView
+                android:id="@+id/sort_sv_iv"
+                style="@style/sort_iv"
+                android:background="@mipmap/sort_no_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sort_v_ll"
+            style="@style/sort_layout">
+
+            <TextView
+                android:id="@+id/sort_v_tt"
+                style="@style/sort_text"
+                android:text="@string/sort_voucher" />
+
+            <ImageView
+                android:id="@+id/sort_v_iv"
+                style="@style/sort_iv"
+                android:background="@mipmap/sort_no_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sort_p_ll"
+            style="@style/sort_layout">
+
+            <TextView
+                android:id="@+id/sort_p_tt"
+                style="@style/sort_text"
+                android:text="@string/sort_price" />
+
+            <ImageView
+                android:id="@+id/sort_p_iv"
+                style="@style/sort_iv"
+                android:background="@mipmap/sort_no_icon" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/goods_parent_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            app:layoutManager="@string/layoutManager_LinearLayout"/>
+
+        <com.purchase.sls.common.refreshview.HeaderViewLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:refreshMode="LIST_LOAD">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appText1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/goods_item_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="@string/layoutManager_LinearLayout"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"/>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/app_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="没数据"
+                            android:textColor="@color/appText4"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+            </FrameLayout>
+        </com.purchase.sls.common.refreshview.HeaderViewLayout>
+    </LinearLayout>
 </LinearLayout>

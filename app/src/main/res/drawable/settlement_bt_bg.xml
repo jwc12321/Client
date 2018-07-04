@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--stroke直接用颜色选择器在小米4上无效-->
+    <item android:state_enabled="true">
+        <shape>
+            <corners android:radius="0dp" />
+            <size android:width="107dp" android:height="44dp" />
+            <solid android:color="@color/appText3" />
+            <stroke android:width="1dp" android:color="@color/appText3" />
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape>
+            <corners android:radius="0dp" />
+            <size android:width="107dp" android:height="44dp" />
+            <solid android:color="@color/appText2" />
+            <stroke android:width="1dp" android:color="@color/appText2" />
+        </shape>
+    </item>
+</selector>

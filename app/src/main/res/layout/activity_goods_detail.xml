@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround21">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style" />
+
+        <ImageView
+            android:id="@+id/shopping_cart"
+            style="@style/title_right_back_style"
+            android:src="@mipmap/shopping_cart_icon" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.GradationScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_rel"
+        android:layout_marginBottom="@dimen/common_forty_five_margin"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.purchase.sls.common.widget.Banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_two_hundred_and_fifty_margin"
+                app:indicator_drawable_selected="@drawable/selected_radius"
+                app:indicator_drawable_unselected="@drawable/unselected_radius" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backGround20">
+
+                <TextView
+                    android:id="@+id/goods_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText1"
+                    android:textSize="18sp"
+                    tools:text="¥100" />
+
+                <TextView
+                    android:id="@+id/goods_sold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_fifty_margin"
+                    android:layout_toRightOf="@id/goods_price"
+                    android:textColor="@color/appText1"
+                    android:textSize="13sp"
+                    tools:text="已售20" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/quan_icon"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/goods_voucher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/appText1"
+                        android:textSize="13sp"
+                        tools:text="能购劵最高可减20" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_sixty_eight_margin"
+                android:background="@color/backGround22">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/common_thirteen_margin"
+                    android:text="@string/voucher_duration"
+                    android:textColor="@color/appText1"
+                    android:textSize="15sp" />
+
+                <com.purchase.sls.common.widget.TearDownView
+                    android:id="@+id/count_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/common_ten_margin"
+                    android:textColor="@color/appText1"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_forty_seven_margin"
+                android:layout_marginTop="@dimen/common_twelve_margin"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:id="@+id/goods_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/goods_detail"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="@dimen/common_fifteen_margin"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_seven_margin"
+                    android:layout_toLeftOf="@id/goods_detail"
+                    android:background="@color/appText17" />
+
+                <View
+                    android:layout_width="@dimen/common_fifteen_margin"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_seven_margin"
+                    android:layout_toRightOf="@id/goods_detail"
+                    android:background="@color/appText17" />
+            </RelativeLayout>
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.purchase.sls.common.widget.GradationScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_nine_margin"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/add_to_cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@mipmap/add_to_cart_icon"
+            android:gravity="center"
+            android:text="@string/add_to_cart"
+            android:textColor="@color/appText1"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/purchase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@mipmap/purchase_icon"
+            android:gravity="center"
+            android:text="@string/purchase"
+            android:textColor="@color/appText1"
+            android:textSize="17sp" />
+    </LinearLayout>
+</RelativeLayout>

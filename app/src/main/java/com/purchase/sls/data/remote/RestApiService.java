@@ -18,6 +18,8 @@ import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
+import com.purchase.sls.data.entity.GoodsItemList;
+import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
@@ -47,6 +49,7 @@ import com.purchase.sls.data.request.CouponListRequest;
 import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
+import com.purchase.sls.data.request.GoodsItemRequest;
 import com.purchase.sls.data.request.IdRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
@@ -307,5 +310,11 @@ public interface RestApiService {
     @POST("home/quan/screceive")
     Flowable<RemoteDataWrapper<Ignore>> recevieShopV(@Body OrdernoRequest ordernoRequest);
 
+    //商城首页二级商品
+    @POST("mall/index")
+    Flowable<RemoteDataWrapper<GoodsItemList>> getGoodsItemList(@Body GoodsItemRequest goodsItemRequest);
 
+    //商城首页一级商品
+    @POST("mall/index/cate")
+    Flowable<RemoteDataWrapper<List<GoodsParentInfo>>> getGoodsParentInfos(@Body TokenRequest tokenRequest);
 }

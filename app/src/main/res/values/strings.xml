@@ -131,4 +131,14 @@
     
     <!--商城-->
     <string name="search_commodity">搜索你想要的宝贝</string>
+    <string name="sort_sales_volume">销量</string>
+    <string name="sort_voucher">劵额</string>
+    <string name="sort_price">价格</string>
+    <string name="voucher_duration">距离能购劵使用期限</string>
+    <string name="goods_detail">商品详情</string>
+    <string name="add_to_cart">加入购物车</string>
+    <string name="purchase">立即购买</string>
+    <string name="shopping_cart">购物车</string>
+    <string name="settlement">结算</string>
+    <string name="total_selection">全选</string>
 </resources>

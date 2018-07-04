@@ -94,4 +94,6 @@ public class StaticData {
 
     public static final String CURR_X="currX";
     public static final String CURR_Y="currY";
+    //商城商品的id
+    public static final String GOODS_ID="goodsid";
 }

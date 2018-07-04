@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_forty_margin"
+    android:gravity="center_vertical"
+    android:id="@+id/parent">
+
+    <ImageView
+        android:id="@+id/choice_iv"
+        android:layout_width="@dimen/common_two_margin"
+        android:layout_height="@dimen/common_fourteen_margin"
+        android:layout_marginLeft="@dimen/common_twelve_margin"
+        android:background="@color/appText3"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/goods_parent_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_eight_margin"
+        android:textColor="@color/appText5"
+        android:textSize="13sp"
+        tools:text="服装" />
+</LinearLayout>

@@ -1,0 +1,97 @@
+package com.purchase.sls.shoppingmall.adapter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.purchase.sls.R;
+import com.purchase.sls.common.GlideHelper;
+import com.purchase.sls.data.entity.GoodsItemInfo;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Created by JWC on 2018/7/4.
+ */
+
+public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.GoodsItemView> {
+    private LayoutInflater layoutInflater;
+    private List<GoodsItemInfo> goodsItemInfos;
+    private Context context;
+
+    public GoodsItemAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void setData(List<GoodsItemInfo> goodsItemInfos) {
+        this.goodsItemInfos = goodsItemInfos;
+        notifyDataSetChanged();
+    }
+
+    public void addMore(List<GoodsItemInfo> moreList) {
+        int pos = goodsItemInfos.size();
+        goodsItemInfos.addAll(moreList);
+        notifyItemRangeInserted(pos, moreList.size());
+    }
+
+    @Override
+    public GoodsItemView onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (layoutInflater == null) {
+            layoutInflater = LayoutInflater.from(parent.getContext());
+        }
+        View view = layoutInflater.inflate(R.layout.adapter_goods_item, parent, false);
+        return new GoodsItemView(view);
+    }
+
+    @Override
+    public void onBindViewHolder(GoodsItemView holder, int position) {
+        GoodsItemInfo goodsItemInfo = goodsItemInfos.get(holder.getAdapterPosition());
+        holder.bindData(goodsItemInfo);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return goodsItemInfos == null ? 0 : goodsItemInfos.size();
+    }
+
+    public class GoodsItemView extends RecyclerView.ViewHolder {
+        @BindView(R.id.photo)
+        RoundedImageView photo;
+        @BindView(R.id.goods_name)
+        TextView goodsName;
+        @BindView(R.id.goods_price)
+        TextView goodsPrice;
+        @BindView(R.id.goods_voucher)
+        TextView goodsVoucher;
+
+        public GoodsItemView(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bindData(GoodsItemInfo goodsItemInfo) {
+            GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+            goodsName.setText(goodsItemInfo.getGoodsName());
+            goodsPrice.setText("¥"+goodsItemInfo.getPrice());
+            goodsVoucher.setText("劵可减"+goodsItemInfo.getQuanPrice());
+        }
+    }
+
+    public interface OnItemClickListener {
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+}
