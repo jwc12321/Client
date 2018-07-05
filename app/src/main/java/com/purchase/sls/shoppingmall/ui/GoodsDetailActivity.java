@@ -6,6 +6,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -23,7 +24,17 @@ import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.TearDownView;
+import com.purchase.sls.data.entity.GoodsDetailInfo;
+import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
+import com.purchase.sls.shoppingmall.ShoppingMallContract;
+import com.purchase.sls.shoppingmall.ShoppingMallModule;
+import com.purchase.sls.shoppingmall.presenter.GoodsDetailPresenter;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +45,7 @@ import butterknife.OnClick;
  * 商品详情
  */
 
-public class GoodsDetailActivity extends BaseActivity implements TearDownView.TimeOutListener{
+public class GoodsDetailActivity extends BaseActivity implements ShoppingMallContract.GoodsDetailView, TearDownView.TimeOutListener {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -63,12 +74,18 @@ public class GoodsDetailActivity extends BaseActivity implements TearDownView.Ti
     TextView addToCart;
     @BindView(R.id.purchase)
     TextView purchase;
+    @BindView(R.id.count_down_rl)
+    RelativeLayout countDownRl;
 
     private String goodsid;
+    private List<String> bannerImages;
 
-    public static void start(Context context,String goodsid) {
+    @Inject
+    GoodsDetailPresenter goodsDetailPresenter;
+
+    public static void start(Context context, String goodsid) {
         Intent intent = new Intent(context, GoodsDetailActivity.class);
-        intent.putExtra(StaticData.GOODS_ID,goodsid);
+        intent.putExtra(StaticData.GOODS_ID, goodsid);
         context.startActivity(intent);
     }
 
@@ -82,10 +99,10 @@ public class GoodsDetailActivity extends BaseActivity implements TearDownView.Ti
     }
 
     private void initView() {
-        goodsid=getIntent().getStringExtra(StaticData.GOODS_ID);
+        goodsid = getIntent().getStringExtra(StaticData.GOODS_ID);
         bannerInitialization();
-        initWeb("");
-
+        initWeb(goodsid);
+        goodsDetailPresenter.getGoodsDetail(goodsid);
     }
 
     //初始化banner
@@ -124,7 +141,7 @@ public class GoodsDetailActivity extends BaseActivity implements TearDownView.Ti
                 // handleMessage(Message msg);// 进行其他处理
             }
         });
-        String url = BuildConfig.API_BASE_URL + "home/product/productdetail?id=" + id;
+        String url = BuildConfig.API_BASE_URL + "mall/index/goodsweb?goodsid=" + id;
         webView.loadUrl(url);
     }
 
@@ -139,6 +156,15 @@ public class GoodsDetailActivity extends BaseActivity implements TearDownView.Ti
     }
 
     @Override
+    protected void initializeInjector() {
+        DaggerShoppingMallComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .shoppingMallModule(new ShoppingMallModule(this))
+                .build()
+                .inject(this);
+    }
+
+    @Override
     public View getSnackBarHolderView() {
         return null;
     }
@@ -150,6 +176,31 @@ public class GoodsDetailActivity extends BaseActivity implements TearDownView.Ti
 
     @Override
     public void timeOut() {
+        goodsVoucher.setText("能购劵最高可减0");
+        countDownRl.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public void setPresenter(ShoppingMallContract.GoodsDetailPresenter presenter) {
+
+    }
+
+    @Override
+    public void renderGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo != null) {
+            title.setText(goodsDetailInfo.getGoodsName());
+            bannerImages = new ArrayList<>();
+            bannerImages.add(goodsDetailInfo.getGoodsImg());
+            banner.setImages(bannerImages);
+            goodsPrice.setText("¥" + goodsDetailInfo.getPrice());
+            goodsSold.setText("已售" + goodsDetailInfo.getSalenum());
+            goodsVoucher.setText("能购劵最高可减" + goodsDetailInfo.getQuanPrice());
+            if (!TextUtils.isEmpty(goodsDetailInfo.getEndtime())) {
+                countDown.setTimeOutListener(this);
+                countDown.setTextColor("1");
+                countDown.startTearDown(Long.parseLong(goodsDetailInfo.getEndtime()), "1");
+            }
+        }
     }
 }

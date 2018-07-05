@@ -314,6 +314,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".shoppingmall.ui.GoodsDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".shoppingmall.ui.GoodsSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shoppingmall.ui.GoodsSearchItemActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

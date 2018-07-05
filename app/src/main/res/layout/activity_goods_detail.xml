@@ -88,6 +88,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/count_down_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_sixty_eight_margin"
                 android:background="@color/backGround22">

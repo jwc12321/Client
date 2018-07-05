@@ -1,6 +1,7 @@
 package com.purchase.sls.common.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -28,6 +29,9 @@ public class TearDownView extends LinearLayout {
 
     private int textSize = 0;
     private TextView dayTextView, hourTextView, minutsTextView, secondTextView;
+    private TextView firstColon;
+    private TextView secondColon;
+    private TextView thirdColon;
 
     public TearDownView(Context context) {
         super(context);
@@ -65,6 +69,26 @@ public class TearDownView extends LinearLayout {
         hourTextView = (TextView) findViewById(R.id.hour_time);
         minutsTextView = (TextView) findViewById(R.id.minuts_time);
         secondTextView = (TextView) findViewById(R.id.second_time);
+        firstColon = (TextView) findViewById(R.id.first_colon);
+        secondColon = (TextView) findViewById(R.id.second_colon);
+        thirdColon = (TextView) findViewById(R.id.third_colon);
+    }
+
+    public void setTextColor(String colorType){
+        if(TextUtils.equals("0",colorType)){
+            dayTextView.setTextColor(Color.parseColor("#ff6528"));
+            hourTextView.setTextColor(Color.parseColor("#ff6528"));
+            minutsTextView.setTextColor(Color.parseColor("#ff6528"));
+            secondTextView.setTextColor(Color.parseColor("#ff6528"));
+        }else {
+            dayTextView.setTextColor(Color.parseColor("#FFFFFF"));
+            hourTextView.setTextColor(Color.parseColor("#FFFFFF"));
+            minutsTextView.setTextColor(Color.parseColor("#FFFFFF"));
+            secondTextView.setTextColor(Color.parseColor("#FFFFFF"));
+            firstColon.setTextColor(Color.parseColor("#FFFFFF"));
+            secondColon.setTextColor(Color.parseColor("#FFFFFF"));
+            thirdColon.setTextColor(Color.parseColor("#FFFFFF"));
+        }
     }
 
 

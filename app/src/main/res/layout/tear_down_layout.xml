@@ -13,6 +13,7 @@
         android:textSize="11sp" />
 
     <TextView
+        android:id="@+id/first_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"
@@ -26,6 +27,7 @@
         android:textSize="11sp" />
 
     <TextView
+        android:id="@+id/second_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"
@@ -40,6 +42,7 @@
         android:textSize="11sp" />
 
     <TextView
+        android:id="@+id/third_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"

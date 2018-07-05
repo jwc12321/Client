@@ -23,12 +23,12 @@ import butterknife.ButterKnife;
  * Created by JWC on 2018/7/4.
  */
 
-public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.GoodsItemView> {
+public class GoodsSearchItemAdapter extends RecyclerView.Adapter<GoodsSearchItemAdapter.GoodsItemView> {
     private LayoutInflater layoutInflater;
     private List<GoodsItemInfo> goodsItemInfos;
     private Context context;
 
-    public GoodsItemAdapter(Context context) {
+    public GoodsSearchItemAdapter(Context context) {
         this.context = context;
     }
 
@@ -48,7 +48,7 @@ public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.Good
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
-        View view = layoutInflater.inflate(R.layout.adapter_goods_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.adapter_goods_search_item, parent, false);
         return new GoodsItemView(view);
     }
 

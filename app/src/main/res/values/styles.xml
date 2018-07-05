@@ -50,8 +50,8 @@
         <item name="android:textSize">17sp</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingRight">@dimen/common_eleven_margin</item>
-        <item name="android:paddingLeft">@dimen/common_eleven_margin</item>
+        <item name="android:paddingRight">@dimen/common_twelve_margin</item>
+        <item name="android:paddingLeft">@dimen/common_twelve_margin</item>
     </style>
 
 
@@ -453,4 +453,12 @@
         <item name="android:scaleType">fitXY</item>
         <item name="android:layout_marginLeft">@dimen/common_six_margin</item>
     </style>
+
+    <declare-styleable name="TagLayout">
+        <attr name="lineSpacing" format="dimension" />
+        <attr name="tagSpacing" format="dimension" />
+        <!-- 是否是固定布局 -->
+        <attr name="isFixed" format="boolean" />
+        <attr name="columnSize" format="integer" />
+    </declare-styleable>
 </resources>

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
+import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.GoodsItemRequest;
@@ -57,6 +58,28 @@ public class GoodsListPresenter implements ShoppingMallContract.GoodsListPresent
                 disposable.dispose();
             }
         }
+    }
+
+    @Override
+    public void getSMBannerInfo() {
+        TokenRequest tokenRequest=new TokenRequest();
+        Disposable disposable = restApiService.getSMBannerInfo(tokenRequest)
+                .flatMap(new RxRemoteDataParse<List<SMBannerInfo>>())
+                .compose(new RxSchedulerTransformer<List<SMBannerInfo>>())
+                .subscribe(new Consumer<List<SMBannerInfo>>() {
+                    @Override
+                    public void accept(List<SMBannerInfo> smBannerInfos) throws Exception {
+                        goodsListView.dismissLoading();
+                        goodsListView.smBannerInfo(smBannerInfos);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsListView.dismissLoading();
+                        goodsListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
     }
 
     @Override

@@ -11,6 +11,7 @@ import dagger.Provides;
 public class ShoppingMallModule {
     private ShoppingMallContract.GoodsListView goodsListView;
     private ShoppingMallContract.GoodsDetailView goodsDetailView;
+    private ShoppingMallContract.GoodsSearchView goodsSearchView;
 
     public ShoppingMallModule(ShoppingMallContract.GoodsListView goodsListView) {
         this.goodsListView = goodsListView;
@@ -18,6 +19,10 @@ public class ShoppingMallModule {
 
     public ShoppingMallModule(ShoppingMallContract.GoodsDetailView goodsDetailView) {
         this.goodsDetailView = goodsDetailView;
+    }
+
+    public ShoppingMallModule(ShoppingMallContract.GoodsSearchView goodsSearchView) {
+        this.goodsSearchView = goodsSearchView;
     }
 
     @Provides
@@ -28,5 +33,10 @@ public class ShoppingMallModule {
     @Provides
     ShoppingMallContract.GoodsDetailView provideGoodsDetailView(){
         return goodsDetailView;
+    }
+
+    @Provides
+    ShoppingMallContract.GoodsSearchView provideGoodsSearchView(){
+        return goodsSearchView;
     }
 }

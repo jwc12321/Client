@@ -18,6 +18,7 @@ import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
+import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.Ignore;
@@ -28,6 +29,7 @@ import com.purchase.sls.data.entity.MessageListInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
+import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
 import com.purchase.sls.data.entity.ToBeEvaluationInfo;
@@ -50,6 +52,7 @@ import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.GoodsItemRequest;
+import com.purchase.sls.data.request.GoodsidRequest;
 import com.purchase.sls.data.request.IdRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
@@ -317,4 +320,12 @@ public interface RestApiService {
     //商城首页一级商品
     @POST("mall/index/cate")
     Flowable<RemoteDataWrapper<List<GoodsParentInfo>>> getGoodsParentInfos(@Body TokenRequest tokenRequest);
+
+    //获取商城首页的banner
+    @POST("mall/index/banner")
+    Flowable<RemoteDataWrapper<List<SMBannerInfo>>> getSMBannerInfo(@Body TokenRequest tokenRequest);
+
+    //获取商城商品详情
+    @POST("mall/index/detail")
+    Flowable<RemoteDataWrapper<GoodsDetailInfo>> getGoodsDetailInfo(@Body GoodsidRequest goodsidRequest);
 }

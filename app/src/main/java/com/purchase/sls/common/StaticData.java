@@ -96,4 +96,9 @@ public class StaticData {
     public static final String CURR_Y="currY";
     //商城商品的id
     public static final String GOODS_ID="goodsid";
+
+    //历史搜索
+    public static final String HISTORY_SEARCH="historySearch";
+    //搜索商品的名字
+    public static final String SEARCH_GOODS="searchGoods";
 }
