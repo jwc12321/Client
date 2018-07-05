@@ -3,10 +3,12 @@ package com.purchase.sls.shoppingmall.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -96,7 +98,9 @@ public class GoodsSearchActivity extends BaseActivity {
         tagviewHistory.setItemClickListener(new TagLayout.TagItemClickListener() {
             @Override
             public void itemClick(int position) {
-
+                if(position<historySearchList.size()){
+                    GoodsSearchItemActivity.start(GoodsSearchActivity.this,historySearchList.get(position));
+                }
             }
         });
     }
@@ -135,6 +139,13 @@ public class GoodsSearchActivity extends BaseActivity {
                 return false;
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(searchEt, InputMethodManager.SHOW_FORCED);
+            }
+        }, 500);
     }
 
     /**
@@ -197,5 +208,38 @@ public class GoodsSearchActivity extends BaseActivity {
                 break;
             default:
         }
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
     }
 }
