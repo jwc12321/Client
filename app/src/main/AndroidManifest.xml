@@ -318,6 +318,13 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".shoppingmall.ui.GoodsSearchItemActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".shoppingmall.ui.ShoppingCartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shoppingmall.ui.FillInOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shoppingmall.ui.SelectSpecActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentFullScreenTheme"/>
     </application>
 
 </manifest>

@@ -55,6 +55,7 @@
     <dimen name="common_forty_nine_margin">49dp</dimen>
     <dimen name="common_fifty_margin">50dp</dimen>
     <dimen name="common_fifty_two_margin">52dp</dimen>
+    <dimen name="common_fifty_four_margin">54dp</dimen>
     <dimen name="common_fifty_five_margin">55dp</dimen>
     <dimen name="common_sixty_margin">60dp</dimen>
     <dimen name="common_sixty_one_margin">61dp</dimen>
@@ -87,6 +88,7 @@
     <dimen name="common_one_hundred_and_sixty_five_margin">165dp</dimen>
     <dimen name="common_one_hundred_and_sixty_nine_margin">169dp</dimen>
     <dimen name="common_two_hundred_margin">200dp</dimen>
+    <dimen name="common_two_hundred_twenty_five_margin">225dp</dimen>
     <dimen name="common_two_hundred_and_fifty_margin">250dp</dimen>
     <dimen name="common_three_hundred_margin">300dp</dimen>
     <dimen name="common_three_hundred_and_eighty_margin">380dp</dimen>

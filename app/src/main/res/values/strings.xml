@@ -142,4 +142,7 @@
     <string name="settlement">结算</string>
     <string name="total_selection">全选</string>
     <string name="history_records">历史记录</string>
+    <string name="fill_in_order">填写订单</string>
+    <string name="default_address">默认</string>
+    <string name="confirm">确认</string>
 </resources>

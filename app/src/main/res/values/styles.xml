@@ -288,7 +288,7 @@
         <item name="android:src">@mipmap/arrow_indicator</item>
         <item name="android:scaleType">fitXY</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_marginRight">@dimen/common_eleven_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
         <item name="android:layout_alignParentRight">true</item>
     </style>
 

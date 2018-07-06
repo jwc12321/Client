@@ -10,7 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/common_twelve_margin">
+        android:layout_marginTop="@dimen/common_twelve_margin"
+        android:background="@color/appText1">
 
         <CheckBox
             android:id="@+id/choice_item"
@@ -86,7 +87,7 @@
             android:src="@mipmap/add_icon" />
 
         <TextView
-            android:id="@+id/number"
+            android:id="@+id/goods_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -103,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/common_twenty_two_margin"
-            android:layout_toLeftOf="@id/number"
+            android:layout_toLeftOf="@id/goods_count"
             android:src="@mipmap/reduce_icon" />
     </RelativeLayout>
 </LinearLayout>

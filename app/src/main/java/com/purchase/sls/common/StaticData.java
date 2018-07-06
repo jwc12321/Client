@@ -101,4 +101,6 @@ public class StaticData {
     public static final String HISTORY_SEARCH="historySearch";
     //搜索商品的名字
     public static final String SEARCH_GOODS="searchGoods";
+    //商品规格
+    public static final String GOODS_DETAIL="goodsDetail";
 }

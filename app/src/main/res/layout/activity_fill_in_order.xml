@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backGround21">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/fill_in_order" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/address_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_rel"
+        android:layout_marginTop="@dimen/common_twelve_margin"
+        android:background="@color/appText1"
+        android:minHeight="@dimen/common_ninety_margin">
+
+        <TextView
+            android:id="@+id/address_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_twenty_margin"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="张三" />
+
+        <TextView
+            android:id="@+id/default_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address_name"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_ten_margin"
+            android:background="@drawable/orange_bg"
+            android:gravity="center"
+            android:text="@string/default_address"
+            android:textColor="@color/appText1"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/address_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_fifty_four_margin"
+            android:layout_marginTop="@dimen/common_twenty_margin"
+            android:layout_toRightOf="@id/address_name"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="18859856985" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address_tel"
+            android:layout_marginBottom="@dimen/common_twenty_margin"
+            android:layout_marginLeft="@dimen/common_fifty_four_margin"
+            android:layout_marginRight="@dimen/common_fifteen_margin"
+            android:layout_marginTop="@dimen/common_ten_margin"
+            android:layout_toRightOf="@id/address_name"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="浙江省杭州市下城区什么什么什么什么什么" />
+
+        <ImageView style="@style/go_arrow" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/goods_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="@string/layoutManager_LinearLayout"
+        android:layout_below="@id/address_rl"
+        android:layout_marginTop="@dimen/common_twelve_margin"
+        android:background="@color/appText1"/>
+
+</RelativeLayout>

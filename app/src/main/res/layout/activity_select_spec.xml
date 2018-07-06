@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround3">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/common_two_hundred_and_fifty_margin"
+        android:background="@color/appText1">
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_ten_margin"
+            android:textColor="@color/appText3"
+            android:textSize="17sp"
+            tools:text="100" />
+
+        <ImageView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_ten_margin"
+            android:src="@mipmap/cancel_icon" />
+
+        <com.purchase.sls.common.widget.GradationScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title_rel"
+            android:layout_marginBottom="@dimen/common_forty_nine_margin"
+            android:layout_marginTop="@dimen/common_one_hundred_margin"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.purchase.sls.common.widget.shoppingselect.ShoppingSelectView
+                    android:id="@+id/shopselectView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View style="@style/fengexian_style" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_fifteen_margin"
+                    android:text="购买数量"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_fifteen_margin"
+                    android:layout_marginBottom="@dimen/common_fifteen_margin"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/common_twelve_margin">
+
+                    <ImageView
+                        android:id="@+id/decrease_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/decrease_icon" />
+
+                    <TextView
+                        android:id="@+id/goods_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/common_fifteen_margin"
+                        android:textColor="@color/appText5"
+                        android:textSize="18sp"
+                        android:text="0" />
+
+                    <ImageView
+                        android:id="@+id/increase_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_fifteen_margin"
+                        android:src="@mipmap/increase_icon" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.purchase.sls.common.widget.GradationScrollView>
+
+        <Button
+            android:id="@+id/confirm_bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_nine_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/appText3"
+            android:enabled="true"
+            android:text="@string/confirm"
+            android:textColor="@color/appText1" />
+    </RelativeLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/common_one_hundred_and_ten_margin"
+        android:layout_height="@dimen/common_one_hundred_and_ten_margin"
+        android:layout_marginLeft="@dimen/common_twelve_margin"
+        android:layout_marginTop="@dimen/common_two_hundred_twenty_five_margin"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="5dp"
+        app:riv_oval="false"
+        tools:background="@null"
+        tools:src="@mipmap/app_icon" />
+</RelativeLayout>

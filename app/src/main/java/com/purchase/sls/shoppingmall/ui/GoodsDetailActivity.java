@@ -1,5 +1,6 @@
 package com.purchase.sls.shoppingmall.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.http.SslError;
@@ -7,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -19,12 +21,15 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
+import com.purchase.sls.address.ui.AddressListActivity;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.TearDownView;
+import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
+import com.purchase.sls.data.entity.GoodsSku;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -32,7 +37,15 @@ import com.purchase.sls.shoppingmall.presenter.GoodsDetailPresenter;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.inject.Inject;
 
@@ -79,9 +92,12 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     private String goodsid;
     private List<String> bannerImages;
+    private GoodsDetailInfo goodsDetailInfo;
 
     @Inject
     GoodsDetailPresenter goodsDetailPresenter;
+
+    private static final int REQUEST_SPEC = 20;
 
     public static void start(Context context, String goodsid) {
         Intent intent = new Intent(context, GoodsDetailActivity.class);
@@ -145,16 +161,39 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         webView.loadUrl(url);
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.back,R.id.add_to_cart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
+            case R.id.add_to_cart:
+                selectSpec();
+                break;
             default:
         }
     }
 
+    private void selectSpec(){
+        Intent intent = new Intent(this, SelectSpecActivity.class);
+        intent.putExtra(StaticData.GOODS_DETAIL, goodsDetailInfo);
+        startActivityForResult(intent, REQUEST_SPEC);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_SPEC:
+                    if (data != null) {
+                        Bundle bundle = data.getExtras();
+                    }
+                    break;
+                default:
+            }
+        }
+    }
     @Override
     protected void initializeInjector() {
         DaggerShoppingMallComponent.builder()
@@ -188,6 +227,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Override
     public void renderGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
+        this.goodsDetailInfo=goodsDetailInfo;
         if (goodsDetailInfo != null) {
             title.setText(goodsDetailInfo.getGoodsName());
             bannerImages = new ArrayList<>();

@@ -21,6 +21,7 @@ import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
+import com.purchase.sls.data.entity.ShoppingCartInfo;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -192,7 +193,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
         super.onDestroyView();
     }
 
-    @OnClick({R.id.sort_sv_ll, R.id.sort_v_ll, R.id.sort_p_ll,R.id.search_ll})
+    @OnClick({R.id.sort_sv_ll, R.id.sort_v_ll, R.id.sort_p_ll,R.id.search_ll,R.id.shopping_cart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sort_sv_ll://销量
@@ -215,6 +216,9 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
                 break;
             case R.id.search_ll:
                 GoodsSearchActivity.start(getActivity());
+                break;
+            case R.id.shopping_cart:
+                ShoppingCartActivity.start(getActivity());
                 break;
             default:
         }

@@ -2,11 +2,14 @@ package com.purchase.sls.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+
 /**
  * Created by JWC on 2018/7/5.
  */
 
-public class GoodsDetailInfo {
+public class GoodsDetailInfo implements Serializable{
     @SerializedName("id")
     private String id;
     @SerializedName("goods_name")
@@ -22,6 +25,8 @@ public class GoodsDetailInfo {
     //已售
     @SerializedName("salenum")
     private String salenum;
+    @SerializedName("sku")
+    private GoodsSku goodsSku;
 
     public String getId() {
         return id;
@@ -77,5 +82,13 @@ public class GoodsDetailInfo {
 
     public void setSalenum(String salenum) {
         this.salenum = salenum;
+    }
+
+    public GoodsSku getGoodsSku() {
+        return goodsSku;
+    }
+
+    public void setGoodsSku(GoodsSku goodsSku) {
+        this.goodsSku = goodsSku;
     }
 }

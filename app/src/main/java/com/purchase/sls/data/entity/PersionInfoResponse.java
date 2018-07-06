@@ -1,6 +1,5 @@
 package com.purchase.sls.data.entity;
 
-import android.os.Parcel;
 import com.google.gson.annotations.SerializedName;
 
 
