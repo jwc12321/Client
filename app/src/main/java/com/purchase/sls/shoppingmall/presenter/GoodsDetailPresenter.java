@@ -2,8 +2,10 @@ package com.purchase.sls.shoppingmall.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
+import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.AddToCartRequest;
 import com.purchase.sls.data.request.GoodsidRequest;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 
@@ -66,6 +68,29 @@ public class GoodsDetailPresenter implements ShoppingMallContract.GoodsDetailPre
                     public void accept(GoodsDetailInfo goodsDetailInfo) throws Exception {
                         goodsDetailView.dismissLoading();
                         goodsDetailView.renderGoodsDetail(goodsDetailInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsDetailView.dismissLoading();
+                        goodsDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void addToCart(String id, String taobaoid, String sku, String num, String skuinfo, String quan, String tjprice, String quan_url) {
+        goodsDetailView.showLoading();
+        AddToCartRequest addToCartRequest=new AddToCartRequest(id,taobaoid,sku,num,skuinfo,quan,tjprice,quan_url);
+        Disposable disposable = restApiService.addToCart(addToCartRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        goodsDetailView.dismissLoading();
+                        goodsDetailView.addToCartSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

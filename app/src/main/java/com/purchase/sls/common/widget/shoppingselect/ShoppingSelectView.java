@@ -99,10 +99,10 @@ public class ShoppingSelectView extends LinearLayout {
             for (int i = 0; i < attr.getSpecs().size(); i++) {
                 //属性按钮
                 RadioButton button = new RadioButton(context);
-                //默认选中第一个
-                if (i == 0) {
-                    button.setChecked(true);
-                }
+//                //默认选中第一个
+//                if (i == 0) {
+//                    button.setChecked(true);
+//                }
                 //设置按钮的参数
                 LayoutParams buttonParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
                         dip2px(context, buttonHeight));

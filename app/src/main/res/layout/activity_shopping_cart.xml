@@ -34,6 +34,32 @@
         app:layoutManager="@string/layoutManager_LinearLayout" />
 
     <RelativeLayout
+        android:id="@+id/no_goods_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_rel"
+        android:layout_marginBottom="@dimen/common_fifty_two_margin">
+
+        <ImageView
+            android:id="@+id/no_address_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/no_goods_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/no_address_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_twelve_margin"
+            android:text="购物车空空如也，快去逛逛吧"
+            android:textColor="@color/appText3"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/confirm_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_forty_nine_margin"
         android:layout_alignParentBottom="true"

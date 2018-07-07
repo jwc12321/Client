@@ -83,7 +83,7 @@
                         android:layout_marginLeft="@dimen/common_fifteen_margin"
                         android:textColor="@color/appText5"
                         android:textSize="18sp"
-                        android:text="0" />
+                        android:text="1" />
 
                     <ImageView
                         android:id="@+id/increase_count"
@@ -101,8 +101,8 @@
             android:layout_height="@dimen/common_forty_nine_margin"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/appText3"
-            android:enabled="true"
+            android:background="@drawable/confirm_bg"
+            android:enabled="false"
             android:text="@string/confirm"
             android:textColor="@color/appText1" />
     </RelativeLayout>

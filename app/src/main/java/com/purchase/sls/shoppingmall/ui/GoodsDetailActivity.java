@@ -30,6 +30,7 @@ import com.purchase.sls.common.widget.TearDownView;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsSku;
+import com.purchase.sls.data.entity.GoodsUnitPrice;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -93,6 +94,11 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     private String goodsid;
     private List<String> bannerImages;
     private GoodsDetailInfo goodsDetailInfo;
+    private GoodsUnitPrice goodsUnitPrice;
+    private String goodsCount;
+    private String addType="0"; //0：加入购物车 1：购买
+    private String taobaoid;
+    private String quanPrice;
 
     @Inject
     GoodsDetailPresenter goodsDetailPresenter;
@@ -161,14 +167,21 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         webView.loadUrl(url);
     }
 
-    @OnClick({R.id.back,R.id.add_to_cart})
+    @OnClick({R.id.back,R.id.add_to_cart,R.id.purchase,R.id.shopping_cart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.add_to_cart:
+                addType="0";
                 selectSpec();
+                break;
+            case R.id.purchase:
+                addType="1";
+                break;
+            case R.id.shopping_cart:
+                ShoppingCartActivity.start(this);
                 break;
             default:
         }
@@ -188,6 +201,15 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                 case REQUEST_SPEC:
                     if (data != null) {
                         Bundle bundle = data.getExtras();
+                        goodsUnitPrice= (GoodsUnitPrice) bundle.getSerializable(StaticData.GOODS_UNIT_PRICE);
+                        goodsCount=bundle.getString(StaticData.GOODS_COUNT);
+                        if(goodsPrice!=null&&!TextUtils.isEmpty(goodsCount)){
+                            if(TextUtils.equals("0",addType)) {
+                                goodsDetailPresenter.addToCart(goodsid, taobaoid, goodsUnitPrice.getSkuId(), goodsCount, goodsUnitPrice.getName(), quanPrice, goodsUnitPrice.getPrice(), "");
+                            }else {
+
+                            }
+                        }
                     }
                     break;
                 default:
@@ -230,6 +252,8 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         this.goodsDetailInfo=goodsDetailInfo;
         if (goodsDetailInfo != null) {
             title.setText(goodsDetailInfo.getGoodsName());
+            taobaoid=goodsDetailInfo.getTaobaoid();
+            quanPrice=goodsDetailInfo.getQuanPrice();
             bannerImages = new ArrayList<>();
             bannerImages.add(goodsDetailInfo.getGoodsImg());
             banner.setImages(bannerImages);
@@ -242,5 +266,10 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                 countDown.startTearDown(Long.parseLong(goodsDetailInfo.getEndtime()), "1");
             }
         }
+    }
+
+    @Override
+    public void addToCartSuccess() {
+        showMessage("加入购物车成功");
     }
 }

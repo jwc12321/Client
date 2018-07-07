@@ -112,10 +112,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         }
 
         public void bindData(ShoppingCartInfo shoppingCartInfo) {
-            GlideHelper.load((Activity) context, shoppingCartInfo.getUrl(), R.mipmap.app_icon, photo);
-            goodsName.setText(shoppingCartInfo.getName());
-            goodsCount.setText(shoppingCartInfo.getCount()+"");
-            goodsPrice.setText(shoppingCartInfo.getPrice());
+            GlideHelper.load((Activity) context, shoppingCartInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+            goodsName.setText(shoppingCartInfo.getGoodsName());
+            goodsSpec.setText(shoppingCartInfo.getSkuinfo());
+            goodsCount.setText(shoppingCartInfo.getGoodsnum());
+            goodsPrice.setText("¥ "+shoppingCartInfo.getPrice());
             boolean choosed = shoppingCartInfo.isChoosed();
             if (choosed){
                 choiceItem.setChecked(true);

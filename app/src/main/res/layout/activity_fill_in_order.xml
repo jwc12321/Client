@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backGround21">
 
     <RelativeLayout
@@ -20,72 +20,221 @@
             android:text="@string/fill_in_order" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/address_rl"
+    <com.purchase.sls.common.widget.GradationScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/title_rel"
-        android:layout_marginTop="@dimen/common_twelve_margin"
-        android:background="@color/appText1"
-        android:minHeight="@dimen/common_ninety_margin">
+        android:layout_marginBottom="@dimen/common_fifty_four_margin"
+        android:overScrollMode="never">
 
-        <TextView
-            android:id="@+id/address_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_twelve_margin"
-            android:layout_marginTop="@dimen/common_twenty_margin"
-            android:textColor="@color/appText5"
-            android:textSize="15sp"
-            tools:text="张三" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/default_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/address_name"
-            android:layout_marginLeft="@dimen/common_twelve_margin"
-            android:layout_marginTop="@dimen/common_ten_margin"
-            android:background="@drawable/orange_bg"
-            android:gravity="center"
-            android:text="@string/default_address"
-            android:textColor="@color/appText1"
-            android:textSize="12sp" />
+            <RelativeLayout
+                android:id="@+id/address_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_twelve_margin"
+                android:background="@color/appText1"
+                android:minHeight="@dimen/common_ninety_margin">
 
-        <TextView
-            android:id="@+id/address_tel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_fifty_four_margin"
-            android:layout_marginTop="@dimen/common_twenty_margin"
-            android:layout_toRightOf="@id/address_name"
-            android:textColor="@color/appText5"
-            android:textSize="15sp"
-            tools:text="18859856985" />
+                <TextView
+                    android:id="@+id/address_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_twenty_margin"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    tools:text="张三" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/address_tel"
-            android:layout_marginBottom="@dimen/common_twenty_margin"
-            android:layout_marginLeft="@dimen/common_fifty_four_margin"
-            android:layout_marginRight="@dimen/common_fifteen_margin"
-            android:layout_marginTop="@dimen/common_ten_margin"
-            android:layout_toRightOf="@id/address_name"
-            android:textColor="@color/appText5"
-            android:textSize="15sp"
-            tools:text="浙江省杭州市下城区什么什么什么什么什么" />
+                <TextView
+                    android:id="@+id/default_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/address_name"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_ten_margin"
+                    android:background="@drawable/orange_bg"
+                    android:gravity="center"
+                    android:text="@string/default_address"
+                    android:textColor="@color/appText1"
+                    android:textSize="12sp" />
 
-        <ImageView style="@style/go_arrow" />
-    </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/goods_rv"
+                <TextView
+                    android:id="@+id/address_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_fifty_four_margin"
+                    android:layout_marginTop="@dimen/common_twenty_margin"
+                    android:layout_toRightOf="@id/address_name"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    tools:text="18859856985" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/address_tel"
+                    android:layout_marginBottom="@dimen/common_twenty_margin"
+                    android:layout_marginLeft="@dimen/common_fifty_four_margin"
+                    android:layout_marginRight="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_ten_margin"
+                    android:layout_toRightOf="@id/address_name"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    tools:text="浙江省杭州市下城区什么什么什么什么什么" />
+
+                <ImageView style="@style/go_arrow" />
+
+                <TextView
+                    android:id="@+id/no_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="请选择地址"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/goods_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_twelve_margin"
+                android:background="@color/appText1"
+                app:layoutManager="@string/layoutManager_LinearLayout" />
+
+            <RelativeLayout
+                android:id="@+id/voucher_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_fifty_margin"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:text="@string/use_commercial_voucher"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/use_voucher_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:src="@drawable/shop_voucher_select" />
+
+                <TextView
+                    android:id="@+id/voucher_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_eleven_margin"
+                    android:layout_toLeftOf="@id/use_voucher_iv"
+                    android:textColor="@color/appText17"
+                    android:textSize="13sp"
+                    tools:text="13" />
+
+                <View
+                    style="@style/st_line_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/zhifubao_rl"
+                style="@style/pay_item_fl_style">
+
+                <TextView
+                    style="@style/pay_item_text_style"
+                    android:drawableLeft="@mipmap/zhifubao_icon"
+                    android:drawableStart="@mipmap/zhifubao_icon"
+                    android:text="支付宝" />
+
+                <ImageView
+                    android:id="@+id/zhifubao_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_text_left"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pay_select" />
+            </RelativeLayout>
+
+            <View style="@style/st_line_style" />
+
+            <RelativeLayout
+                android:id="@+id/weixin_rl"
+                style="@style/pay_item_fl_style">
+
+
+                <TextView
+                    style="@style/pay_item_text_style"
+                    android:drawableLeft="@mipmap/weixin_icon"
+                    android:drawableStart="@mipmap/weixin_icon"
+                    android:text="微信" />
+
+                <ImageView
+                    android:id="@+id/weixin_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_text_left"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pay_select" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.GradationScrollView>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="@string/layoutManager_LinearLayout"
-        android:layout_below="@id/address_rl"
-        android:layout_marginTop="@dimen/common_twelve_margin"
-        android:background="@color/appText1"/>
+        android:layout_height="@dimen/common_forty_nine_margin"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tatal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:text="合计 :"
+            android:textColor="@color/appText5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_eight_margin"
+            android:layout_toRightOf="@id/tatal"
+            android:textColor="@color/appText3"
+            android:textSize="17sp"
+            tools:text="100" />
+
+        <Button
+            android:id="@+id/confirm_bt"
+            android:layout_width="@dimen/common_one_hundred_and_fifty_margin"
+            android:layout_height="@dimen/common_forty_nine_margin"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/confirm_bg"
+            android:enabled="false"
+            android:text="@string/place_order"
+            android:textColor="@color/appText1"
+            android:textSize="17sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -103,4 +103,12 @@ public class StaticData {
     public static final String SEARCH_GOODS="searchGoods";
     //商品规格
     public static final String GOODS_DETAIL="goodsDetail";
+    //商品规格
+    public static final String GOODS_UNIT_PRICE="goodsUnitPrice";
+    //商品数量
+    public static final String GOODS_COUNT="goodsCount";
+    //购物车
+    public static final String GOODS_ORDER_LIST="goodsOrderList";
+    //总价
+    public static final String TOTAL_PRICE="tatalPrice";
 }

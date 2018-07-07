@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_one_hundred_and_thirty_two_margin"
+    android:background="@color/backGround21"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/common_twelve_margin"
+        android:background="@color/appText1">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/photo"
+            android:layout_width="@dimen/common_ninety_four_margin"
+            android:layout_height="@dimen/common_ninety_four_margin"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_ten_margin"
+            android:layout_toRightOf="@id/choice_item"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="2dp"
+            app:riv_oval="false"
+            tools:background="@null"
+            tools:src="@mipmap/app_icon" />
+
+        <TextView
+            android:id="@+id/goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_ten_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_twenty_margin"
+            android:layout_toRightOf="@id/photo"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="商品详情" />
+
+        <TextView
+            android:id="@+id/goods_spec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/goods_name"
+            android:layout_marginLeft="@dimen/common_ten_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_nine_margin"
+            android:layout_toRightOf="@id/photo"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/appText17"
+            android:textSize="13sp"
+            tools:text="商品详情" />
+
+        <TextView
+            android:id="@+id/goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/common_twenty_margin"
+            android:layout_marginLeft="@dimen/common_ten_margin"
+            android:layout_toRightOf="@id/photo"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="100" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/common_twenty_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/reduce_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ride_icon" />
+
+            <TextView
+                android:id="@+id/goods_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/common_eight_margin"
+                android:textColor="@color/appText5"
+                android:textSize="15sp"
+                tools:text="1" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

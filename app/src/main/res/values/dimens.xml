@@ -84,6 +84,7 @@
     <dimen name="common_one_hundred_and_thirty_one_margin">131dp</dimen>
     <dimen name="common_one_hundred_and_thirty_two_margin">132dp</dimen>
     <dimen name="common_one_hundred_and_forty_margin">140dp</dimen>
+    <dimen name="common_one_hundred_and_fifty_margin">150dp</dimen>
     <dimen name="common_one_hundred_and_sixty_four_margin">164dp</dimen>
     <dimen name="common_one_hundred_and_sixty_five_margin">165dp</dimen>
     <dimen name="common_one_hundred_and_sixty_nine_margin">169dp</dimen>

@@ -145,4 +145,7 @@
     <string name="fill_in_order">填写订单</string>
     <string name="default_address">默认</string>
     <string name="confirm">确认</string>
+    <string name="use_commercial_voucher">使用能购劵</string>
+    <string name="confirm_purchase">确认购买</string>
+    <string name="place_order">提交订单</string>
 </resources>

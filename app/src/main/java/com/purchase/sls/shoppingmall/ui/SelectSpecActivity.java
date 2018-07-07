@@ -1,5 +1,6 @@
 package com.purchase.sls.shoppingmall.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -20,7 +21,6 @@ import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsSku;
 import com.purchase.sls.data.entity.GoodsSpec;
 import com.purchase.sls.data.entity.GoodsUnitPrice;
-import com.purchase.sls.data.entity.ShoppingCartInfo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -40,8 +40,6 @@ import butterknife.OnClick;
  */
 
 public class SelectSpecActivity extends BaseActivity implements OnSelectedListener {
-    @BindView(R.id.photo)
-    RoundedImageView photo;
     @BindView(R.id.price)
     TextView price;
     @BindView(R.id.cancel)
@@ -58,6 +56,9 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
     GradationScrollView scrollview;
     @BindView(R.id.confirm_bt)
     Button confirmBt;
+    @BindView(R.id.photo)
+    RoundedImageView photo;
+
 
     private GoodsDetailInfo goodsDetailInfo;
     private GoodsSku goodsSku;
@@ -69,7 +70,7 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
     private BigDecimal totalPriceBd;//总价
     private BigDecimal countBd;//数量
     private BigDecimal unitPriceBd;//单价
-    private int currentCount;
+    private int currentCount = 1;
 
     Map<String, String> map = new HashMap<String, String>();
 
@@ -107,27 +108,36 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
     public void onSelected(String position, String title, String smallTitle) {
         goodsSpecStr = "";
         map.put(position, smallTitle);
-        Map<String, String> resultMap = sortMapByKey(map);    //按Key进行排序
-        for (Map.Entry<String, String> entry : resultMap.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-            goodsSpecStr = goodsSpecStr + entry.getValue();
-        }
-        for (GoodsUnitPrice goodsUnitPrice : goodsUnitPrices) {
-            if (TextUtils.equals(goodsSpecStr, goodsUnitPrice.getName())) {
-                this.goodsUnitPrice = goodsUnitPrice;
+        if (goodsSpecs != null && map.size() == goodsSpecs.size()) {
+            Map<String, String> resultMap = sortMapByKey(map);    //按Key进行排序
+            for (Map.Entry<String, String> entry : resultMap.entrySet()) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+                goodsSpecStr = goodsSpecStr + entry.getValue();
+            }
+            for (GoodsUnitPrice goodsUnitPrice : goodsUnitPrices) {
+                if (TextUtils.equals(goodsSpecStr, goodsUnitPrice.getName())) {
+                    this.goodsUnitPrice = goodsUnitPrice;
+                    break;
+                }
+            }
+            if(goodsUnitPrice != null&&TextUtils.equals("0",goodsUnitPrice.getQuantity())){
+                showMessage("该商品没有库存");
                 return;
             }
+            confirmBt.setEnabled(true);
+            calculatingPrice(goodsUnitPrice);
+        } else {
+            confirmBt.setEnabled(false);
         }
-        calculatingPrice(goodsUnitPrice);
     }
 
     private void calculatingPrice(GoodsUnitPrice goodsUnitPrice) {
-        if(goodsUnitPrice!=null) {
+        if (goodsUnitPrice != null) {
             totalPriceBd = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
             unitPriceBd = new BigDecimal(goodsUnitPrice.getPrice()).setScale(2, RoundingMode.HALF_UP);
             countBd = new BigDecimal(currentCount).setScale(0, RoundingMode.HALF_UP);
             totalPriceBd = unitPriceBd.multiply(countBd).add(totalPriceBd);
-            price.setText("¥"+totalPriceBd.toString());
+            price.setText("¥" + totalPriceBd.toString());
         }
     }
 
@@ -159,22 +169,33 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
         }
     }
 
-    @OnClick({R.id.cancel, R.id.decrease_count, R.id.increase_count})
+    @OnClick({R.id.cancel, R.id.decrease_count, R.id.increase_count, R.id.confirm_bt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cancel:
                 finish();
                 break;
             case R.id.decrease_count:
-                currentCount--;
-                if(currentCount<0){
+                if (currentCount == 1) {
                     return;
                 }
+                currentCount--;
+                goodsCount.setText(String.valueOf(currentCount));
                 calculatingPrice(goodsUnitPrice);
                 break;
             case R.id.increase_count:
                 currentCount++;
+                goodsCount.setText(String.valueOf(currentCount));
                 calculatingPrice(goodsUnitPrice);
+                break;
+            case R.id.confirm_bt:
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(StaticData.GOODS_UNIT_PRICE, goodsUnitPrice);
+                bundle.putString(StaticData.GOODS_COUNT, String.valueOf(currentCount));
+                intent.putExtras(bundle);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
             default:
         }

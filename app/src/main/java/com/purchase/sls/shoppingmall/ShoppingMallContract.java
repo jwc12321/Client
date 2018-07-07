@@ -2,11 +2,14 @@ package com.purchase.sls.shoppingmall;
 
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
+import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
+import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
+import com.purchase.sls.data.entity.ShoppingCartInfo;
 
 import java.util.List;
 
@@ -31,10 +34,12 @@ public interface ShoppingMallContract {
 
     interface GoodsDetailPresenter extends BasePresenter{
         void getGoodsDetail(String goodsid);
+        void addToCart(String id, String taobaoid, String sku, String num, String skuinfo, String quan, String tjprice, String quan_url);
     }
 
     interface GoodsDetailView extends BaseView<GoodsDetailPresenter>{
         void renderGoodsDetail(GoodsDetailInfo goodsDetailInfo);
+        void addToCartSuccess();
     }
 
     interface GoodsSearchPresenter extends BasePresenter{
@@ -46,4 +51,24 @@ public interface ShoppingMallContract {
         void renderGoodsItems(GoodsItemList goodsItemList);
         void renderMoreGoodsItems(GoodsItemList goodsItemList);
     }
+
+    interface ShoppingCartPresenter extends BasePresenter{
+        void getShoppingCartList();
+        void orderShopCart(String cartid);
+        void deleteshopCart(String id);
+    }
+
+    interface ShoppingCartView extends BaseView<ShoppingCartPresenter>{
+        void renderShoppingCartList(List<ShoppingCartInfo> shoppingCartInfos);
+        void orderShopCartSuccess(GoodsOrderList goodsOrderList);
+        void deleteshopCartSuccess();
+    }
+
+   interface FillInOrderPresenter extends BasePresenter{
+       void getAddressList();
+   }
+
+   interface FillOrderView extends BaseView<FillInOrderPresenter>{
+       void renderAddressList(List<AddressInfo> addressInfos);
+   }
 }

@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class GoodsDetailInfo implements Serializable{
     @SerializedName("id")
     private String id;
+    @SerializedName("taobaoid")
+    private String taobaoid;
     @SerializedName("goods_name")
     private String goodsName;
     @SerializedName("quan_price")
@@ -90,5 +92,13 @@ public class GoodsDetailInfo implements Serializable{
 
     public void setGoodsSku(GoodsSku goodsSku) {
         this.goodsSku = goodsSku;
+    }
+
+    public String getTaobaoid() {
+        return taobaoid;
+    }
+
+    public void setTaobaoid(String taobaoid) {
+        this.taobaoid = taobaoid;
     }
 }

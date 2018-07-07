@@ -252,6 +252,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/backGround2</item>
     </style>
+    <style name="st_line_style">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/backGround2</item>
+        <item name="android:layout_marginLeft">@dimen/common_twelve_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
+    </style>
 
     <style name="SlsStyleDialog" parent="android:Theme.Holo.Light.Dialog">
         <!--<item name="android:windowContentOverlay">@null</item>-->
@@ -461,4 +468,12 @@
         <attr name="isFixed" format="boolean" />
         <attr name="columnSize" format="integer" />
     </declare-styleable>
+
+    <style name="confirm_bt_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_forty_nine_margin</item>
+        <item name="android:background">@drawable/confirm_bg</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textColor">@color/appText1</item>
+    </style>
 </resources>

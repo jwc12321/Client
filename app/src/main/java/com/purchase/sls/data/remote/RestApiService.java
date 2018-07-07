@@ -20,6 +20,7 @@ import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
+import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
@@ -32,6 +33,7 @@ import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
+import com.purchase.sls.data.entity.ShoppingCartInfo;
 import com.purchase.sls.data.entity.ToBeEvaluationInfo;
 import com.purchase.sls.data.entity.UserpowerInfo;
 import com.purchase.sls.data.entity.WXPaySignResponse;
@@ -41,6 +43,8 @@ import com.purchase.sls.data.request.ActivityIdRequest;
 import com.purchase.sls.data.request.ActivityOrderListRequest;
 import com.purchase.sls.data.request.AddAddressRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
+import com.purchase.sls.data.request.AddToCartRequest;
+import com.purchase.sls.data.request.CartidRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
 import com.purchase.sls.data.request.ChangepwdRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
@@ -328,4 +332,20 @@ public interface RestApiService {
     //获取商城商品详情
     @POST("mall/index/detail")
     Flowable<RemoteDataWrapper<GoodsDetailInfo>> getGoodsDetailInfo(@Body GoodsidRequest goodsidRequest);
+
+    //加入购物车
+    @POST("mall/addcart")
+    Flowable<RemoteDataWrapper<Ignore>> addToCart(@Body AddToCartRequest addToCartRequest);
+
+    //获取购物车列表
+    @POST("mall/cartlist")
+    Flowable<RemoteDataWrapper<List<ShoppingCartInfo>>> getShoppingCartList(@Body TokenRequest tokenRequest);
+
+    //购物车下单
+    @POST("mall/carttoorder")
+    Flowable<RemoteDataWrapper<GoodsOrderList>> orderShopCart(@Body CartidRequest cartidRequest);
+
+    //删除购物车
+    @POST("mall/delcart")
+    Flowable<RemoteDataWrapper<Ignore>> deleteShopCart(@Body IdRequest idRequest);
 }

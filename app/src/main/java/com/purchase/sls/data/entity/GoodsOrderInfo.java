@@ -5,10 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * Created by JWC on 2018/7/6.
+ * Created by JWC on 2018/7/7.
  */
 
-public class ShoppingCartInfo implements Serializable{
+public class GoodsOrderInfo implements Serializable{
+    @SerializedName("power")
+    private String power;
     @SerializedName("id")
     private String id;
     @SerializedName("goodsid")
@@ -21,8 +23,12 @@ public class ShoppingCartInfo implements Serializable{
     private String goodsnum;
     @SerializedName("allprice")
     private String allprice;
-    @SerializedName("oneprice")
-    private String oneprice;
+    @SerializedName("quan_price")
+    private String quanPrice;
+    @SerializedName("taobao_id")
+    private String taobaoId;
+    @SerializedName("quan_url")
+    private String quan_url;
     @SerializedName("goods_name")
     private String goodsName;
     @SerializedName("goods_img")
@@ -30,15 +36,12 @@ public class ShoppingCartInfo implements Serializable{
     @SerializedName("price")
     private String price;
 
-    //选中
-    private boolean isChoosed;
-
-    public String getPrice() {
-        return price;
+    public String getPower() {
+        return power;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setPower(String power) {
+        this.power = power;
     }
 
     public String getId() {
@@ -89,12 +92,28 @@ public class ShoppingCartInfo implements Serializable{
         this.allprice = allprice;
     }
 
-    public String getOneprice() {
-        return oneprice;
+    public String getQuanPrice() {
+        return quanPrice;
     }
 
-    public void setOneprice(String oneprice) {
-        this.oneprice = oneprice;
+    public void setQuanPrice(String quanPrice) {
+        this.quanPrice = quanPrice;
+    }
+
+    public String getTaobaoId() {
+        return taobaoId;
+    }
+
+    public void setTaobaoId(String taobaoId) {
+        this.taobaoId = taobaoId;
+    }
+
+    public String getQuan_url() {
+        return quan_url;
+    }
+
+    public void setQuan_url(String quan_url) {
+        this.quan_url = quan_url;
     }
 
     public String getGoodsName() {
@@ -113,12 +132,11 @@ public class ShoppingCartInfo implements Serializable{
         this.goodsImg = goodsImg;
     }
 
-    public boolean isChoosed() {
-        return isChoosed;
+    public String getPrice() {
+        return price;
     }
 
-    public void setChoosed(boolean choosed) {
-        isChoosed = choosed;
+    public void setPrice(String price) {
+        this.price = price;
     }
 }
-
