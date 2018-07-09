@@ -19,7 +19,6 @@
             android:layout_height="@dimen/common_ninety_four_margin"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/common_ten_margin"
-            android:layout_toRightOf="@id/choice_item"
             android:scaleType="fitXY"
             app:riv_corner_radius="2dp"
             app:riv_oval="false"

@@ -19,7 +19,9 @@ import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
+import com.purchase.sls.data.entity.GoodsOrderDetailInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
+import com.purchase.sls.data.entity.GoodsOrderManage;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
@@ -66,6 +68,7 @@ import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.OrderCodeRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.OrdernoRequest;
+import com.purchase.sls.data.request.OrdernumRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.PurchaseGoodsRequest;
@@ -80,6 +83,7 @@ import com.purchase.sls.data.request.StoreIdPageRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
 import com.purchase.sls.data.request.SubmitSpikeRequest;
 import com.purchase.sls.data.request.TokenRequest;
+import com.purchase.sls.data.request.TypePageRequest;
 import com.purchase.sls.data.request.TypeRequest;
 import com.purchase.sls.data.request.UploadXyRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
@@ -352,4 +356,13 @@ public interface RestApiService {
     //立即下单
     @POST("mall/topay")
     Flowable<RemoteDataWrapper<GoodsOrderList>> purchaseGoods(@Body PurchaseGoodsRequest purchaseGoodsRequest);
+
+    //商品订单列表
+    @POST("mall/olist")
+    Flowable<RemoteDataWrapper<GoodsOrderManage>> getGoodsOrderManage(@Body TypePageRequest typePageRequest);
+
+    //商品订单详情
+    @POST("mall/orderdetail")
+    Flowable<RemoteDataWrapper<GoodsOrderDetailInfo>> getGoodsOrderDetailInfo(@Body OrdernumRequest ordernumRequest);
+
 }

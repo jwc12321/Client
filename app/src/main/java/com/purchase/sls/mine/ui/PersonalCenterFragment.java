@@ -29,6 +29,7 @@ import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.evaluate.ui.ToBeEvaluatedActivity;
+import com.purchase.sls.goodsordermanage.ui.GoodsOrderActivity;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.messages.ui.MessageNotificationActivity;
 import com.purchase.sls.webview.ui.WebViewActivity;
@@ -78,6 +79,8 @@ public class PersonalCenterFragment extends BaseFragment {
     FrameLayout itemRdcode;
     @BindView(R.id.item_address)
     FrameLayout itemAddress;
+    @BindView(R.id.order_ll)
+    LinearLayout orderLl;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -87,7 +90,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private WebViewDetailInfo webViewDetailInfo;
     private String phoneNumber;
     private String qrCodeUrl;
-    private String firstIn="0";
+    private String firstIn = "0";
 
     public PersonalCenterFragment() {
     }
@@ -136,42 +139,45 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
     private void initVeiw() {
-        if (!isFirstLoad&&getUserVisibleHint()&&TextUtils.equals("0",firstIn)) {
+        if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
             persionInfoStr = persionAppPreferences.getPersionInfo();
             gson = new Gson();
-            if (!TextUtils.isEmpty(persionInfoStr)&&!TextUtils.isEmpty(TokenManager.getToken())) {
+            if (!TextUtils.isEmpty(persionInfoStr) && !TextUtils.isEmpty(TokenManager.getToken())) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
                 GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
-                if(!TextUtils.isEmpty(persionInfoResponse.getNickname())) {
+                if (!TextUtils.isEmpty(persionInfoResponse.getNickname())) {
                     persionName.setText(persionInfoResponse.getNickname());
-                }else {
+                } else {
                     persionName.setText(persionInfoResponse.getUsername());
                 }
                 phoneNumber = persionInfoResponse.getTel();
                 qrCodeUrl = persionInfoResponse.getQrcode();
-                firstIn="1";
+                firstIn = "1";
             } else {
-                firstIn="0";
+                firstIn = "0";
                 AccountLoginActivity.start(getActivity());
             }
         }
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode, R.id.item_address,R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll,R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
-                firstIn="0";
+                firstIn = "0";
                 SettingActivity.start(getActivity(), phoneNumber);
                 break;
             case R.id.information_iv:
                 MessageNotificationActivity.start(getActivity());
                 break;
             case R.id.item_persion_im://个人主页
-                firstIn="0";
+                firstIn = "0";
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_MY_INFO);
                 PersonalInformationActivity.start(getActivity());
+                break;
+            case R.id.order_ll://订单
+                GoodsOrderActivity.start(getActivity());
                 break;
             case R.id.collection_ll://收藏
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_COLLECTION);
@@ -192,7 +198,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 CouponListActivity.start(getActivity());
                 break;
             case R.id.item_address:
-                AddressListActivity.start(getActivity(),"0");
+                AddressListActivity.start(getActivity(), "0");
                 break;
             case R.id.item_rdcode://我的推荐码
                 RdCodeActivity.start(getActivity(), qrCodeUrl);

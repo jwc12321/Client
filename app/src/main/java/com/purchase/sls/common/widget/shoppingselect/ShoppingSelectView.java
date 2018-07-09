@@ -1,6 +1,8 @@
 package com.purchase.sls.common.widget.shoppingselect;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -118,7 +120,9 @@ public class ShoppingSelectView extends LinearLayout {
                 button.setGravity(Gravity.CENTER);
                 button.setBackgroundResource(R.drawable.tv_sel);
                 button.setButtonDrawable(android.R.color.transparent);
+                button.setTextSize(15);
                 button.setText(attr.getSpecs().get(i));
+                button.setTextColor(getResources().getColorStateList(R.color.spec_text_select));
                 layout.addView(button);
             }
             addView(layout);

@@ -104,7 +104,18 @@
                 android:background="@color/appText1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/order_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        style="@style/persion_image_account_style"
+                        android:src="@mipmap/order_icon" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/collection_ll"
                     android:layout_width="match_parent"

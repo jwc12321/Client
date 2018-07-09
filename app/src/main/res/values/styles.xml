@@ -2,10 +2,10 @@
 
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
     <!--</style>-->
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -13,6 +13,7 @@
         <item name="colorPrimaryDark">@color/backGround3</item> <!-- toolbar -->
         <item name="colorAccent">@color/colorAccent</item>  <!-- 重点 -->
     </style>
+
     <style name="AppTheme" parent="@style/BaseAppTheme" />
 
     <style name="FullscreenTheme" parent="AppTheme">
@@ -252,6 +253,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/backGround2</item>
     </style>
+
     <style name="st_line_style">
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -413,6 +415,7 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/appText1</item>
     </style>
+
     <style name="anim_push_bottom" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
@@ -448,12 +451,14 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_weight">1</item>
     </style>
+
     <style name="sort_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@drawable/bottom_text_select</item>
         <item name="android:textSize">15sp</item>
     </style>
+
     <style name="sort_iv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -475,5 +480,31 @@
         <item name="android:background">@drawable/confirm_bg</item>
         <item name="android:enabled">false</item>
         <item name="android:textColor">@color/appText1</item>
+    </style>
+
+    <style name="goods_detail_rl_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="goods_detail_tv_left_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText5</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginLeft">@dimen/common_twelve_margin</item>
+        <item name="android:layout_marginTop">@dimen/common_six_margin</item>
+        <item name="android:layout_marginBottom">@dimen/common_six_margin</item>
+    </style>
+
+    <style name="goods_detail_tv_right_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText5</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginTop">@dimen/common_six_margin</item>
+        <item name="android:layout_marginBottom">@dimen/common_six_margin</item>
     </style>
 </resources>

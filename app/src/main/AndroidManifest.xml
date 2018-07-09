@@ -325,6 +325,10 @@
         <activity android:name=".shoppingmall.ui.SelectSpecActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme"/>
+        <activity android:name=".goodsordermanage.ui.GoodsOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".goodsordermanage.ui.GoodsOrderDetalActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

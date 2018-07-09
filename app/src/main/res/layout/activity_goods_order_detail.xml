@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround21"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/order_detail" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.GradationScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/common_twelve_margin"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_twelve_margin"
+                android:background="@color/appText1">
+
+                <ImageView
+                    android:id="@+id/address_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_fifteen_margin"
+                    android:src="@mipmap/lt_address__icon" />
+
+                <TextView
+                    android:id="@+id/address_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_fifteen_margin"
+                    android:layout_toRightOf="@id/address_icon"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    tools:text="张三" />
+
+                <TextView
+                    android:id="@+id/address_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_fifteen_margin"
+                    android:layout_toRightOf="@id/address_name"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    tools:text="18758659856" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/address_name"
+                    android:layout_marginBottom="@dimen/common_ten_margin"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_ten_margin"
+                    android:layout_toRightOf="@id/address_icon"
+                    android:textColor="@color/appText5"
+                    android:textSize="13sp"
+                    tools:text="18758659856" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/common_twelve_margin"
+                android:background="@color/appText1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/goods_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
+
+                <TextView
+                    android:id="@+id/goods_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/goods_rv"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText5"
+                    android:textSize="13sp"
+                    tools:text="100" />
+
+                <Button
+                    android:id="@+id/pay_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_twenty_three_margin"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/goods_rv"
+                    android:layout_marginBottom="@dimen/common_twelve_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:background="@drawable/delete_address"
+                    android:minWidth="@dimen/common_seventy_seven_margin"
+                    android:textColor="@color/appText3"
+                    android:textSize="13sp"
+                    tools:text="确认支付" />
+
+                <Button
+                    android:id="@+id/see_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_twenty_three_margin"
+                    android:layout_below="@id/goods_rv"
+                    android:layout_marginBottom="@dimen/common_twelve_margin"
+                    android:layout_marginRight="@dimen/common_fifteen_margin"
+                    android:layout_marginTop="@dimen/common_twelve_margin"
+                    android:layout_toLeftOf="@id/pay_bt"
+                    android:background="@drawable/black_white_bg"
+                    android:minWidth="@dimen/common_seventy_seven_margin"
+                    android:text="查看物流"
+                    android:textColor="@color/appText5"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_twelve_margin"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    style="@style/goods_detail_rl_style"
+                    android:layout_marginTop="@dimen/common_six_margin">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/goods_total_price" />
+
+                    <TextView
+                        android:id="@+id/goods_total_price"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="商品总额" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/goods_detail_rl_style">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/freight" />
+
+                    <TextView
+                        android:id="@+id/freight"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="运费" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/goods_detail_rl_style">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/ng_voucher" />
+
+                    <TextView
+                        android:id="@+id/ng_voucher"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="能购劵" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/goods_detail_rl_style"
+                    android:layout_marginBottom="@dimen/common_six_margin">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/real_payment" />
+
+                    <TextView
+                        android:id="@+id/real_payment"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="实付款" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_twelve_margin"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    style="@style/goods_detail_rl_style"
+                    android:layout_marginTop="@dimen/common_six_margin">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/pay_type" />
+
+                    <TextView
+                        android:id="@+id/pay_type"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="付款方式" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/goods_detail_rl_style">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/pay_time" />
+
+                    <TextView
+                        android:id="@+id/pay_time"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="付款时间" />
+                </RelativeLayout>
+
+                <View
+                    style="@style/st_line_style"
+                    android:layout_marginBottom="@dimen/common_six_margin"
+                    android:layout_marginTop="@dimen/common_six_margin" />
+
+                <RelativeLayout style="@style/goods_detail_rl_style">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/goods_order_number" />
+
+                    <TextView
+                        android:id="@+id/goods_order_number"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="订单编号" />
+                </RelativeLayout>
+
+
+                <RelativeLayout style="@style/goods_detail_rl_style">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/place_order_time" />
+
+                    <TextView
+                        android:id="@+id/place_order_time"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="下单时间" />
+                </RelativeLayout>
+
+                <View
+                    style="@style/st_line_style"
+                    android:layout_marginBottom="@dimen/common_six_margin"
+                    android:layout_marginTop="@dimen/common_six_margin" />
+
+                <RelativeLayout style="@style/goods_detail_rl_style">
+
+                    <TextView
+                        style="@style/goods_detail_tv_left_style"
+                        android:text="@string/distribution_type" />
+
+                    <TextView
+                        android:id="@+id/distribution_type"
+                        style="@style/goods_detail_tv_right_style"
+                        tools:text="配送方式" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.GradationScrollView>
+</LinearLayout>

@@ -111,4 +111,6 @@ public class StaticData {
     public static final String GOODS_ORDER_LIST="goodsOrderList";
     //总价
     public static final String TOTAL_PRICE="tatalPrice";
+    //订单编号
+    public static final String ORDER_NUM="orderNum";
 }
