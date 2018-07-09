@@ -35,11 +35,13 @@ public interface ShoppingMallContract {
     interface GoodsDetailPresenter extends BasePresenter{
         void getGoodsDetail(String goodsid);
         void addToCart(String id, String taobaoid, String sku, String num, String skuinfo, String quan, String tjprice, String quan_url);
+        void purchaseGoods(String goodsnum, String goodsId, String sku, String price, String skuinfo, String taobaoid, String quan, String quan_url);
     }
 
     interface GoodsDetailView extends BaseView<GoodsDetailPresenter>{
         void renderGoodsDetail(GoodsDetailInfo goodsDetailInfo);
         void addToCartSuccess();
+        void purchaseGoodsSuccess(GoodsOrderList goodsOrderList);
     }
 
     interface GoodsSearchPresenter extends BasePresenter{

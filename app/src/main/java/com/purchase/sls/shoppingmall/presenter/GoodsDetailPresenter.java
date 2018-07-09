@@ -2,11 +2,13 @@ package com.purchase.sls.shoppingmall.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
+import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.AddToCartRequest;
 import com.purchase.sls.data.request.GoodsidRequest;
+import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 
 import java.util.ArrayList;
@@ -91,6 +93,29 @@ public class GoodsDetailPresenter implements ShoppingMallContract.GoodsDetailPre
                     public void accept(Ignore ignore) throws Exception {
                         goodsDetailView.dismissLoading();
                         goodsDetailView.addToCartSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsDetailView.dismissLoading();
+                        goodsDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void purchaseGoods(String goodsnum, String goodsId, String sku, String price, String skuinfo, String taobaoid, String quan, String quan_url) {
+        goodsDetailView.showLoading();
+        PurchaseGoodsRequest purchaseGoodsRequest=new PurchaseGoodsRequest(goodsnum,goodsId,sku,price,skuinfo,taobaoid,quan,quan_url);
+        Disposable disposable = restApiService.purchaseGoods(purchaseGoodsRequest)
+                .flatMap(new RxRemoteDataParse<GoodsOrderList>())
+                .compose(new RxSchedulerTransformer<GoodsOrderList>())
+                .subscribe(new Consumer<GoodsOrderList>() {
+                    @Override
+                    public void accept(GoodsOrderList goodsOrderList) throws Exception {
+                        goodsDetailView.dismissLoading();
+                        goodsDetailView.purchaseGoodsSuccess(goodsOrderList);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -18,6 +18,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
@@ -104,6 +105,8 @@ public class GoodsSearchItemActivity extends BaseActivity implements ShoppingMal
         title.setText(sortKeyword);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         goodsItemRv.setLayoutManager(new GridLayoutManager(this, 2));
+        int space = 20;
+        goodsItemRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
         goodsSearchItemAdapter = new GoodsSearchItemAdapter(this);
         goodsSearchItemAdapter.setOnItemClickListener(this);
         goodsItemRv.setAdapter(goodsSearchItemAdapter);

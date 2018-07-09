@@ -1,7 +1,6 @@
 package com.purchase.sls.data.remote;
 
 
-import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.RemoteDataWrapper;
 import com.purchase.sls.data.entity.AccountDetailInfo;
 import com.purchase.sls.data.entity.AccountListInfo;
@@ -69,6 +68,7 @@ import com.purchase.sls.data.request.OrderDetailRequest;
 import com.purchase.sls.data.request.OrdernoRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
+import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.data.request.ReceiveCouponRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
 import com.purchase.sls.data.request.RemoveBrowseRequest;
@@ -348,4 +348,8 @@ public interface RestApiService {
     //删除购物车
     @POST("mall/delcart")
     Flowable<RemoteDataWrapper<Ignore>> deleteShopCart(@Body IdRequest idRequest);
+
+    //立即下单
+    @POST("mall/topay")
+    Flowable<RemoteDataWrapper<GoodsOrderList>> purchaseGoods(@Body PurchaseGoodsRequest purchaseGoodsRequest);
 }

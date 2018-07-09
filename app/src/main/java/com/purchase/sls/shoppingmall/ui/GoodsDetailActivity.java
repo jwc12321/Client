@@ -29,6 +29,7 @@ import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.TearDownView;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
+import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsSku;
 import com.purchase.sls.data.entity.GoodsUnitPrice;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
@@ -179,6 +180,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                 break;
             case R.id.purchase:
                 addType="1";
+                selectSpec();
                 break;
             case R.id.shopping_cart:
                 ShoppingCartActivity.start(this);
@@ -207,7 +209,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                             if(TextUtils.equals("0",addType)) {
                                 goodsDetailPresenter.addToCart(goodsid, taobaoid, goodsUnitPrice.getSkuId(), goodsCount, goodsUnitPrice.getName(), quanPrice, goodsUnitPrice.getPrice(), "");
                             }else {
-
+                                goodsDetailPresenter.purchaseGoods(goodsCount,goodsid,goodsUnitPrice.getSkuId(),goodsUnitPrice.getPrice(),goodsUnitPrice.getName(),taobaoid,quanPrice,"");
                             }
                         }
                     }
@@ -271,5 +273,10 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void addToCartSuccess() {
         showMessage("加入购物车成功");
+    }
+
+    @Override
+    public void purchaseGoodsSuccess(GoodsOrderList goodsOrderList) {
+        FillInOrderActivity.start(this, goodsOrderList);
     }
 }
