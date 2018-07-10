@@ -120,7 +120,7 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
                     break;
                 }
             }
-            if(goodsUnitPrice != null&&TextUtils.equals("0",goodsUnitPrice.getQuantity())){
+            if (goodsUnitPrice != null && TextUtils.equals("0", goodsUnitPrice.getQuantity())) {
                 showMessage("该商品没有库存");
                 return;
             }
@@ -133,6 +133,11 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
 
     private void calculatingPrice(GoodsUnitPrice goodsUnitPrice) {
         if (goodsUnitPrice != null) {
+            if(!TextUtils.isEmpty(goodsUnitPrice.getQuantity())&&(currentCount>Integer.parseInt(goodsUnitPrice.getQuantity()))){
+                currentCount=Integer.parseInt(goodsUnitPrice.getQuantity());
+                goodsCount.setText(String.valueOf(currentCount));
+                showMessage("库存只有"+currentCount+"件");
+            }
             totalPriceBd = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
             unitPriceBd = new BigDecimal(goodsUnitPrice.getPrice()).setScale(2, RoundingMode.HALF_UP);
             countBd = new BigDecimal(currentCount).setScale(0, RoundingMode.HALF_UP);
@@ -176,7 +181,7 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
                 finish();
                 break;
             case R.id.decrease_count:
-                if (currentCount == 1) {
+                if (currentCount == 1||currentCount==0) {
                     return;
                 }
                 currentCount--;

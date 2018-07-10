@@ -3,7 +3,6 @@ package com.purchase.sls.shoppingmall;
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.AddressInfo;
-import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsOrderList;
@@ -68,9 +67,19 @@ public interface ShoppingMallContract {
 
    interface FillInOrderPresenter extends BasePresenter{
        void getAddressList();
+       void getAlipaySign(String carts, String addressid, String paytype, String isquan);
+       void getWXPaySign(String carts, String addressid, String paytype, String isquan);
    }
 
    interface FillOrderView extends BaseView<FillInOrderPresenter>{
        void renderAddressList(List<AddressInfo> addressInfos);
+       //充值失败回调
+       void onRechargetFail();
+       //充值成功回调
+       void onRechargeSuccess();
+       //充值取消
+       void onRechargeCancel();
+       void onAppIdReceive(String appId);
+       void renderOrderno(String orderno);
    }
 }

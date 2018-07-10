@@ -112,7 +112,7 @@ public class AllEvaluateAdapter extends RecyclerView.Adapter<AllEvaluateAdapter.
         public void bindData(EvaluateInfo.EvaluateItemInfo evaluateItemInfo) {
             List<EvaluateInfo.EvaluateItemInfo.usersInfo> usersInfos = evaluateItemInfo.getUsersInfos();
             if (usersInfos != null && usersInfos.size() > 0 && usersInfos.get(0) != null) {
-                GlideHelper.load((Activity) context, usersInfos.get(0).getAvatar(), R.mipmap.app_icon, peopleIcon);
+                GlideHelper.load((Activity) context, usersInfos.get(0).getAvatar(), R.mipmap.head_photo_icon, peopleIcon);
                 peopleName.setText(usersInfos.get(0).getUsername());
             }
             ratingBar.setmScope(Float.parseFloat(evaluateItemInfo.getStarts()));

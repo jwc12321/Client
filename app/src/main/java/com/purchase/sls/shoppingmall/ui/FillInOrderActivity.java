@@ -17,15 +17,25 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.address.ui.AddressListActivity;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.UMStaticData;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.GoodsOrderInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
+import com.purchase.sls.data.event.PayAbortEvent;
+import com.purchase.sls.data.event.WXSuccessPayEvent;
+import com.purchase.sls.shopdetailbuy.ui.PaySuccessActivity;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
 import com.purchase.sls.shoppingmall.adapter.FillOrderGoodsAdapter;
 import com.purchase.sls.shoppingmall.presenter.FillInOrderPresenter;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -90,6 +100,8 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     private FillOrderGoodsAdapter fillOrderGoodsAdapter;
     private AddressInfo addressInfo;
     private GoodsOrderList goodsOrderList;
+    //1：支付包 2：微信
+    private String payType = "1";
 
     @Inject
     FillInOrderPresenter fillInOrderPresenter;
@@ -102,6 +114,10 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     private String quanPrice;
     private String quanHouPrice;
     private boolean flag = true;
+    private IWXAPI api;
+    private String ordreno;
+    private String cartId;
+    private String isQuan;
 
 
     public static void start(Context context, GoodsOrderList goodsOrderList) {
@@ -121,10 +137,14 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
 
     private void initView() {
         goodsOrderList = (GoodsOrderList) getIntent().getSerializableExtra(StaticData.GOODS_ORDER_LIST);
+        zhifubaoPay.setSelected(true);
+        weixinPay.setSelected(false);
+        fillInOrderPresenter.setContext(this);
         if (goodsOrderList != null) {
             goodsOrderInfos = goodsOrderList.getGoodsOrderInfos();
             quanPrice = goodsOrderList.getQuan();
             quanHouPrice = goodsOrderList.getQuanhou();
+            cartId=goodsOrderList.getCartid();
             if (TextUtils.isEmpty(quanPrice) || TextUtils.equals("0", quanPrice)
                     || TextUtils.equals("0.0", quanPrice) || TextUtils.equals("0.00", quanPrice)) {
                 voucherRl.setVisibility(View.GONE);
@@ -171,7 +191,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         return null;
     }
 
-    @OnClick({R.id.back, R.id.address_rl, R.id.use_voucher_iv})
+    @OnClick({R.id.back, R.id.address_rl, R.id.use_voucher_iv,R.id.zhifubao_rl,R.id.weixin_rl,R.id.confirm_bt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -183,13 +203,40 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
             case R.id.use_voucher_iv:
                 flag = !flag;
                 if (flag) {
+                    isQuan="1";
                     useVoucherIv.setSelected(true);
                 } else {
+                    isQuan="0";
                     useVoucherIv.setSelected(false);
                 }
                 voucher(flag);
                 break;
+            case R.id.zhifubao_rl:
+                payType = "1";
+                zhifubaoPay.setSelected(true);
+                weixinPay.setSelected(false);
+                break;
+            case R.id.weixin_rl:
+                payType = "2";
+                zhifubaoPay.setSelected(false);
+                weixinPay.setSelected(true);
+                break;
+            case R.id.confirm_bt:
+                submitOrder();
+                break;
             default:
+        }
+    }
+
+    private void submitOrder(){
+        if(addressInfo==null||TextUtils.isEmpty(addressInfo.getId())){
+            showMessage("请选择地址");
+            return;
+        }
+        if(TextUtils.equals("1",payType)){
+            fillInOrderPresenter.getAlipaySign(cartId,addressInfo.getId(),payType,isQuan);
+        }else {
+            fillInOrderPresenter.getWXPaySign(cartId,addressInfo.getId(),payType,isQuan);
         }
     }
 
@@ -218,6 +265,9 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
                             } else {
                                 defaultAddress.setVisibility(View.GONE);
                             }
+                            confirmBt.setEnabled(true);
+                        }else {
+                            confirmBt.setEnabled(false);
                         }
                     }
                     break;
@@ -245,13 +295,71 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
                 addressName.setText(addressInfo.getUsername());
                 addressTel.setText(addressInfo.getTel());
                 address.setText(addressInfo.getProvince() + addressInfo.getCity() + addressInfo.getCountry() + addressInfo.getAddress());
+                confirmBt.setEnabled(true);
             } else {
                 noAddress.setVisibility(View.VISIBLE);
+                confirmBt.setEnabled(false);
             }
         } else {
             noAddress.setVisibility(View.VISIBLE);
+            confirmBt.setEnabled(false);
         }
     }
 
+    @Override
+    public void onRechargetFail() {
+        showMessage("支付宝支付失败");
+    }
 
+    @Override
+    public void onRechargeSuccess() {
+        UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);
+        this.finish();
+    }
+
+    @Override
+    public void onRechargeCancel() {
+        showMessage("支付宝支付取消");
+    }
+
+    @Override
+    public void onAppIdReceive(String appId) {
+        if (api == null) {
+            api = WXAPIFactory.createWXAPI(this, appId);
+            api.registerApp(appId);
+            fillInOrderPresenter.setWXAPI(api);
+        }
+    }
+
+    @Override
+    public void renderOrderno(String orderno) {
+        this.ordreno = orderno;
+    }
+
+    /*****
+     * 微信支付结果的回调
+     ******/
+
+    //取消支付，或者支付不成功
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPayNotSuccess(PayAbortEvent event) {
+        if (event.msg != null)
+            showMessage(event.msg);
+    }
+
+    //支付成功
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPaySuccess(WXSuccessPayEvent event) {
+        UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);
+        this.finish();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWxPayResult(PayAbortEvent event) {
+        if (event.code == 0) {
+            finish();
+        } else {
+            showMessage(event.msg);
+        }
+    }
 }

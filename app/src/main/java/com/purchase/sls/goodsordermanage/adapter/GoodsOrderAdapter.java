@@ -48,7 +48,7 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
     }
 
     @Override
-    public void onBindViewHolder(GoodsOrderView holder, int position) {
+    public void onBindViewHolder(final GoodsOrderView holder, int position) {
         final GoodsOrderItemInfo goodsOrderItemInfo = goodsOrderItemInfos.get(holder.getAdapterPosition());
         holder.bindData(goodsOrderItemInfo);
         holder.goodsItem.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +56,35 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
             public void onClick(View v) {
                 if (hostAction != null) {
                     hostAction.goOrderDetail(goodsOrderItemInfo.getOrdernum());
+                }
+            }
+        });
+        holder.payBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hostAction != null) {
+                    if (TextUtils.equals("0", goodsOrderItemInfo.getType()) && TextUtils.equals("付款", holder.payBt.getText().toString())) {
+
+                    } else if (TextUtils.equals("2", goodsOrderItemInfo.getType()) && TextUtils.equals("确认收货", holder.payBt.getText().toString())) {
+                        hostAction.completeOrder(goodsOrderItemInfo.getOrdernum());
+                    } else if (TextUtils.equals("3", goodsOrderItemInfo.getType()) && TextUtils.equals("删除订单", holder.payBt.getText().toString())) {
+                        hostAction.deleteOrder(goodsOrderItemInfo.getOrdernum());
+                    }
+                }
+            }
+        });
+
+        holder.seeBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hostAction != null) {
+                    if (TextUtils.equals("0", goodsOrderItemInfo.getType()) && TextUtils.equals("取消订单", holder.seeBt.getText().toString())) {
+                        hostAction.cancelOrder(goodsOrderItemInfo.getOrdernum());
+                    } else if (TextUtils.equals("2", goodsOrderItemInfo.getType()) && TextUtils.equals("查看物流", holder.seeBt.getText().toString())) {
+                        if (goodsOrderItemInfo.getGoodsInfos() != null && goodsOrderItemInfo.getGoodsInfos().size() > 0) {
+                            hostAction.seeLogistics(goodsOrderItemInfo.getOrdernum(), goodsOrderItemInfo.getGoodsInfos().get(0).getWuliu());
+                        }
+                    }
                 }
             }
         });
@@ -79,7 +108,7 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
         notifyItemRangeInserted(pos, list.size());
     }
 
-    public class GoodsOrderView extends RecyclerView.ViewHolder implements GoodsOrderItemAdapter.ItemClickListener{
+    public class GoodsOrderView extends RecyclerView.ViewHolder implements GoodsOrderItemAdapter.ItemClickListener {
         @BindView(R.id.goods_rv)
         RecyclerView goodsRv;
         @BindView(R.id.goods_price)
@@ -103,7 +132,7 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
 
         public void bindData(GoodsOrderItemInfo goodsOrderItemInfo) {
             goodsPrice.setText("¥" + goodsOrderItemInfo.getAllquanPrice());
-            goodsOrderItemAdapter.setData(goodsOrderItemInfo.getGoodsInfos(),goodsOrderItemInfo.getOrdernum());
+            goodsOrderItemAdapter.setData(goodsOrderItemInfo.getGoodsInfos(), goodsOrderItemInfo.getOrdernum());
             buttonType(goodsOrderItemInfo.getType());
         }
 
@@ -111,8 +140,9 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
         private void buttonType(String type) {
             if (TextUtils.equals("0", type)) {
                 payBt.setVisibility(View.VISIBLE);
-                seeBt.setVisibility(View.INVISIBLE);
+                seeBt.setVisibility(View.VISIBLE);
                 payBt.setText("付款");
+                seeBt.setText("取消订单");
             } else if (TextUtils.equals("1", type)) {
                 payBt.setVisibility(View.INVISIBLE);
                 seeBt.setVisibility(View.INVISIBLE);
@@ -120,6 +150,7 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
                 payBt.setVisibility(View.VISIBLE);
                 seeBt.setVisibility(View.VISIBLE);
                 payBt.setText("确认收货");
+                payBt.setText("查看物流");
             } else if (TextUtils.equals("3", type)) {
                 payBt.setVisibility(View.VISIBLE);
                 seeBt.setVisibility(View.INVISIBLE);
@@ -129,7 +160,7 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
 
         @Override
         public void goOrderDetail(String orderNum) {
-            if(hostAction!=null){
+            if (hostAction != null) {
                 hostAction.goOrderDetail(orderNum);
             }
         }
@@ -137,13 +168,17 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
 
 
     public interface HostAction {
-        void seeLogistics();//查看物流
+        void cancelOrder(String orderNum);//取消订单
 
-        void deleteOrder();//删除订单
+        void payOrder(String orderNum);//支付
+
+        void seeLogistics(String orderNum, String expressName);//查看物流
+
+        void completeOrder(String orderNum);//完成订单
+
+        void deleteOrder(String orderNum);//删除订单
 
         void goOrderDetail(String orderNum);//订单详情
-
-        void payOrder();//支付
     }
 
     private HostAction hostAction;

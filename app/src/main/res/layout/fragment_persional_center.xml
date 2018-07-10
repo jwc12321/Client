@@ -18,11 +18,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/item_persion_im"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/appText3"
+                android:layout_height="@dimen/common_two_hundred_nine_margin"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/bg_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:id="@+id/bg_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/appText5"
+                    android:orientation="vertical"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -32,12 +46,12 @@
                         android:id="@+id/setting_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/common_text_left"
                         android:paddingLeft="@dimen/common_margin_left_right"
                         android:paddingRight="@dimen/common_margin_left_right"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/btn_setting_pressed"
                         android:paddingTop="@dimen/common_text_left"
-                        android:paddingBottom="@dimen/common_text_left"/>
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/btn_setting_pressed" />
 
                     <ImageView
                         android:id="@+id/information_iv"
@@ -52,51 +66,32 @@
                         android:src="@mipmap/news" />
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/psersoin_homepage_ll"
-                    android:layout_width="match_parent"
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/head_photo"
+                    android:layout_width="@dimen/common_eighty_two_margin"
+                    android:layout_height="@dimen/common_eighty_two_margin"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/common_five_margin"
+                    android:scaleType="fitXY"
+                    app:riv_border_color="@color/appText1"
+                    app:riv_border_width="3dp"
+                    app:riv_corner_radius="1dp"
+                    app:riv_oval="true"
+                    tools:background="@null"
+                    tools:src="@mipmap/head_photo_icon" />
+
+                <TextView
+                    android:id="@+id/persion_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_below="@id/head_photo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/common_ten_margin"
+                    android:textColor="@color/appText1"
+                    android:textSize="17sp"
+                    tools:text="哈哈" />
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/photo"
-                        style="@style/PhotoStyle"
-                        android:layout_width="@dimen/personal_photo_size"
-                        android:layout_height="@dimen/personal_photo_size"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="@dimen/photo_bottom"
-                        android:layout_marginLeft="@dimen/persion_marleft"
-                        android:layout_marginTop="@dimen/photo_top"
-                        app:riv_oval="true"
-                        tools:background="@null"
-                        tools:src="@mipmap/app_icon" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="17dp"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/persion_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/appText1"
-                            android:textSize="17sp"
-                            tools:text="哈哈"/>
-
-                        <ImageView
-                            android:layout_marginTop="@dimen/common_ten_margin"
-                            android:id="@+id/item_persion_im"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/item_persion_im" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,6 +99,7 @@
                 android:background="@color/appText1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:id="@+id/order_ll"
                     android:layout_width="match_parent"
@@ -116,6 +112,7 @@
                         style="@style/persion_image_account_style"
                         android:src="@mipmap/order_icon" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/collection_ll"
                     android:layout_width="match_parent"
@@ -179,6 +176,7 @@
                     android:drawableStart="@mipmap/voucher"
                     android:text="@string/coupon" />
             </FrameLayout>
+
             <FrameLayout
                 android:id="@+id/item_address"
                 style="@style/persion_item_fl_style"
@@ -190,6 +188,7 @@
                     android:drawableStart="@mipmap/item_address"
                     android:text="@string/item_address" />
             </FrameLayout>
+
             <FrameLayout
                 android:id="@+id/item_rdcode"
                 style="@style/persion_item_fl_style"

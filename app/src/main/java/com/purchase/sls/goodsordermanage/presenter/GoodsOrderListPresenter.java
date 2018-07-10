@@ -5,8 +5,12 @@ import android.text.TextUtils;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ActivityOrderListResponse;
 import com.purchase.sls.data.entity.GoodsOrderManage;
+import com.purchase.sls.data.entity.Ignore;
+import com.purchase.sls.data.entity.MalllogisInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.GoodsOrderCodeRequest;
+import com.purchase.sls.data.request.MalllogisRequest;
 import com.purchase.sls.data.request.TypePageRequest;
 import com.purchase.sls.goodsordermanage.GoodsOrderContract;
 
@@ -121,6 +125,98 @@ public class GoodsOrderListPresenter implements GoodsOrderContract.GoodsOrderLis
                     public void accept(GoodsOrderManage goodsOrderManage) throws Exception {
                         goodsOrderListView.dismissLoading();
                         goodsOrderListView.renderMore(goodsOrderManage.getGoodsOrderItemInfos());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void cancelOrder(String orderCode) {
+        goodsOrderListView.showLoading();
+        GoodsOrderCodeRequest goodsOrderCodeRequest = new GoodsOrderCodeRequest(orderCode);
+        Disposable disposable = restApiService.cancelOrder(goodsOrderCodeRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.cancelOrderSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void deleteOrder(String orderCode) {
+        goodsOrderListView.showLoading();
+        GoodsOrderCodeRequest goodsOrderCodeRequest = new GoodsOrderCodeRequest(orderCode);
+        Disposable disposable = restApiService.deleteOrder(goodsOrderCodeRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.cancelOrderSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void completeOrder(String orderCode) {
+        goodsOrderListView.showLoading();
+        GoodsOrderCodeRequest goodsOrderCodeRequest = new GoodsOrderCodeRequest(orderCode);
+        Disposable disposable = restApiService.completeOrder(goodsOrderCodeRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
+                    @Override
+                    public void accept(Ignore ignore) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.cancelOrderSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void getMalllogisInfo(String orderCode) {
+        goodsOrderListView.showLoading();
+        MalllogisRequest malllogisRequest = new MalllogisRequest(orderCode);
+        Disposable disposable = restApiService.getMalllogisInfo(malllogisRequest)
+                .flatMap(new RxRemoteDataParse<MalllogisInfo>())
+                .compose(new RxSchedulerTransformer<MalllogisInfo>())
+                .subscribe(new Consumer<MalllogisInfo>() {
+                    @Override
+                    public void accept(MalllogisInfo malllogisInfo) throws Exception {
+                        goodsOrderListView.dismissLoading();
+                        goodsOrderListView.renderMalllogisInfo(malllogisInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

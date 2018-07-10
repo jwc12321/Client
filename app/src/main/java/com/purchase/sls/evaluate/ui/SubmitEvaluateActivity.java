@@ -93,7 +93,7 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     private String starts;
     private String businessName;
     private List<String> uploadFiles;
-    private List<String> waitUploadFiles;
+//    private List<String> waitUploadFiles;
     private int successPhoto;
 
     @Inject
@@ -167,8 +167,8 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     public void uploadFileSuccess(String photoUrl) {
         successPhoto = successPhoto + 1;
         uploadFiles.add(photoUrl);
-        if(successPhoto<waitUploadFiles.size()) {
-            submitEvaluatePresenter.uploadFile(waitUploadFiles.get(successPhoto));
+        if(successPhoto<photoPaths.size()) {
+            submitEvaluatePresenter.uploadFile(photoPaths.get(successPhoto));
         }
         if (successPhoto == photoPaths.size()) {
             submitEvaluate();
@@ -179,8 +179,8 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
     public void showError(Throwable e) {
         super.showError(e);
         successPhoto = successPhoto + 1;
-        if(successPhoto<waitUploadFiles.size()) {
-            submitEvaluatePresenter.uploadFile(waitUploadFiles.get(successPhoto));
+        if(successPhoto<photoPaths.size()) {
+            submitEvaluatePresenter.uploadFile(photoPaths.get(successPhoto));
         }
         if (successPhoto == photoPaths.size()) {
             submitEvaluate();
@@ -292,16 +292,17 @@ public class SubmitEvaluateActivity extends BaseActivity implements EvaluateCont
         showLoading();
         if (photoPaths != null && photoPaths.size() > 0) {
             successPhoto = 0;
-            new CompressPhotoUtils().CompressPhoto(SubmitEvaluateActivity.this, photoPaths, new CompressPhotoUtils.CompressCallBack() {
-
-                @Override
-                public void success(List<String> list) {
-                    if(list!=null&&list.size()>0){
-                        waitUploadFiles=list;
-                        submitEvaluatePresenter.uploadFile(waitUploadFiles.get(0));
-                    }
-                }
-            });
+            submitEvaluatePresenter.uploadFile(photoPaths.get(0));
+//            new CompressPhotoUtils().CompressPhoto(SubmitEvaluateActivity.this, photoPaths, new CompressPhotoUtils.CompressCallBack() {
+//
+//                @Override
+//                public void success(List<String> list) {
+//                    if(list!=null&&list.size()>0){
+//                        waitUploadFiles=list;
+//                        submitEvaluatePresenter.uploadFile(waitUploadFiles.get(0));
+//                    }
+//                }
+//            });
         } else {
             submitEvaluate();
         }

@@ -69,13 +69,11 @@ public class GoodsListPresenter implements ShoppingMallContract.GoodsListPresent
                 .subscribe(new Consumer<List<SMBannerInfo>>() {
                     @Override
                     public void accept(List<SMBannerInfo> smBannerInfos) throws Exception {
-                        goodsListView.dismissLoading();
                         goodsListView.smBannerInfo(smBannerInfos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        goodsListView.dismissLoading();
                         goodsListView.showError(throwable);
                     }
                 });
@@ -92,7 +90,6 @@ public class GoodsListPresenter implements ShoppingMallContract.GoodsListPresent
                 .subscribe(new Consumer<List<GoodsParentInfo>>() {
                     @Override
                     public void accept(List<GoodsParentInfo> goodsParentInfos) throws Exception {
-                        goodsListView.dismissLoading();
                         goodsListView.renderGoodsParents(goodsParentInfos);
                     }
                 }, new Consumer<Throwable>() {

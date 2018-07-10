@@ -19,6 +19,8 @@ public class GoodsInfo {
     private String goodsnum;
     @SerializedName("skuinfo")
     private String skuinfo;
+    @SerializedName("wuliu")
+    private String wuliu;
 
     public String getId() {
         return id;
@@ -66,5 +68,13 @@ public class GoodsInfo {
 
     public void setSkuinfo(String skuinfo) {
         this.skuinfo = skuinfo;
+    }
+
+    public String getWuliu() {
+        return wuliu;
+    }
+
+    public void setWuliu(String wuliu) {
+        this.wuliu = wuliu;
     }
 }

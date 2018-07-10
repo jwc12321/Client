@@ -23,8 +23,6 @@
         android:id="@+id/goods_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_five_margin"
-        android:layout_marginRight="@dimen/common_five_margin"
         android:layout_marginTop="@dimen/common_eight_margin"
         android:layout_marginBottom="@dimen/common_eight_margin"
         android:ellipsize="end"
@@ -41,7 +39,6 @@
             android:id="@+id/goods_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_five_margin"
             android:textColor="@color/appText5"
             android:textSize="15sp"
             tools:text="100" />
@@ -53,8 +50,8 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/orange_bg"
             android:gravity="center"
-            android:paddingLeft="@dimen/common_nine_margin"
-            android:paddingRight="@dimen/common_nine_margin"
+            android:paddingLeft="@dimen/common_two_margin"
+            android:paddingRight="@dimen/common_two_margin"
             android:textColor="@color/appText1"
             android:textSize="12sp"
             tools:text="劵可减1000" />

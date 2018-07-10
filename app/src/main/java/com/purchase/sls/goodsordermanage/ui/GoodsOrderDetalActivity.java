@@ -18,22 +18,25 @@ import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.FormatUtil;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.data.entity.GoodsOrderDetailInfo;
+import com.purchase.sls.data.entity.MalllogisInfo;
 import com.purchase.sls.goodsordermanage.DaggerGoodsOrderComponent;
 import com.purchase.sls.goodsordermanage.GoodsOrderContract;
 import com.purchase.sls.goodsordermanage.GoodsOrderModule;
 import com.purchase.sls.goodsordermanage.adapter.GoodsOrderItemAdapter;
 import com.purchase.sls.goodsordermanage.presenter.GoodsOrderDetailPresenter;
+import com.purchase.sls.ordermanage.ui.LogisticsDetailsActivity;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JWC on 2018/7/9.
  */
 
-public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderContract.GoodsOrderDetailView{
+public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderContract.GoodsOrderDetailView {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -77,28 +80,32 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
     @BindView(R.id.scrollview)
     GradationScrollView scrollview;
 
+    private String expressName;
+
     @Inject
     GoodsOrderDetailPresenter goodsOrderDetailPresenter;
     private String orderNum;
     private GoodsOrderItemAdapter goodsOrderItemAdapter;
+    private String orderType;
 
-    public static void start(Context context,String orderNum) {
+    public static void start(Context context, String orderNum) {
         Intent intent = new Intent(context, GoodsOrderDetalActivity.class);
-        intent.putExtra(StaticData.ORDER_NUM,orderNum);
+        intent.putExtra(StaticData.ORDER_NUM, orderNum);
         context.startActivity(intent);
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_order_detail);
         ButterKnife.bind(this);
-        setHeight(back,title,null);
+        setHeight(back, title, null);
         initView();
     }
 
-    private void initView(){
-        orderNum=getIntent().getStringExtra(StaticData.ORDER_NUM);
-        goodsOrderItemAdapter=new GoodsOrderItemAdapter(this);
+    private void initView() {
+        orderNum = getIntent().getStringExtra(StaticData.ORDER_NUM);
+        goodsOrderItemAdapter = new GoodsOrderItemAdapter(this);
         goodsRv.setAdapter(goodsOrderItemAdapter);
         goodsOrderDetailPresenter.getGoodsOrderDetail(orderNum);
     }
@@ -124,22 +131,25 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
 
     @Override
     public void renderGoodsOrderDetail(GoodsOrderDetailInfo goodsOrderDetailInfo) {
-        if(goodsOrderDetailInfo!=null){
+        if (goodsOrderDetailInfo != null) {
             addressName.setText(goodsOrderDetailInfo.getName());
             addressTel.setText(goodsOrderDetailInfo.getTel());
             address.setText(goodsOrderDetailInfo.getProvince() + goodsOrderDetailInfo.getCity() + goodsOrderDetailInfo.getCounty() + goodsOrderDetailInfo.getAddress());
-            if(goodsOrderDetailInfo.getGoodsInfos()!=null){
-                goodsOrderItemAdapter.setData(goodsOrderDetailInfo.getGoodsInfos(),"");
+            if (goodsOrderDetailInfo.getGoodsInfos() != null && goodsOrderDetailInfo.getGoodsInfos().size() > 0) {
+                goodsOrderItemAdapter.setData(goodsOrderDetailInfo.getGoodsInfos(), "");
+                expressName = goodsOrderDetailInfo.getGoodsInfos().get(0).getWuliu();
+                distributionType.setText(expressName);
             }
-            goodsPrice.setText("¥"+goodsOrderDetailInfo.getOprice());
+            goodsPrice.setText("¥" + goodsOrderDetailInfo.getOprice());
+            orderType = goodsOrderDetailInfo.getType();
             buttonType(goodsOrderDetailInfo.getType());
             goodsTotalPrice.setText(goodsOrderDetailInfo.getOprice());
             freight.setText("0");
             ngVoucher.setText(goodsOrderDetailInfo.getAllquanPrice());
             realPayment.setText(goodsOrderDetailInfo.getPayprice());
-            if(TextUtils.equals("1",goodsOrderDetailInfo.getPaytype())) {
+            if (TextUtils.equals("1", goodsOrderDetailInfo.getPaytype())) {
                 payType.setText("支付宝");
-            }else {
+            } else {
                 payType.setText("微信");
             }
             payTime.setText(FormatUtil.formatDateByLine(goodsOrderDetailInfo.getPaytime()));
@@ -149,23 +159,73 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
         }
     }
 
+    @Override
+    public void cancelOrderSuccess() {
+        goodsOrderDetailPresenter.getGoodsOrderDetail(orderNum);
+    }
+
+    @Override
+    public void deleteOrderSuccess() {
+        finish();
+    }
+
+    @Override
+    public void completeOrderSuccess() {
+        goodsOrderDetailPresenter.getGoodsOrderDetail(orderNum);
+    }
+
+    @Override
+    public void renderMalllogisInfo(MalllogisInfo malllogisInfo) {
+        if (malllogisInfo != null) {
+            LogisticsDetailsActivity.start(this, expressName, malllogisInfo.getLogisticCode(), malllogisInfo.getLogisticRracesInfos());
+        }
+    }
+
     //0未付款1已付款2已发货3完成订单
-    private void buttonType(String type){
-        if(TextUtils.equals("0",type)){
+    private void buttonType(String type) {
+        if (TextUtils.equals("0", type)) {
             payBt.setVisibility(View.VISIBLE);
-            seeBt.setVisibility(View.INVISIBLE);
+            seeBt.setVisibility(View.VISIBLE);
             payBt.setText("付款");
-        }else if(TextUtils.equals("1",type)){
+            seeBt.setText("取消订单");
+        } else if (TextUtils.equals("1", type)) {
             payBt.setVisibility(View.INVISIBLE);
             seeBt.setVisibility(View.INVISIBLE);
-        }else if(TextUtils.equals("2",type)){
+        } else if (TextUtils.equals("2", type)) {
             payBt.setVisibility(View.VISIBLE);
             seeBt.setVisibility(View.VISIBLE);
             payBt.setText("确认收货");
-        }else if(TextUtils.equals("3",type)){
+            seeBt.setText("查看物流");
+        } else if (TextUtils.equals("3", type)) {
             payBt.setVisibility(View.VISIBLE);
             seeBt.setVisibility(View.INVISIBLE);
             payBt.setText("删除订单");
+        }
+    }
+
+    @OnClick({R.id.back, R.id.pay_bt, R.id.see_bt})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.pay_bt:
+                if (TextUtils.equals("0", orderType) && TextUtils.equals("付款", payBt.getText().toString())) {
+
+                } else if (TextUtils.equals("2", orderType) && TextUtils.equals("确认收货", payBt.getText().toString())) {
+                    goodsOrderDetailPresenter.completeOrder(orderNum);
+                } else if (TextUtils.equals("3", orderType) && TextUtils.equals("删除订单", payBt.getText().toString())) {
+                    goodsOrderDetailPresenter.deleteOrder(orderNum);
+                }
+                break;
+            case R.id.see_bt:
+                if (TextUtils.equals("0", orderType) && TextUtils.equals("取消订单", seeBt.getText().toString())) {
+                    goodsOrderDetailPresenter.cancelOrder(orderNum);
+                } else if (TextUtils.equals("2", orderType) && TextUtils.equals("查看物流", seeBt.getText().toString())) {
+                    goodsOrderDetailPresenter.getMalllogisInfo(orderNum);
+                }
+                break;
+            default:
         }
     }
 }

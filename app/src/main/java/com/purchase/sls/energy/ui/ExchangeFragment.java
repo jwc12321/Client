@@ -21,7 +21,7 @@ import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.GradationScrollView;
-import com.purchase.sls.common.widget.GridSameSpacesItemDecoration;
+import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.common.widget.KeywordUtil;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.ActivityInfo;
@@ -173,8 +173,8 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
 
     private void addAdapter() {
         exchangeRv.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        int space = getResources().getDimensionPixelSize(R.dimen.space_bootom);
-        exchangeRv.addItemDecoration(new GridSameSpacesItemDecoration(space, false));
+        int space = 20;
+        exchangeRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
         exchangeAdapter = new ExchangeAdapter(getActivity());
         exchangeAdapter.setOnExchangeItemClickListener(this);
         exchangeRv.setAdapter(exchangeAdapter);

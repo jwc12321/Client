@@ -26,27 +26,21 @@
             android:background="@color/backGround1"
             android:fillViewport="true"
             android:visibility="gone">
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/app_icon"
-                    android:layout_gravity="center"/>
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_marginTop="@dimen/common_eight_margin"
                     android:id="@+id/empty_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/appText10"
-                    android:text="没数据"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/common_twenty_seven_margin"
+                    android:textColor="@color/appText3"
+                    android:drawableTop="@mipmap/app_icon"
+                    android:gravity="center_horizontal"
+                    android:text="没数据" />
+            </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
     </FrameLayout>
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -49,12 +50,12 @@ public class PersonalCenterFragment extends BaseFragment {
     ImageView settingIv;
     @BindView(R.id.information_iv)
     ImageView informationIv;
-    @BindView(R.id.photo)
-    RoundedImageView photo;
+    @BindView(R.id.head_photo)
+    RoundedImageView headPhoto;
     @BindView(R.id.persion_name)
     TextView persionName;
-    @BindView(R.id.psersoin_homepage_ll)
-    LinearLayout psersoinHomepageLl;
+    @BindView(R.id.order_ll)
+    LinearLayout orderLl;
     @BindView(R.id.collection_ll)
     LinearLayout collectionLl;
     @BindView(R.id.comment_ll)
@@ -65,6 +66,10 @@ public class PersonalCenterFragment extends BaseFragment {
     FrameLayout itemEnergy;
     @BindView(R.id.item_voucher)
     FrameLayout itemVoucher;
+    @BindView(R.id.item_address)
+    FrameLayout itemAddress;
+    @BindView(R.id.item_rdcode)
+    FrameLayout itemRdcode;
     @BindView(R.id.item_browse_records)
     FrameLayout itemBrowseRecords;
     @BindView(R.id.item_customer_service_center)
@@ -73,14 +78,12 @@ public class PersonalCenterFragment extends BaseFragment {
     FrameLayout itemWantCooperate;
     @BindView(R.id.item_about_neng)
     FrameLayout itemAboutNeng;
+    @BindView(R.id.bg_iv)
+    ImageView bgIv;
     @BindView(R.id.item_persion_im)
-    ImageView itemPersionIm;
-    @BindView(R.id.item_rdcode)
-    FrameLayout itemRdcode;
-    @BindView(R.id.item_address)
-    FrameLayout itemAddress;
-    @BindView(R.id.order_ll)
-    LinearLayout orderLl;
+    RelativeLayout itemPersionIm;
+    @BindView(R.id.bg_ll)
+    LinearLayout bgLl;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -138,13 +141,30 @@ public class PersonalCenterFragment extends BaseFragment {
         initVeiw();
     }
 
+    @Override
+    public void showError(Throwable e) {
+        firstIn = "0";
+        super.showError(e);
+    }
+
     private void initVeiw() {
         if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
             persionInfoStr = persionAppPreferences.getPersionInfo();
             gson = new Gson();
             if (!TextUtils.isEmpty(persionInfoStr) && !TextUtils.isEmpty(TokenManager.getToken())) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
-                GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
+                if(!TextUtils.isEmpty(persionInfoResponse.getAvatar())){
+                    bgIv.setVisibility(View.VISIBLE);
+                    GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.head_photo_icon, headPhoto);
+                    GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, bgIv);
+                    bgLl.setBackgroundResource(R.color.appText5);
+                    bgLl.setAlpha(0.3f);
+                }else {
+                    GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.head_photo_icon, headPhoto);
+                    bgIv.setVisibility(View.INVISIBLE);
+                    bgLl.setBackgroundResource(R.color.backGround24);
+                }
+
                 if (!TextUtils.isEmpty(persionInfoResponse.getNickname())) {
                     persionName.setText(persionInfoResponse.getNickname());
                 } else {
@@ -161,7 +181,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll,R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.item_persion_im, R.id.item_customer_service_center})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -171,7 +191,7 @@ public class PersonalCenterFragment extends BaseFragment {
             case R.id.information_iv:
                 MessageNotificationActivity.start(getActivity());
                 break;
-            case R.id.item_persion_im://个人主页
+            case R.id.bg_ll://个人主页
                 firstIn = "0";
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_MY_INFO);
                 PersonalInformationActivity.start(getActivity());

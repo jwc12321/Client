@@ -54,4 +54,6 @@ public class UMStaticData {
     public static final String ENG_QIAN_DAO="engQiandao";
     //能量分享
     public static final String ENG_SHARE="engShare";
+    //商城付款成功
+    public static final String MALL_PAY_SUCCESS="mallPaySuccess";
 }

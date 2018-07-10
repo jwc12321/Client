@@ -125,7 +125,7 @@ public class PersonalInformationActivity extends BaseActivity implements Persona
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
-            GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
+            GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.head_photo_icon, photo);
             nickName=persionInfoResponse.getNickname();
             nickname.setText(nickName);
             if (TextUtils.equals("0", persionInfoResponse.getSex())) {

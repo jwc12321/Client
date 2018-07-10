@@ -33,15 +33,15 @@ public class ShoppingSelectView extends LinearLayout {
     /**
      * 规格标题栏的文本间距
      */
-    private int titleMargin = 8;
+    private int titleMargin = 12;
     /**
      * 整个商品属性的左右间距
      */
-    private int flowLayoutMargin = 16;
+    private int flowLayoutMargin = 2;
     /**
      * 属性按钮的高度
      */
-    private int buttonHeight = 25;
+    private int buttonHeight = 34;
     /**
      * 属性按钮之间的左边距
      */

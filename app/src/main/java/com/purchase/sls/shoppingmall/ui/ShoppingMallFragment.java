@@ -288,7 +288,9 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
         if (goodsParentInfos != null && goodsParentInfos.size() > 0) {
             goodsParentAdapter.setData(goodsParentInfos);
             sortId = goodsParentInfos.get(0).getId();
-            goodsListPresenter.getGoodsItems("1", sortKeyword, sortType, sortUd, sortId);
+            goodsListPresenter.getGoodsItems("0", sortKeyword, sortType, sortUd, sortId);
+        }else {
+            dismissLoading();
         }
     }
 

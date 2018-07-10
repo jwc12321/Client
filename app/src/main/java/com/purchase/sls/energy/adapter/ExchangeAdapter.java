@@ -88,6 +88,10 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
             price.setText(activityInfo.getPrice());
             name.setText("能量兑换"+activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, exchangeIv);
+            int dh = (int) (exchangeIv.getDrawable().getBounds().height());
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) energyLl.getLayoutParams();
+            lp.setMargins(30, dh-33, 22, 10);
+            energyLl.setLayoutParams(lp);
         }
     }
 

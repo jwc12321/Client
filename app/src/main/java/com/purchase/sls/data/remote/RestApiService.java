@@ -26,6 +26,7 @@ import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
+import com.purchase.sls.data.entity.MalllogisInfo;
 import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.MessageListInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
@@ -53,15 +54,18 @@ import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.CheckNewCodeRequest;
 import com.purchase.sls.data.request.CollectionListRequest;
 import com.purchase.sls.data.request.CouponListRequest;
+import com.purchase.sls.data.request.CreateOrderRequest;
 import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.GoodsItemRequest;
+import com.purchase.sls.data.request.GoodsOrderCodeRequest;
 import com.purchase.sls.data.request.GoodsidRequest;
 import com.purchase.sls.data.request.IdRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.data.request.LoginRequest;
+import com.purchase.sls.data.request.MalllogisRequest;
 import com.purchase.sls.data.request.MapMarkerRequest;
 import com.purchase.sls.data.request.MessageListRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
@@ -365,4 +369,27 @@ public interface RestApiService {
     @POST("mall/orderdetail")
     Flowable<RemoteDataWrapper<GoodsOrderDetailInfo>> getGoodsOrderDetailInfo(@Body OrdernumRequest ordernumRequest);
 
+    //生成订单(支付宝支付)
+    @POST("mall/createorder")
+    Flowable<RemoteDataWrapper<AliPaySignResponse>> getGoodsAliPaySignResponse(@Body CreateOrderRequest createOrderRequest);
+
+    //生成订单(微信支付)
+    @POST("mall/createorder")
+    Flowable<RemoteDataWrapper<WXPaySignResponse>> getGoodsWXPaySignResponse(@Body CreateOrderRequest createOrderRequest);
+
+    //商城商品查看物流
+    @POST("home/logistical/malllogis")
+    Flowable<RemoteDataWrapper<MalllogisInfo>> getMalllogisInfo(@Body MalllogisRequest malllogisRequest);
+
+    //取消订单
+    @POST("mall/del")
+    Flowable<RemoteDataWrapper<Ignore>> cancelOrder(@Body GoodsOrderCodeRequest goodsOrderCodeRequest);
+
+    //删除订单
+    @POST("mall/delorder")
+    Flowable<RemoteDataWrapper<Ignore>> deleteOrder(@Body GoodsOrderCodeRequest goodsOrderCodeRequest);
+
+    //完成订单
+    @POST("mall/finish")
+    Flowable<RemoteDataWrapper<Ignore>> completeOrder(@Body GoodsOrderCodeRequest goodsOrderCodeRequest);
 }

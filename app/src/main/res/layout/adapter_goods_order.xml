@@ -56,7 +56,7 @@
             android:layout_toLeftOf="@id/pay_bt"
             android:background="@drawable/black_white_bg"
             android:minWidth="@dimen/common_seventy_seven_margin"
-            android:text="查看物流"
+            tools:text="查看物流"
             android:textColor="@color/appText5"
             android:textSize="13sp"
             android:layout_marginTop="@dimen/common_twelve_margin"/>

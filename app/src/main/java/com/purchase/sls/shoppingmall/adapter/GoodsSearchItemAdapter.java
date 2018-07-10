@@ -89,7 +89,7 @@ public class GoodsSearchItemAdapter extends RecyclerView.Adapter<GoodsSearchItem
         }
 
         public void bindData(GoodsItemInfo goodsItemInfo) {
-            GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+            GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.no_url_icon, photo);
             goodsName.setText(goodsItemInfo.getGoodsName());
             goodsPrice.setText("¥" + goodsItemInfo.getPrice());
             goodsVoucher.setText("劵可减" + goodsItemInfo.getQuanPrice());

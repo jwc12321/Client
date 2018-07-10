@@ -85,7 +85,7 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
         gson = new Gson();
         if (persionInfoStr != null && !TextUtils.isEmpty(persionInfoStr)) {
             persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
-            GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, photo);
+            GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.head_photo_icon, photo);
         }
     }
 
