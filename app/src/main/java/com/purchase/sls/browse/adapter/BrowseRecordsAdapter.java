@@ -41,7 +41,8 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
     public BrowseRecordsAdapter(Context context) {
         this.context = context;
     }
-    public BrowseRecordsAdapter(Context context, String city,String longitude, String latitude) {
+
+    public BrowseRecordsAdapter(Context context, String city, String longitude, String latitude) {
         this.context = context;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -54,6 +55,7 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
         this.latitude = latitude;
         notifyDataSetChanged();
     }
+
     public void setData(List<BrowseInfo.BrowseItemInfo> browseItemInfos) {
         this.browseItemInfos = browseItemInfos;
         notifyDataSetChanged();
@@ -83,17 +85,19 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
     public void onBindViewHolder(final BrowseRecordsView holder, int position) {
         final BrowseInfo.BrowseItemInfo browseItemInfo = browseItemInfos.get(holder.getAdapterPosition());
         holder.bindData(browseItemInfo);
-        holder.choiceItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        holder.choiceItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onClick(View v) {
                 if (onBrowseItemClickListener != null) {
-                    if (isChecked) {
+                    if (((CheckBox) v).isChecked()) {
+                        browseItemInfo.setChoosed(true);
                         onBrowseItemClickListener.addItem(browseItemInfo.getId());
                     } else {
+                        browseItemInfo.setChoosed(false);
                         onBrowseItemClickListener.removeItem(browseItemInfo.getId());
                     }
                 }
-
             }
         });
         holder.collectionItemLl.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +106,14 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
                 if (onBrowseItemClickListener != null) {
                     if (TextUtils.equals("1", behavior)) {
                         onBrowseItemClickListener.goShopDetail(browseItemInfo.getStore().getId());
-                    }else {
-                        if(holder.choiceItem.isChecked()){
+                    } else {
+                        if (holder.choiceItem.isChecked()) {
                             holder.choiceItem.setChecked(false);
+                            browseItemInfo.setChoosed(false);
                             onBrowseItemClickListener.removeItem(browseItemInfo.getId());
-                        }else {
+                        } else {
                             holder.choiceItem.setChecked(true);
+                            browseItemInfo.setChoosed(true);
                             onBrowseItemClickListener.addItem(browseItemInfo.getId());
                         }
                     }
@@ -155,7 +161,7 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
             choiceItem.setVisibility(TextUtils.equals("1", behavior) ? View.GONE : View.VISIBLE);
             choiceItem.setChecked(false);
             BrowseInfo.BrowseItemInfo.Store store = browseItemInfo.getStore();
-            if(store!=null) {
+            if (store != null) {
                 GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.app_icon, shopIcon);
                 storeName.setText(store.getTitle());
                 popularityNumber.setText("月均人气" + store.getBuzz());
@@ -174,6 +180,12 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
                         shopDistance.setVisibility(View.GONE);
                     }
                     shopDistance.setVisibility(View.VISIBLE);
+                }
+                boolean choosed = browseItemInfo.isChoosed();
+                if (choosed) {
+                    choiceItem.setChecked(true);
+                } else {
+                    choiceItem.setChecked(false);
                 }
             }
         }

@@ -43,6 +43,8 @@ public class BrowseInfo {
         private String createdAt;
         @SerializedName("store")
         private Store store;
+        //选中
+        private boolean isChoosed=false;
 
         public String getId() {
             return id;
@@ -90,6 +92,14 @@ public class BrowseInfo {
 
         public void setStore(Store store) {
             this.store = store;
+        }
+
+        public boolean isChoosed() {
+            return isChoosed;
+        }
+
+        public void setChoosed(boolean choosed) {
+            isChoosed = choosed;
         }
 
         public static class Store {

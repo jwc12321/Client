@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/hot_item_ll"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backGround3"
     android:gravity="center"
@@ -12,9 +12,10 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/title_height"
-        android:layout_height="@dimen/title_height"
-        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         android:src="@mipmap/client_v330_ic_homepage_more_white" />
 
 
@@ -26,5 +27,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/appText6"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:text="水果"/>
 </LinearLayout>

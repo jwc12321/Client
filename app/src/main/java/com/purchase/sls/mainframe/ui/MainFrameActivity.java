@@ -23,6 +23,7 @@ import com.purchase.sls.mainframe.adapter.MainPagerAdapter;
 import com.purchase.sls.mine.ui.PersonalCenterFragment;
 import com.purchase.sls.nearbymap.ui.NearbyMapFragment;
 import com.purchase.sls.shoppingmall.ui.ShoppingMallFragment;
+import com.purchase.sls.shoppingmall.ui.WebShoppingMallFragment;
 import com.umeng.socialize.UMShareAPI;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +100,7 @@ public class MainFrameActivity extends BaseActivity {
         fragments[0] = HomePageFragment.newInstance();
         fragments[1] = NearbyMapFragment.newInstance();
         fragments[2] = EnergyFragment.newInstance();
-        fragments[3] = ShoppingMallFragment.newInstance();
+        fragments[3] = WebShoppingMallFragment.newInstance();
         fragments[4] = PersonalCenterFragment.newInstance();
         relativeLayouts = new RelativeLayout[5];
         relativeLayouts[0] = homepageRl;

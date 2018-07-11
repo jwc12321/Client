@@ -19,6 +19,8 @@ public class CollectionListInfo {
     private String updated_at;
     @SerializedName("store")
     private CollectionStoreInfo collectionStoreInfo;
+    //选中
+    private boolean isChoosed=false;
 
     public String getId() {
         return id;
@@ -66,5 +68,13 @@ public class CollectionListInfo {
 
     public void setCollectionStoreInfo(CollectionStoreInfo collectionStoreInfo) {
         this.collectionStoreInfo = collectionStoreInfo;
+    }
+
+    public boolean isChoosed() {
+        return isChoosed;
+    }
+
+    public void setChoosed(boolean choosed) {
+        isChoosed = choosed;
     }
 }

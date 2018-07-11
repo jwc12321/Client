@@ -74,10 +74,10 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
         TextView name;
         @BindView(R.id.go_exchange)
         RelativeLayout goExchange;
-        @BindView(R.id.exchange_iv)
-        ImageView exchangeIv;
         @BindView(R.id.energy_ll)
         LinearLayout energyLl;
+        @BindView(R.id.exchange_iv)
+        ImageView exchangeIv;
 
         public ExchangeVeiw(View itemView) {
             super(itemView);
@@ -86,12 +86,8 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
 
         public void bindData(ActivityInfo activityInfo) {
             price.setText(activityInfo.getPrice());
-            name.setText("能量兑换"+activityInfo.getpName());
+            name.setText("能量兑换" + activityInfo.getpName());
             GlideHelper.load((Activity) context, activityInfo.getActLogo(), R.mipmap.app_icon, exchangeIv);
-            int dh = (int) (exchangeIv.getDrawable().getBounds().height());
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) energyLl.getLayoutParams();
-            lp.setMargins(30, dh-33, 22, 10);
-            energyLl.setLayoutParams(lp);
         }
     }
 

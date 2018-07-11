@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/go_exchange"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/go_exchange">
+    android:layout_height="@dimen/common_one_hundred_and_sixty_five_margin">
 
     <ImageView
         android:id="@+id/exchange_iv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:layout_height="match_parent"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         tools:src="@mipmap/app_icon" />
 
     <LinearLayout
         android:id="@+id/energy_ll"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/common_thirty_three_margin"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
+        android:background="@mipmap/lottery_bg"
         android:gravity="center_horizontal"
-        android:background="@mipmap/lottery_bg">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:textColor="@color/appText3"
             android:textSize="23sp"
-            tools:text="100"
-            android:layout_gravity="center_vertical"/>
+            tools:text="100" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/common_five_margin"
             android:textColor="@color/appText4"
             android:textSize="14sp"
-            tools:text="测试"
-            android:layout_marginLeft="@dimen/common_five_margin"
-            android:layout_gravity="center_vertical"/>
+            tools:text="测试" />
     </LinearLayout>
 </RelativeLayout>

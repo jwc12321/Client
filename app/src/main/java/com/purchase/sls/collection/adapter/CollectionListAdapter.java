@@ -87,17 +87,19 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
     public void onBindViewHolder(final CollectionListView holder, int position) {
         final CollectionListInfo collectionListInfo = collectionListInfos.get(holder.getAdapterPosition());
         holder.bindData(collectionListInfo);
-        holder.choiceItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        holder.choiceItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (onCollectionItemClickListener != null) {
-                    if (isChecked) {
+            public void onClick(View v) {
+                if(onCollectionItemClickListener!=null){
+                    if (((CheckBox) v).isChecked()) {
+                        collectionListInfo.setChoosed(true);
                         onCollectionItemClickListener.addItem(collectionListInfo.getId());
-                    } else {
+                    }else {
+                        collectionListInfo.setChoosed(false);
                         onCollectionItemClickListener.removeItem(collectionListInfo.getId());
                     }
                 }
-
             }
         });
         holder.likestoreRl.setOnClickListener(new View.OnClickListener() {
@@ -109,9 +111,11 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
                     }else {
                         if(holder.choiceItem.isChecked()){
                             holder.choiceItem.setChecked(false);
+                            collectionListInfo.setChoosed(false);
                             onCollectionItemClickListener.removeItem(collectionListInfo.getId());
                         }else {
                             holder.choiceItem.setChecked(true);
+                            collectionListInfo.setChoosed(true);
                             onCollectionItemClickListener.addItem(collectionListInfo.getId());
                         }
                     }
@@ -184,6 +188,12 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
                 } else {
                     returnEnergy.setText("每消费一单返消费金额的" + collectionStoreInfo.getRebate() + "%的能量");
                     returnLl.setVisibility(View.VISIBLE);
+                }
+                boolean choosed = collectionListInfo.isChoosed();
+                if (choosed){
+                    choiceItem.setChecked(true);
+                }else{
+                    choiceItem.setChecked(false);
                 }
             }
         }

@@ -155,6 +155,10 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
                 payBt.setVisibility(View.VISIBLE);
                 seeBt.setVisibility(View.INVISIBLE);
                 payBt.setText("删除订单");
+            }else if (TextUtils.equals("4", type)) {
+                payBt.setVisibility(View.VISIBLE);
+                seeBt.setVisibility(View.INVISIBLE);
+                payBt.setText("删除订单");
             }
         }
 

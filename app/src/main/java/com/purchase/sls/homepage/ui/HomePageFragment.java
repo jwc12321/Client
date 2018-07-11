@@ -205,7 +205,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     //设置热门
     private void hotService() {
         hotSearchLink.setLayoutManager(new GridLayoutManager(getContext(), 5));
-        int space = 20;
+        int space = 41;
         hotSearchLink.addItemDecoration(new GridSpacesItemDecoration(space, false));
         hotServiceAdapter = new HotServiceAdapter(getActivity());
         hotServiceAdapter.setOnHotItemClickListener(this);
