@@ -11,6 +11,7 @@ import dagger.Provides;
 public class GoodsOrderModule {
     private GoodsOrderContract.GoodsOrderListView goodsOrderListView;
     private GoodsOrderContract.GoodsOrderDetailView goodsOrderDetailView;
+    private GoodsOrderContract.OrderPayView orderPayView;
 
     public GoodsOrderModule(GoodsOrderContract.GoodsOrderListView goodsOrderListView) {
         this.goodsOrderListView = goodsOrderListView;
@@ -18,6 +19,10 @@ public class GoodsOrderModule {
 
     public GoodsOrderModule(GoodsOrderContract.GoodsOrderDetailView goodsOrderDetailView) {
         this.goodsOrderDetailView = goodsOrderDetailView;
+    }
+
+    public GoodsOrderModule(GoodsOrderContract.OrderPayView orderPayView) {
+        this.orderPayView = orderPayView;
     }
 
     @Provides
@@ -28,5 +33,10 @@ public class GoodsOrderModule {
     @Provides
     GoodsOrderContract.GoodsOrderDetailView provideGoodsOrderDetailView(){
         return goodsOrderDetailView;
+    }
+
+    @Provides
+    GoodsOrderContract.OrderPayView provideOrderPayView(){
+        return orderPayView;
     }
 }

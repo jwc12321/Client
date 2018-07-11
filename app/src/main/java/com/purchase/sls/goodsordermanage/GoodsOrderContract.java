@@ -64,4 +64,19 @@ public interface GoodsOrderContract {
 
         void renderMalllogisInfo(MalllogisInfo malllogisInfo);
     }
+
+    interface OrderPayPresenter extends BasePresenter{
+        void getAlipaySign(String paytype, String ordercode);
+        void getWXPaySign(String paytype, String ordercode);
+    }
+
+    interface OrderPayView extends BaseView<OrderPayPresenter>{
+        //充值失败回调
+        void onRechargetFail();
+        //充值成功回调
+        void onRechargeSuccess();
+        //充值取消
+        void onRechargeCancel();
+        void onAppIdReceive(String appId);
+    }
 }

@@ -25,7 +25,7 @@ import com.purchase.sls.data.entity.GoodsOrderInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.event.PayAbortEvent;
 import com.purchase.sls.data.event.WXSuccessPayEvent;
-import com.purchase.sls.shopdetailbuy.ui.PaySuccessActivity;
+import com.purchase.sls.goodsordermanage.ui.GoodsOrderDetalActivity;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -34,6 +34,7 @@ import com.purchase.sls.shoppingmall.presenter.FillInOrderPresenter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -111,13 +112,16 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     private BigDecimal quanHouPriceDd;//减掉优惠券的价格
     private BigDecimal quanPriceBd;//优惠券
     private BigDecimal totalPriceBd;//优惠券
+    private BigDecimal ownQuanPriceBd;//自己有的劵
     private String quanPrice;
     private String quanHouPrice;
+    private String ownQuanPrice;
     private boolean flag = true;
     private IWXAPI api;
     private String ordreno;
     private String cartId;
     private String isQuan;
+    private String quanType; //1：自己有的优惠券大于可以抵扣的 2：自己有的优惠券小于可以抵扣的
 
 
     public static void start(Context context, GoodsOrderList goodsOrderList) {
@@ -132,6 +136,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         setContentView(R.layout.activity_fill_in_order);
         ButterKnife.bind(this);
         setHeight(back, title, null);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -145,13 +150,17 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
             quanPrice = goodsOrderList.getQuan();
             quanHouPrice = goodsOrderList.getQuanhou();
             cartId=goodsOrderList.getCartid();
-            if (TextUtils.isEmpty(quanPrice) || TextUtils.equals("0", quanPrice)
-                    || TextUtils.equals("0.0", quanPrice) || TextUtils.equals("0.00", quanPrice)) {
-                voucherRl.setVisibility(View.GONE);
-            } else {
-                voucherRl.setVisibility(View.VISIBLE);
+            ownQuanPrice=goodsOrderList.getOwnquan();
+            quanPriceBd = new BigDecimal(TextUtils.isEmpty(quanPrice)?"0":quanPrice).setScale(2, RoundingMode.HALF_UP);
+            ownQuanPriceBd = new BigDecimal(TextUtils.isEmpty(ownQuanPrice)?"0":ownQuanPrice).setScale(2, RoundingMode.HALF_UP);
+            if(ownQuanPriceBd.compareTo(quanPriceBd)>=0){
                 useVoucherIv.setSelected(true);
-                voucherPrice.setText("可抵扣¥" + quanPrice);
+                voucherPrice.setText("可抵扣¥" + quanPriceBd.toString());
+                quanType="1";
+            }else {
+                useVoucherIv.setSelected(true);
+                voucherPrice.setText("可抵扣¥" + ownQuanPriceBd.toString());
+                quanType="2";
             }
             totalPrice.setText(quanHouPrice);
         }
@@ -166,13 +175,16 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     //计算能抵扣多少优惠
     private void voucher(boolean isflag) {
         quanHouPriceDd = new BigDecimal(quanHouPrice).setScale(2, RoundingMode.HALF_UP);
-        quanPriceBd = new BigDecimal(quanPrice).setScale(2, RoundingMode.HALF_UP);
         totalPriceBd=new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         if (isflag) {
             totalPriceBd=quanHouPriceDd;
             totalPrice.setText(totalPriceBd.toString());
         } else {
-            totalPriceBd=quanHouPriceDd.add(quanPriceBd);
+            if(TextUtils.equals("1",quanType)){
+                totalPriceBd=quanHouPriceDd.add(quanPriceBd);
+            }else {
+                totalPriceBd=quanHouPriceDd.add(ownQuanPriceBd);
+            }
             totalPrice.setText(totalPriceBd.toString());
         }
     }
@@ -314,6 +326,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void onRechargeSuccess() {
         UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);
+        GoodsOrderDetalActivity.start(this,ordreno);
         this.finish();
     }
 
@@ -351,6 +364,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPaySuccess(WXSuccessPayEvent event) {
         UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);
+        GoodsOrderDetalActivity.start(this,ordreno);
         this.finish();
     }
 
@@ -361,5 +375,11 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         } else {
             showMessage(event.msg);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -38,7 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title_rel"
-        android:layout_marginBottom="@dimen/common_fifty_two_margin">
+        android:layout_marginBottom="@dimen/common_fifty_two_margin"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/no_address_iv"
@@ -71,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/common_eleven_margin"
-            android:button="@drawable/delete_select" />
+            android:button="@drawable/delete_select"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/select_number"
@@ -82,7 +84,8 @@
             android:layout_toRightOf="@id/select_all"
             android:text="@string/total_selection"
             android:textColor="@color/appText5"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/total_price"

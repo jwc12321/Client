@@ -62,7 +62,8 @@
                     android:gravity="center"
                     android:text="@string/default_address"
                     android:textColor="@color/appText1"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/address_tel"

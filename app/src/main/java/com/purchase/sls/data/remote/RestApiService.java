@@ -71,6 +71,7 @@ import com.purchase.sls.data.request.MessageListRequest;
 import com.purchase.sls.data.request.NearbyInfoRequest;
 import com.purchase.sls.data.request.OrderCodeRequest;
 import com.purchase.sls.data.request.OrderDetailRequest;
+import com.purchase.sls.data.request.OrderPayRequest;
 import com.purchase.sls.data.request.OrdernoRequest;
 import com.purchase.sls.data.request.OrdernumRequest;
 import com.purchase.sls.data.request.PageRequest;
@@ -392,4 +393,12 @@ public interface RestApiService {
     //完成订单
     @POST("mall/finish")
     Flowable<RemoteDataWrapper<Ignore>> completeOrder(@Body GoodsOrderCodeRequest goodsOrderCodeRequest);
+
+    //生成订单(支付宝支付)
+    @POST("mall/paynow")
+    Flowable<RemoteDataWrapper<AliPaySignResponse>> orderAliPay(@Body OrderPayRequest orderPayRequest);
+
+    //生成订单(微信支付)
+    @POST("mall/paynow")
+    Flowable<RemoteDataWrapper<WXPaySignResponse>> orderWXPay(@Body OrderPayRequest orderPayRequest);
 }

@@ -115,8 +115,21 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
 
     @Override
     public void checkGroup(int position, boolean isChecked) {
-        ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(position);
-        shoppingCartInfo.setChoosed(isChecked);
+        if(flag) {
+            ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(position);
+            shoppingCartInfo.setChoosed(isChecked);
+        }else {
+            for (int i=0;i<shoppingCartInfos.size();i++){
+                if(i==position){
+                    ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(i);
+                    shoppingCartInfo.setChoosed(isChecked);
+                }else {
+                    ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(i);
+                    shoppingCartInfo.setChoosed(false);
+                }
+            }
+            shoppingCartAdapter.notifyDataSetChanged();
+        }
         calculatingPrice();
     }
 
@@ -195,18 +208,36 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
                     edit.setText("完成");
                     settlementBt.setText("删除所选");
                     totalPrice.setVisibility(View.GONE);
+                    cleanChoice();
+                    selectAll.setVisibility(View.VISIBLE);
+                    selectNumber.setVisibility(View.VISIBLE);
+                    totalPrice.setText("¥0.00");
+                    selectNumber.setText("全选");
+                    settlementBt.setEnabled(false);
                 } else {
                     edit.setText("编辑");
                     settlementBt.setText("结算");
                     totalPrice.setVisibility(View.VISIBLE);
+                    cleanChoice();
+                    selectAll.setVisibility(View.GONE);
+                    selectNumber.setVisibility(View.GONE);
+                    totalPrice.setText("¥0.00");
+                    settlementBt.setEnabled(false);
                 }
                 break;
             case R.id.settlement_bt:
-                String sttlebtStr = settlementBt.getText().toString();
                 orderDetailShopCart();
                 break;
             default:
         }
+    }
+
+    //重置选项
+    private void cleanChoice() {
+        for (int i = 0; i < shoppingCartInfos.size(); i++) {
+            shoppingCartInfos.get(i).setChoosed(false);
+        }
+        shoppingCartAdapter.notifyDataSetChanged();
     }
 
     @Override

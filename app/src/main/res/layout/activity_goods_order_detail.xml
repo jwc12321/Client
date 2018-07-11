@@ -103,15 +103,26 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/goods_rv"
                     android:layout_marginLeft="@dimen/common_twelve_margin"
-                    android:layout_marginTop="@dimen/common_twelve_margin"
                     android:textColor="@color/appText5"
                     android:textSize="13sp"
-                    tools:text="100" />
+                    tools:text="100"
+                    android:layout_marginTop="@dimen/common_six_margin"
+                    android:layout_marginBottom="@dimen/common_six_margin"/>
+                <TextView
+                    android:id="@+id/goods_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/goods_price"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText3"
+                    android:textSize="11sp"
+                    tools:text="100"
+                    android:layout_marginBottom="@dimen/common_six_margin"/>
 
                 <Button
                     android:id="@+id/pay_bt"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/common_twenty_three_margin"
+                    android:layout_height="@dimen/common_thirty_margin"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/goods_rv"
                     android:layout_marginBottom="@dimen/common_twelve_margin"
@@ -126,7 +137,7 @@
                 <Button
                     android:id="@+id/see_bt"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/common_twenty_three_margin"
+                    android:layout_height="@dimen/common_thirty_margin"
                     android:layout_below="@id/goods_rv"
                     android:layout_marginBottom="@dimen/common_twelve_margin"
                     android:layout_marginRight="@dimen/common_fifteen_margin"

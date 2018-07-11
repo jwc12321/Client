@@ -158,4 +158,5 @@
     <string name="goods_order_number">订单编号</string>
     <string name="place_order_time">下单时间</string>
     <string name="distribution_type">配送方式</string>
+    <string name="choice_order_pay">选择付款方式</string>
 </resources>

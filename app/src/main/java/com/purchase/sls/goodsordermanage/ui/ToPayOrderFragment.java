@@ -106,7 +106,7 @@ public class ToPayOrderFragment extends BaseListFragment<GoodsOrderItemInfo> imp
 
     @Override
     public void payOrder(String orderNum) {
-
+        OrderPayActivity.start(getActivity(),orderNum);
     }
 
     @Override
