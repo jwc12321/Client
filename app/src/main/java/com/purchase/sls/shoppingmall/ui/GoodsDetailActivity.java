@@ -205,7 +205,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                         Bundle bundle = data.getExtras();
                         goodsUnitPrice= (GoodsUnitPrice) bundle.getSerializable(StaticData.GOODS_UNIT_PRICE);
                         goodsCount=bundle.getString(StaticData.GOODS_COUNT);
-                        if(goodsPrice!=null&&!TextUtils.isEmpty(goodsCount)){
+                        if(goodsUnitPrice!=null&&!TextUtils.isEmpty(goodsCount)){
                             if(TextUtils.equals("0",addType)) {
                                 goodsDetailPresenter.addToCart(goodsid, taobaoid, goodsUnitPrice.getSkuId(), goodsCount, goodsUnitPrice.getName(), quanPrice, goodsUnitPrice.getPrice(), "");
                             }else {
@@ -278,5 +278,13 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void purchaseGoodsSuccess(GoodsOrderList goodsOrderList) {
         FillInOrderActivity.start(this, goodsOrderList);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDown != null) {
+            countDown.cancel();
+        }
     }
 }

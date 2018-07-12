@@ -113,18 +113,27 @@ public class TearDownView extends LinearLayout {
         if (mIsAttachedToWindow) {
             long remainTime= endTime - System.currentTimeMillis() / 1000;
             if (remainTime >0) {
-                long day = 0;
                 long hour = 0;
                 long min = 0;
                 long sec = 0;
-                day = remainTime / (24 * 60 * 60);
-                hour = (remainTime / (60 * 60) - day * 24);
-                min = (remainTime / 60 - day * 24 * 60 - hour * 60);
-                sec = (remainTime - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-                dayTextView.setText(String.valueOf(day));
-                hourTextView.setText(String.valueOf(hour));
-                minutsTextView.setText(String.valueOf(min));
-                secondTextView.setText(String.valueOf(sec));
+                hour = (remainTime / (60 * 60));
+                min = (remainTime / 60 - hour * 60);
+                sec = (remainTime - hour * 60 * 60 - min * 60);
+                if(String.valueOf(hour).length()==1){
+                    hourTextView.setText("0"+hour);
+                }else {
+                    hourTextView.setText(String.valueOf(hour));
+                }
+                if(String.valueOf(min).length()==1){
+                    minutsTextView.setText("0"+min);
+                }else {
+                    minutsTextView.setText(String.valueOf(min));
+                }
+                if(String.valueOf(sec).length()==1){
+                    secondTextView.setText("0"+sec);
+                }else {
+                    secondTextView.setText(String.valueOf(sec));
+                }
                 mHandler.sendEmptyMessageDelayed(MESSAGE_WHAT, 1000);
             } else {
                 if(timeOutListener!=null) {
