@@ -60,7 +60,8 @@
                 android:id="@+id/per_capita"
                 android:layout_marginLeft="9dp"
                 android:layout_gravity="center_vertical"
-                tools:text="1111"/>
+                tools:text="1111"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout

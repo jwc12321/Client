@@ -120,7 +120,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     private IWXAPI api;
     private String ordreno;
     private String cartId;
-    private String isQuan;
+    private String isQuan="1";
     private String quanType; //1：自己有的优惠券大于可以抵扣的 2：自己有的优惠券小于可以抵扣的
 
 
@@ -378,8 +378,8 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 }

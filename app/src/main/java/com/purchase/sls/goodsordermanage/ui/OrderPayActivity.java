@@ -184,4 +184,10 @@ public class OrderPayActivity extends BaseActivity implements GoodsOrderContract
             showMessage(event.msg);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

@@ -78,7 +78,8 @@
                     android:layout_marginLeft="9dp"
                     android:textColor="@color/appText6"
                     android:textSize="13sp"
-                    tools:text="1111" />
+                    tools:text="1111"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

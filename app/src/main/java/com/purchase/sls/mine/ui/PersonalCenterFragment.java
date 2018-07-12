@@ -93,7 +93,6 @@ public class PersonalCenterFragment extends BaseFragment {
     private WebViewDetailInfo webViewDetailInfo;
     private String phoneNumber;
     private String qrCodeUrl;
-    private String firstIn = "0";
 
     public PersonalCenterFragment() {
     }
@@ -141,14 +140,9 @@ public class PersonalCenterFragment extends BaseFragment {
         initVeiw();
     }
 
-    @Override
-    public void showError(Throwable e) {
-        firstIn = "0";
-        super.showError(e);
-    }
-
+    //防止被顶替，然后换账号
     private void initVeiw() {
-        if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
+        if (!isFirstLoad && getUserVisibleHint()) {
             persionInfoStr = persionAppPreferences.getPersionInfo();
             gson = new Gson();
             if (!TextUtils.isEmpty(persionInfoStr) && !TextUtils.isEmpty(TokenManager.getToken())) {
@@ -172,9 +166,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 }
                 phoneNumber = persionInfoResponse.getTel();
                 qrCodeUrl = persionInfoResponse.getQrcode();
-                firstIn = "1";
             } else {
-                firstIn = "0";
                 AccountLoginActivity.start(getActivity());
             }
         }
@@ -185,14 +177,12 @@ public class PersonalCenterFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
-                firstIn = "0";
                 SettingActivity.start(getActivity(), phoneNumber);
                 break;
             case R.id.information_iv:
                 MessageNotificationActivity.start(getActivity());
                 break;
             case R.id.bg_ll://个人主页
-                firstIn = "0";
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.SHOW_MY_INFO);
                 PersonalInformationActivity.start(getActivity());
                 break;

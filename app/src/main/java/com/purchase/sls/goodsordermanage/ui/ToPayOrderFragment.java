@@ -67,8 +67,8 @@ public class ToPayOrderFragment extends BaseListFragment<GoodsOrderItemInfo> imp
     @Override
     public void onResume() {
         super.onResume();
-        if (goodsOrderListPresenter != null && getUserVisibleHint()) {
-            goodsOrderListPresenter.getGoodOrderList("0", "0");
+        if (!isFirstLoad&&goodsOrderListPresenter != null && getUserVisibleHint()) {
+            goodsOrderListPresenter.getGoodOrderList("1", "0");
         }
     }
 

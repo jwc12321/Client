@@ -100,7 +100,7 @@ public class MainFrameActivity extends BaseActivity {
         fragments[0] = HomePageFragment.newInstance();
         fragments[1] = NearbyMapFragment.newInstance();
         fragments[2] = EnergyFragment.newInstance();
-        fragments[3] = ShoppingMallFragment.newInstance();
+        fragments[3] = WebShoppingMallFragment.newInstance();
         fragments[4] = PersonalCenterFragment.newInstance();
         relativeLayouts = new RelativeLayout[5];
         relativeLayouts[0] = homepageRl;

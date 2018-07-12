@@ -260,7 +260,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 cityName = storeInfo.getCityname();
                 address.setText(storeInfo.getAddress());
                 if (!TextUtils.isEmpty(storeInfo.getRebate()) && !TextUtils.equals("0", storeInfo.getRebate())) {
-                    backEnergyNumber.setText("每消费一单返消费金额的" + storeInfo.getRebate() + "%的能量");
+                    backEnergyNumber.setText("消费补贴金额" + storeInfo.getRebate() + "%的能量");
                     backEnergyRl.setVisibility(View.VISIBLE);
                 } else {
                     backEnergyRl.setVisibility(View.GONE);

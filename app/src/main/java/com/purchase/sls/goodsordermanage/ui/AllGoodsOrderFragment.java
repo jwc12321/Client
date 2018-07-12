@@ -70,8 +70,8 @@ public class AllGoodsOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
     @Override
     public void onResume() {
         super.onResume();
-        if (goodsOrderListPresenter != null && getUserVisibleHint()) {
-            goodsOrderListPresenter.getGoodOrderList("0", "-1");
+        if (!isFirstLoad&&goodsOrderListPresenter != null && getUserVisibleHint()) {
+            goodsOrderListPresenter.getGoodOrderList("1", "-1");
         }
     }
 

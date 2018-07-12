@@ -135,7 +135,7 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
         }
 
         public void bindData(GoodsOrderItemInfo goodsOrderItemInfo) {
-            goodsPrice.setText("¥" + goodsOrderItemInfo.getAllquanPrice());
+            goodsPrice.setText("¥" + goodsOrderItemInfo.getOprice());
             goodsOrderItemAdapter.setData(goodsOrderItemInfo.getGoodsInfos(), goodsOrderItemInfo.getOrdernum());
             buttonType(goodsOrderItemInfo.getType());
         }
