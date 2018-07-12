@@ -221,7 +221,9 @@
                             android:layout_marginTop="@dimen/common_five_margin"
                             android:textColor="@color/appText11"
                             android:textSize="15sp"
-                            tools:text="60" />
+                            tools:text="60"
+                            android:layout_marginLeft="@dimen/common_twelve_margin"
+                            android:layout_marginRight="@dimen/common_twelve_margin"/>
 
                         <TextView
                             android:layout_width="wrap_content"

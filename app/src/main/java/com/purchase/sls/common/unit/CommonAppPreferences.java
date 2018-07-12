@@ -21,9 +21,14 @@ public class CommonAppPreferences {
     /**
      * 当前位置
      */
-    public void setLocalAddress(String city,String longtitude, String latitude) {
+    public void setCity(String city) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(StaticData.CHOICE_CITY,city);
+        editor.commit();
+    }
+
+    public void setLocal(String longtitude, String latitude) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(StaticData.LONGITUDE, longtitude);
         editor.putString(StaticData.LATITUDE, latitude);
         editor.commit();

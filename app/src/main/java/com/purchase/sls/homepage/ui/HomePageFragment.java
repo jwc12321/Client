@@ -239,7 +239,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 likeStoreAdapter.setCity(city, longitude, latitude);
                 homePagePresenter.getBannerHotInfo("0", city);
                 homePagePresenter.getLikeStore(city);
-                commonAppPreferences.setLocalAddress(city, longitude, latitude);
+                commonAppPreferences.setCity(city);
+                commonAppPreferences.setLocal(longitude,latitude);
                 commonAppPreferences.setCurrLocalAddress(longitude, latitude);
                 if (!TextUtils.equals("1", commonAppPreferences.getToUpdate())) {
                     homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");

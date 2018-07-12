@@ -220,7 +220,7 @@ public class ChoiceCityActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String cityName = ((SortModel) adapter.getItem(position)).getName();
-                commonAppPreferences.setLocalAddress(cityName, "", "");
+                commonAppPreferences.setCity(cityName);
                 cityInfoBean = CityInfoBean.findCity(cityListInfo, cityName);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
@@ -291,7 +291,8 @@ public class ChoiceCityActivity extends BaseActivity {
                 latitude = aMapLocation.getLatitude() + "";
                 Log.d("1111", "城市" + city + "经纬度====" + longitude + "," + latitude);
                 currentCity.setText(city);
-                commonAppPreferences.setLocalAddress(city, longitude, latitude);
+                commonAppPreferences.setCity(city);
+                commonAppPreferences.setLocal(longitude,latitude);
                 if (TextUtils.isEmpty(city) && TextUtils.equals("0.0", longitude) && TextUtils.equals("0.0", latitude)) {
                     currentCity.setText("定位失败，请重新定位");
                     Toast.makeText(getApplicationContext(), "查看定位权限有没有开", Toast.LENGTH_SHORT).show();
