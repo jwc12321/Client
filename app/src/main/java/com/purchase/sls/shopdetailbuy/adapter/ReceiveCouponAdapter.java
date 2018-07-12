@@ -87,7 +87,11 @@ public class ReceiveCouponAdapter extends RecyclerView.Adapter<ReceiveCouponAdap
                 canUseTt.setSelected(true);
                 choiceItem.setEnabled(true);
                 canUseTt.setText("立即领取");
-            } else {
+            } else if(TextUtils.equals("2", quanInfo.getCanReceive())){
+                canUseTt.setSelected(false);
+                choiceItem.setEnabled(false);
+                canUseTt.setText("无法领取");
+            }else {
                 canUseTt.setSelected(false);
                 choiceItem.setEnabled(false);
                 canUseTt.setText("已领取");

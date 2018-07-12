@@ -274,11 +274,15 @@ public class PaySuccessActivity extends BaseActivity implements ShopDetailBuyCon
             }
 ;        }else {
             for(int i=0;i<quanInfos.size();i++){
-                quanInfos.get(i).setCanReceive("0");
+                if(i==choicePosition) {
+                    quanInfos.get(i).setCanReceive("0");
+                }else {
+                    quanInfos.get(i).setCanReceive("2");
+                }
             }
             couponNumber.setText("无优惠券可领");
         }
-        receiveCouponAdapter.setData(quanInfos);
+        receiveCouponAdapter.notifyDataSetChanged();
     }
 
 
