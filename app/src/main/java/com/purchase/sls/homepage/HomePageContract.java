@@ -4,6 +4,7 @@ import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.ChangeAppInfo;
+import com.purchase.sls.data.entity.ClassifyInfo;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public interface HomePageContract {
     interface HomepagePresenter extends BasePresenter {
-        void getBannerHotInfo(String refreshType,String areaname);
+        void getBannerHotInfo(String refreshType, String areaname);
 
         void getLikeStore(String areaname);
 
@@ -36,22 +37,26 @@ public interface HomePageContract {
     }
 
     interface ScreeningListPresenter extends BasePresenter {
-        void getScreeningList(String refreshType,String address, String cid, String sort, String screen,String storename);
+        void getClassifyInfo(String cateid);
 
-        void getMoreScreeningList(String address, String cid, String sort, String screen,String storename);
+        void getScreeningList(String refreshType, String address, String cid, String sort, String screen, String storename,String location);
+
+        void getMoreScreeningList(String address, String cid, String sort, String screen, String storename,String location);
     }
 
     interface ScreeningListView extends BaseView<ScreeningListPresenter> {
+        void renderClassifyInfo(ClassifyInfo classifyInfo);
+
         void screeningListInfo(ScreeningListResponse screeningListResponse);
 
         void moreScreeningListInfo(ScreeningListResponse screeningListResponse);
     }
 
-    interface QrCodePresenter extends BasePresenter{
+    interface QrCodePresenter extends BasePresenter {
         void getShopDetail(String storeid);
     }
 
-    interface QrCodeView extends BaseView<QrCodePresenter>{
+    interface QrCodeView extends BaseView<QrCodePresenter> {
         void shopDetailInfo(ShopDetailsInfo shopDetailsInfo);
     }
 }

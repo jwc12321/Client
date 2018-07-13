@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
-import com.purchase.sls.data.entity.ComprehensiveInfo;
+import com.purchase.sls.data.entity.SortInfo;
 
 import java.util.List;
 
@@ -22,11 +22,11 @@ import butterknife.ButterKnife;
 
 public class ScreeningSecondAdapter extends RecyclerView.Adapter<ScreeningSecondAdapter.ScreeningFirstView> {
     private LayoutInflater layoutInflater;
-    private List<ComprehensiveInfo> comprehensiveInfos;
+    private List<SortInfo> sortInfos;
     private int selectPosition = 0;
 
-    public void setData(List<ComprehensiveInfo> comprehensiveInfos) {
-        this.comprehensiveInfos = comprehensiveInfos;
+    public void setData(List<SortInfo> sortInfos) {
+        this.sortInfos = sortInfos;
         notifyDataSetChanged();
     }
 
@@ -46,15 +46,15 @@ public class ScreeningSecondAdapter extends RecyclerView.Adapter<ScreeningSecond
 
     @Override
     public void onBindViewHolder(final ScreeningFirstView holder, int position) {
-        final ComprehensiveInfo comprehensiveInfo = comprehensiveInfos.get(holder.getAdapterPosition());
+        final SortInfo sortInfo = sortInfos.get(holder.getAdapterPosition());
         holder.choiceImageSecond.setVisibility(position == selectPosition ? View.VISIBLE : View.INVISIBLE);
         holder.choiceTypeSecond.setSelected(position == selectPosition);
-        holder.choiceTypeSecond.setText(comprehensiveInfo.getName());
+        holder.choiceTypeSecond.setText(sortInfo.getVel());
         holder.choiceSecondRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onSecondItemOnClickListenern != null) {
-                    onSecondItemOnClickListenern.onSecondItemClick(comprehensiveInfo.getSort(), holder.getAdapterPosition());
+                    onSecondItemOnClickListenern.onSecondItemClick(sortInfo.getKey(), holder.getAdapterPosition());
                 }
             }
         });
@@ -63,7 +63,7 @@ public class ScreeningSecondAdapter extends RecyclerView.Adapter<ScreeningSecond
 
     @Override
     public int getItemCount() {
-        return comprehensiveInfos == null ? 0 : comprehensiveInfos.size();
+        return sortInfos == null ? 0 : sortInfos.size();
     }
 
     public static class ScreeningFirstView extends RecyclerView.ViewHolder {

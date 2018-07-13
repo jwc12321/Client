@@ -8,8 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
-import com.purchase.sls.data.entity.MealsNumberInfo;
-import com.purchase.sls.data.entity.NearbyInfoResponse;
+import com.purchase.sls.data.entity.ScreenInfo;
 
 import java.util.List;
 
@@ -23,11 +22,11 @@ import butterknife.ButterKnife;
 public class ScreeningThirdAdapter extends RecyclerView.Adapter<ScreeningThirdAdapter.ScreeningThirdView> {
 
     private LayoutInflater layoutInflater;
-    private List<MealsNumberInfo> mealsNumberInfos;
+    private List<ScreenInfo> screenInfos;
     private int selectPosition = 0;
 
-    public void setData(List<MealsNumberInfo> mealsNumberInfos) {
-        this.mealsNumberInfos = mealsNumberInfos;
+    public void setData(List<ScreenInfo> screenInfos) {
+        this.screenInfos = screenInfos;
         notifyDataSetChanged();
     }
 
@@ -48,14 +47,14 @@ public class ScreeningThirdAdapter extends RecyclerView.Adapter<ScreeningThirdAd
 
     @Override
     public void onBindViewHolder(final ScreeningThirdView holder, int position) {
-        final MealsNumberInfo mealsNumberInfo = mealsNumberInfos.get(holder.getAdapterPosition());
-        holder.itemName.setText(mealsNumberInfo.getNumber());
+        final ScreenInfo screenInfo = screenInfos.get(holder.getAdapterPosition());
+        holder.itemName.setText(screenInfo.getVel());
         holder.itemName.setSelected(selectPosition == position);
         holder.itemLl.setSelected(selectPosition == position);
         holder.itemLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onThirdItemOnClickListener.onThirdItemClick(mealsNumberInfo.getScreenId(), holder.getAdapterPosition());
+                onThirdItemOnClickListener.onThirdItemClick(screenInfo.getKey(), holder.getAdapterPosition());
             }
         });
 
@@ -63,7 +62,7 @@ public class ScreeningThirdAdapter extends RecyclerView.Adapter<ScreeningThirdAd
 
     @Override
     public int getItemCount() {
-        return mealsNumberInfos == null ? 0 : mealsNumberInfos.size();
+        return screenInfos == null ? 0 : screenInfos.size();
     }
 
     public class ScreeningThirdView extends RecyclerView.ViewHolder {

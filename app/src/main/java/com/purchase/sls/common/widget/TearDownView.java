@@ -32,6 +32,7 @@ public class TearDownView extends LinearLayout {
     private TextView firstColon;
     private TextView secondColon;
     private TextView thirdColon;
+    private TextView fourthColon;
 
     public TearDownView(Context context) {
         super(context);
@@ -72,6 +73,7 @@ public class TearDownView extends LinearLayout {
         firstColon = (TextView) findViewById(R.id.first_colon);
         secondColon = (TextView) findViewById(R.id.second_colon);
         thirdColon = (TextView) findViewById(R.id.third_colon);
+        fourthColon = (TextView) findViewById(R.id.fourth_colon);
     }
 
     public void setTextColor(String colorType){
@@ -88,6 +90,7 @@ public class TearDownView extends LinearLayout {
             firstColon.setTextColor(Color.parseColor("#FFFFFF"));
             secondColon.setTextColor(Color.parseColor("#FFFFFF"));
             thirdColon.setTextColor(Color.parseColor("#FFFFFF"));
+            fourthColon.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 
@@ -113,12 +116,19 @@ public class TearDownView extends LinearLayout {
         if (mIsAttachedToWindow) {
             long remainTime= endTime - System.currentTimeMillis() / 1000;
             if (remainTime >0) {
+                long day = 0;
                 long hour = 0;
                 long min = 0;
                 long sec = 0;
-                hour = (remainTime / (60 * 60));
-                min = (remainTime / 60 - hour * 60);
-                sec = (remainTime - hour * 60 * 60 - min * 60);
+                day = remainTime / (24 * 60 * 60);
+                hour = (remainTime / (60 * 60) - day * 24);
+                min = (remainTime / 60 - day * 24 * 60 - hour * 60);
+                sec = (remainTime - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+                if(String.valueOf(day).length()==1){
+                    dayTextView.setText("0"+day);
+                }else {
+                    dayTextView.setText(String.valueOf(day));
+                }
                 if(String.valueOf(hour).length()==1){
                     hourTextView.setText("0"+hour);
                 }else {

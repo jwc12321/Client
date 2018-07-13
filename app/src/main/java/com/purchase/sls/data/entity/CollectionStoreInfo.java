@@ -25,6 +25,8 @@ public class CollectionStoreInfo {
     private String rebate;
     @SerializedName("cid")
     private String cid;
+    @SerializedName("distance_um")
+    private String distanceUm;
 
     public String getAverage() {
         return average;
@@ -96,5 +98,13 @@ public class CollectionStoreInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDistanceUm() {
+        return distanceUm;
+    }
+
+    public void setDistanceUm(String distanceUm) {
+        this.distanceUm = distanceUm;
     }
 }

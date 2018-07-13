@@ -55,7 +55,7 @@ public interface ShoppingMallContract {
 
     interface ShoppingCartPresenter extends BasePresenter{
         void getShoppingCartList();
-        void orderShopCart(String cartid);
+        void orderShopCart(String cartid, String num);
         void deleteshopCart(String id);
     }
 

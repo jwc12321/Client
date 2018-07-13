@@ -17,5 +17,6 @@
         android:id="@+id/choice_sum_first"
         style="@style/adapter_screen_choice_tt"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/common_text_left" />
+        android:layout_marginRight="@dimen/common_text_left"
+        android:visibility="gone"/>
 </RelativeLayout>

@@ -13,6 +13,7 @@ import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.BrowseInfo;
 import com.purchase.sls.data.entity.ChangeAppInfo;
+import com.purchase.sls.data.entity.ClassifyInfo;
 import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
@@ -47,6 +48,7 @@ import com.purchase.sls.data.request.AddAddressRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.AddToCartRequest;
 import com.purchase.sls.data.request.CartidRequest;
+import com.purchase.sls.data.request.CateidRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
 import com.purchase.sls.data.request.ChangepwdRequest;
 import com.purchase.sls.data.request.CheckCodeRequest;
@@ -401,4 +403,8 @@ public interface RestApiService {
     //生成订单(微信支付)
     @POST("mall/paynow")
     Flowable<RemoteDataWrapper<WXPaySignResponse>> orderWXPay(@Body OrderPayRequest orderPayRequest);
+
+    //获取分类
+    @POST("home/system/sortConfig")
+    Flowable<RemoteDataWrapper<ClassifyInfo>> getClassifyInfo(@Body CateidRequest cateidRequest);
 }

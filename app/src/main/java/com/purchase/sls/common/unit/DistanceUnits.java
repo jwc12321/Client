@@ -5,7 +5,7 @@ package com.purchase.sls.common.unit;
  */
 
 public class DistanceUnits {
-    private static final double EARTH_RADIUS = 6378137.0;
+    private static final double EARTH_RADIUS = 6378137.00;
     public static double getDistance(double longitude1, double latitude1,
                                      double longitude2, double latitude2) {
         double Lat1 = rad(latitude1);
@@ -16,10 +16,11 @@ public class DistanceUnits {
                 + Math.cos(Lat1) * Math.cos(Lat2)
                 * Math.pow(Math.sin(b / 2), 2)));
         s = s * EARTH_RADIUS;
-        s = Math.round(s * 10000) / 10000/1000;
+        s = Math.round(s * 10000) / 10000;
         return s;
     }
+
     private static double rad(double d) {
-        return d * Math.PI / 180.0;
+        return d * Math.PI / 180.00;
     }
 }

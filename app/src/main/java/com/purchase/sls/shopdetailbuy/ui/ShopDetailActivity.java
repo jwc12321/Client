@@ -173,6 +173,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private void initView() {
         commonAppPreferences = new CommonAppPreferences(this);
         if(commonAppPreferences!=null){
+            cityName=commonAppPreferences.getCity();
             currX=commonAppPreferences.getCurrLongitude();
             currY=commonAppPreferences.getCurrLatitude();
         }
@@ -217,6 +218,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private void moreStore() {
         likeStoreAdapter = new LikeStoreAdapter(this);
         likeStoreAdapter.setOnLikeStoreClickListener(this);
+        likeStoreAdapter.setCity(cityName,currX,currY);
         moreShopRv.setAdapter(likeStoreAdapter);
     }
 

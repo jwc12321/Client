@@ -123,6 +123,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     private void initView() {
         goodsid = getIntent().getStringExtra(StaticData.GOODS_ID);
+        countDown.setTextColor("1");
         bannerInitialization();
         initWeb(goodsid);
         goodsDetailPresenter.getGoodsDetail(goodsid);
@@ -264,7 +265,6 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             goodsVoucher.setText("能购劵最高可减" + goodsDetailInfo.getQuanPrice());
             if (!TextUtils.isEmpty(goodsDetailInfo.getEndtime())) {
                 countDown.setTimeOutListener(this);
-                countDown.setTextColor("1");
                 countDown.startTearDown(Long.parseLong(goodsDetailInfo.getEndtime()), "1");
             }
         }

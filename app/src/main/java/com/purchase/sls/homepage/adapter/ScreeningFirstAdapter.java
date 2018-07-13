@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.purchase.sls.R;
-import com.purchase.sls.data.entity.ScreeningListResponse;
+import com.purchase.sls.data.entity.CateInfo;
 
 import java.util.List;
 
@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
 
 public class ScreeningFirstAdapter extends RecyclerView.Adapter<ScreeningFirstAdapter.ScreeningFirstView> {
     private LayoutInflater layoutInflater;
-    private List<ScreeningListResponse.CateInfo> cateInfos;
+    private List<CateInfo> cateInfos;
     private int selectPosition = 0;
 
-    public void setData(List<ScreeningListResponse.CateInfo> cateInfos) {
+    public void setData(List<CateInfo> cateInfos) {
         this.cateInfos = cateInfos;
         notifyDataSetChanged();
     }
@@ -46,12 +46,10 @@ public class ScreeningFirstAdapter extends RecyclerView.Adapter<ScreeningFirstAd
 
     @Override
     public void onBindViewHolder(final ScreeningFirstView holder, int position) {
-        final ScreeningListResponse.CateInfo cateInfo = cateInfos.get(holder.getAdapterPosition());
+        final CateInfo cateInfo = cateInfos.get(holder.getAdapterPosition());
         holder.choiceImageFirst.setVisibility(position == selectPosition ? View.VISIBLE : View.INVISIBLE);
         holder.choiceImageFirst.setSelected(position==selectPosition);
-        holder.choiceSumFirst.setSelected(position==selectPosition);
         holder.choiceTypeFirst.setText(cateInfo.getName());
-        holder.choiceSumFirst.setText(cateInfo.getSum());
         holder.choiceFirstRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -20,13 +20,16 @@ public class ScreeningListRequest {
     private String screen;
     @SerializedName("storename")
     private String storename;
+    @SerializedName("coordinate")
+    private String location;
 
-    public ScreeningListRequest(String address, String cid, String sort, String page, String screen, String storename) {
+    public ScreeningListRequest(String address, String cid, String sort, String page, String screen, String storename,String location) {
         this.address = address;
         this.cid = cid;
         this.sort = sort;
         this.page = page;
         this.screen = screen;
         this.storename = storename;
+        this.location=location;
     }
 }

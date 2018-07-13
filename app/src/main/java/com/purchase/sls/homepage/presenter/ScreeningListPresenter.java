@@ -3,9 +3,11 @@ package com.purchase.sls.homepage.presenter;
 import android.text.TextUtils;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
+import com.purchase.sls.data.entity.ClassifyInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.CateidRequest;
 import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.homepage.HomePageContract;
 
@@ -21,7 +23,7 @@ import io.reactivex.functions.Consumer;
  * Created by JWC on 2018/4/23.
  */
 
-public class ScreeningListPresenter implements HomePageContract.ScreeningListPresenter{
+public class ScreeningListPresenter implements HomePageContract.ScreeningListPresenter {
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
     private HomePageContract.ScreeningListView screeningListView;
@@ -57,21 +59,42 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
         }
     }
 
+    @Override
+    public void getClassifyInfo(String cateid) {
+        CateidRequest cateidRequest = new CateidRequest(cateid);
+        Disposable disposable = restApiService.getClassifyInfo(cateidRequest)
+                .flatMap(new RxRemoteDataParse<ClassifyInfo>())
+                .compose(new RxSchedulerTransformer<ClassifyInfo>())
+                .subscribe(new Consumer<ClassifyInfo>() {
+                    @Override
+                    public void accept(ClassifyInfo classifyInfo) throws Exception {
+                        screeningListView.renderClassifyInfo(classifyInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        screeningListView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
     /**
      * 获取热门筛选信息
+     *
      * @param address
      * @param cid
      * @param sort
      * @param screen
      */
     @Override
-    public void getScreeningList(String refreshType,String address, String cid, String sort,  String screen,String storename) {
-        if(TextUtils.equals("1",refreshType)){
+    public void getScreeningList(String refreshType, String address, String cid, String sort, String screen, String storename,String location) {
+        if (TextUtils.equals("1", refreshType)) {
             screeningListView.showLoading();
         }
         currentIndex = 1;
-        ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen,storename);
-        Disposable disposable=restApiService.getScreeningListInfo(screeningListRequest)
+        ScreeningListRequest screeningListRequest = new ScreeningListRequest(address, cid, sort, String.valueOf(currentIndex), screen, storename,location);
+        Disposable disposable = restApiService.getScreeningListInfo(screeningListRequest)
                 .flatMap(new RxRemoteDataParse<ScreeningListResponse>())
                 .compose(new RxSchedulerTransformer<ScreeningListResponse>())
                 .subscribe(new Consumer<ScreeningListResponse>() {
@@ -91,10 +114,10 @@ public class ScreeningListPresenter implements HomePageContract.ScreeningListPre
     }
 
     @Override
-    public void getMoreScreeningList(String address, String cid, String sort, String screen,String storename) {
-        currentIndex = currentIndex+1;
-        ScreeningListRequest screeningListRequest=new ScreeningListRequest(address,cid,sort,String.valueOf(currentIndex),screen,storename);
-        Disposable disposable=restApiService.getScreeningListInfo(screeningListRequest)
+    public void getMoreScreeningList(String address, String cid, String sort, String screen, String storename,String location) {
+        currentIndex = currentIndex + 1;
+        ScreeningListRequest screeningListRequest = new ScreeningListRequest(address, cid, sort, String.valueOf(currentIndex), screen, storename,location);
+        Disposable disposable = restApiService.getScreeningListInfo(screeningListRequest)
                 .flatMap(new RxRemoteDataParse<ScreeningListResponse>())
                 .compose(new RxSchedulerTransformer<ScreeningListResponse>())
                 .subscribe(new Consumer<ScreeningListResponse>() {

@@ -17,6 +17,8 @@ import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.DistanceUnits;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,6 +36,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
     private String longitude;
     private String latitude;
     private String city;
+    BigDecimal kmdistanceBd= new BigDecimal(1000).setScale(0, RoundingMode.HALF_UP);
 
     public LikeStoreAdapter(Context context) {
         this.context = context;
@@ -126,17 +129,24 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
             shopName.setText(collectionStoreInfo.getName());
             shopCity.setText(city);
             String addressXy = collectionStoreInfo.getAddressXy();
-            if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
-                shopDistance.setVisibility(View.GONE);
-            } else {
-                String[] addressXys = addressXy.split(",");
-                if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
-                    shopDistance.setVisibility(View.VISIBLE);
-                    shopDistance.setText(String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])))+"KM");
-                } else {
-                    shopDistance.setVisibility(View.GONE);
-                }
+            if(!TextUtils.isEmpty(collectionStoreInfo.getDistanceUm())&&!TextUtils.equals("0",collectionStoreInfo.getDistanceUm())){
                 shopDistance.setVisibility(View.VISIBLE);
+                shopDistance.setText(collectionStoreInfo.getDistanceUm()+"KM");
+            }else {
+                if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
+                    shopDistance.setVisibility(View.GONE);
+                } else {
+                    String[] addressXys = addressXy.split(",");
+                    if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
+                        shopDistance.setVisibility(View.VISIBLE);
+                        String mdistance=String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])));
+                        BigDecimal mdistanceBd= new BigDecimal(mdistance).setScale(2, RoundingMode.HALF_UP);
+                        shopDistance.setText( mdistanceBd.divide(kmdistanceBd,2,BigDecimal.ROUND_DOWN)+ "KM");
+                    } else {
+                        shopDistance.setVisibility(View.GONE);
+                    }
+                    shopDistance.setVisibility(View.VISIBLE);
+                }
             }
             if (TextUtils.isEmpty(collectionStoreInfo.getRebate())||TextUtils.equals("0", collectionStoreInfo.getRebate())) {
                 returnLl.setVisibility(View.GONE);

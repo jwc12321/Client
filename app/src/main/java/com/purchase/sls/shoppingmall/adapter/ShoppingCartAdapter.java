@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -55,28 +56,36 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     @Override
     public void onBindViewHolder(final ShoppingCartView holder, int position) {
-        ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(holder.getAdapterPosition());
+        final ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(holder.getAdapterPosition());
         holder.bindData(shoppingCartInfo);
         holder.choiceItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        itemClickListener.checkGroup(holder.getAdapterPosition(), ((CheckBox) v).isChecked());//向外暴露接口
-                    }
-                }
+                                                 @Override
+                                                 public void onClick(View v) {
+                                                     itemClickListener.checkGroup(holder.getAdapterPosition(), ((CheckBox) v).isChecked());//向外暴露接口
+                                                 }
+                                             }
         );
         holder.addNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(itemClickListener!=null){
-                    itemClickListener.doIncrease(holder.getAdapterPosition(),holder.goodsCount,holder.choiceItem.isChecked());
+                if (itemClickListener != null) {
+                    itemClickListener.doIncrease(holder.getAdapterPosition(), holder.goodsCount, holder.choiceItem.isChecked());
                 }
             }
         });
         holder.reduceNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(itemClickListener!=null){
-                    itemClickListener.doReduce(holder.getAdapterPosition(),holder.goodsCount,holder.choiceItem.isChecked());
+                if (itemClickListener != null) {
+                    itemClickListener.doReduce(holder.getAdapterPosition(), holder.goodsCount, holder.choiceItem.isChecked());
+                }
+            }
+        });
+        holder.shopcartItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemClickListener != null) {
+                    itemClickListener.goGoodsDetail(shoppingCartInfo.getGoodsid());
                 }
             }
         });
@@ -105,6 +114,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         TextView goodsCount;
         @BindView(R.id.reduce_number)
         ImageView reduceNumber;
+        @BindView(R.id.shopcart_item)
+        LinearLayout shopcartItem;
 
         public ShoppingCartView(View itemView) {
             super(itemView);
@@ -116,11 +127,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             goodsName.setText(shoppingCartInfo.getGoodsName());
             goodsSpec.setText(shoppingCartInfo.getSkuinfo());
             goodsCount.setText(shoppingCartInfo.getGoodsnum());
-            goodsPrice.setText("¥ "+shoppingCartInfo.getPrice());
+            goodsPrice.setText("¥ " + shoppingCartInfo.getPrice());
             boolean choosed = shoppingCartInfo.isChoosed();
-            if (choosed){
+            if (choosed) {
                 choiceItem.setChecked(true);
-            }else{
+            } else {
                 choiceItem.setChecked(false);
             }
         }
@@ -128,8 +139,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     public interface ItemClickListener {
         void checkGroup(int position, boolean isChecked);
+
         void doIncrease(int position, View showCountView, boolean isChecked);
+
         void doReduce(int position, View showCountView, boolean isChecked);
+
+        void goGoodsDetail(String goodsId);
     }
 
     private ItemClickListener itemClickListener;

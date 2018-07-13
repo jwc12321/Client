@@ -115,15 +115,15 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
 
     @Override
     public void checkGroup(int position, boolean isChecked) {
-        if(flag) {
+        if (flag) {
             ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(position);
             shoppingCartInfo.setChoosed(isChecked);
-        }else {
-            for (int i=0;i<shoppingCartInfos.size();i++){
-                if(i==position){
+        } else {
+            for (int i = 0; i < shoppingCartInfos.size(); i++) {
+                if (i == position) {
                     ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(i);
                     shoppingCartInfo.setChoosed(isChecked);
-                }else {
+                } else {
                     ShoppingCartInfo shoppingCartInfo = shoppingCartInfos.get(i);
                     shoppingCartInfo.setChoosed(false);
                 }
@@ -156,6 +156,11 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
         ((TextView) showCountView).setText(String.valueOf(currentCount));
         shoppingCartAdapter.notifyDataSetChanged();
         calculatingPrice();
+    }
+
+    @Override
+    public void goGoodsDetail(String goodsId) {
+        GoodsDetailActivity.start(this,goodsId);
     }
 
     //计算价格
@@ -286,19 +291,19 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
                 }
             }
             if (payOrderList.size() > 0) {
-                for (int z = 0; z < payOrderList.size(); z++) {
-                    if (z == 0) {
-                        cardId = payOrderList.get(z).getId();
-                    } else {
-                        cardId = cardId + "," + payOrderList.get(z).getId();
-                    }
-                }
                 if (flag) {
+                    for (int z = 0; z < payOrderList.size(); z++) {
+                        if (z == 0) {
+                            cardId = payOrderList.get(z).getId();
+                        } else {
+                            cardId = cardId + "," + payOrderList.get(z).getId();
+                        }
+                    }
                     shoppingCartPresenter.deleteshopCart(cardId);
                 } else {
-                    shoppingCartPresenter.orderShopCart(cardId);
+                    shoppingCartPresenter.orderShopCart(payOrderList.get(0).getId(), payOrderList.get(0).getGoodsnum());
                 }
-            } else {
+            }else {
                 dismissLoading();
             }
         }
