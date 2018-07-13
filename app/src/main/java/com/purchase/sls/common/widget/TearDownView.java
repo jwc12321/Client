@@ -87,10 +87,6 @@ public class TearDownView extends LinearLayout {
             hourTextView.setTextColor(Color.parseColor("#FFFFFF"));
             minutsTextView.setTextColor(Color.parseColor("#FFFFFF"));
             secondTextView.setTextColor(Color.parseColor("#FFFFFF"));
-            firstColon.setTextColor(Color.parseColor("#FFFFFF"));
-            secondColon.setTextColor(Color.parseColor("#FFFFFF"));
-            thirdColon.setTextColor(Color.parseColor("#FFFFFF"));
-            fourthColon.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 

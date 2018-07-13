@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -21,16 +20,13 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
-import com.purchase.sls.address.ui.AddressListActivity;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.TearDownView;
-import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
-import com.purchase.sls.data.entity.GoodsSku;
 import com.purchase.sls.data.entity.GoodsUnitPrice;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
@@ -39,15 +35,7 @@ import com.purchase.sls.shoppingmall.presenter.GoodsDetailPresenter;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.inject.Inject;
 
@@ -83,8 +71,6 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     TextView goodsDetail;
     @BindView(R.id.webView)
     WebView webView;
-    @BindView(R.id.scrollview)
-    GradationScrollView scrollview;
     @BindView(R.id.add_to_cart)
     TextView addToCart;
     @BindView(R.id.purchase)
@@ -97,7 +83,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     private GoodsDetailInfo goodsDetailInfo;
     private GoodsUnitPrice goodsUnitPrice;
     private String goodsCount;
-    private String addType="0"; //0：加入购物车 1：购买
+    private String addType = "0"; //0：加入购物车 1：购买
     private String taobaoid;
     private String quanPrice;
 
@@ -149,6 +135,19 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                     WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
         settings.setJavaScriptEnabled(true);
+
+        //设置是否支持缩放
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+
+        //设置是否显示缩放按钮
+        settings.setDisplayZoomControls(true);
+
+        //设置自适应屏幕宽度
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+
+
         webView.setWebChromeClient(new JSBridgeWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -169,18 +168,18 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         webView.loadUrl(url);
     }
 
-    @OnClick({R.id.back,R.id.add_to_cart,R.id.purchase,R.id.shopping_cart})
+    @OnClick({R.id.back, R.id.add_to_cart, R.id.purchase, R.id.shopping_cart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.add_to_cart:
-                addType="0";
+                addType = "0";
                 selectSpec();
                 break;
             case R.id.purchase:
-                addType="1";
+                addType = "1";
                 selectSpec();
                 break;
             case R.id.shopping_cart:
@@ -190,7 +189,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         }
     }
 
-    private void selectSpec(){
+    private void selectSpec() {
         Intent intent = new Intent(this, SelectSpecActivity.class);
         intent.putExtra(StaticData.GOODS_DETAIL, goodsDetailInfo);
         startActivityForResult(intent, REQUEST_SPEC);
@@ -204,13 +203,13 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                 case REQUEST_SPEC:
                     if (data != null) {
                         Bundle bundle = data.getExtras();
-                        goodsUnitPrice= (GoodsUnitPrice) bundle.getSerializable(StaticData.GOODS_UNIT_PRICE);
-                        goodsCount=bundle.getString(StaticData.GOODS_COUNT);
-                        if(goodsUnitPrice!=null&&!TextUtils.isEmpty(goodsCount)){
-                            if(TextUtils.equals("0",addType)) {
+                        goodsUnitPrice = (GoodsUnitPrice) bundle.getSerializable(StaticData.GOODS_UNIT_PRICE);
+                        goodsCount = bundle.getString(StaticData.GOODS_COUNT);
+                        if (goodsUnitPrice != null && !TextUtils.isEmpty(goodsCount)) {
+                            if (TextUtils.equals("0", addType)) {
                                 goodsDetailPresenter.addToCart(goodsid, taobaoid, goodsUnitPrice.getSkuId(), goodsCount, goodsUnitPrice.getName(), quanPrice, goodsUnitPrice.getPrice(), "");
-                            }else {
-                                goodsDetailPresenter.purchaseGoods(goodsCount,goodsid,goodsUnitPrice.getSkuId(),goodsUnitPrice.getPrice(),goodsUnitPrice.getName(),taobaoid,quanPrice,"");
+                            } else {
+                                goodsDetailPresenter.purchaseGoods(goodsCount, goodsid, goodsUnitPrice.getSkuId(), goodsUnitPrice.getPrice(), goodsUnitPrice.getName(), taobaoid, quanPrice, "");
                             }
                         }
                     }
@@ -219,6 +218,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             }
         }
     }
+
     @Override
     protected void initializeInjector() {
         DaggerShoppingMallComponent.builder()
@@ -242,7 +242,6 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     public void timeOut() {
         goodsVoucher.setText("能购劵最高可减0");
         countDownRl.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -252,11 +251,11 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Override
     public void renderGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
-        this.goodsDetailInfo=goodsDetailInfo;
+        this.goodsDetailInfo = goodsDetailInfo;
         if (goodsDetailInfo != null) {
             title.setText(goodsDetailInfo.getGoodsName());
-            taobaoid=goodsDetailInfo.getTaobaoid();
-            quanPrice=goodsDetailInfo.getQuanPrice();
+            taobaoid = goodsDetailInfo.getTaobaoid();
+            quanPrice = goodsDetailInfo.getQuanPrice();
             bannerImages = new ArrayList<>();
             bannerImages.add(goodsDetailInfo.getGoodsImg());
             banner.setImages(bannerImages);

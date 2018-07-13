@@ -114,18 +114,21 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
                 System.out.println(entry.getKey() + " " + entry.getValue());
                 goodsSpecStr = goodsSpecStr + entry.getValue();
             }
+            goodsUnitPrice=null;
             for (GoodsUnitPrice goodsUnitPrice : goodsUnitPrices) {
                 if (TextUtils.equals(goodsSpecStr, goodsUnitPrice.getName())) {
                     this.goodsUnitPrice = goodsUnitPrice;
                     break;
                 }
             }
-            if (goodsUnitPrice != null && TextUtils.equals("0", goodsUnitPrice.getQuantity())) {
-                showMessage("该商品没有库存");
+            if (goodsUnitPrice==null||(goodsUnitPrice != null && TextUtils.equals("0", goodsUnitPrice.getQuantity()))) {
+                confirmBt.setEnabled(false);
+                price.setText("暂无库存");
                 return;
+            }else {
+                calculatingPrice(goodsUnitPrice);
+                confirmBt.setEnabled(true);
             }
-            confirmBt.setEnabled(true);
-            calculatingPrice(goodsUnitPrice);
         } else {
             confirmBt.setEnabled(false);
         }

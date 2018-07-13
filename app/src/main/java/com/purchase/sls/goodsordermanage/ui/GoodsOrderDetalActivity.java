@@ -159,7 +159,9 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
             } else {
                 payType.setText("微信");
             }
-            payTime.setText(FormatUtil.formatDateByLine(goodsOrderDetailInfo.getPaytime()));
+            if(!TextUtils.isEmpty(goodsOrderDetailInfo.getPaytime())&&!TextUtils.equals("0",goodsOrderDetailInfo.getPaytime())){
+                payTime.setText(FormatUtil.formatDateByLine(goodsOrderDetailInfo.getPaytime()));
+            }
             goodsOrderNumber.setText(goodsOrderDetailInfo.getOrdernum());
             placeOrderTime.setText(FormatUtil.formatDateByLine(goodsOrderDetailInfo.getAddtime()));
             distributionType.setText("");
