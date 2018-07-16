@@ -173,7 +173,6 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
             if (e instanceof RemoteDataException) {
                 if (((RemoteDataException) e).isAuthFailed()) {
                     //跳转到登录页面
-                    TokenManager.saveToken("");
                     JPushInterface.setAliasAndTags(getApplicationContext(),
                             "",
                             null,

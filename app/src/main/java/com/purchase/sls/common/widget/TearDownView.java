@@ -82,11 +82,19 @@ public class TearDownView extends LinearLayout {
             hourTextView.setTextColor(Color.parseColor("#ff6528"));
             minutsTextView.setTextColor(Color.parseColor("#ff6528"));
             secondTextView.setTextColor(Color.parseColor("#ff6528"));
+            firstColon.setTextColor(Color.parseColor("#ff6528"));
+            secondColon.setTextColor(Color.parseColor("#ff6528"));
+            thirdColon.setTextColor(Color.parseColor("#ff6528"));
+            fourthColon.setTextColor(Color.parseColor("#ff6528"));
         }else {
             dayTextView.setTextColor(Color.parseColor("#FFFFFF"));
             hourTextView.setTextColor(Color.parseColor("#FFFFFF"));
             minutsTextView.setTextColor(Color.parseColor("#FFFFFF"));
             secondTextView.setTextColor(Color.parseColor("#FFFFFF"));
+            firstColon.setTextColor(Color.parseColor("#FFFFFF"));
+            secondColon.setTextColor(Color.parseColor("#FFFFFF"));
+            thirdColon.setTextColor(Color.parseColor("#FFFFFF"));
+            fourthColon.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 
@@ -147,6 +155,10 @@ public class TearDownView extends LinearLayout {
                         timeOutListener.timeIn();
                     } else {
                         timeOutListener.timeOut();
+                        dayTextView.setText("00");
+                        hourTextView.setText("00");
+                        minutsTextView.setText("00");
+                        secondTextView.setText("00");
                         cancel();
                     }
                 }

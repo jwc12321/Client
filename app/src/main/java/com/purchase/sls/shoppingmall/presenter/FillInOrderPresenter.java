@@ -13,11 +13,13 @@ import com.purchase.sls.common.unit.PayResult;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
+import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.WXPaySignResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.CartidRequest;
 import com.purchase.sls.data.request.CreateOrderRequest;
-import com.purchase.sls.data.request.GeneratingOrderRequest;
+import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -143,6 +145,50 @@ public class FillInOrderPresenter implements ShoppingMallContract.FillInOrderPre
                         fillOrderView.dismissLoading();
                         fillOrderView.renderOrderno(wXPaySignResponse.getOrderno());
                         startWXPay(wXPaySignResponse);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        fillOrderView.dismissLoading();
+                        fillOrderView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void purchaseGoods(PurchaseGoodsRequest purchaseGoodsRequest) {
+        fillOrderView.showLoading();
+        Disposable disposable = restApiService.purchaseGoods(purchaseGoodsRequest)
+                .flatMap(new RxRemoteDataParse<GoodsOrderList>())
+                .compose(new RxSchedulerTransformer<GoodsOrderList>())
+                .subscribe(new Consumer<GoodsOrderList>() {
+                    @Override
+                    public void accept(GoodsOrderList goodsOrderList) throws Exception {
+                        fillOrderView.dismissLoading();
+                        fillOrderView.subGoodsSuccess(goodsOrderList);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        fillOrderView.dismissLoading();
+                        fillOrderView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void orderShopCart(CartidRequest cartidRequest) {
+        fillOrderView.showLoading();
+        Disposable disposable = restApiService.orderShopCart(cartidRequest)
+                .flatMap(new RxRemoteDataParse<GoodsOrderList>())
+                .compose(new RxSchedulerTransformer<GoodsOrderList>())
+                .subscribe(new Consumer<GoodsOrderList>() {
+                    @Override
+                    public void accept(GoodsOrderList goodsOrderList) throws Exception {
+                        fillOrderView.dismissLoading();
+                        fillOrderView.subGoodsSuccess(goodsOrderList);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -231,7 +230,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                     longitude = "";
                     latitude = "";
                 } else {
-                    city = aMapLocation.getCity();
+                    city = aMapLocation.getDistrict();
                     longitude = aMapLocation.getLongitude() + "";
                     latitude = aMapLocation.getLatitude() + "";
                     choiceCity.setText(city);
@@ -240,11 +239,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 homePagePresenter.getBannerHotInfo("0", city);
                 homePagePresenter.getLikeStore(city);
                 commonAppPreferences.setCity(city);
-                commonAppPreferences.setLocal(longitude,latitude);
+                commonAppPreferences.setLocal(longitude, latitude);
                 commonAppPreferences.setCurrLocalAddress(longitude, latitude);
-                if (!TextUtils.equals("1", commonAppPreferences.getToUpdate())) {
-                    homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
-                }
+                homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
             }
         });
 
@@ -554,7 +551,6 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     private void showUpdate(final ChangeAppInfo changeAppInfo) {
-        commonAppPreferences.setToUpdate("1");
         if (dialogUpdate == null)
             dialogUpdate = new CommonDialog.Builder()
                     .setTitle("版本更新")

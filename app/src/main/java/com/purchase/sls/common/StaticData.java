@@ -113,4 +113,13 @@ public class StaticData {
     public static final String TOTAL_PRICE="tatalPrice";
     //订单编号
     public static final String ORDER_NUM="orderNum";
+
+    //购物车下单数据
+    public static final String CARTID_REQUEST="CartidRequest";
+    //直接下单数据
+    public static final String PURCHASE_GOODS_REQUEST="PurchaseGoodsRequest";
+
+    //从哪里下单
+    public static final String PAY_WHERE="payWhere";
+
 }

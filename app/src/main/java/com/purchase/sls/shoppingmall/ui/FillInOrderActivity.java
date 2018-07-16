@@ -25,6 +25,8 @@ import com.purchase.sls.data.entity.GoodsOrderInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.event.PayAbortEvent;
 import com.purchase.sls.data.event.WXSuccessPayEvent;
+import com.purchase.sls.data.request.CartidRequest;
+import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.goodsordermanage.ui.GoodsOrderDetalActivity;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
@@ -110,7 +112,6 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     private static final int REQUEST_ADDRESS = 22;
 
     private BigDecimal quanHouPriceDd;//减掉优惠券的价格
-    private BigDecimal quanPriceBd;//优惠券
     private BigDecimal totalPriceBd;//优惠券
     private BigDecimal ownQuanPriceBd;//自己有的劵
     private String quanPrice;
@@ -120,13 +121,19 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     private IWXAPI api;
     private String ordreno;
     private String cartId;
-    private String isQuan="1";
-    private String quanType; //1：自己有的优惠券大于可以抵扣的 2：自己有的优惠券小于可以抵扣的
+    private String isQuan = "1";
+
+    private String payWhere; //1：购物车 2：直接购买
+    private PurchaseGoodsRequest purchaseGoodsRequest;
+    private CartidRequest cartidRequest;
 
 
-    public static void start(Context context, GoodsOrderList goodsOrderList) {
+    public static void start(Context context, GoodsOrderList goodsOrderList, String payWhere, PurchaseGoodsRequest purchaseGoodsRequest, CartidRequest cartidRequest) {
         Intent intent = new Intent(context, FillInOrderActivity.class);
         intent.putExtra(StaticData.GOODS_ORDER_LIST, goodsOrderList);
+        intent.putExtra(StaticData.PAY_WHERE, payWhere);
+        intent.putExtra(StaticData.PURCHASE_GOODS_REQUEST, purchaseGoodsRequest);
+        intent.putExtra(StaticData.CARTID_REQUEST, cartidRequest);
         context.startActivity(intent);
     }
 
@@ -142,49 +149,44 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
 
     private void initView() {
         goodsOrderList = (GoodsOrderList) getIntent().getSerializableExtra(StaticData.GOODS_ORDER_LIST);
+        payWhere = getIntent().getStringExtra(StaticData.PAY_WHERE);
+        purchaseGoodsRequest = (PurchaseGoodsRequest) getIntent().getSerializableExtra(StaticData.PURCHASE_GOODS_REQUEST);
+        cartidRequest = (CartidRequest) getIntent().getSerializableExtra(StaticData.CARTID_REQUEST);
         zhifubaoPay.setSelected(true);
         weixinPay.setSelected(false);
         fillInOrderPresenter.setContext(this);
-        if (goodsOrderList != null) {
-            goodsOrderInfos = goodsOrderList.getGoodsOrderInfos();
-            quanPrice = goodsOrderList.getQuan();
-            quanHouPrice = goodsOrderList.getQuanhou();
-            cartId=goodsOrderList.getCartid();
-            ownQuanPrice=goodsOrderList.getOwnquan();
-            quanPriceBd = new BigDecimal(TextUtils.isEmpty(quanPrice)?"0":quanPrice).setScale(2, RoundingMode.HALF_UP);
-            ownQuanPriceBd = new BigDecimal(TextUtils.isEmpty(ownQuanPrice)?"0":ownQuanPrice).setScale(2, RoundingMode.HALF_UP);
-            if(ownQuanPriceBd.compareTo(quanPriceBd)>=0){
-                useVoucherIv.setSelected(true);
-                voucherPrice.setText("可抵扣¥" + quanPriceBd.toString());
-                quanType="1";
-            }else {
-                useVoucherIv.setSelected(true);
-                voucherPrice.setText("可抵扣¥" + ownQuanPriceBd.toString());
-                quanType="2";
-            }
-            totalPrice.setText(quanHouPrice);
-        }
         fillOrderGoodsAdapter = new FillOrderGoodsAdapter(this);
         goodsRv.setAdapter(fillOrderGoodsAdapter);
         goodsRv.setNestedScrollingEnabled(false);
         goodsRv.setFocusableInTouchMode(false);
-        fillOrderGoodsAdapter.setData(goodsOrderInfos);
+        initGoodsInfo(goodsOrderList);
         fillInOrderPresenter.getAddressList();
+    }
+
+    private void initGoodsInfo(GoodsOrderList goodsOrderList) {
+        if (goodsOrderList != null) {
+            goodsOrderInfos = goodsOrderList.getGoodsOrderInfos();
+            quanPrice = goodsOrderList.getQuan();
+            quanHouPrice = goodsOrderList.getQuanhou();
+            cartId = goodsOrderList.getCartid();
+            ownQuanPrice = goodsOrderList.getOwnquan();
+            ownQuanPriceBd = new BigDecimal(TextUtils.isEmpty(ownQuanPrice) ? "0" : ownQuanPrice).setScale(2, RoundingMode.HALF_UP);
+            useVoucherIv.setSelected(true);
+            voucherPrice.setText("可抵扣¥" + ownQuanPriceBd.toString());
+            totalPrice.setText(quanHouPrice);
+            fillOrderGoodsAdapter.setData(goodsOrderInfos);
+        }
     }
 
     //计算能抵扣多少优惠
     private void voucher(boolean isflag) {
         quanHouPriceDd = new BigDecimal(quanHouPrice).setScale(2, RoundingMode.HALF_UP);
-        totalPriceBd=new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+        totalPriceBd = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
         if (isflag) {
-            totalPriceBd=quanHouPriceDd;
+            totalPriceBd = quanHouPriceDd;
             totalPrice.setText(totalPriceBd.toString());
         } else {
-            if(TextUtils.equals("1",quanType)){
-                totalPriceBd=quanHouPriceDd.add(quanPriceBd);
-            }else {
-                totalPriceBd=quanHouPriceDd.add(ownQuanPriceBd);
-            }
+            totalPriceBd = quanHouPriceDd.add(ownQuanPriceBd);
             totalPrice.setText(totalPriceBd.toString());
         }
     }
@@ -203,7 +205,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         return null;
     }
 
-    @OnClick({R.id.back, R.id.address_rl, R.id.use_voucher_iv,R.id.zhifubao_rl,R.id.weixin_rl,R.id.confirm_bt})
+    @OnClick({R.id.back, R.id.address_rl, R.id.use_voucher_iv, R.id.zhifubao_rl, R.id.weixin_rl, R.id.confirm_bt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -215,10 +217,10 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
             case R.id.use_voucher_iv:
                 flag = !flag;
                 if (flag) {
-                    isQuan="1";
+                    isQuan = "1";
                     useVoucherIv.setSelected(true);
                 } else {
-                    isQuan="0";
+                    isQuan = "0";
                     useVoucherIv.setSelected(false);
                 }
                 voucher(flag);
@@ -240,15 +242,15 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         }
     }
 
-    private void submitOrder(){
-        if(addressInfo==null||TextUtils.isEmpty(addressInfo.getId())){
+    private void submitOrder() {
+        if (addressInfo == null || TextUtils.isEmpty(addressInfo.getId())) {
             showMessage("请选择地址");
             return;
         }
-        if(TextUtils.equals("1",payType)){
-            fillInOrderPresenter.getAlipaySign(cartId,addressInfo.getId(),payType,isQuan);
-        }else {
-            fillInOrderPresenter.getWXPaySign(cartId,addressInfo.getId(),payType,isQuan);
+        if (TextUtils.equals("1", payType)) {
+            fillInOrderPresenter.getAlipaySign(cartId, addressInfo.getId(), payType, isQuan);
+        } else {
+            fillInOrderPresenter.getWXPaySign(cartId, addressInfo.getId(), payType, isQuan);
         }
     }
 
@@ -278,7 +280,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
                                 defaultAddress.setVisibility(View.GONE);
                             }
                             confirmBt.setEnabled(true);
-                        }else {
+                        } else {
                             confirmBt.setEnabled(false);
                         }
                     }
@@ -307,6 +309,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
                 addressName.setText(addressInfo.getUsername());
                 addressTel.setText(addressInfo.getTel());
                 address.setText(addressInfo.getProvince() + addressInfo.getCity() + addressInfo.getCountry() + addressInfo.getAddress());
+                defaultAddress.setVisibility(View.VISIBLE);
                 confirmBt.setEnabled(true);
             } else {
                 noAddress.setVisibility(View.VISIBLE);
@@ -321,18 +324,28 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void onRechargetFail() {
         showMessage("支付宝支付失败");
+        if (TextUtils.equals("1", payWhere)) {
+            fillInOrderPresenter.orderShopCart(cartidRequest);
+        } else {
+            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
+        }
     }
 
     @Override
     public void onRechargeSuccess() {
         UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);
-        GoodsOrderDetalActivity.start(this,ordreno);
+        GoodsOrderDetalActivity.start(this, ordreno);
         this.finish();
     }
 
     @Override
     public void onRechargeCancel() {
         showMessage("支付宝支付取消");
+        if (TextUtils.equals("1", payWhere)) {
+            fillInOrderPresenter.orderShopCart(cartidRequest);
+        } else {
+            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
+        }
     }
 
     @Override
@@ -349,6 +362,13 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         this.ordreno = orderno;
     }
 
+    @Override
+    public void subGoodsSuccess(GoodsOrderList goodsOrderList) {
+        this.goodsOrderList=goodsOrderList;
+        initGoodsInfo(goodsOrderList);
+    }
+
+
     /*****
      * 微信支付结果的回调
      ******/
@@ -356,6 +376,11 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     //取消支付，或者支付不成功
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayNotSuccess(PayAbortEvent event) {
+        if (TextUtils.equals("1", payWhere)) {
+            fillInOrderPresenter.orderShopCart(cartidRequest);
+        } else {
+            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
+        }
         if (event.msg != null)
             showMessage(event.msg);
     }
@@ -364,7 +389,7 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPaySuccess(WXSuccessPayEvent event) {
         UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);
-        GoodsOrderDetalActivity.start(this,ordreno);
+        GoodsOrderDetalActivity.start(this, ordreno);
         this.finish();
     }
 

@@ -30,6 +30,11 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
     private LayoutInflater layoutInflater;
     private List<CouponInfo> couponInfos;
     private String availableType;
+    private String firstName="1";
+
+    public void setFirstName(){
+        this.firstName="1";
+    }
 
     public CouponListAdapter(String availableType) {
         this.availableType = availableType;
@@ -68,7 +73,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
         holder.couponDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onBtClick!=null){
+                if (onBtClick != null) {
                     onBtClick.couponDetail(couponInfo.getQid());
                 }
             }
@@ -108,6 +113,8 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
         Button useBt;
         @BindView(R.id.coupon_detail)
         RelativeLayout couponDetail;
+        @BindView(R.id.quan_name)
+        TextView quanName;
 
         public CouponListView(View itemView) {
             super(itemView);
@@ -119,9 +126,19 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
             if (TextUtils.equals("3", couponInfo.getAddSc())) {
                 leastCost.setText("抵金劵");
                 businessTime.setText("永久");
+                quanName.setVisibility(View.VISIBLE);
+                quanName.setText("商城优惠券");
             } else {
                 leastCost.setText("满" + couponInfo.getQuanInfo().getLeastCost() + "可用");
                 businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + FormatUtil.formatDateYear(couponInfo.getExpire_at()));
+                if(TextUtils.equals("1",firstName)){
+                    quanName.setVisibility(View.VISIBLE);
+                    quanName.setText("门店优惠券");
+                    firstName="2";
+                }else {
+                    quanName.setVisibility(View.GONE);
+                    quanName.setText("");
+                }
             }
             priceLl.setSelected(TextUtils.equals("0", availableType) ? true : false);
             businessName.setText(couponInfo.getQuanInfo().getTitle());

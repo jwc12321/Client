@@ -76,6 +76,7 @@ public class InvalidCouponFragment extends BaseListFragment<CouponInfo> implemen
 
     @Override
     public void onRefresh() {
+        couponListAdapter.setFirstName();
         couponPresenter.getCouponList("0","1");
     }
 

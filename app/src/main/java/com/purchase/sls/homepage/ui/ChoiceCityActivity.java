@@ -286,7 +286,7 @@ public class ChoiceCityActivity extends BaseActivity {
         mLocationHelper.addOnLocatedListener(new ChoiceCityLocationHelper.OnLocatedListener() {
             @Override
             public void onLocated(AMapLocation aMapLocation) {
-                city = aMapLocation.getCity();
+                city = aMapLocation.getDistrict();
                 longitude = aMapLocation.getLongitude() + "";
                 latitude = aMapLocation.getLatitude() + "";
                 Log.d("1111", "城市" + city + "经纬度====" + longitude + "," + latitude);

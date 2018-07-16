@@ -2,11 +2,13 @@ package com.purchase.sls.data.request;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by JWC on 2018/7/7.
  */
 
-public class PurchaseGoodsRequest {
+public class PurchaseGoodsRequest implements Serializable{
     //数量
     @SerializedName("goodsnum")
     private String goodsnum;

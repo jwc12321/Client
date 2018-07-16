@@ -1,12 +1,15 @@
 package com.purchase.sls.data.request;
 
+
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
  * Created by JWC on 2018/7/7.
  */
 
-public class CartidRequest {
+public class CartidRequest implements Serializable{
     @SerializedName("cartid")
     private String cartid;
     @SerializedName("num")

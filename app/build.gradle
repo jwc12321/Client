@@ -66,8 +66,8 @@ android {
             zipAlignEnabled true
         }
         debug {
-//            buildConfigField "String", "API_BASE_URL", "\"http://192.168.100.150/gitxwg/public/api/\""
-            buildConfigField "String", "API_BASE_URL", "\"http://test.365neng.com/api/\""
+            buildConfigField "String", "API_BASE_URL", "\"http://192.168.100.150/gitxwg/public/api/\""
+//            buildConfigField "String", "API_BASE_URL", "\"http://test.365neng.com/api/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug

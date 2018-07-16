@@ -51,7 +51,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 this.finish();
             } else if (resp.errCode == -2) {
                 EventBus.getDefault().post(new PayAbortEvent("支付取消",-2));
-                Log.d("111","执行到这里");
                 finish();
             } else {
                 //未知错误，重试

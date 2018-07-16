@@ -28,6 +28,7 @@ import com.purchase.sls.common.widget.TearDownView;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsUnitPrice;
+import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -89,6 +90,8 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Inject
     GoodsDetailPresenter goodsDetailPresenter;
+
+    private PurchaseGoodsRequest purchaseGoodsRequest;
 
     private static final int REQUEST_SPEC = 20;
 
@@ -209,7 +212,8 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                             if (TextUtils.equals("0", addType)) {
                                 goodsDetailPresenter.addToCart(goodsid, taobaoid, goodsUnitPrice.getSkuId(), goodsCount, goodsUnitPrice.getName(), quanPrice, goodsUnitPrice.getPrice(), "");
                             } else {
-                                goodsDetailPresenter.purchaseGoods(goodsCount, goodsid, goodsUnitPrice.getSkuId(), goodsUnitPrice.getPrice(), goodsUnitPrice.getName(), taobaoid, quanPrice, "");
+                                purchaseGoodsRequest=new PurchaseGoodsRequest(goodsCount, goodsid, goodsUnitPrice.getSkuId(), goodsUnitPrice.getPrice(), goodsUnitPrice.getName(), taobaoid, quanPrice, "");
+                                goodsDetailPresenter.purchaseGoods(purchaseGoodsRequest);
                             }
                         }
                     }
@@ -241,7 +245,6 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void timeOut() {
         goodsVoucher.setText("能购劵最高可减0");
-        countDownRl.setVisibility(View.GONE);
     }
 
     @Override
@@ -276,7 +279,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Override
     public void purchaseGoodsSuccess(GoodsOrderList goodsOrderList) {
-        FillInOrderActivity.start(this, goodsOrderList);
+        FillInOrderActivity.start(this, goodsOrderList,"2",purchaseGoodsRequest,null);
     }
 
     @Override

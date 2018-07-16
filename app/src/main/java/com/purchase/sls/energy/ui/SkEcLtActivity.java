@@ -351,6 +351,5 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
             spikeBt.setText("兑换");
             spikeBt.setEnabled(false);
         }
-        countDown.setVisibility(View.GONE);
     }
 }

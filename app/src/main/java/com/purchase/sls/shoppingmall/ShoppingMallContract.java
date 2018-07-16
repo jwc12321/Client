@@ -9,6 +9,8 @@ import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.entity.ShoppingCartInfo;
+import com.purchase.sls.data.request.CartidRequest;
+import com.purchase.sls.data.request.PurchaseGoodsRequest;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public interface ShoppingMallContract {
     interface GoodsDetailPresenter extends BasePresenter{
         void getGoodsDetail(String goodsid);
         void addToCart(String id, String taobaoid, String sku, String num, String skuinfo, String quan, String tjprice, String quan_url);
-        void purchaseGoods(String goodsnum, String goodsId, String sku, String price, String skuinfo, String taobaoid, String quan, String quan_url);
+        void purchaseGoods(PurchaseGoodsRequest purchaseGoodsRequest);
     }
 
     interface GoodsDetailView extends BaseView<GoodsDetailPresenter>{
@@ -55,7 +57,7 @@ public interface ShoppingMallContract {
 
     interface ShoppingCartPresenter extends BasePresenter{
         void getShoppingCartList();
-        void orderShopCart(String cartid, String num);
+        void orderShopCart(CartidRequest cartidRequest);
         void deleteshopCart(String id);
     }
 
@@ -69,6 +71,8 @@ public interface ShoppingMallContract {
        void getAddressList();
        void getAlipaySign(String carts, String addressid, String paytype, String isquan);
        void getWXPaySign(String carts, String addressid, String paytype, String isquan);
+       void purchaseGoods(PurchaseGoodsRequest purchaseGoodsRequest);
+       void orderShopCart(CartidRequest cartidRequest);
    }
 
    interface FillOrderView extends BaseView<FillInOrderPresenter>{
@@ -81,5 +85,6 @@ public interface ShoppingMallContract {
        void onRechargeCancel();
        void onAppIdReceive(String appId);
        void renderOrderno(String orderno);
+       void subGoodsSuccess(GoodsOrderList goodsOrderList);
    }
 }

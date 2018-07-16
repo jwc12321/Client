@@ -82,8 +82,7 @@ public class ShoppingCartPresenter implements ShoppingMallContract.ShoppingCartP
     }
 
     @Override
-    public void orderShopCart(String cartid, String num) {
-        CartidRequest cartidRequest = new CartidRequest(cartid,num);
+    public void orderShopCart(CartidRequest cartidRequest) {
         Disposable disposable = restApiService.orderShopCart(cartidRequest)
                 .flatMap(new RxRemoteDataParse<GoodsOrderList>())
                 .compose(new RxSchedulerTransformer<GoodsOrderList>())

@@ -16,6 +16,7 @@ import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.ShoppingCartInfo;
+import com.purchase.sls.data.request.CartidRequest;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -76,6 +77,8 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
 
     @Inject
     ShoppingCartPresenter shoppingCartPresenter;
+
+    private CartidRequest cartidRequest;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShoppingCartActivity.class);
@@ -271,7 +274,7 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
 
     @Override
     public void orderShopCartSuccess(GoodsOrderList goodsOrderList) {
-        FillInOrderActivity.start(this, goodsOrderList);
+        FillInOrderActivity.start(this, goodsOrderList,"1",null,cartidRequest);
     }
 
     @Override
@@ -301,7 +304,8 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
                     }
                     shoppingCartPresenter.deleteshopCart(cardId);
                 } else {
-                    shoppingCartPresenter.orderShopCart(payOrderList.get(0).getId(), payOrderList.get(0).getGoodsnum());
+                    cartidRequest = new CartidRequest(payOrderList.get(0).getId(), payOrderList.get(0).getGoodsnum());
+                    shoppingCartPresenter.orderShopCart(cartidRequest);
                 }
             }else {
                 dismissLoading();

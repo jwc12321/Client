@@ -105,9 +105,8 @@ public class GoodsDetailPresenter implements ShoppingMallContract.GoodsDetailPre
     }
 
     @Override
-    public void purchaseGoods(String goodsnum, String goodsId, String sku, String price, String skuinfo, String taobaoid, String quan, String quan_url) {
+    public void purchaseGoods(PurchaseGoodsRequest purchaseGoodsRequest) {
         goodsDetailView.showLoading();
-        PurchaseGoodsRequest purchaseGoodsRequest=new PurchaseGoodsRequest(goodsnum,goodsId,sku,price,skuinfo,taobaoid,quan,quan_url);
         Disposable disposable = restApiService.purchaseGoods(purchaseGoodsRequest)
                 .flatMap(new RxRemoteDataParse<GoodsOrderList>())
                 .compose(new RxSchedulerTransformer<GoodsOrderList>())

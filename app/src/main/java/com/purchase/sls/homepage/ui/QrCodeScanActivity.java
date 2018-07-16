@@ -122,10 +122,6 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         Log.d(TAG, "onScanQRCodeSuccess: " + result);
         UmengEventUtils.statisticsClick(this, UMStaticData.SCAN_CODE);
         if (!TextUtils.isEmpty(result)) {
-            if(TextUtils.isEmpty(TokenManager.getToken())){
-                AccountLoginActivity.start(this, "1");
-                this.finish();
-            }else {
                 if (result.contains("ngapp")) {
                     String[] results = result.split("&&");
                     if (results[0].startsWith("ngapp")) {
@@ -149,10 +145,14 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
                         String[] ids = results[1].split("=");
                         if (ids[1] != null && !TextUtils.isEmpty(ids[1])) {
                             storeId = ids[1];
-                            qrCodePresenter.getShopDetail(storeId);
+                            if(TextUtils.isEmpty(TokenManager.getToken())){
+                                AccountLoginActivity.start(this, "1",storeId);
+                                this.finish();
+                            }else {
+                                qrCodePresenter.getShopDetail(storeId);
+                            }
                         }
                     }
-                }
             }
         }
         vibrate();

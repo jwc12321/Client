@@ -95,6 +95,7 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
 
     private static final int CODE_SMS_LOGIN = 1;
     private String goType;
+    private String storeId;
 
     @Override
     public View getSnackBarHolderView() {
@@ -107,9 +108,10 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         context.startActivity(intent);
     }
 
-    public static void start(Context context, String goType) {
+    public static void start(Context context, String goType,String storeid) {
         Intent intent = new Intent(context, AccountLoginActivity.class);
         intent.putExtra(StaticData.GO_TYPE, goType);
+        intent.putExtra(StaticData.BUSINESS_STOREID, storeid);
         context.startActivity(intent);
     }
 
@@ -120,8 +122,9 @@ public class AccountLoginActivity extends BaseActivity implements LoginContract.
         ButterKnife.bind(this);
         persionAppPreferences = new PersionAppPreferences(this);
         goType = getIntent().getStringExtra(StaticData.GO_TYPE);
+        storeId=getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         if (TextUtils.equals("1", goType)) {
-            RegisterFirstActivity.start(this, StaticData.REGISTER, "");
+            RegisterFirstActivity.start(this, StaticData.REGISTER, storeId);
         }
     }
 
