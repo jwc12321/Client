@@ -90,12 +90,20 @@ public class CouponPresenter implements CouponContract.CouponListPresenter {
                                 QuanInfo quanInfo = new QuanInfo();
                                 quanInfo.setPrice(couponListInfo.getScItem().getQuannum());
                                 quanInfo.setTitle("商城抵金劵");
+                                quanInfo.setFirstName("1");
                                 couponInfo.setQuanInfo(quanInfo);
                                 couponInfos = couponListInfo.getCouponList().getCouponInfos();
+                                if(couponInfos!=null&&couponInfos.size()>0&&couponInfos.get(0).getQuanInfo()!=null){
+                                    couponInfos.get(0).getQuanInfo().setFirstName("1");
+                                }
                                 couponInfos.add(0, couponInfo);
                                 couponListView.render(couponInfos);
                             } else {
-                                couponListView.render(couponListInfo.getCouponList().getCouponInfos());
+                                couponInfos = couponListInfo.getCouponList().getCouponInfos();
+                                if(couponInfos!=null&&couponInfos.size()>0&&couponInfos.get(0).getQuanInfo()!=null){
+                                    couponInfos.get(0).getQuanInfo().setFirstName("1");
+                                }
+                                couponListView.render(couponInfos);
                             }
                         }
                     }

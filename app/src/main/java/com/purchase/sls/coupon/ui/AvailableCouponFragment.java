@@ -86,7 +86,6 @@ public class AvailableCouponFragment extends BaseListFragment<CouponInfo> implem
 
     @Override
     public void onRefresh() {
-        couponListAdapter.setFirstName();
         couponPresenter.getCouponList("0","0");
     }
 

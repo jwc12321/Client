@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/appText1"
                         android:textSize="13sp"
-                        tools:text="能购劵最高可减20" />
+                        tools:text="劵最高可减20" />
                 </LinearLayout>
             </RelativeLayout>
 

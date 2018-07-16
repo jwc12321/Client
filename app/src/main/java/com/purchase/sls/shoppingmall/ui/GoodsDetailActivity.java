@@ -244,7 +244,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Override
     public void timeOut() {
-        goodsVoucher.setText("能购劵最高可减0");
+        goodsVoucher.setText("劵最高可减0/件");
     }
 
     @Override
@@ -264,7 +264,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             banner.setImages(bannerImages);
             goodsPrice.setText("¥" + goodsDetailInfo.getPrice());
             goodsSold.setText("已售" + goodsDetailInfo.getSalenum());
-            goodsVoucher.setText("能购劵最高可减" + goodsDetailInfo.getQuanPrice());
+            goodsVoucher.setText("劵最高可减" + goodsDetailInfo.getQuanPrice()+"/件");
             if (!TextUtils.isEmpty(goodsDetailInfo.getEndtime())) {
                 countDown.setTimeOutListener(this);
                 countDown.startTearDown(Long.parseLong(goodsDetailInfo.getEndtime()), "1");

@@ -20,6 +20,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
@@ -95,6 +96,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
     private String sortKeyword;
 
     private int lastSelectPosition = 0;
+    private String firstIn = "1";
 
     @Inject
     GoodsListPresenter goodsListPresenter;
@@ -143,6 +145,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
         goodsItemRv.setAdapter(goodsItemAdapter);
     }
 
+
     private boolean isFirstLoad = true;
 
     @Override
@@ -163,6 +166,21 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
     @Override
     public void onResume() {
         super.onResume();
+        if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", firstIn)) {
+            if (goodsListPresenter != null) {
+                goodsListPresenter.getSMBannerInfo();
+                goodsListPresenter.getGoodsParents();
+            }
+            firstIn = "1";
+        }
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        if (e != null && e instanceof RemoteDataException && ((RemoteDataException) e).isAuthFailed()) {
+            firstIn="0";
+        }
+        super.showError(e);
     }
 
     @Override
@@ -196,7 +214,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
         super.onDestroyView();
     }
 
-    @OnClick({R.id.sort_sv_ll, R.id.sort_v_ll, R.id.sort_p_ll,R.id.search_ll,R.id.shopping_cart})
+    @OnClick({R.id.sort_sv_ll, R.id.sort_v_ll, R.id.sort_p_ll, R.id.search_ll, R.id.shopping_cart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sort_sv_ll://销量
@@ -289,7 +307,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
             goodsParentAdapter.setData(goodsParentInfos);
             sortId = goodsParentInfos.get(0).getId();
             goodsListPresenter.getGoodsItems("0", sortKeyword, sortType, sortUd, sortId);
-        }else {
+        } else {
             dismissLoading();
         }
     }

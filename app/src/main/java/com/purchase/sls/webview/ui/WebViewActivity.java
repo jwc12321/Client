@@ -82,6 +82,16 @@ public class WebViewActivity extends BaseActivity {
                     WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
         settings.setJavaScriptEnabled(true);
+        //设置是否支持缩放
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+
+        //设置是否显示缩放按钮
+        settings.setDisplayZoomControls(true);
+
+        //设置自适应屏幕宽度
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
         webView.setWebChromeClient(new JSBridgeWebChromeClient());
         webView.setWebViewClient(new WebViewClient(){
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)

@@ -30,11 +30,6 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
     private LayoutInflater layoutInflater;
     private List<CouponInfo> couponInfos;
     private String availableType;
-    private String firstName="1";
-
-    public void setFirstName(){
-        this.firstName="1";
-    }
 
     public CouponListAdapter(String availableType) {
         this.availableType = availableType;
@@ -131,10 +126,9 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
             } else {
                 leastCost.setText("满" + couponInfo.getQuanInfo().getLeastCost() + "可用");
                 businessTime.setText(couponInfo.getQuanInfo().getStarttime() + "到" + FormatUtil.formatDateYear(couponInfo.getExpire_at()));
-                if(TextUtils.equals("1",firstName)){
+                if(TextUtils.equals("1",couponInfo.getQuanInfo().getFirstName())){
                     quanName.setVisibility(View.VISIBLE);
                     quanName.setText("门店优惠券");
-                    firstName="2";
                 }else {
                     quanName.setVisibility(View.GONE);
                     quanName.setText("");

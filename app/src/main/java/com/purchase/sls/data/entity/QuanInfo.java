@@ -42,6 +42,8 @@ public class QuanInfo {
     //是否能领取
     private String canReceive="1";
 
+    private String firstName="2";
+
     private String addSc;
 
     public String getAddSc() {
@@ -170,5 +172,13 @@ public class QuanInfo {
 
     public void setDeletedAt(String deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }
