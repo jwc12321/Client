@@ -99,6 +99,11 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingMallCo
         shoppingCartAdapter = new ShoppingCartAdapter(this);
         shoppingCartAdapter.setItemClickListener(this);
         shopcartRv.setAdapter(shoppingCartAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         shoppingCartPresenter.getShoppingCartList();
     }
 
