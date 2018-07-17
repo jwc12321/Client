@@ -150,10 +150,10 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
             goodsPrice.setText("¥" + goodsOrderDetailInfo.getOprice());
             orderType = goodsOrderDetailInfo.getType();
             buttonType(goodsOrderDetailInfo.getType());
-            goodsTotalPrice.setText(goodsOrderDetailInfo.getOprice());
-            freight.setText("0");
-            ngVoucher.setText(goodsOrderDetailInfo.getAllquanPrice());
-            realPayment.setText(goodsOrderDetailInfo.getPayprice());
+            goodsTotalPrice.setText("¥" +goodsOrderDetailInfo.getOprice());
+            freight.setText("¥ 0");
+            ngVoucher.setText("¥" +goodsOrderDetailInfo.getAllquanPrice());
+            realPayment.setText("¥" +goodsOrderDetailInfo.getPayprice());
             if (TextUtils.equals("1", goodsOrderDetailInfo.getPaytype())) {
                 payType.setText("支付宝");
             } else {

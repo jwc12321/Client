@@ -118,10 +118,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_twenty_margin"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/common_fifteen_margin"
         android:layout_marginLeft="@dimen/common_sixteen_margin">
 
         <CheckBox
@@ -129,7 +128,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/checkbox_address"
-            android:padding="5dp" />
+            android:paddingLeft="@dimen/common_fifteen_margin"
+            android:paddingTop="@dimen/common_fifteen_margin"
+            android:paddingBottom="@dimen/common_fifteen_margin"
+            android:paddingRight="@dimen/common_six_margin"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

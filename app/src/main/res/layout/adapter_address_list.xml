@@ -51,17 +51,16 @@
 
         <ImageView
             android:id="@+id/check_default"
-            android:layout_width="@dimen/common_fifteen_margin"
-            android:layout_height="@dimen/common_fifteen_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/common_fifteen_margin"
-            android:src="@drawable/default_adderss" />
+            android:src="@drawable/default_adderss"
+            android:padding="@dimen/common_fifteen_margin"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/common_six_margin"
             android:layout_toRightOf="@id/check_default"
             android:text="设为默认"
             android:textColor="@color/appText12"

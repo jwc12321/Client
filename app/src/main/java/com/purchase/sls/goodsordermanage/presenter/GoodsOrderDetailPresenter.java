@@ -115,7 +115,7 @@ public class GoodsOrderDetailPresenter implements GoodsOrderContract.GoodsOrderD
                     @Override
                     public void accept(Ignore ignore) throws Exception {
                         goodsOrderDetailView.dismissLoading();
-                        goodsOrderDetailView.cancelOrderSuccess();
+                        goodsOrderDetailView.deleteOrderSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -138,7 +138,7 @@ public class GoodsOrderDetailPresenter implements GoodsOrderContract.GoodsOrderD
                     @Override
                     public void accept(Ignore ignore) throws Exception {
                         goodsOrderDetailView.dismissLoading();
-                        goodsOrderDetailView.cancelOrderSuccess();
+                        goodsOrderDetailView.completeOrderSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
