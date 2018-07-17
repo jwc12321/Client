@@ -49,6 +49,8 @@ public class GoodsOrderDetailInfo {
     private String power;
     @SerializedName("notes")
     private String notes;
+    @SerializedName("freight")
+    private String freight;
     @SerializedName("goods")
     private List<GoodsInfo> goodsInfos;
 
@@ -218,5 +220,13 @@ public class GoodsOrderDetailInfo {
 
     public void setGoodsInfos(List<GoodsInfo> goodsInfos) {
         this.goodsInfos = goodsInfos;
+    }
+
+    public String getFreight() {
+        return freight;
+    }
+
+    public void setFreight(String freight) {
+        this.freight = freight;
     }
 }

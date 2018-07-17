@@ -120,22 +120,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="@dimen/common_sixteen_margin">
+        android:gravity="center_vertical">
 
-        <CheckBox
+        <ImageView
             android:id="@+id/check_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_address"
-            android:paddingLeft="@dimen/common_fifteen_margin"
-            android:paddingTop="@dimen/common_fifteen_margin"
-            android:paddingBottom="@dimen/common_fifteen_margin"
-            android:paddingRight="@dimen/common_six_margin"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_adderss"
+            android:padding="@dimen/common_fifteen_margin"/>
         <TextView
+            android:id="@+id/defalt_tt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="是否设为默认"
+            tools:text="是否设为默认"
             android:textColor="@color/appText2"
             android:textSize="13sp"/>
     </LinearLayout>

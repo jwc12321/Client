@@ -68,7 +68,7 @@ public class GoodsOrderActivity extends BaseActivity {
         fragmentList.add(CompleteOrderFragment.newInstance());
         titleList.add("全部");
         titleList.add("待付款");
-        titleList.add("待收货");
+        titleList.add("待发/收货");
         titleList.add("已完成");
         baseListAdapter = new BaseListAdapter(getSupportFragmentManager(), fragmentList, titleList);
         viewpager.setAdapter(baseListAdapter);

@@ -151,7 +151,7 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
             orderType = goodsOrderDetailInfo.getType();
             buttonType(goodsOrderDetailInfo.getType());
             goodsTotalPrice.setText("¥" +goodsOrderDetailInfo.getOprice());
-            freight.setText("¥ 0");
+            freight.setText("¥ "+goodsOrderDetailInfo.getFreight());
             ngVoucher.setText("¥" +goodsOrderDetailInfo.getAllquanPrice());
             realPayment.setText("¥" +goodsOrderDetailInfo.getPayprice());
             if (TextUtils.equals("1", goodsOrderDetailInfo.getPaytype())) {
@@ -197,32 +197,32 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
             seeBt.setVisibility(View.VISIBLE);
             payBt.setText("付款");
             seeBt.setText("取消订单");
-            goodsType.setVisibility(View.VISIBLE);
             goodsType.setText("待付款");
         } else if (TextUtils.equals("1", type)) {
             payBt.setVisibility(View.GONE);
             seeBt.setVisibility(View.GONE);
-            goodsType.setVisibility(View.GONE);
-            goodsType.setText("");
+            goodsType.setText("待发货");
         } else if (TextUtils.equals("2", type)) {
             payBt.setVisibility(View.VISIBLE);
             seeBt.setVisibility(View.VISIBLE);
-            goodsType.setVisibility(View.VISIBLE);
             payBt.setText("确认收货");
-            payBt.setText("查看物流");
+            seeBt.setText("查看物流");
             goodsType.setText("待收货");
         } else if (TextUtils.equals("3", type)) {
             payBt.setVisibility(View.VISIBLE);
             seeBt.setVisibility(View.GONE);
-            goodsType.setVisibility(View.VISIBLE);
             payBt.setText("删除订单");
             goodsType.setText("已完成");
         } else if (TextUtils.equals("4", type)) {
             payBt.setVisibility(View.VISIBLE);
             seeBt.setVisibility(View.GONE);
-            goodsType.setVisibility(View.VISIBLE);
             payBt.setText("删除订单");
             goodsType.setText("已取消");
+        }else if (TextUtils.equals("-2", type)) {
+            payBt.setVisibility(View.VISIBLE);
+            seeBt.setVisibility(View.GONE);
+            payBt.setText("删除订单");
+            goodsType.setText("已退款");
         }
     }
 
@@ -240,6 +240,8 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
                 } else if (TextUtils.equals("3", orderType) && TextUtils.equals("删除订单", payBt.getText().toString())) {
                     goodsOrderDetailPresenter.deleteOrder(orderNum);
                 } else if (TextUtils.equals("4", orderType) && TextUtils.equals("删除订单", payBt.getText().toString())) {
+                    goodsOrderDetailPresenter.deleteOrder(orderNum);
+                } else if (TextUtils.equals("-2", orderType) && TextUtils.equals("删除订单", payBt.getText().toString())) {
                     goodsOrderDetailPresenter.deleteOrder(orderNum);
                 }
                 break;

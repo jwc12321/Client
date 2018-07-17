@@ -58,11 +58,12 @@
             android:padding="@dimen/common_fifteen_margin"/>
 
         <TextView
+            android:id="@+id/defalt_tt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/check_default"
-            android:text="设为默认"
+            tools:text="设为默认"
             android:textColor="@color/appText12"
             android:textSize="13sp" />
 

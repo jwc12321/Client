@@ -71,6 +71,8 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
                         hostAction.deleteOrder(goodsOrderItemInfo.getOrdernum());
                     }else if (TextUtils.equals("4", goodsOrderItemInfo.getType()) && TextUtils.equals("删除订单", holder.payBt.getText().toString())) {
                         hostAction.deleteOrder(goodsOrderItemInfo.getOrdernum());
+                    }else if (TextUtils.equals("-2", goodsOrderItemInfo.getType()) && TextUtils.equals("删除订单", holder.payBt.getText().toString())) {
+                        hostAction.deleteOrder(goodsOrderItemInfo.getOrdernum());
                     }
                 }
             }
@@ -147,32 +149,32 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
                 seeBt.setVisibility(View.VISIBLE);
                 payBt.setText("付款");
                 seeBt.setText("取消订单");
-                goodsType.setVisibility(View.VISIBLE);
                 goodsType.setText("待付款");
             } else if (TextUtils.equals("1", type)) {
                 payBt.setVisibility(View.GONE);
                 seeBt.setVisibility(View.GONE);
-                goodsType.setVisibility(View.GONE);
-                goodsType.setText("");
+                goodsType.setText("待发货");
             } else if (TextUtils.equals("2", type)) {
                 payBt.setVisibility(View.VISIBLE);
                 seeBt.setVisibility(View.VISIBLE);
-                goodsType.setVisibility(View.VISIBLE);
                 payBt.setText("确认收货");
-                payBt.setText("查看物流");
+                seeBt.setText("查看物流");
                 goodsType.setText("待收货");
             } else if (TextUtils.equals("3", type)) {
                 payBt.setVisibility(View.VISIBLE);
                 seeBt.setVisibility(View.GONE);
-                goodsType.setVisibility(View.VISIBLE);
                 payBt.setText("删除订单");
                 goodsType.setText("已完成");
             } else if (TextUtils.equals("4", type)) {
                 payBt.setVisibility(View.VISIBLE);
                 seeBt.setVisibility(View.GONE);
-                goodsType.setVisibility(View.VISIBLE);
                 payBt.setText("删除订单");
                 goodsType.setText("已取消");
+            }else if (TextUtils.equals("-2", type)) {
+                payBt.setVisibility(View.VISIBLE);
+                seeBt.setVisibility(View.GONE);
+                payBt.setText("删除订单");
+                goodsType.setText("已退款");
             }
         }
 

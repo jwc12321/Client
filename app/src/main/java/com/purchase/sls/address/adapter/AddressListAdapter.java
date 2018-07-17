@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -100,6 +98,8 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         Button editAddress;
         @BindView(R.id.back_address_ll)
         LinearLayout backAddressLl;
+        @BindView(R.id.defalt_tt)
+        TextView defaltTt;
 
         public AddressListView(View itemView) {
             super(itemView);
@@ -112,8 +112,12 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             address.setText(addressInfo.getProvince() + addressInfo.getCity() + addressInfo.getCountry() + addressInfo.getAddress());
             if (TextUtils.equals("1", addressInfo.getType())) {
                 checkDefault.setSelected(true);
+                checkDefault.setEnabled(false);
+                defaltTt.setText("默认地址");
             } else {
                 checkDefault.setSelected(false);
+                checkDefault.setEnabled(true);
+                defaltTt.setText("设为默认");
             }
         }
     }

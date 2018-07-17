@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -34,7 +33,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
@@ -44,8 +42,6 @@ import static com.purchase.sls.common.unit.AccountUtils.isAccountValid;
  */
 
 public class AddAddressActivity extends BaseActivity implements OnAddressChangeListener, AddressContract.AddAddressView {
-
-
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -63,7 +59,9 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
     @BindView(R.id.detailed_address_et)
     EditText detailedAddressEt;
     @BindView(R.id.check_default)
-    CheckBox checkDefault;
+    ImageView checkDefault;
+    @BindView(R.id.defalt_tt)
+    TextView defaltTt;
     private String type; //0：编辑地址 1：添加地址
     private AddressInfo addressInfo;
     private ChooseAddressWheel chooseAddressWheel = null;
@@ -75,6 +73,8 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
     private AddAddressRequest addAddressRequest;
     @Inject
     AddAddressPresenter addAddressPresenter;
+
+    private boolean isFlag;
 
     public static void start(Context context, String type, AddressInfo addressInfo) {
         Intent intent = new Intent(context, AddAddressActivity.class);
@@ -107,16 +107,23 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
                 addressId = addressInfo.getId();
                 detailedAddressEt.setText(addressInfo.getAddress());
                 if (TextUtils.equals("1", addressInfo.getType())) {
-                    checkDefault.setChecked(true);
+                    checkDefault.setSelected(true);
+                    checkDefault.setEnabled(false);
                     dfAddress = "1";
+                    defaltTt.setText("默认地址");
                 } else {
-                    checkDefault.setChecked(false);
+                    checkDefault.setSelected(false);
+                    checkDefault.setEnabled(true);
                     dfAddress = "0";
+                    isFlag = false;
+                    defaltTt.setText("设为默认");
                 }
             }
         } else {
             dfAddress = "0";
             title.setText("添加地址");
+            isFlag = false;
+            defaltTt.setText("设为默认");
         }
         initWheel();
         initData();
@@ -149,7 +156,7 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
                 .inject(this);
     }
 
-    @OnClick({R.id.back, R.id.complete, R.id.region})
+    @OnClick({R.id.back, R.id.complete, R.id.region, R.id.check_default})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -161,6 +168,16 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
             case R.id.region:
                 Utils.hideKeyBoard(AddAddressActivity.this);
                 chooseAddressWheel.show(view);
+                break;
+            case R.id.check_default:
+                isFlag = !isFlag;
+                if (isFlag) {
+                    checkDefault.setSelected(true);
+                    dfAddress = "1";
+                } else {
+                    checkDefault.setSelected(false);
+                    dfAddress = "0";
+                }
                 break;
             default:
         }
@@ -177,15 +194,6 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
         this.city = city;
         this.district = district;
         region.setText(province + city + district);
-    }
-
-    @OnCheckedChanged({R.id.check_default})
-    public void checkDefault(boolean checked) {
-        if (checked) {
-            dfAddress = "1";
-        } else {
-            dfAddress = "0";
-        }
     }
 
     private void submitAddress() {
