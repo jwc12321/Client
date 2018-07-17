@@ -111,6 +111,7 @@ public class GoodsListPresenter implements ShoppingMallContract.GoodsListPresent
     @Override
     public void getGoodsItems(String refreshType, String keyword, String orderby, String order, String cate) {
         if (TextUtils.equals("1", refreshType)) {
+            goodsListView.dismissLoading();
             goodsListView.showLoading();
         }
         currentIndex = 1;

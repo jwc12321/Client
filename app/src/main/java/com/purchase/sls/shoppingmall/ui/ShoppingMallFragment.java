@@ -336,10 +336,10 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
 
     @Override
     public void choiceWhat(int position, String goodsid) {
-        goodsParentAdapter.setPosittion(lastSelectPosition, position);
-        lastSelectPosition = position;
         sortId = goodsid;
         goodsListPresenter.getGoodsItems("1", sortKeyword, sortType, sortUd, sortId);
+        goodsParentAdapter.setPosittion(lastSelectPosition, position);
+        lastSelectPosition = position;
     }
 
     @Override
