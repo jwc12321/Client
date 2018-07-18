@@ -88,6 +88,32 @@ public class SPManager {
     /**
      * 存数据到默认文件内
      */
+    public void putCityData(String key, String value) {
+        check();
+        SharedPreferences sp = context.getSharedPreferences(FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString(key, value);
+        edit.commit();
+    }
+
+    /**
+     * 给定键值获取数据
+     * @param key ..
+     * @return
+     */
+    public String getCityData(String key) {
+
+        check();
+
+        SharedPreferences sp = context.getSharedPreferences(FILE, Context.MODE_PRIVATE);
+        return sp.getString(key, DEFAULT_VALUE);
+    }
+
+
+
+    /**
+     * 存数据到默认文件内
+     */
     public void putData(String key, int value) {
         check();
         SharedPreferences sp = context.getSharedPreferences(FILE, Context.MODE_PRIVATE);

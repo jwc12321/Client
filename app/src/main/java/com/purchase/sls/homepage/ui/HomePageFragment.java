@@ -33,6 +33,7 @@ import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.location.LocationHelper;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.CityManager;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.DownloadService;
 import com.purchase.sls.common.unit.PermissionUtil;
@@ -235,6 +236,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                     latitude = aMapLocation.getLatitude() + "";
                     choiceCity.setText(city);
                 }
+                CityManager.saveCity(city);
                 likeStoreAdapter.setCity(city, longitude, latitude);
                 homePagePresenter.getBannerHotInfo("0", city);
                 homePagePresenter.getLikeStore(city);
@@ -407,6 +409,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                             return;
                         }
                         city = cityInfoBean.getName();
+                        CityManager.saveCity(city);
                         longitude = commonAppPreferences.getLongitude();
                         latitude = commonAppPreferences.getLatitude();
                         likeStoreAdapter.setCity(city, longitude, latitude);

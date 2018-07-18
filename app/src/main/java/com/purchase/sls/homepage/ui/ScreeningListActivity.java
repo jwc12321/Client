@@ -164,7 +164,6 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         longitude = commonAppPreferences.getLongitude();
         latitude = commonAppPreferences.getLatitude();
         location=longitude+","+latitude;
-        location="118.869601,28.965611";
         bussinessCid = getIntent().getStringExtra(StaticData.BUSINESS_CID);
         bussinessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         storename = getIntent().getStringExtra(StaticData.STORE_NAME);
