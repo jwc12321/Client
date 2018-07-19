@@ -164,7 +164,6 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
             }
             goodsOrderNumber.setText(goodsOrderDetailInfo.getOrdernum());
             placeOrderTime.setText(FormatUtil.formatDateByLine(goodsOrderDetailInfo.getAddtime()));
-            distributionType.setText("");
         }
     }
 
