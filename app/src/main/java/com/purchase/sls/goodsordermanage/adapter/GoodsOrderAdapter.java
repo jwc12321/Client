@@ -88,6 +88,10 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
                         if (goodsOrderItemInfo.getGoodsInfos() != null && goodsOrderItemInfo.getGoodsInfos().size() > 0) {
                             hostAction.seeLogistics(goodsOrderItemInfo.getOrdernum(), goodsOrderItemInfo.getGoodsInfos().get(0).getWuliu());
                         }
+                    } else if (TextUtils.equals("3", goodsOrderItemInfo.getType()) && TextUtils.equals("查看物流", holder.seeBt.getText().toString())) {
+                        if (goodsOrderItemInfo.getGoodsInfos() != null && goodsOrderItemInfo.getGoodsInfos().size() > 0) {
+                            hostAction.seeLogistics(goodsOrderItemInfo.getOrdernum(), goodsOrderItemInfo.getGoodsInfos().get(0).getWuliu());
+                        }
                     }
                 }
             }
@@ -162,8 +166,9 @@ public class GoodsOrderAdapter extends RecyclerView.Adapter<GoodsOrderAdapter.Go
                 goodsType.setText("待收货");
             } else if (TextUtils.equals("3", type)) {
                 payBt.setVisibility(View.VISIBLE);
-                seeBt.setVisibility(View.GONE);
+                seeBt.setVisibility(View.VISIBLE);
                 payBt.setText("删除订单");
+                seeBt.setText("查看物流");
                 goodsType.setText("已完成");
             } else if (TextUtils.equals("4", type)) {
                 payBt.setVisibility(View.VISIBLE);

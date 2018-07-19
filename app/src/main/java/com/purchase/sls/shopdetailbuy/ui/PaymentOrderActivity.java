@@ -519,9 +519,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onWxPayResult(PayAbortEvent event) {
         if (event.code == 0) {
-            finish();
+//            finish();
         } else {
-            showMessage(event.msg);
+//            showMessage(event.msg);
         }
     }
 

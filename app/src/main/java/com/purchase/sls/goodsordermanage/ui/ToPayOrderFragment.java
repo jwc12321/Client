@@ -77,12 +77,12 @@ public class ToPayOrderFragment extends BaseListFragment<GoodsOrderItemInfo> imp
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()&&goodsOrderListPresenter != null) {
+            goodsOrderListPresenter.getGoodOrderList("1", "0");
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if (goodsOrderListPresenter != null) {
-                    goodsOrderListPresenter.getGoodOrderList("1", "0");
-                }
             }
         }
     }

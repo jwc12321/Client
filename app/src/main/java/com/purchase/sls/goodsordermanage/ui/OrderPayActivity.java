@@ -179,9 +179,9 @@ public class OrderPayActivity extends BaseActivity implements GoodsOrderContract
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onWxPayResult(PayAbortEvent event) {
         if (event.code == 0) {
-            finish();
+//            finish();
         } else {
-            showMessage(event.msg);
+//            showMessage(event.msg);
         }
     }
 

@@ -3,7 +3,6 @@ package com.purchase.sls.goodsordermanage.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,12 +79,12 @@ public class AllGoodsOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()&&goodsOrderListPresenter != null) {
+            goodsOrderListPresenter.getGoodOrderList("0", "-1");
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if (goodsOrderListPresenter != null) {
-                    goodsOrderListPresenter.getGoodOrderList("0", "-1");
-                }
             }
         }
     }

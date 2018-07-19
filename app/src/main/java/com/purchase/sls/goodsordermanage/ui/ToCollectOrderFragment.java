@@ -79,12 +79,12 @@ public class ToCollectOrderFragment extends BaseListFragment<GoodsOrderItemInfo>
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()&&goodsOrderListPresenter != null) {
+            goodsOrderListPresenter.getGoodOrderList("1", "2");
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if (goodsOrderListPresenter != null) {
-                    goodsOrderListPresenter.getGoodOrderList("1", "2");
-                }
             }
         }
     }

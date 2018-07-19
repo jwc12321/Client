@@ -33,6 +33,8 @@ public class CompleteOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
     @Inject
     GoodsOrderListPresenter goodsOrderListPresenter;
 
+    private String expressName;
+
     public static CompleteOrderFragment newInstance() {
         CompleteOrderFragment fragment = new CompleteOrderFragment();
         return fragment;
@@ -77,12 +79,12 @@ public class CompleteOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()&&goodsOrderListPresenter != null) {
+            goodsOrderListPresenter.getGoodOrderList("1", "3");
+        }
         if (isFirstLoad) {
             if (getUserVisibleHint()) {
                 isFirstLoad = false;
-                if (goodsOrderListPresenter != null) {
-                    goodsOrderListPresenter.getGoodOrderList("1", "3");
-                }
             }
         }
     }
@@ -109,7 +111,10 @@ public class CompleteOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
 
     @Override
     public void seeLogistics(String orderNum, String expressName) {
-
+        this.expressName = expressName;
+        if (goodsOrderListPresenter != null) {
+            goodsOrderListPresenter.getMalllogisInfo(orderNum);
+        }
     }
 
     @Override
@@ -162,7 +167,7 @@ public class CompleteOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
     @Override
     public void deleteOrderSuccess() {
         if (goodsOrderListPresenter != null) {
-            goodsOrderListPresenter.getGoodOrderList("1", "-3");
+            goodsOrderListPresenter.getGoodOrderList("1", "3");
         }
     }
 

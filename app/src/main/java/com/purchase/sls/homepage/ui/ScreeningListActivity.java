@@ -110,8 +110,8 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
 
     private String bussinessCid;
     private String bussinessName;
-    private String businessSort;
-    private String businessScreen;
+    private String businessSort="0";
+    private String businessScreen="0";
     private String storename;
     private String longitude;
     private String latitude;

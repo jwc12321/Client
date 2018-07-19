@@ -324,11 +324,13 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void onRechargetFail() {
         showMessage("支付宝支付失败");
-        if (TextUtils.equals("1", payWhere)) {
-            fillInOrderPresenter.orderShopCart(cartidRequest);
-        } else {
-            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
-        }
+//        if (TextUtils.equals("1", payWhere)) {
+//            fillInOrderPresenter.orderShopCart(cartidRequest);
+//        } else {
+//            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
+//        }
+        GoodsOrderDetalActivity.start(this, ordreno);
+        this.finish();
     }
 
     @Override
@@ -341,11 +343,13 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Override
     public void onRechargeCancel() {
         showMessage("支付宝支付取消");
-        if (TextUtils.equals("1", payWhere)) {
-            fillInOrderPresenter.orderShopCart(cartidRequest);
-        } else {
-            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
-        }
+//        if (TextUtils.equals("1", payWhere)) {
+//            fillInOrderPresenter.orderShopCart(cartidRequest);
+//        } else {
+//            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
+//        }
+        GoodsOrderDetalActivity.start(this, ordreno);
+        this.finish();
     }
 
     @Override
@@ -376,13 +380,15 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     //取消支付，或者支付不成功
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayNotSuccess(PayAbortEvent event) {
-        if (TextUtils.equals("1", payWhere)) {
-            fillInOrderPresenter.orderShopCart(cartidRequest);
-        } else {
-            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
-        }
+//        if (TextUtils.equals("1", payWhere)) {
+//            fillInOrderPresenter.orderShopCart(cartidRequest);
+//        } else {
+//            fillInOrderPresenter.purchaseGoods(purchaseGoodsRequest);
+//        }
         if (event.msg != null)
             showMessage(event.msg);
+        GoodsOrderDetalActivity.start(this, ordreno);
+        this.finish();
     }
 
     //支付成功
@@ -396,9 +402,9 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onWxPayResult(PayAbortEvent event) {
         if (event.code == 0) {
-            finish();
+//            finish();
         } else {
-            showMessage(event.msg);
+//            showMessage(event.msg);
         }
     }
 

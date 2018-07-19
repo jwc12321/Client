@@ -210,8 +210,9 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
             goodsType.setText("待收货");
         } else if (TextUtils.equals("3", type)) {
             payBt.setVisibility(View.VISIBLE);
-            seeBt.setVisibility(View.GONE);
+            seeBt.setVisibility(View.VISIBLE);
             payBt.setText("删除订单");
+            seeBt.setText("查看物流");
             goodsType.setText("已完成");
         } else if (TextUtils.equals("4", type)) {
             payBt.setVisibility(View.VISIBLE);
@@ -249,6 +250,8 @@ public class GoodsOrderDetalActivity extends BaseActivity implements GoodsOrderC
                 if (TextUtils.equals("0", orderType) && TextUtils.equals("取消订单", seeBt.getText().toString())) {
                     goodsOrderDetailPresenter.cancelOrder(orderNum);
                 } else if (TextUtils.equals("2", orderType) && TextUtils.equals("查看物流", seeBt.getText().toString())) {
+                    goodsOrderDetailPresenter.getMalllogisInfo(orderNum);
+                } else if (TextUtils.equals("3", orderType) && TextUtils.equals("查看物流", seeBt.getText().toString())) {
                     goodsOrderDetailPresenter.getMalllogisInfo(orderNum);
                 }
                 break;
