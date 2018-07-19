@@ -17,6 +17,7 @@ import com.purchase.sls.goodsordermanage.GoodsOrderContract;
 import com.purchase.sls.goodsordermanage.GoodsOrderModule;
 import com.purchase.sls.goodsordermanage.adapter.GoodsOrderAdapter;
 import com.purchase.sls.goodsordermanage.presenter.GoodsOrderListPresenter;
+import com.purchase.sls.ordermanage.ui.LogisticsDetailsActivity;
 
 import java.util.List;
 
@@ -178,6 +179,8 @@ public class CompleteOrderFragment extends BaseListFragment<GoodsOrderItemInfo> 
 
     @Override
     public void renderMalllogisInfo(MalllogisInfo malllogisInfo) {
-
+        if (malllogisInfo != null) {
+            LogisticsDetailsActivity.start(getActivity(), expressName, malllogisInfo.getLogisticCode(), malllogisInfo.getLogisticRracesInfos());
+        }
     }
 }
