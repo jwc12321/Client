@@ -231,7 +231,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                     longitude = "";
                     latitude = "";
                 } else {
-                    city = aMapLocation.getDistrict();
+                    city = aMapLocation.getCity();
                     longitude = aMapLocation.getLongitude() + "";
                     latitude = aMapLocation.getLatitude() + "";
                     choiceCity.setText(city);
@@ -265,6 +265,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
                 if (bannerInfos != null && bannerInfos.size() >= position) {
                     BannerHotResponse.BannerInfo bannerInfo = bannerInfos.get(position - 1);
+                    if(!TextUtils.isEmpty(bannerInfo.getIds())&&!TextUtils.equals("0",bannerInfo.getIds())){
+                        ShopDetailActivity.start(getActivity(), bannerInfo.getIds());
+                    }
                 }
 
             }
@@ -384,6 +387,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         switch (view.getId()) {
             case R.id.choice_city:
                 Intent intent = new Intent(getActivity(), ChoiceCityActivity.class);
+                intent.putExtra(StaticData.TRANSMIT_CITY,city);
                 startActivityForResult(intent, REFRESS_LOCATION_CODE);
                 break;
             case R.id.scan:

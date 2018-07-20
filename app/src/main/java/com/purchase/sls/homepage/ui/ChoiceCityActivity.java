@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,8 @@ import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.cityList.utils.PinYinUtils;
 import com.purchase.sls.common.location.ChoiceCityLocationHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.widget.GridSpacesItemDecoration;
+import com.purchase.sls.homepage.adapter.AreaAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +48,7 @@ import butterknife.OnClick;
  * Created by JWC on 2018/4/21.
  */
 
-public class ChoiceCityActivity extends BaseActivity {
+public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.ItemClickListener {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -69,6 +73,18 @@ public class ChoiceCityActivity extends BaseActivity {
     TextView locationAgain;
     @BindView(R.id.choice_city_ll)
     LinearLayout choiceCityLl;
+    @BindView(R.id.area_rv)
+    RecyclerView areaRv;
+    @BindView(R.id.curr_city)
+    TextView currCity;
+    @BindView(R.id.area_select_iv)
+    ImageView areaSelectIv;
+    @BindView(R.id.switch_area)
+    TextView switchArea;
+    @BindView(R.id.curr_ll)
+    RelativeLayout currLl;
+    @BindView(R.id.hot_city_rv)
+    RecyclerView hotCityRv;
 
     private ChoiceCityLocationHelper mLocationHelper;
     private String city;
@@ -109,6 +125,13 @@ public class ChoiceCityActivity extends BaseActivity {
 
     public PinYinUtils mPinYinUtils = new PinYinUtils();
 
+    private String transmitCity;
+    private CityListLoader cityListLoader;
+    private AreaAdapter areaAdapter;
+    private AreaAdapter hotAreaAdapter;
+    private boolean isFlag = false;
+    private List<CityInfoBean> hotCityInfoBeans;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,11 +139,52 @@ public class ChoiceCityActivity extends BaseActivity {
         ButterKnife.bind(this);
 //        setHeight(back,title,null);
         commonAppPreferences = new CommonAppPreferences(this);
+        transmitCity = getIntent().getStringExtra(StaticData.TRANSMIT_CITY);
+        currCity.setText("当前:" + transmitCity);
         mapLocal();
         initList();
-        setCityData(CityListLoader.getInstance().getCityListData());
+        cityListLoader = CityListLoader.getInstance();
+        setCityData(cityListLoader.getCityListData());
+        initAreaAdapter();
+        areaAdapter.setData(cityListLoader.getArea(transmitCity), transmitCity);
+        initHotArea();
+    }
+
+    private void initAreaAdapter() {
+        areaRv.setVisibility(View.GONE);
+        areaRv.setLayoutManager(new GridLayoutManager(this, 3));
+        int space = 20;
+        areaRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
+        areaAdapter = new AreaAdapter();
+        areaAdapter.setItemClickListener(this);
+        areaRv.setAdapter(areaAdapter);
+    }
+
+    private void initHotArea() {
+        hotCityRv.setLayoutManager(new GridLayoutManager(this, 3));
+        int space = 20;
+        hotCityRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
+        hotAreaAdapter = new AreaAdapter();
+        hotAreaAdapter.setItemClickListener(this);
+        hotCityRv.setAdapter(hotAreaAdapter);
+        CityInfoBean cityInfoBean1=new CityInfoBean("330800","衢州市",null);
+        CityInfoBean cityInfoBean2=new CityInfoBean("331100","丽水市",null);
+        CityInfoBean cityInfoBean3=new CityInfoBean("110100","北京市",null);
+        CityInfoBean cityInfoBean4=new CityInfoBean("310100","上海市",null);
+        CityInfoBean cityInfoBean5=new CityInfoBean("440100","广州市",null);
+        CityInfoBean cityInfoBean6=new CityInfoBean("330100","杭州市",null);
+        hotCityInfoBeans=new ArrayList<>();
+        hotCityInfoBeans.add(cityInfoBean1);
+        hotCityInfoBeans.add(cityInfoBean2);
+        hotCityInfoBeans.add(cityInfoBean3);
+        hotCityInfoBeans.add(cityInfoBean4);
+        hotCityInfoBeans.add(cityInfoBean5);
+        hotCityInfoBeans.add(cityInfoBean6);
+        hotAreaAdapter.setData(hotCityInfoBeans,"");
 
     }
+
+
 
     private void setCityData(List<CityInfoBean> cityList) {
         cityListInfo = cityList;
@@ -257,7 +321,7 @@ public class ChoiceCityActivity extends BaseActivity {
         adapter.updateListView(filterDateList);
     }
 
-    @OnClick({R.id.back, R.id.location_again, R.id.currentCity})
+    @OnClick({R.id.back, R.id.location_again, R.id.currentCity, R.id.switch_area})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -274,6 +338,16 @@ public class ChoiceCityActivity extends BaseActivity {
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();
+                break;
+            case R.id.switch_area:
+                isFlag = !isFlag;
+                if (isFlag) {
+                    areaSelectIv.setSelected(true);
+                    areaRv.setVisibility(View.VISIBLE);
+                } else {
+                    areaSelectIv.setSelected(false);
+                    areaRv.setVisibility(View.GONE);
+                }
                 break;
             default:
         }
@@ -292,7 +366,7 @@ public class ChoiceCityActivity extends BaseActivity {
                 Log.d("1111", "城市" + city + "经纬度====" + longitude + "," + latitude);
                 currentCity.setText(city);
                 commonAppPreferences.setCity(city);
-                commonAppPreferences.setLocal(longitude,latitude);
+                commonAppPreferences.setLocal(longitude, latitude);
                 if (TextUtils.isEmpty(city) && TextUtils.equals("0.0", longitude) && TextUtils.equals("0.0", latitude)) {
                     currentCity.setText("定位失败，请重新定位");
                     Toast.makeText(getApplicationContext(), "查看定位权限有没有开", Toast.LENGTH_SHORT).show();
@@ -323,5 +397,15 @@ public class ChoiceCityActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLocationHelper.destroyLocation();
+    }
+
+    @Override
+    public void returnArea(CityInfoBean cityInfoBean) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

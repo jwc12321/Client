@@ -27,7 +27,13 @@ public class CityInfoBean implements Parcelable {
     
     public CityInfoBean() {
     }
-    
+
+    public CityInfoBean(String id, String name, ArrayList<CityInfoBean> cityList) {
+        this.id = id;
+        this.name = name;
+        this.cityList = cityList;
+    }
+
     public static CityInfoBean findCity(List<CityInfoBean> list, String cityName) {
         try {
             for (int i = 0; i < list.size(); i++) {

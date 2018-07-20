@@ -122,4 +122,7 @@ public class StaticData {
     //从哪里下单
     public static final String PAY_WHERE="payWhere";
 
+    //
+    public static final String TRANSMIT_CITY="transmitCity";
+
 }

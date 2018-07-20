@@ -131,6 +131,7 @@ public class BannerHotResponse {
         public void setPage_url(String page_url) {
             this.page_url = page_url;
         }
+
     }
 
     public static class StorecateInfo {

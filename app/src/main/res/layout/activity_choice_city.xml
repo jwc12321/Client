@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/choice_city_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:id="@+id/choice_city_ll">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/title_rel"
@@ -15,10 +17,65 @@
         <ImageView
             android:id="@+id/back"
             style="@style/title_left_back_style" />
+
         <TextView
             android:id="@+id/title"
             style="@style/title_text_style"
             android:text="@string/choice_city" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/curr_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/curr_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_fifteen_margin"
+                android:textColor="@color/appText5"
+                android:textSize="12sp"
+                tools:text="衢州" />
+
+            <ImageView
+                android:id="@+id/area_select_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_fifteen_margin"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_select" />
+
+            <TextView
+                android:id="@+id/switch_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/area_select_iv"
+                android:padding="@dimen/common_fifteen_margin"
+                android:text="切换县区"
+                android:textColor="@color/appText5"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/area_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/curr_ll"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:nestedScrollingEnabled="false"
+            android:paddingLeft="@dimen/common_margin_left_right"
+            android:paddingRight="@dimen/common_fifteen_margin"
+            app:layoutManager="@string/layoutManager_Gridlayout" />
     </RelativeLayout>
 
 
@@ -43,21 +100,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="@dimen/common_nine_margin"
             android:layout_toRightOf="@+id/currentCityTag"
             android:ellipsize="none"
+            android:padding="@dimen/common_nine_margin"
             android:singleLine="true"
             android:textColor="@color/appText4"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/location_again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="重新定位"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/common_nine_margin"/>
+            android:padding="@dimen/common_nine_margin"
+            android:text="重新定位" />
     </RelativeLayout>
 
     <LinearLayout
@@ -104,7 +162,24 @@
                 android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/appText5"
+        android:textSize="12sp"
+        android:text="热门城市"
+        android:layout_marginLeft="@dimen/common_fifteen_margin"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hot_city_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="@dimen/common_ten_margin"
+        android:nestedScrollingEnabled="false"
+        android:paddingLeft="@dimen/common_margin_left_right"
+        android:paddingRight="@dimen/common_fifteen_margin"
+        app:layoutManager="@string/layoutManager_Gridlayout" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

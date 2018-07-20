@@ -17,13 +17,18 @@ import android.widget.TextView;
 
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
+import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
+import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.Banner.Banner;
+import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.data.RemoteDataException;
+import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
+import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
@@ -103,6 +108,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
 
     private GoodsItemAdapter goodsItemAdapter;
     private GoodsParentAdapter goodsParentAdapter;
+    private List<SMBannerInfo> smBannerInfos;
 
     public ShoppingMallFragment() {
     }
@@ -133,6 +139,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
     }
 
     private void initView() {
+        bannerInitialization();
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         goodsParentAdapter = new GoodsParentAdapter();
         goodsParentAdapter.setOnParentClickListener(this);
@@ -143,6 +150,28 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
         goodsItemAdapter = new GoodsItemAdapter(getActivity());
         goodsItemAdapter.setOnItemClickListener(this);
         goodsItemRv.setAdapter(goodsItemAdapter);
+    }
+
+
+    //初始化banner
+    private void bannerInitialization() {
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        banner.isAutoPlay(true);
+        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
+            @Override
+            public void OnBannerClick(View view, int position) {
+//                showMessage("点击了第" + position + "张图片");
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
+                if (smBannerInfos != null && smBannerInfos.size() >= position) {
+                    SMBannerInfo bannerInfo = smBannerInfos.get(position - 1);
+                    if(!TextUtils.isEmpty(bannerInfo.getIds())&&!TextUtils.equals("0",bannerInfo.getIds())){
+                        ShopDetailActivity.start(getActivity(), bannerInfo.getIds());
+                    }
+                }
+
+            }
+        });
     }
 
 
@@ -289,6 +318,7 @@ public class ShoppingMallFragment extends BaseFragment implements ShoppingMallCo
 
     @Override
     public void smBannerInfo(List<SMBannerInfo> smBannerInfos) {
+        this.smBannerInfos=smBannerInfos;
         if (smBannerInfos != null && smBannerInfos.size() > 0) {
             banner.setVisibility(View.VISIBLE);
             bannerImages = new ArrayList<>();

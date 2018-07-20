@@ -1,6 +1,8 @@
 package com.purchase.sls.common.cityList.style.citylist.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.purchase.sls.common.cityList.Constant;
@@ -19,6 +21,8 @@ public class CityListLoader {
     private static List<CityInfoBean> mCityListData = new ArrayList<>();
 
     private static List<CityInfoBean> mProListData = new ArrayList<>();
+    private List<CityInfoBean> cityList;//获取所有的市
+    private List<CityInfoBean> allAityList = new ArrayList<>();//获取所有的市
 
     /**
      * 解析所有的城市数据 357个数据
@@ -79,18 +83,40 @@ public class CityListLoader {
             CityInfoBean itemProvince = mProvinceBeanArrayList.get(p);
 
             //每个省份对应下面的市
-            ArrayList<CityInfoBean> cityList = itemProvince.getCityList();
-
+            cityList = itemProvince.getCityList();
+            allAityList.addAll(cityList);
             //遍历当前省份下面城市的所有数据
             for (int j = 0; j < cityList.size(); j++) {
                 mCityListData.add(cityList.get(j));
-                ArrayList<CityInfoBean> areaList = cityList.get(j).getCityList();
-                for (int z = 0; z < areaList.size(); z++) {
-                    mCityListData.add(areaList.get(z));
+            }
+        }
+    }
+
+    private CityInfoBean choiceCity;
+    private List<CityInfoBean> choceCitys;
+    private List<CityInfoBean> returnCitys;
+
+    public List<CityInfoBean> getArea(String city) {
+        returnCitys=new ArrayList<>();
+        if (allAityList != null) {
+            for (int i = 0; i < allAityList.size(); i++) {
+                choiceCity = allAityList.get(i);
+                if (TextUtils.equals(city, choiceCity.getName())) {
+                    returnCitys.add(choiceCity);
+                    returnCitys.addAll(choiceCity.getCityList());
+                    return returnCitys;
+                }
+                choceCitys = choiceCity.getCityList();
+                for (int z = 0; z < choceCitys.size(); z++) {
+                    if (TextUtils.equals(city, choceCitys.get(z).getName())) {
+                        returnCitys.add(choiceCity);
+                        returnCitys.addAll(choiceCity.getCityList());
+                        return returnCitys;
+                    }
                 }
             }
         }
-
+        return null;
     }
 
     /**
