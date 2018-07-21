@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
+import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
@@ -78,6 +79,10 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     TextView purchase;
     @BindView(R.id.count_down_rl)
     RelativeLayout countDownRl;
+    @BindView(R.id.shop_iv)
+    ImageView shopIv;
+    @BindView(R.id.scrollview)
+    GradationScrollView scrollview;
 
     private String goodsid;
     private List<String> bannerImages;
@@ -113,7 +118,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     private void initView() {
         goodsid = getIntent().getStringExtra(StaticData.GOODS_ID);
         countDown.setTextColor("1");
-        bannerInitialization();
+//        bannerInitialization();
         initWeb(goodsid);
         goodsDetailPresenter.getGoodsDetail(goodsid);
     }
@@ -212,7 +217,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
                             if (TextUtils.equals("0", addType)) {
                                 goodsDetailPresenter.addToCart(goodsid, taobaoid, goodsUnitPrice.getSkuId(), goodsCount, goodsUnitPrice.getName(), quanPrice, goodsUnitPrice.getPrice(), "");
                             } else {
-                                purchaseGoodsRequest=new PurchaseGoodsRequest(goodsCount, goodsid, goodsUnitPrice.getSkuId(), goodsUnitPrice.getPrice(), goodsUnitPrice.getName(), taobaoid, quanPrice, "");
+                                purchaseGoodsRequest = new PurchaseGoodsRequest(goodsCount, goodsid, goodsUnitPrice.getSkuId(), goodsUnitPrice.getPrice(), goodsUnitPrice.getName(), taobaoid, quanPrice, "");
                                 goodsDetailPresenter.purchaseGoods(purchaseGoodsRequest);
                             }
                         }
@@ -259,12 +264,19 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             title.setText(goodsDetailInfo.getGoodsName());
             taobaoid = goodsDetailInfo.getTaobaoid();
             quanPrice = goodsDetailInfo.getQuanPrice();
-            bannerImages = new ArrayList<>();
-            bannerImages.add(goodsDetailInfo.getGoodsImg());
-            banner.setImages(bannerImages);
+            if(!TextUtils.isEmpty(goodsDetailInfo.getGoodsImg())) {
+                if (goodsDetailInfo.getGoodsImg().startsWith("https")||goodsDetailInfo.getGoodsImg().startsWith("http")) {
+                    GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, shopIv);
+                } else {
+                    GlideHelper.load(this, "https:"+goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, shopIv);
+                }
+            }
+//            bannerImages = new ArrayList<>();
+//            bannerImages.add(goodsDetailInfo.getGoodsImg());
+//            banner.setImages(bannerImages);
             goodsPrice.setText("¥" + goodsDetailInfo.getPrice());
             goodsSold.setText("已售" + goodsDetailInfo.getSalenum());
-            goodsVoucher.setText("劵最高可减" + goodsDetailInfo.getQuanPrice()+"/件");
+            goodsVoucher.setText("劵最高可减" + goodsDetailInfo.getQuanPrice() + "/件");
             if (!TextUtils.isEmpty(goodsDetailInfo.getEndtime())) {
                 countDown.setTimeOutListener(this);
                 countDown.startTearDown(Long.parseLong(goodsDetailInfo.getEndtime()), "1");
@@ -279,7 +291,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Override
     public void purchaseGoodsSuccess(GoodsOrderList goodsOrderList) {
-        FillInOrderActivity.start(this, goodsOrderList,"2",purchaseGoodsRequest,null);
+        FillInOrderActivity.start(this, goodsOrderList, "2", purchaseGoodsRequest, null);
     }
 
     @Override

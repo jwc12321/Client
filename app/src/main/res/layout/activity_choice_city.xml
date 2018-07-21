@@ -199,7 +199,8 @@
                         android:layout_marginLeft="@dimen/common_twelve_margin"
                         android:text="热门城市"
                         android:textColor="@color/appText5"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/hot_city_rv"
@@ -211,7 +212,8 @@
                         android:nestedScrollingEnabled="false"
                         android:paddingLeft="@dimen/common_twelve_margin"
                         android:paddingRight="@dimen/common_twelve_margin"
-                        app:layoutManager="@string/layoutManager_Gridlayout" />
+                        app:layoutManager="@string/layoutManager_Gridlayout"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView

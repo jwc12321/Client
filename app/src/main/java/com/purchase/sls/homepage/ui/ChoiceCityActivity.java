@@ -163,7 +163,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         allCityInfoBeans = cityListLoader.getAllCityListData();
         initAreaAdapter();
         areaAdapter.setData(cityListLoader.getArea(transmitCity), transmitCity);
-        initHotArea();
+//        initHotArea();
         initEditText();
         initSearchAdapter();
     }

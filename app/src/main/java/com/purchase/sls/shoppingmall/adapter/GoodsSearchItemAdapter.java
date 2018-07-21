@@ -3,6 +3,7 @@ package com.purchase.sls.shoppingmall.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,13 @@ public class GoodsSearchItemAdapter extends RecyclerView.Adapter<GoodsSearchItem
         }
 
         public void bindData(GoodsItemInfo goodsItemInfo) {
-            GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.no_url_icon, photo);
+            if(!TextUtils.isEmpty(goodsItemInfo.getGoodsImg())) {
+                if (goodsItemInfo.getGoodsImg().startsWith("https")||goodsItemInfo.getGoodsImg().startsWith("http")) {
+                    GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+                } else {
+                    GlideHelper.load((Activity) context, "https:"+goodsItemInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+                }
+            }
             goodsName.setText(goodsItemInfo.getGoodsName());
             goodsPrice.setText("¥" + goodsItemInfo.getPrice());
             goodsVoucher.setText("劵可减" + goodsItemInfo.getQuanPrice());

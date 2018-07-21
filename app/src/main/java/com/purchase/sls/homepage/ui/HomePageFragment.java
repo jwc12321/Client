@@ -113,7 +113,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private String latitude;
     private ChangeAppInfo changeAppInfo;
     private CommonDialog dialogUpdate;
+    private CommonDialog dialogmustUpdate;
     private CommonDialog testingDialog;
+    private String appStatus;//1：更新可忽略2：更新不能忽略
 
     @Inject
     HomePagePresenter homePagePresenter;
@@ -265,7 +267,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
                 if (bannerInfos != null && bannerInfos.size() >= position) {
                     BannerHotResponse.BannerInfo bannerInfo = bannerInfos.get(position - 1);
-                    if(!TextUtils.isEmpty(bannerInfo.getIds())&&!TextUtils.equals("0",bannerInfo.getIds())){
+                    if (!TextUtils.isEmpty(bannerInfo.getIds()) && !TextUtils.equals("0", bannerInfo.getIds())) {
                         ShopDetailActivity.start(getActivity(), bannerInfo.getIds());
                     }
                 }
@@ -375,9 +377,16 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void detectionSuccess(ChangeAppInfo changeAppInfo) {
         this.changeAppInfo = changeAppInfo;
-        if (changeAppInfo != null && TextUtils.equals("1", changeAppInfo.getStatus())) {
-            if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
-                showUpdate(changeAppInfo);
+        if (changeAppInfo != null) {
+            appStatus = changeAppInfo.getStatus();
+            if (TextUtils.equals("1", appStatus)) {
+                if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+                    showUpdate(changeAppInfo);
+                }
+            }else if(TextUtils.equals("2", appStatus)){
+                if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+                    showMustUpdate(changeAppInfo);
+                }
             }
         }
     }
@@ -387,7 +396,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         switch (view.getId()) {
             case R.id.choice_city:
                 Intent intent = new Intent(getActivity(), ChoiceCityActivity.class);
-                intent.putExtra(StaticData.TRANSMIT_CITY,city);
+                intent.putExtra(StaticData.TRANSMIT_CITY, city);
                 startActivityForResult(intent, REFRESS_LOCATION_CODE);
                 break;
             case R.id.scan:
@@ -473,7 +482,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         return;
                     }
                 }
-                showUpdate(changeAppInfo);
+                if(TextUtils.equals("1",appStatus)) {
+                    showUpdate(changeAppInfo);
+                }else if(TextUtils.equals("2",appStatus)){
+                    showMustUpdate(changeAppInfo);
+                }
                 break;
         }
     }
@@ -578,6 +591,22 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         }
                     }).create();
         dialogUpdate.show(getFragmentManager(), "");
+    }
+
+    private void showMustUpdate(final ChangeAppInfo changeAppInfo) {
+        if (dialogmustUpdate == null)
+            dialogmustUpdate = new CommonDialog.Builder()
+                    .setTitle("版本更新")
+                    .setContent(changeAppInfo.getTitle())
+                    .setContentGravity(Gravity.CENTER)
+                    .setConfirmButton("更新", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showMessage("开始下载");
+                            updateApk(changeAppInfo.getUrl());
+                        }
+                    }).create();
+        dialogmustUpdate.show(getFragmentManager(), "");
     }
 
     private MaterialDialog materialDialog;
