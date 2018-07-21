@@ -92,9 +92,9 @@ public class GoodsSearchItemAdapter extends RecyclerView.Adapter<GoodsSearchItem
         public void bindData(GoodsItemInfo goodsItemInfo) {
             if(!TextUtils.isEmpty(goodsItemInfo.getGoodsImg())) {
                 if (goodsItemInfo.getGoodsImg().startsWith("https")||goodsItemInfo.getGoodsImg().startsWith("http")) {
-                    GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+                    GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.no_url_icon, photo);
                 } else {
-                    GlideHelper.load((Activity) context, "https:"+goodsItemInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+                    GlideHelper.load((Activity) context, "https:"+goodsItemInfo.getGoodsImg(), R.mipmap.no_url_icon, photo);
                 }
             }
             goodsName.setText(goodsItemInfo.getGoodsName());

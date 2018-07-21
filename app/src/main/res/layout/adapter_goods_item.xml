@@ -17,7 +17,7 @@
         app:riv_corner_radius="2dp"
         app:riv_oval="false"
         tools:background="@null"
-        tools:src="@mipmap/app_icon" />
+        android:src="@mipmap/no_url_icon" />
 
     <TextView
         android:id="@+id/goods_name"
