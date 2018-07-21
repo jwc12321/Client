@@ -1,6 +1,7 @@
 package com.purchase.sls.homepage.ui;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -8,13 +9,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,14 +31,16 @@ import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.cityList.style.citylist.sortlistview.CharacterParser;
 import com.purchase.sls.common.cityList.style.citylist.sortlistview.PinyinComparator;
 import com.purchase.sls.common.cityList.style.citylist.sortlistview.SideBar;
-import com.purchase.sls.common.cityList.style.citylist.sortlistview.SortAdapter;
 import com.purchase.sls.common.cityList.style.citylist.sortlistview.SortModel;
 import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.cityList.utils.PinYinUtils;
 import com.purchase.sls.common.location.ChoiceCityLocationHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.homepage.adapter.AreaAdapter;
+import com.purchase.sls.homepage.adapter.SearchAreaAdapter;
+import com.purchase.sls.homepage.adapter.SortRvAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,31 +54,21 @@ import butterknife.OnClick;
  * Created by JWC on 2018/4/21.
  */
 
-public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.ItemClickListener {
+public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.ItemClickListener, SortRvAdapter.ItemClickListener,SearchAreaAdapter.ItemClickListener {
     @BindView(R.id.back)
     ImageView back;
-    @BindView(R.id.title)
-    TextView title;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
     @BindView(R.id.currentCityTag)
     TextView currentCityTag;
     @BindView(R.id.currentCity)
     TextView currentCity;
-    @BindView(R.id.localCityTag)
-    TextView localCityTag;
-    @BindView(R.id.localCity)
-    TextView localCity;
     @BindView(R.id.country_lvcountry)
-    ListView countryLvcountry;
-    @BindView(R.id.dialog)
-    TextView dialog;
-    @BindView(R.id.sidrbar)
-    SideBar sidrbar;
+    RecyclerView countryLvcountry;
     @BindView(R.id.location_again)
     TextView locationAgain;
     @BindView(R.id.choice_city_ll)
-    LinearLayout choiceCityLl;
+    RelativeLayout choiceCityLl;
     @BindView(R.id.area_rv)
     RecyclerView areaRv;
     @BindView(R.id.curr_city)
@@ -85,6 +81,22 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     RelativeLayout currLl;
     @BindView(R.id.hot_city_rv)
     RecyclerView hotCityRv;
+    @BindView(R.id.sidrbar)
+    SideBar sidrbar;
+    @BindView(R.id.hot_ll)
+    LinearLayout hotLl;
+    @BindView(R.id.scrollview)
+    GradationScrollView scrollview;
+    @BindView(R.id.search_et)
+    EditText searchEt;
+    @BindView(R.id.search_ll)
+    LinearLayout searchLl;
+    @BindView(R.id.search_area_rv)
+    RecyclerView searchAreaRv;
+    @BindView(R.id.no_search)
+    TextView noSearch;
+    @BindView(R.id.search_rl)
+    RelativeLayout searchRl;
 
     private ChoiceCityLocationHelper mLocationHelper;
     private String city;
@@ -100,7 +112,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     }
 
 
-    public SortAdapter adapter;
+    public SortRvAdapter sortRvAdapter;
 
     /**
      * 汉字转换成拼音的类
@@ -131,6 +143,9 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     private AreaAdapter hotAreaAdapter;
     private boolean isFlag = false;
     private List<CityInfoBean> hotCityInfoBeans;
+    private List<CityInfoBean> allCityInfoBeans;
+    private List<CityInfoBean> searchCityInfoBeans = new ArrayList<>();
+    private SearchAreaAdapter searchAreaAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -145,9 +160,45 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         initList();
         cityListLoader = CityListLoader.getInstance();
         setCityData(cityListLoader.getCityListData());
+        allCityInfoBeans = cityListLoader.getAllCityListData();
         initAreaAdapter();
         areaAdapter.setData(cityListLoader.getArea(transmitCity), transmitCity);
         initHotArea();
+        initEditText();
+        initSearchAdapter();
+    }
+
+    private void initEditText() {
+        searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterData(s.toString());
+            }
+        });
+
+        searchEt.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    searchRl.setVisibility(View.VISIBLE);
+                } else {
+                    searchRl.setVisibility(View.GONE);
+                }
+
+            }
+        });
     }
 
     private void initAreaAdapter() {
@@ -160,6 +211,12 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         areaRv.setAdapter(areaAdapter);
     }
 
+    private void initSearchAdapter() {
+        searchAreaAdapter=new SearchAreaAdapter();
+        searchAreaAdapter.setItemClickListener(this);
+        searchAreaRv.setAdapter(searchAreaAdapter);
+    }
+
     private void initHotArea() {
         hotCityRv.setLayoutManager(new GridLayoutManager(this, 3));
         int space = 20;
@@ -167,23 +224,22 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         hotAreaAdapter = new AreaAdapter();
         hotAreaAdapter.setItemClickListener(this);
         hotCityRv.setAdapter(hotAreaAdapter);
-        CityInfoBean cityInfoBean1=new CityInfoBean("330800","衢州市",null);
-        CityInfoBean cityInfoBean2=new CityInfoBean("331100","丽水市",null);
-        CityInfoBean cityInfoBean3=new CityInfoBean("110100","北京市",null);
-        CityInfoBean cityInfoBean4=new CityInfoBean("310100","上海市",null);
-        CityInfoBean cityInfoBean5=new CityInfoBean("440100","广州市",null);
-        CityInfoBean cityInfoBean6=new CityInfoBean("330100","杭州市",null);
-        hotCityInfoBeans=new ArrayList<>();
+        CityInfoBean cityInfoBean1 = new CityInfoBean("330800", "衢州市", null);
+        CityInfoBean cityInfoBean2 = new CityInfoBean("331100", "丽水市", null);
+        CityInfoBean cityInfoBean3 = new CityInfoBean("110100", "北京市", null);
+        CityInfoBean cityInfoBean4 = new CityInfoBean("310100", "上海市", null);
+        CityInfoBean cityInfoBean5 = new CityInfoBean("440100", "广州市", null);
+        CityInfoBean cityInfoBean6 = new CityInfoBean("330100", "杭州市", null);
+        hotCityInfoBeans = new ArrayList<>();
         hotCityInfoBeans.add(cityInfoBean1);
         hotCityInfoBeans.add(cityInfoBean2);
         hotCityInfoBeans.add(cityInfoBean3);
         hotCityInfoBeans.add(cityInfoBean4);
         hotCityInfoBeans.add(cityInfoBean5);
         hotCityInfoBeans.add(cityInfoBean6);
-        hotAreaAdapter.setData(hotCityInfoBeans,"");
+        hotAreaAdapter.setData(hotCityInfoBeans, "");
 
     }
-
 
 
     private void setCityData(List<CityInfoBean> cityList) {
@@ -199,7 +255,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         sourceDateList.addAll(filledData(cityList));
         // 根据a-z进行排序源数据
         Collections.sort(sourceDateList, pinyinComparator);
-        adapter.notifyDataSetChanged();
+        sortRvAdapter.setData(sourceDateList);
     }
 
     /**
@@ -258,40 +314,26 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     }
 
     private void initList() {
-        sourceDateList = new ArrayList<SortModel>();
-        adapter = new SortAdapter(ChoiceCityActivity.this, sourceDateList);
-        countryLvcountry.setAdapter(adapter);
+        sourceDateList = new ArrayList<>();
+        sortRvAdapter = new SortRvAdapter();
+        sortRvAdapter.setItemClickListener(this);
+        countryLvcountry.setAdapter(sortRvAdapter);
 
         //实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
         pinyinComparator = new PinyinComparator();
-        sidrbar.setTextView(dialog);
         //设置右侧触摸监听
         sidrbar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
             @Override
             public void onTouchingLetterChanged(String s) {
                 //该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
+                int position = sortRvAdapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    countryLvcountry.setSelection(position);
+                    int scrollY = countryLvcountry.getChildAt(position).getTop();
+                    int hotllY = hotLl.getHeight();
+                    scrollview.scrollTo(0, scrollY + hotllY);
                 }
-            }
-        });
-
-        countryLvcountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String cityName = ((SortModel) adapter.getItem(position)).getName();
-                commonAppPreferences.setCity(cityName);
-                cityInfoBean = CityInfoBean.findCity(cityListInfo, cityName);
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
-                intent.putExtras(bundle);
-                setResult(RESULT_OK, intent);
-                finish();
             }
         });
     }
@@ -302,26 +344,25 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
      * @param filterStr
      */
     private void filterData(String filterStr) {
-        List<SortModel> filterDateList = new ArrayList<SortModel>();
-
-        if (TextUtils.isEmpty(filterStr)) {
-            filterDateList = sourceDateList;
-        } else {
-            filterDateList.clear();
-            for (SortModel sortModel : sourceDateList) {
-                String name = sortModel.getName();
-                if (name.contains(filterStr) || characterParser.getSelling(name).startsWith(filterStr)) {
-                    filterDateList.add(sortModel);
+        searchCityInfoBeans.clear();
+        if (allCityInfoBeans != null && allCityInfoBeans.size() > 0 && !TextUtils.isEmpty(filterStr)) {
+            for (CityInfoBean cityInfoBean : allCityInfoBeans) {
+                if (cityInfoBean.getName().contains(filterStr) || characterParser.getSelling(cityInfoBean.getName()).startsWith(filterStr)) {
+                    searchCityInfoBeans.add(cityInfoBean);
                 }
             }
+            if(searchCityInfoBeans.size()>0) {
+                searchAreaRv.setVisibility(View.VISIBLE);
+                noSearch.setVisibility(View.GONE);
+                searchAreaAdapter.setData(searchCityInfoBeans);
+            }else {
+                searchAreaRv.setVisibility(View.GONE);
+                noSearch.setVisibility(View.VISIBLE);
+            }
         }
-
-        // 根据a-z进行排序
-        Collections.sort(filterDateList, pinyinComparator);
-        adapter.updateListView(filterDateList);
     }
 
-    @OnClick({R.id.back, R.id.location_again, R.id.currentCity, R.id.switch_area})
+    @OnClick({R.id.back, R.id.location_again, R.id.currentCity, R.id.switch_area,R.id.cancel})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -349,6 +390,11 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
                     areaRv.setVisibility(View.GONE);
                 }
                 break;
+            case R.id.cancel:
+                searchEt.setText("");
+                searchEt.clearFocus();
+                searchRl.setVisibility(View.GONE);
+                break;
             default:
         }
     }
@@ -363,7 +409,6 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
                 city = aMapLocation.getDistrict();
                 longitude = aMapLocation.getLongitude() + "";
                 latitude = aMapLocation.getLatitude() + "";
-                Log.d("1111", "城市" + city + "经纬度====" + longitude + "," + latitude);
                 currentCity.setText(city);
                 commonAppPreferences.setCity(city);
                 commonAppPreferences.setLocal(longitude, latitude);
@@ -407,5 +452,69 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void returnArea(SortModel sortModel) {
+        cityInfoBean = new CityInfoBean("", sortModel.getName(), null);
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
+    }
+
+    @Override
+    public void returnSearchArea(CityInfoBean cityInfoBean) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(searchEt.getWindowToken(), 0);
     }
 }

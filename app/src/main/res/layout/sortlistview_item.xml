@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@drawable/cityitem_click"
-              android:gravity="center_vertical"
-              android:orientation="vertical">
+    android:id="@+id/area_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cityitem_click"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/catalog"
@@ -12,10 +13,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="#ff40c2fc"
-        android:padding="10dp"
+        android:paddingTop="@dimen/common_ten_margin"
+        android:paddingBottom="@dimen/common_ten_margin"
+        android:paddingLeft="@dimen/common_twelve_margin"
         android:textColor="@color/appText1"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/title"
@@ -24,8 +27,9 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:paddingTop="@dimen/common_ten_margin"
+        android:paddingBottom="@dimen/common_ten_margin"
+        android:paddingLeft="@dimen/common_twelve_margin"
         android:textColor="@color/appText4"
-        android:textSize="16sp"
-        />
+        android:textSize="16sp" />
 </LinearLayout>

@@ -19,6 +19,7 @@ public class CityListLoader {
     public static final String BUNDATA = "bundata";
 
     private static List<CityInfoBean> mCityListData = new ArrayList<>();
+    private static List<CityInfoBean> mAllCityListData = new ArrayList<>();
 
     private static List<CityInfoBean> mProListData = new ArrayList<>();
     private List<CityInfoBean> cityList;//获取所有的市
@@ -29,6 +30,13 @@ public class CityListLoader {
      */
     public List<CityInfoBean> getCityListData() {
         return mCityListData;
+    }
+
+    /**
+     * 解析所有的城市数据 357个数据
+     */
+    public List<CityInfoBean> getAllCityListData() {
+        return mAllCityListData;
     }
 
     /**
@@ -88,6 +96,11 @@ public class CityListLoader {
             //遍历当前省份下面城市的所有数据
             for (int j = 0; j < cityList.size(); j++) {
                 mCityListData.add(cityList.get(j));
+                mAllCityListData.add(cityList.get(j));
+                List<CityInfoBean> areaList = cityList.get(j).getCityList();
+                for (int z = 0; z < areaList.size(); z++) {
+                    mAllCityListData.add(areaList.get(z));
+                }
             }
         }
     }

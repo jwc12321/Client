@@ -414,6 +414,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         }
                         city = cityInfoBean.getName();
                         CityManager.saveCity(city);
+                        commonAppPreferences.setCity(city);
                         longitude = commonAppPreferences.getLongitude();
                         latitude = commonAppPreferences.getLatitude();
                         likeStoreAdapter.setCity(city, longitude, latitude);
