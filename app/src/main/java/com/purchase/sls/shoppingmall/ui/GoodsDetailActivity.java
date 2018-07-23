@@ -264,13 +264,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             title.setText(goodsDetailInfo.getGoodsName());
             taobaoid = goodsDetailInfo.getTaobaoid();
             quanPrice = goodsDetailInfo.getQuanPrice();
-            if(!TextUtils.isEmpty(goodsDetailInfo.getGoodsImg())) {
-                if (goodsDetailInfo.getGoodsImg().startsWith("https")||goodsDetailInfo.getGoodsImg().startsWith("http")) {
-                    GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, shopIv);
-                } else {
-                    GlideHelper.load(this, "https:"+goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, shopIv);
-                }
-            }
+            GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, shopIv);
 //            bannerImages = new ArrayList<>();
 //            bannerImages.add(goodsDetailInfo.getGoodsImg());
 //            banner.setImages(bannerImages);

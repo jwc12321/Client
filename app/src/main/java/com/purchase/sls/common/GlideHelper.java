@@ -34,10 +34,17 @@ public class GlideHelper {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void load(Activity activity, String url, int placeHolder, ImageView target){
         if(activity!=null&&!activity.isDestroyed()) {
-            Glide.with(activity)
-                    .load(url)
-                    .placeholder(placeHolder)
-                    .into(new ImageTarget(target));
+            if(url.startsWith("https")||url.startsWith("http")) {
+                Glide.with(activity)
+                        .load(url)
+                        .placeholder(placeHolder)
+                        .into(new ImageTarget(target));
+            }else {
+                Glide.with(activity)
+                        .load("https:"+url)
+                        .placeholder(placeHolder)
+                        .into(new ImageTarget(target));
+            }
         }
     }
     public static void load(Fragment fragment, String url, int placeHolder, ImageView target){

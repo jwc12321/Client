@@ -86,7 +86,7 @@ public class SelectSpecActivity extends BaseActivity implements OnSelectedListen
         goodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(StaticData.GOODS_DETAIL);
         shopselectView.setOnSelectedListener(this);
         if (goodsDetailInfo != null) {
-            GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, photo);
+            GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.no_url_icon, photo);
             goodsSku = goodsDetailInfo.getGoodsSku();
             if (goodsSku != null) {
                 goodsSku = goodsDetailInfo.getGoodsSku();
