@@ -58,6 +58,11 @@ public class SortRvAdapter extends RecyclerView.Adapter<SortRvAdapter.SortRvView
                 }
             }
         });
+        if(holder.getAdapterPosition()==sortModels.size()-1){
+            if(itemClickListener!=null){
+                itemClickListener.dissloading();
+            }
+        }
     }
 
     @Override
@@ -100,6 +105,7 @@ public class SortRvAdapter extends RecyclerView.Adapter<SortRvAdapter.SortRvView
 
     public interface ItemClickListener {
         void returnArea(SortModel sortModel);
+        void dissloading();
     }
 
     private ItemClickListener itemClickListener;

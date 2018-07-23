@@ -217,6 +217,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".homepage.ui.ChoiceCityActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".homepage.ui.QrCodeScanActivity"

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,8 +38,10 @@ import com.purchase.sls.common.cityList.style.citylist.utils.CityListLoader;
 import com.purchase.sls.common.cityList.utils.PinYinUtils;
 import com.purchase.sls.common.location.ChoiceCityLocationHelper;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.StaticHandler;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
+import com.purchase.sls.energy.ui.SignInActivity;
 import com.purchase.sls.homepage.adapter.AreaAdapter;
 import com.purchase.sls.homepage.adapter.SearchAreaAdapter;
 import com.purchase.sls.homepage.adapter.SortRvAdapter;
@@ -145,6 +149,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     private List<CityInfoBean> hotCityInfoBeans;
     private List<CityInfoBean> allCityInfoBeans;
     private List<CityInfoBean> searchCityInfoBeans = new ArrayList<>();
+    private List<CityInfoBean> cityAreas;
     private SearchAreaAdapter searchAreaAdapter;
 
     @Override
@@ -152,21 +157,62 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice_city);
         ButterKnife.bind(this);
-//        setHeight(back,title,null);
         commonAppPreferences = new CommonAppPreferences(this);
         transmitCity = getIntent().getStringExtra(StaticData.TRANSMIT_CITY);
         currCity.setText("当前:" + transmitCity);
         mapLocal();
         initList();
         cityListLoader = CityListLoader.getInstance();
-        setCityData(cityListLoader.getCityListData());
         allCityInfoBeans = cityListLoader.getAllCityListData();
         initAreaAdapter();
+//        initCityArea();
         areaAdapter.setData(cityListLoader.getArea(transmitCity), transmitCity);
-//        initHotArea();
         initEditText();
         initSearchAdapter();
+        showLoading();
+        mHandler.sendEmptyMessageDelayed(ADD_CITY, 500);
     }
+
+    //原本想异步，主线程速度很快就算了
+    private void initCityArea(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cityAreas=cityListLoader.getArea(transmitCity);
+                mHandler.sendEmptyMessageDelayed(SPIKE_WHAT, 0);
+            }
+        }).start();
+    }
+
+    public static class MyHandler extends StaticHandler<ChoiceCityActivity> {
+
+        public MyHandler(ChoiceCityActivity target) {
+            super(target);
+        }
+
+        @Override
+        public void handle(ChoiceCityActivity target, Message msg) {
+            switch (msg.what) {
+                case SPIKE_WHAT:
+                    target.addCityArea();
+                    break;
+                case ADD_CITY:
+                    target.addCity();
+                    break;
+            }
+        }
+    }
+
+    private Handler mHandler = new ChoiceCityActivity.MyHandler(this);
+    private static final int SPIKE_WHAT = 2;
+    private static final int ADD_CITY = 1;
+    public void addCityArea() {
+        areaAdapter.setData(cityAreas, transmitCity);
+    }
+    public void addCity() {
+        setCityData(cityListLoader.getCityListData());
+    }
+
 
     private void initEditText() {
         searchEt.addTextChangedListener(new TextWatcher() {
@@ -245,6 +291,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     private void setCityData(List<CityInfoBean> cityList) {
         cityListInfo = cityList;
         if (cityListInfo == null) {
+            dissloading();
             return;
         }
         int count = cityList.size();
@@ -372,7 +419,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
                 mLocationHelper.start();
                 break;
             case R.id.currentCity:
-                cityInfoBean = CityInfoBean.findCity(cityListInfo, city);
+                cityInfoBean =  new CityInfoBean("", city, null);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
@@ -441,7 +488,9 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLocationHelper.destroyLocation();
+        if(mLocationHelper!=null) {
+            mLocationHelper.destroyLocation();
+        }
     }
 
     @Override
@@ -463,6 +512,11 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void dissloading() {
+        dismissLoading();
     }
 
     @Override
