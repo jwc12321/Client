@@ -58,6 +58,11 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
         }
     }
 
+    /**
+     * 能量信息
+     * @param refreshType
+     * @param pool
+     */
     @Override
     public void getEnergyInfo(String refreshType,String pool) {
         if(TextUtils.equals("1",refreshType)){
@@ -84,6 +89,10 @@ public class EnergyInfoPresente implements EnergyContract.EnergyInfoPresenter {
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 更多能量信息
+     * @param pool
+     */
     @Override
     public void getMoreEnergyInfo(String pool) {
         currentIndex = currentIndex + 1;

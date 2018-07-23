@@ -57,6 +57,11 @@ public class IntercourseRecordPresenter implements AccountContract.IntercourseRe
         }
     }
 
+    /**
+     * 来往记录
+     * @param refreshType
+     * @param storeid
+     */
     @Override
     public void getIntercourseRecordInfo(String refreshType,String storeid) {
         if(TextUtils.equals("1",refreshType)){
@@ -83,6 +88,10 @@ public class IntercourseRecordPresenter implements AccountContract.IntercourseRe
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 获取更多来往记录
+     * @param storeid
+     */
     @Override
     public void getMoreIntercourseRecordInfo(String storeid) {
         currentIndex = currentIndex + 1;

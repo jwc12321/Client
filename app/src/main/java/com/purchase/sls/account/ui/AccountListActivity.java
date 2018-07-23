@@ -202,7 +202,7 @@ public class AccountListActivity extends BaseActivity implements AccountContract
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
-                case CHOOSETIME:
+                case CHOOSETIME://选择时间回调
                     chooseTimeType = data.getStringExtra(StaticData.CHOOSE_TIME_TYPE);
                     if (TextUtils.equals("1", chooseTimeType)) {
                         monthlyTime = data.getStringExtra(StaticData.CHOOSE_TIME_FIRST);

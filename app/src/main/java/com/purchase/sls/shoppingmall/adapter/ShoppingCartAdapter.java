@@ -138,13 +138,13 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     }
 
     public interface ItemClickListener {
-        void checkGroup(int position, boolean isChecked);
+        void checkGroup(int position, boolean isChecked); //选中
 
-        void doIncrease(int position, View showCountView, boolean isChecked);
+        void doIncrease(int position, View showCountView, boolean isChecked);  //增加数量
 
-        void doReduce(int position, View showCountView, boolean isChecked);
+        void doReduce(int position, View showCountView, boolean isChecked); //减少数量
 
-        void goGoodsDetail(String goodsId);
+        void goGoodsDetail(String goodsId); //去商品详情
     }
 
     private ItemClickListener itemClickListener;

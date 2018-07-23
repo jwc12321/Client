@@ -57,6 +57,11 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
         }
     }
 
+    /**
+     * 获取评价列表
+     * @param refreshType
+     * @param storeId
+     */
     @Override
     public void getAllEvaluation(String refreshType,String storeId) {
         if(TextUtils.equals("1",refreshType)){
@@ -83,6 +88,10 @@ public class AllEvaluationPresenter implements EvaluateContract.AllEvaluationPre
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 获取更多评价列表
+     * @param storeId
+     */
     @Override
     public void getMoreAllEvaluation(String storeId) {
         currentIndex=currentIndex+1;

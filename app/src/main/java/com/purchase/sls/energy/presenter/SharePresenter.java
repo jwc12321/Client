@@ -1,7 +1,6 @@
 package com.purchase.sls.energy.presenter;
 
 import com.purchase.sls.data.RxSchedulerTransformer;
-import com.purchase.sls.data.entity.ActivityInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.TokenRequest;
@@ -54,6 +53,9 @@ public class SharePresenter implements EnergyContract.SharePresenter {
         }
     }
 
+    /**
+     * 分享
+     */
     @Override
     public void share() {
         TokenRequest tokenRequest = new TokenRequest();

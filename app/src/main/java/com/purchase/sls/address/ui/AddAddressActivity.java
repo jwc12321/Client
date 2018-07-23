@@ -134,6 +134,7 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
         chooseAddressWheel.setOnAddressChangeListener(this);
     }
 
+    //获取所有地址
     private void initData() {
         String address = Utils.readAssert(this, "address.txt");
         AddressModel model = JsonUtil.parseJson(address, AddressModel.class);
@@ -162,14 +163,14 @@ public class AddAddressActivity extends BaseActivity implements OnAddressChangeL
             case R.id.back:
                 finish();
                 break;
-            case R.id.complete:
+            case R.id.complete://完成提交
                 submitAddress();
                 break;
-            case R.id.region:
+            case R.id.region://选择地区
                 Utils.hideKeyBoard(AddAddressActivity.this);
                 chooseAddressWheel.show(view);
                 break;
-            case R.id.check_default:
+            case R.id.check_default://设为默认地址
                 isFlag = !isFlag;
                 if (isFlag) {
                     checkDefault.setSelected(true);

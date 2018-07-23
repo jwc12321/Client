@@ -58,6 +58,10 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
         }
     }
 
+    /**
+     * 待评价列表
+     * @param refreshType
+     */
     @Override
     public void getToBeEvaluation(String refreshType) {
         if(TextUtils.equals("1",refreshType)){
@@ -84,7 +88,9 @@ public class ToBeEvaluationPresenter implements EvaluateContract.ToBeEvaluationP
         mDisposableList.add(disposable);
 
     }
-
+    /**
+     * 更多待评价列表
+     */
     @Override
     public void getMoreToBeEvaluation() {
         currentIndex = currentIndex + 1;

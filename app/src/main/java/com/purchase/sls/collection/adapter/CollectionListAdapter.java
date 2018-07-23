@@ -200,9 +200,9 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
     }
 
     public interface OnCollectionItemClickListener {
-        void addItem(String storeId);
-        void removeItem(String storeId);
-        void goShopDetail(String storeid);
+        void addItem(String storeId);//添加要删除的item
+        void removeItem(String storeId);//移除之前添加要删除的item
+        void goShopDetail(String storeid);//去商品详情
     }
 
     private OnCollectionItemClickListener onCollectionItemClickListener;

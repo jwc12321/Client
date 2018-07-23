@@ -464,6 +464,9 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private List<ChoiceMapInfo> choiceMapInfos;
     private ChoiceMapAdapter choiceMapAdapter;
 
+    /**
+     * 获取安装了哪些地图app
+     */
     private void addMapApp() {
         choiceMapAdapter = new ChoiceMapAdapter();
         choiceMapAdapter.setonMapItemClick(this);

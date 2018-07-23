@@ -79,6 +79,11 @@ public class OrderPayPresenter implements GoodsOrderContract.OrderPayPresenter {
         }
     }
 
+    /**
+     * 支付宝支付
+     * @param paytype
+     * @param ordercode
+     */
     @Override
     public void getAlipaySign(String paytype, String ordercode) {
         orderPayView.showLoading();
@@ -103,6 +108,11 @@ public class OrderPayPresenter implements GoodsOrderContract.OrderPayPresenter {
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 微信支付
+     * @param paytype
+     * @param ordercode
+     */
     @Override
     public void getWXPaySign(String paytype, String ordercode) {
         orderPayView.showLoading();

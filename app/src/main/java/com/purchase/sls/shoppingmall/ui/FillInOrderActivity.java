@@ -242,6 +242,9 @@ public class FillInOrderActivity extends BaseActivity implements ShoppingMallCon
         }
     }
 
+    /**
+     * 提交订单
+     */
     private void submitOrder() {
         if (addressInfo == null || TextUtils.isEmpty(addressInfo.getId())) {
             showMessage("请选择地址");

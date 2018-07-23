@@ -189,6 +189,10 @@ public class EnergyFragment extends BaseFragment implements ShareDialog.ShareLis
 
     }
 
+    /**
+     * 分享成功后刷新能量
+     * @param energy
+     */
     @Override
     public void success(String energy) {
         if(spikeFragment!=null){

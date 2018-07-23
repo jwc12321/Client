@@ -121,6 +121,10 @@ public class ChangeHeadPortraitActivity extends BaseActivity implements Personal
         }
     }
 
+    /**
+     * 获取图片路径
+     * @param filePath
+     */
     @Override
     public void onPictureChose(File filePath) {
         actionSheet.dismiss();

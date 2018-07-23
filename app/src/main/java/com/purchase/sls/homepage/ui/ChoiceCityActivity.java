@@ -339,7 +339,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
     }
 
     /**
-     * 根据输入框中的值来过滤数据并更新ListView
+     * 根据输入框中的值来过滤数据并更新RecycleView
      *
      * @param filterStr
      */

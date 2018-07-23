@@ -163,9 +163,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         likeStore();
         homePagePresenter.getBannerHotInfo("1", "");//防止定位慢不去请求数据就空白，后台默认衢州
         mapLocal();
-        if (testOldVersion("com.nenggou.syn")) {
-            textDialog();
-        }
+//        if (testOldVersion("com.nenggou.syn")) {
+//            textDialog();
+//        }
         refreshLayout.setCanLoadMore(false);
     }
 
@@ -215,6 +215,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         return false;
     }
 
+    //首页token失效
     @Override
     public void showError(Throwable e) {
         if (e != null && e instanceof RemoteDataException && ((RemoteDataException) e).isAuthFailed()) {

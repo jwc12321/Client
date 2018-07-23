@@ -108,14 +108,14 @@ public class AccountChooseTimeActivity extends BaseActivity {
             case R.id.back:
                 finish();
                 break;
-            case R.id.monthly_bt:
+            case R.id.monthly_bt://月度查询
                 monthlyBt.setSelected(true);
                 phaseBt.setSelected(false);
                 monthlyQueryLl.setVisibility(View.VISIBLE);
                 phaseQueryLl.setVisibility(View.GONE);
                 chooseTimeType = "1";
                 break;
-            case R.id.phase_bt:
+            case R.id.phase_bt://阶段查询
                 monthlyBt.setSelected(false);
                 phaseBt.setSelected(true);
                 monthlyQueryLl.setVisibility(View.GONE);

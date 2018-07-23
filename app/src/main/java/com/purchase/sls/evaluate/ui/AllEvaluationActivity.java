@@ -160,6 +160,11 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
         }
     }
 
+    /**
+     * 点击放大图片，可以滑动
+     * @param position
+     * @param photos
+     */
     @Override
     public void zoom(int position, List<String> photos) {
         PhotoPreviewDialog previewDialog = new PhotoPreviewDialog.Builder()

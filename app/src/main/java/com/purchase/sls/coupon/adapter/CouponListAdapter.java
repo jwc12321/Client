@@ -156,9 +156,9 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Co
     }
 
     public interface OnBtClick {
-        void btClick(String mainGo);
+        void btClick(String mainGo); //去首页哪里 0：首页 3：商城
 
-        void couponDetail(String qid);
+        void couponDetail(String qid);//优惠券详情
     }
 
     private OnBtClick onBtClick;

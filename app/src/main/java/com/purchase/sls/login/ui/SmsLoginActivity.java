@@ -117,6 +117,9 @@ public class SmsLoginActivity extends BaseActivity implements LoginContract.Logi
         }
     }
 
+    /**
+     * 发送验证码
+     */
     private void sendCode() {
         if (TextUtils.isEmpty(phoneNumberStr)) {
             showMessage(getString(R.string.empty_account));

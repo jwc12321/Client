@@ -138,6 +138,9 @@ public class OrderPayActivity extends BaseActivity implements GoodsOrderContract
         showMessage("支付宝支付失败");
     }
 
+    /**
+     * 支付宝成功
+     */
     @Override
     public void onRechargeSuccess() {
         UmengEventUtils.statisticsClick(this, UMStaticData.MALL_PAY_SUCCESS);

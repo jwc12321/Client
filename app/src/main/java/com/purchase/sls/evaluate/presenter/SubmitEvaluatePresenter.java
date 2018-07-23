@@ -94,6 +94,10 @@ public class SubmitEvaluatePresenter implements EvaluateContract.SubmitEvaluateP
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 提交评价
+     * @param submitEvaluateRequest
+     */
     @Override
     public void submitEvaluate(SubmitEvaluateRequest submitEvaluateRequest) {
         Disposable disposable = restApiService.submitEvalute(submitEvaluateRequest)

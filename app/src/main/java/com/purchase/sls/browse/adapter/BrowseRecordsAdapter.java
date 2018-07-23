@@ -192,11 +192,11 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
     }
 
     public interface OnBrowseItemClickListener {
-        void addItem(String storeId);
+        void addItem(String storeId); //添加要删除的item
 
-        void removeItem(String storeId);
+        void removeItem(String storeId);//移除之前添加要删除的item
 
-        void goShopDetail(String storeid);
+        void goShopDetail(String storeid);//去商品详情
     }
 
     private OnBrowseItemClickListener onBrowseItemClickListener;

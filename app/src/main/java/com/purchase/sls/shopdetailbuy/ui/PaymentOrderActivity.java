@@ -344,6 +344,9 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         }
     }
 
+    /**
+     * 计算
+     */
     private void fillNumber() {
         String payExplainStr;
         totalPriceBigDecimal = new BigDecimal(TextUtils.isEmpty(moneyEt.getText().toString()) ? "0" : moneyEt.getText().toString()).setScale(2, RoundingMode.HALF_UP);

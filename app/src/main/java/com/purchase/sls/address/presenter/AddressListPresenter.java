@@ -58,6 +58,10 @@ public class AddressListPresenter implements AddressContract.AddressListPresente
         }
     }
 
+    /**
+     * 地址列表
+     * @param refreshType
+     */
     @Override
     public void getAddressList(String refreshType) {
         if(TextUtils.equals("1",refreshType)){
@@ -83,6 +87,10 @@ public class AddressListPresenter implements AddressContract.AddressListPresente
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 设为默认
+     * @param id
+     */
     @Override
     public void setDefault(String id) {
         IdRequest idRequest=new IdRequest(id);
@@ -103,6 +111,10 @@ public class AddressListPresenter implements AddressContract.AddressListPresente
         mDisposableList.add(disposable);
     }
 
+    /**
+     * 删除地址
+     * @param id
+     */
     @Override
     public void deleteAddress(String id) {
         IdRequest idRequest=new IdRequest(id);
