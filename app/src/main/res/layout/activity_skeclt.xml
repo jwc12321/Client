@@ -15,7 +15,16 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/title_text_style" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_toRightOf="@id/back"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/appText5"
+            android:textSize="17sp"
+            tools:text="哈哈哈哈" />
     </RelativeLayout>
 
     <com.purchase.sls.common.widget.GradationScrollView
@@ -142,8 +151,8 @@
                 android:layout_marginLeft="@dimen/common_fifteen_margin"
                 android:layout_marginTop="@dimen/common_five_margin"
                 android:textSize="13sp"
-                tools:text="小余 18758458745"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:text="小余 18758458745" />
 
             <TextView
                 android:id="@+id/address"
@@ -152,8 +161,8 @@
                 android:layout_below="@id/name"
                 android:layout_marginLeft="@dimen/common_fifteen_margin"
                 android:textSize="13sp"
-                tools:text="浙江省杭州市下城区"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:text="浙江省杭州市下城区" />
         </LinearLayout>
 
         <Button
@@ -162,9 +171,9 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/spike_bt_bg"
+            android:enabled="false"
             android:textColor="@color/appText1"
             android:textSize="15sp"
-            tools:text="秒杀"
-            android:enabled="false"/>
+            tools:text="秒杀" />
     </RelativeLayout>
 </RelativeLayout>

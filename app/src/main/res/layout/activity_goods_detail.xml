@@ -16,7 +16,16 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/title_text_style" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toLeftOf="@id/shopping_cart"
+            android:layout_toRightOf="@id/back"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/appText5"
+            android:textSize="17sp"
+            tools:text="哈哈哈哈" />
 
         <ImageView
             android:id="@+id/shopping_cart"
@@ -41,15 +50,17 @@
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_two_hundred_and_fifty_margin"
+                android:visibility="gone"
                 app:indicator_drawable_selected="@drawable/selected_radius"
-                app:indicator_drawable_unselected="@drawable/unselected_radius"
-                android:visibility="gone"/>
+                app:indicator_drawable_unselected="@drawable/unselected_radius" />
+
             <ImageView
                 android:id="@+id/shop_iv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

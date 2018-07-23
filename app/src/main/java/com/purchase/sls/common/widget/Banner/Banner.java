@@ -291,7 +291,7 @@ public class Banner extends FrameLayout implements ViewPager.OnPageChangeListene
 //            ImageView iv = new ImageView(context);
             ImageView iv = new ImageView(context);
 //            iv.setCornerRadiusDimen(R.dimen.marker_photo_corner);
-            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            iv.setScaleType(ImageView.ScaleType.FIT_XY);
 //            iv.setAdjustViewBounds(true);
             Object url=null;
             if (i == 0) {

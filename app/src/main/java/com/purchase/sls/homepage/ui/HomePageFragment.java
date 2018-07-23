@@ -44,6 +44,7 @@ import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.GridSpacesItemDecoration;
 import com.purchase.sls.common.widget.LimitScrollerView;
 import com.purchase.sls.common.widget.dialog.CommonDialog;
+import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
@@ -116,6 +117,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private CommonDialog dialogmustUpdate;
     private CommonDialog testingDialog;
     private String appStatus;//1：更新可忽略2：更新不能忽略
+    private String isFirst = "1";
 
     @Inject
     HomePagePresenter homePagePresenter;
@@ -187,6 +189,15 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     public void onResume() {
         super.onResume();
         limitScroll.startScroll();
+        if (!isFirstLoad&&getUserVisibleHint() && TextUtils.equals("0", isFirst)) {
+            isFirst="1";
+            if (TextUtils.isEmpty(choiceCity.getText().toString())) {
+
+            } else {
+                homePagePresenter.getBannerHotInfo("1", city);
+                homePagePresenter.getLikeStore(city);
+            }
+        }
     }
 
     private boolean testOldVersion(String packageName) {
@@ -202,6 +213,14 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
             }
         }
         return false;
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        if (e != null && e instanceof RemoteDataException && ((RemoteDataException) e).isAuthFailed()) {
+            isFirst = "0";
+        }
+        super.showError(e);
     }
 
     //设置热门
@@ -383,7 +402,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
                     showUpdate(changeAppInfo);
                 }
-            }else if(TextUtils.equals("2", appStatus)){
+            } else if (TextUtils.equals("2", appStatus)) {
                 if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
                     showMustUpdate(changeAppInfo);
                 }
@@ -482,9 +501,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         return;
                     }
                 }
-                if(TextUtils.equals("1",appStatus)) {
+                if (TextUtils.equals("1", appStatus)) {
                     showUpdate(changeAppInfo);
-                }else if(TextUtils.equals("2",appStatus)){
+                } else if (TextUtils.equals("2", appStatus)) {
                     showMustUpdate(changeAppInfo);
                 }
                 break;
