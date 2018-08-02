@@ -175,7 +175,17 @@
                     android:drawableStart="@mipmap/voucher"
                     android:text="@string/coupon" />
             </FrameLayout>
+            <FrameLayout
+                android:id="@+id/item_ecvoucher"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
 
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/ecvocher_icon"
+                    android:drawableStart="@mipmap/ecvocher_icon"
+                    android:text="@string/ecvocher" />
+            </FrameLayout>
             <FrameLayout
                 android:id="@+id/item_address"
                 style="@style/persion_item_fl_style"

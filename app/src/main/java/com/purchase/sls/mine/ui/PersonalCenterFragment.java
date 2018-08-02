@@ -28,6 +28,7 @@ import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.coupon.ui.CouponListActivity;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
+import com.purchase.sls.ecvoucher.ui.EcVoucherActivity;
 import com.purchase.sls.energy.ui.EnergyInfoActivity;
 import com.purchase.sls.evaluate.ui.ToBeEvaluatedActivity;
 import com.purchase.sls.goodsordermanage.ui.GoodsOrderActivity;
@@ -84,6 +85,8 @@ public class PersonalCenterFragment extends BaseFragment {
     RelativeLayout itemPersionIm;
     @BindView(R.id.bg_ll)
     LinearLayout bgLl;
+    @BindView(R.id.item_ecvoucher)
+    FrameLayout itemEcvoucher;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -147,13 +150,13 @@ public class PersonalCenterFragment extends BaseFragment {
             gson = new Gson();
             if (!TextUtils.isEmpty(persionInfoStr) && !TextUtils.isEmpty(TokenManager.getToken())) {
                 persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
-                if(!TextUtils.isEmpty(persionInfoResponse.getAvatar())){
+                if (!TextUtils.isEmpty(persionInfoResponse.getAvatar())) {
                     bgIv.setVisibility(View.VISIBLE);
                     GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.head_photo_icon, headPhoto);
                     GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.app_icon, bgIv);
                     bgLl.setBackgroundResource(R.color.appText5);
                     bgLl.setAlpha(0.3f);
-                }else {
+                } else {
                     GlideHelper.load(this, persionInfoResponse.getAvatar(), R.mipmap.head_photo_icon, headPhoto);
                     bgIv.setVisibility(View.INVISIBLE);
                     bgLl.setBackgroundResource(R.color.backGround24);
@@ -173,7 +176,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_ecvoucher,R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -206,6 +209,9 @@ public class PersonalCenterFragment extends BaseFragment {
                 break;
             case R.id.item_voucher://优惠券
                 CouponListActivity.start(getActivity());
+                break;
+            case R.id.item_ecvoucher://兑换券
+                EcVoucherActivity.start(getActivity());
                 break;
             case R.id.item_address:
                 AddressListActivity.start(getActivity(), "0");

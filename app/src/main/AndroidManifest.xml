@@ -333,6 +333,8 @@
         <activity android:name=".goodsordermanage.ui.OrderPayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme"/>
+        <activity android:name=".ecvoucher.ui.EcVoucherActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.ClassifyInfo;
 import com.purchase.sls.data.entity.CollectionListResponse;
 import com.purchase.sls.data.entity.CouponListInfo;
+import com.purchase.sls.data.entity.EcVoucherInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
 import com.purchase.sls.data.entity.GeneratingOrderInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
@@ -407,4 +408,8 @@ public interface RestApiService {
     //获取分类
     @POST("home/system/sortConfig")
     Flowable<RemoteDataWrapper<ClassifyInfo>> getClassifyInfo(@Body CateidRequest cateidRequest);
+
+    //兑换券列表
+    @POST("home/actorder/duihuan")
+    Flowable<RemoteDataWrapper<EcVoucherInfo>> getEcVoucherInfo(@Body PageRequest pageRequest);
 }

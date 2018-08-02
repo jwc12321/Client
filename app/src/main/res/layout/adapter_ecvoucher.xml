@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_seventy_margin"
+        android:layout_marginTop="@dimen/common_fifteen_margin"
+        android:background="@color/appText1">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_twelve_margin"
+            android:textColor="@color/appText5"
+            android:textSize="15sp"
+            tools:text="小明" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/common_twelve_margin"
+            android:textColor="@color/appText6"
+            android:textSize="13sp"
+            tools:text="2018" />
+
+        <Button
+            android:id="@+id/look_bt"
+            android:layout_width="@dimen/common_sixty_margin"
+            android:layout_height="@dimen/common_twenty_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/common_twelve_margin"
+            android:background="@drawable/common_coupon_bt"
+            android:enabled="true"
+            android:text="查看二维码"
+            android:textColor="@color/appText3"
+            android:textSize="10sp" />
+    </RelativeLayout>
+</LinearLayout>
