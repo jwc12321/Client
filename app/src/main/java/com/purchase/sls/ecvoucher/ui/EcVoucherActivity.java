@@ -147,7 +147,7 @@ public class EcVoucherActivity extends BaseActivity implements EcVoucherContract
     public void golookQrCode(String orderNum) {
         webViewDetailInfo = new WebViewDetailInfo();
         webViewDetailInfo.setTitle("二维码");
-        String url= BuildConfig.API_BASE_URL+"home/actorder/qrcode?orderNum="+orderNum+"&Token="+ TokenManager.getToken();
+        String url= BuildConfig.API_BASE_URL+"home/actorder/qrcode?orderNum="+orderNum+"&token="+ TokenManager.getToken();
         webViewDetailInfo.setUrl(url);
         WebViewActivity.start(this, webViewDetailInfo);
     }
