@@ -134,6 +134,13 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         } else {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.GONE);
+            if(TextUtils.equals("1", activityInfo.getpType())){
+                addAddress.setVisibility(View.GONE);
+                choiceAddress.setEnabled(false);
+            }else {
+                addAddress.setVisibility(View.VISIBLE);
+                choiceAddress.setEnabled(true);
+            }
             if (!TextUtils.isEmpty(activityInfo.getStartTime()) && !TextUtils.isEmpty(activityInfo.getEndTime())) {
                 long distanceStart = Long.parseLong(activityInfo.getStartTime()) - System.currentTimeMillis() / 1000;
                 long distanceEnd = Long.parseLong(activityInfo.getEndTime()) - System.currentTimeMillis() / 1000;
@@ -259,13 +266,21 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                 choiceAddress();
                 break;
             case R.id.spike_bt:
-                if (addressInfo == null) {
-                    choiceAddress();
-                } else {
+                if(TextUtils.equals("1", activityInfo.getpType())){
                     if (TextUtils.equals("3", activityInfo.getType())) {
-                        activityDetailPresenter.submitLottery(activityInfo.getId(), addressInfo.getId());
+                        activityDetailPresenter.submitLottery(activityInfo.getId(), "0");
                     } else {
-                        activityDetailPresenter.submitSpike(activityInfo.getId(), addressInfo.getId());
+                        activityDetailPresenter.submitSpike(activityInfo.getId(),"0");
+                    }
+                }else {
+                    if (addressInfo == null) {
+                        choiceAddress();
+                    } else {
+                        if (TextUtils.equals("3", activityInfo.getType())) {
+                            activityDetailPresenter.submitLottery(activityInfo.getId(), addressInfo.getId());
+                        } else {
+                            activityDetailPresenter.submitSpike(activityInfo.getId(), addressInfo.getId());
+                        }
                     }
                 }
                 break;

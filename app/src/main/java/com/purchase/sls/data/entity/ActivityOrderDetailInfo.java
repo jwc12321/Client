@@ -64,6 +64,16 @@ public class ActivityOrderDetailInfo implements Serializable {
     private List<LogisticRracesInfo> logisticRracesInfos;
     @SerializedName("connect")
     private String connect;
+    @SerializedName("p_type")
+    private String pType;
+
+    public String getpType() {
+        return pType;
+    }
+
+    public void setpType(String pType) {
+        this.pType = pType;
+    }
 
     public String getId() {
         return id;

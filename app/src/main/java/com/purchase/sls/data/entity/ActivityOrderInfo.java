@@ -25,6 +25,17 @@ public class ActivityOrderInfo {
     private String status;
     @SerializedName("orderNum")
     private String orderNum;
+    //0商品 1:兑换劵
+    @SerializedName("p_type")
+    private String pType;
+
+    public String getpType() {
+        return pType;
+    }
+
+    public void setpType(String pType) {
+        this.pType = pType;
+    }
 
     public String getId() {
         return id;

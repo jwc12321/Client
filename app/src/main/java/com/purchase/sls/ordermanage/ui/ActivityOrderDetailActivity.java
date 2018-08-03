@@ -92,6 +92,8 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
     LinearLayout orderDetailLl;
     @BindView(R.id.shop_item)
     LinearLayout shopItem;
+    @BindView(R.id.arrow_iv)
+    ImageView arrowIv;
 
     private ActivityOrderDetailInfo activityOrderDetailInfo;
     @Inject
@@ -121,10 +123,18 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
         activityOrderDetailInfo = (ActivityOrderDetailInfo) getIntent().getSerializableExtra(StaticData.ACTIVITY_ORDER_DETAIL);
         if (activityOrderDetailInfo != null) {
             activityId = activityOrderDetailInfo.getActId();
-            setOrderStatus(activityOrderDetailInfo.getStatus(), activityOrderDetailInfo.getActType());
-            consignee.setText("收货人: " + activityOrderDetailInfo.getName());
-            tel.setText(activityOrderDetailInfo.getTel());
-            receivingAddress.setText(activityOrderDetailInfo.getProvince() + activityOrderDetailInfo.getCity() + activityOrderDetailInfo.getArea() + activityOrderDetailInfo.getAddress());
+            setOrderStatus(activityOrderDetailInfo.getStatus(), activityOrderDetailInfo.getpType());
+            if(TextUtils.equals("1",activityOrderDetailInfo.getpType())){
+                consignee.setText("请至个人中心->兑换券查看并使用");
+                tel.setVisibility(View.GONE);
+                receivingAddress.setVisibility(View.GONE);
+            }else {
+                tel.setVisibility(View.VISIBLE);
+                receivingAddress.setVisibility(View.VISIBLE);
+                consignee.setText("收货人: " + activityOrderDetailInfo.getName());
+                tel.setText(activityOrderDetailInfo.getTel());
+                receivingAddress.setText(activityOrderDetailInfo.getProvince() + activityOrderDetailInfo.getCity() + activityOrderDetailInfo.getArea() + activityOrderDetailInfo.getAddress());
+            }
             GlideHelper.load(this, activityOrderDetailInfo.getGoodsLogo(), R.mipmap.app_icon, shopIv);
             shopName.setText(activityOrderDetailInfo.getGoodsName());
             energyNumber.setText(activityOrderDetailInfo.getPrice() + "能量");
@@ -144,54 +154,49 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
             expressName = activityOrderDetailInfo.getExpressName();
             expressNum = activityOrderDetailInfo.getExpressNum();
             logisticRracesInfos = activityOrderDetailInfo.getLogisticRracesInfos();
-            if (logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
-                LogisticRracesInfo logisticRracesInfo = logisticRracesInfos.get(logisticRracesInfos.size() - 1);
-                expressWhere.setText(logisticRracesInfo.getAcceptStation());
-                expressTime.setVisibility(View.VISIBLE);
-                expressTime.setText(logisticRracesInfo.getAcceptTime());
-            } else {
-                expressWhere.setText("暂无物流信息");
+            if(TextUtils.equals("1",activityOrderDetailInfo.getpType())){
+                expressWhere.setText("该兑换劵已发送");
                 expressTime.setVisibility(View.GONE);
+            }else {
+                if (logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
+                    LogisticRracesInfo logisticRracesInfo = logisticRracesInfos.get(logisticRracesInfos.size() - 1);
+                    expressWhere.setText(logisticRracesInfo.getAcceptStation());
+                    expressTime.setVisibility(View.VISIBLE);
+                    expressTime.setText(logisticRracesInfo.getAcceptTime());
+                } else {
+                    expressWhere.setText("暂无物流信息");
+                    expressTime.setVisibility(View.GONE);
+                }
             }
             connect = activityOrderDetailInfo.getConnect();
         }
     }
 
 
-    //设置状态 0未收获,1已发货,2已收获,10未开将,11未中奖',
-    private void setOrderStatus(String status, String actType) {
-        if (TextUtils.equals("3", actType)) {
-            if (TextUtils.equals("0", status)) {
-                orderStatus.setText("已中奖 待发货");
-                orderStatus.setTextColor(Color.parseColor("#FFA850"));
-            } else if (TextUtils.equals("1", status)) {
-                orderStatus.setText("已中奖 待收货");
-                orderStatus.setTextColor(Color.parseColor("#E8192D"));
-            } else if (TextUtils.equals("2", status)) {
-                orderStatus.setText("已中奖 已收货");
-                orderStatus.setTextColor(Color.parseColor("#198732"));
-            } else if (TextUtils.equals("10", status)) {
-                orderStatus.setText("未开将");
-                orderStatus.setTextColor(Color.parseColor("#0C92C0"));
-            } else if (TextUtils.equals("11", status)) {
-                orderStatus.setText("未中奖");
-            }
-        } else {
-            if (TextUtils.equals("0", status)) {
-                orderStatus.setText("待发货");
-                orderStatus.setTextColor(Color.parseColor("#FFA850"));
-            } else if (TextUtils.equals("1", status)) {
+    //设置状态 待发货,1已发货,2已收获,10未开将,11未中奖',
+    private void setOrderStatus(String status, String pType) {
+        if (TextUtils.equals("0", status)) {
+            orderStatus.setText("待发货");
+            orderStatus.setTextColor(Color.parseColor("#FFA850"));
+        } else if (TextUtils.equals("1", status)) {
+            if (TextUtils.equals("1", pType)) {
+                orderStatus.setText("待使用");
+            } else {
                 orderStatus.setText("待收货");
-                orderStatus.setTextColor(Color.parseColor("#E8192D"));
-            } else if (TextUtils.equals("2", status)) {
-                orderStatus.setText("已收货");
-                orderStatus.setTextColor(Color.parseColor("#198732"));
-            } else if (TextUtils.equals("10", status)) {
-                orderStatus.setText("未开将");
-                orderStatus.setTextColor(Color.parseColor("#0C92C0"));
-            } else if (TextUtils.equals("11", status)) {
-                orderStatus.setText("未中奖");
             }
+            orderStatus.setTextColor(Color.parseColor("#E8192D"));
+        } else if (TextUtils.equals("2", status)) {
+            if (TextUtils.equals("1", pType)) {
+                orderStatus.setText("已使用");
+            } else {
+                orderStatus.setText("已收货");
+            }
+            orderStatus.setTextColor(Color.parseColor("#198732"));
+        } else if (TextUtils.equals("10", status)) {
+            orderStatus.setText("未开将");
+            orderStatus.setTextColor(Color.parseColor("#0C92C0"));
+        } else if (TextUtils.equals("11", status)) {
+            orderStatus.setText("未中奖");
         }
     }
 
@@ -226,7 +231,7 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
                 }
                 break;
             case R.id.express_if:
-                if (!TextUtils.isEmpty(expressName) && !TextUtils.isEmpty(expressNum) && logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
+                if (!TextUtils.equals("1",activityOrderDetailInfo.getpType())&&!TextUtils.isEmpty(expressName) && !TextUtils.isEmpty(expressNum) && logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
                     LogisticsDetailsActivity.start(this, expressName, expressNum, logisticRracesInfos);
                 }
                 break;

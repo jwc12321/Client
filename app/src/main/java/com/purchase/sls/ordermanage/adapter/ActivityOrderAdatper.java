@@ -77,7 +77,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
         holder.confirmBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hostAction!=null){
+                if (hostAction != null) {
                     hostAction.confirmOrder(activityOrderInfo.getOrderNum());
                 }
             }
@@ -133,7 +133,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
 
         public void bindData(ActivityOrderInfo activityOrderInfo) {
             orderTime.setText("下单时间: " + FormatUtil.formatDateByLine(activityOrderInfo.getCreateTime()));
-            setOrderStatus(activityOrderInfo.getStatus(), activityOrderInfo.getActType());
+            setOrderStatus(activityOrderInfo.getStatus(), activityOrderInfo.getpType());
             GlideHelper.load((Activity) context, activityOrderInfo.getGoodsLogo(), R.mipmap.app_icon, shopIv);
             shopName.setText(activityOrderInfo.getGoodsName());
             energyNumber.setText(activityOrderInfo.getPrice() + "能量");
@@ -144,7 +144,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
             } else {
                 deleteBt.setVisibility(View.GONE);
             }
-            if (TextUtils.equals("1", activityOrderInfo.getStatus())) {
+            if (TextUtils.equals("1", activityOrderInfo.getStatus())&&!TextUtils.equals("1",activityOrderInfo.getpType())) {
                 confirmBt.setVisibility(View.VISIBLE);
             } else {
                 confirmBt.setVisibility(View.GONE);
@@ -159,39 +159,29 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
         }
 
         //设置状态 待发货,1已发货,2已收获,10未开将,11未中奖',
-        private void setOrderStatus(String status, String actType) {
-            if (TextUtils.equals("3", actType)) {
-                if (TextUtils.equals("0", status)) {
-                    orderStatus.setText("已中奖 待发货");
-                    orderStatus.setTextColor(Color.parseColor("#FFA850"));
-                } else if (TextUtils.equals("1", status)) {
-                    orderStatus.setText("已中奖 待收货");
-                    orderStatus.setTextColor(Color.parseColor("#E8192D"));
-                } else if (TextUtils.equals("2", status)) {
-                    orderStatus.setText("已中奖 已收货");
-                    orderStatus.setTextColor(Color.parseColor("#198732"));
-                } else if (TextUtils.equals("10", status)) {
-                    orderStatus.setText("未开将");
-                    orderStatus.setTextColor(Color.parseColor("#0C92C0"));
-                } else if (TextUtils.equals("11", status)) {
-                    orderStatus.setText("未中奖");
-                }
-            } else {
-                if (TextUtils.equals("0", status)) {
-                    orderStatus.setText("待发货");
-                    orderStatus.setTextColor(Color.parseColor("#FFA850"));
-                } else if (TextUtils.equals("1", status)) {
+        private void setOrderStatus(String status,String pType) {
+            if (TextUtils.equals("0", status)) {
+                orderStatus.setText("待发货");
+                orderStatus.setTextColor(Color.parseColor("#FFA850"));
+            } else if (TextUtils.equals("1", status)) {
+                if (TextUtils.equals("1", pType)) {
+                    orderStatus.setText("待使用");
+                } else {
                     orderStatus.setText("待收货");
-                    orderStatus.setTextColor(Color.parseColor("#E8192D"));
-                } else if (TextUtils.equals("2", status)) {
-                    orderStatus.setText("已收货");
-                    orderStatus.setTextColor(Color.parseColor("#198732"));
-                } else if (TextUtils.equals("10", status)) {
-                    orderStatus.setText("未开将");
-                    orderStatus.setTextColor(Color.parseColor("#0C92C0"));
-                } else if (TextUtils.equals("11", status)) {
-                    orderStatus.setText("未中奖");
                 }
+                orderStatus.setTextColor(Color.parseColor("#E8192D"));
+            } else if (TextUtils.equals("2", status)) {
+                if (TextUtils.equals("1", pType)) {
+                    orderStatus.setText("已使用");
+                } else {
+                    orderStatus.setText("已收货");
+                }
+                orderStatus.setTextColor(Color.parseColor("#198732"));
+            } else if (TextUtils.equals("10", status)) {
+                orderStatus.setText("未开将");
+                orderStatus.setTextColor(Color.parseColor("#0C92C0"));
+            } else if (TextUtils.equals("11", status)) {
+                orderStatus.setText("未中奖");
             }
         }
 
@@ -199,7 +189,9 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
 
     public interface HostAction {
         void deleteOrder(String id);
+
         void confirmOrder(String orderCode);
+
         void goOrderDetail(String id);
     }
 
