@@ -6,7 +6,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -34,16 +34,23 @@ public class GlideHelper {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void load(Activity activity, String url, int placeHolder, ImageView target){
         if(activity!=null&&!activity.isDestroyed()) {
-            if(url.startsWith("https")||url.startsWith("http")) {
+            if (TextUtils.isEmpty(url)) {
                 Glide.with(activity)
                         .load(url)
                         .placeholder(placeHolder)
                         .into(new ImageTarget(target));
-            }else {
-                Glide.with(activity)
-                        .load("https:"+url)
-                        .placeholder(placeHolder)
-                        .into(new ImageTarget(target));
+            } else {
+                if (url.startsWith("https") || url.startsWith("http")) {
+                    Glide.with(activity)
+                            .load(url)
+                            .placeholder(placeHolder)
+                            .into(new ImageTarget(target));
+                } else {
+                    Glide.with(activity)
+                            .load("https:" + url)
+                            .placeholder(placeHolder)
+                            .into(new ImageTarget(target));
+                }
             }
         }
     }

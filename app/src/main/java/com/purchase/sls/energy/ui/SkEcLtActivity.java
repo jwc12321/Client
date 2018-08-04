@@ -123,6 +123,13 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         needEnergy.setText(activityInfo.getPrice() + "能量");
         originalPrice.setText("¥" + activityInfo.getpPrice());
         originalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        if(TextUtils.equals("1", activityInfo.getpType())){
+            addAddress.setVisibility(View.GONE);
+            choiceAddress.setEnabled(false);
+        }else {
+            addAddress.setVisibility(View.VISIBLE);
+            choiceAddress.setEnabled(true);
+        }
         if (TextUtils.equals("3", activityInfo.getType())) {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.VISIBLE);
@@ -134,13 +141,6 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
         } else {
             countDown.setVisibility(View.GONE);
             surplusNumber.setVisibility(View.GONE);
-            if(TextUtils.equals("1", activityInfo.getpType())){
-                addAddress.setVisibility(View.GONE);
-                choiceAddress.setEnabled(false);
-            }else {
-                addAddress.setVisibility(View.VISIBLE);
-                choiceAddress.setEnabled(true);
-            }
             if (!TextUtils.isEmpty(activityInfo.getStartTime()) && !TextUtils.isEmpty(activityInfo.getEndTime())) {
                 long distanceStart = Long.parseLong(activityInfo.getStartTime()) - System.currentTimeMillis() / 1000;
                 long distanceEnd = Long.parseLong(activityInfo.getEndTime()) - System.currentTimeMillis() / 1000;
