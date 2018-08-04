@@ -22,7 +22,7 @@
     <string name="empty_password">密码不能为空</string>
     <string name="input_verificationcode">请输入验证码</string>
     <string name="input_phone_number">请输入手机号</string>
-    <string name="sms_login_explain">未注册能够的手机号，登录时将自动注册</string>
+    <string name="sms_login_explain">未注册能购的手机号，登录时将自动注册</string>
     <string name="button_send_auth_code">发送验证码</string>
     <string name="input_sms_verificationcode">请输入手机验证码</string>
     <string name="input_password_again">请再次输入密码</string>
