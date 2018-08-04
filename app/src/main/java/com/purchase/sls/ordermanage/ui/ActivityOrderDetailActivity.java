@@ -94,6 +94,8 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
     LinearLayout shopItem;
     @BindView(R.id.arrow_iv)
     ImageView arrowIv;
+    @BindView(R.id.address_rl)
+    RelativeLayout addressRl;
 
     private ActivityOrderDetailInfo activityOrderDetailInfo;
     @Inject
@@ -124,11 +126,21 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
         if (activityOrderDetailInfo != null) {
             activityId = activityOrderDetailInfo.getActId();
             setOrderStatus(activityOrderDetailInfo.getStatus(), activityOrderDetailInfo.getpType());
-            if(TextUtils.equals("1",activityOrderDetailInfo.getpType())){
-                consignee.setText("请至个人中心->兑换券查看并使用");
-                tel.setVisibility(View.GONE);
-                receivingAddress.setVisibility(View.GONE);
-            }else {
+            if (TextUtils.equals("1", activityOrderDetailInfo.getpType())) {
+                if (TextUtils.equals("10", activityOrderDetailInfo.getStatus())
+                        || TextUtils.equals("11", activityOrderDetailInfo.getStatus())) {
+                    consignee.setText("");
+                    tel.setVisibility(View.GONE);
+                    receivingAddress.setVisibility(View.GONE);
+                    addressRl.setVisibility(View.GONE);
+                } else {
+                    consignee.setText("请至个人中心->兑换券查看并使用");
+                    tel.setVisibility(View.GONE);
+                    receivingAddress.setVisibility(View.GONE);
+                }
+                localAddrsss.setVisibility(View.GONE);
+            } else {
+                localAddrsss.setVisibility(View.VISIBLE);
                 tel.setVisibility(View.VISIBLE);
                 receivingAddress.setVisibility(View.VISIBLE);
                 consignee.setText("收货人: " + activityOrderDetailInfo.getName());
@@ -154,10 +166,21 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
             expressName = activityOrderDetailInfo.getExpressName();
             expressNum = activityOrderDetailInfo.getExpressNum();
             logisticRracesInfos = activityOrderDetailInfo.getLogisticRracesInfos();
-            if(TextUtils.equals("1",activityOrderDetailInfo.getpType())){
-                expressWhere.setText("该兑换劵已发送");
-                expressTime.setVisibility(View.GONE);
-            }else {
+            if (TextUtils.equals("1", activityOrderDetailInfo.getpType())) {
+                expressCar.setVisibility(View.GONE);
+                if (TextUtils.equals("10", activityOrderDetailInfo.getStatus())) {
+                    expressWhere.setText("请耐心等待开奖");
+                    expressTime.setVisibility(View.GONE);
+                } else if (TextUtils.equals("11", activityOrderDetailInfo.getStatus())) {
+                    expressIf.setVisibility(View.GONE);
+                    expressWhere.setText("");
+                    expressTime.setVisibility(View.GONE);
+                } else {
+                    expressWhere.setText("该兑换劵已发送");
+                    expressTime.setVisibility(View.GONE);
+                }
+            } else {
+                expressCar.setVisibility(View.VISIBLE);
                 if (logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
                     LogisticRracesInfo logisticRracesInfo = logisticRracesInfos.get(logisticRracesInfos.size() - 1);
                     expressWhere.setText(logisticRracesInfo.getAcceptStation());
@@ -193,7 +216,7 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
             }
             orderStatus.setTextColor(Color.parseColor("#198732"));
         } else if (TextUtils.equals("10", status)) {
-            orderStatus.setText("未开将");
+            orderStatus.setText("未开奖");
             orderStatus.setTextColor(Color.parseColor("#0C92C0"));
         } else if (TextUtils.equals("11", status)) {
             orderStatus.setText("未中奖");
@@ -231,7 +254,7 @@ public class ActivityOrderDetailActivity extends BaseActivity implements OrderMa
                 }
                 break;
             case R.id.express_if:
-                if (!TextUtils.equals("1",activityOrderDetailInfo.getpType())&&!TextUtils.isEmpty(expressName) && !TextUtils.isEmpty(expressNum) && logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
+                if (!TextUtils.equals("1", activityOrderDetailInfo.getpType()) && !TextUtils.isEmpty(expressName) && !TextUtils.isEmpty(expressNum) && logisticRracesInfos != null && logisticRracesInfos.size() > 0) {
                     LogisticsDetailsActivity.start(this, expressName, expressNum, logisticRracesInfos);
                 }
                 break;

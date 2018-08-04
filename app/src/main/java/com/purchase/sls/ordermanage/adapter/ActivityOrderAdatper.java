@@ -178,7 +178,7 @@ public class ActivityOrderAdatper extends RecyclerView.Adapter<ActivityOrderAdat
                 }
                 orderStatus.setTextColor(Color.parseColor("#198732"));
             } else if (TextUtils.equals("10", status)) {
-                orderStatus.setText("未开将");
+                orderStatus.setText("未开奖");
                 orderStatus.setTextColor(Color.parseColor("#0C92C0"));
             } else if (TextUtils.equals("11", status)) {
                 orderStatus.setText("未中奖");

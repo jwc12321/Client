@@ -44,6 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_fifteen_margin"
+                    android:layout_marginBottom="@dimen/common_fifteen_margin"
                     android:layout_marginTop="@dimen/common_eighteen_margin"
                     android:textColor="@color/appText5"
                     android:textSize="16sp"
@@ -55,20 +56,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_fifteen_margin"
                     android:layout_marginRight="@dimen/common_fifteen_margin"
-                    android:layout_marginTop="@dimen/common_fifteen_margin">
+                    android:layout_marginBottom="@dimen/common_fifteen_margin">
 
                     <ImageView
                         android:id="@+id/express_car"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/express_car" />
+                        android:src="@mipmap/express_car"
+                        android:layout_marginRight="@dimen/common_fifteen_margin"/>
 
                     <TextView
                         android:id="@+id/express_where"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_fifteen_margin"
                         android:layout_marginRight="@dimen/common_fifteen_margin"
                         android:layout_toRightOf="@id/express_car"
                         android:textColor="@color/appText12"
@@ -80,7 +81,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/express_where"
-                        android:layout_marginLeft="@dimen/common_fifteen_margin"
                         android:layout_marginTop="@dimen/common_fifteen_margin"
                         android:layout_toRightOf="@id/express_car"
                         android:textColor="@color/appText12"
@@ -97,25 +97,25 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/address_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/common_twenty_margin"
                     android:layout_marginLeft="@dimen/common_fifteen_margin"
-                    android:layout_marginRight="@dimen/common_fifteen_margin"
-                    android:layout_marginTop="@dimen/common_nineteen_margin">
+                    android:layout_marginRight="@dimen/common_fifteen_margin">
 
                     <ImageView
                         android:id="@+id/local_addrsss"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/local_address" />
+                        android:src="@mipmap/local_address_icon"
+                        android:layout_marginRight="@dimen/common_fifteen_margin"/>
 
                     <TextView
                         android:id="@+id/consignee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_fifteen_margin"
                         android:layout_toRightOf="@id/local_addrsss"
                         android:textColor="@color/appText12"
                         android:textSize="14sp"
@@ -135,7 +135,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/consignee"
-                        android:layout_marginLeft="@dimen/common_fifteen_margin"
                         android:layout_marginTop="@dimen/common_thirteen_margin"
                         android:layout_toRightOf="@id/local_addrsss"
                         android:textColor="@color/appText12"
