@@ -11,6 +11,27 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/search_address_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_margin"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/common_twelve_margin"
+        android:layout_marginRight="@dimen/common_twelve_margin"
+        android:layout_marginTop="@dimen/common_forty_margin"
+        android:background="@color/appText1">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/search_icon"
+        android:layout_marginLeft="@dimen/common_twelve_margin"/>
+        <TextView
+           style="@style/fifteen_apptext5_text_style"
+            android:text="@string/search_map_address"
+            android:layout_marginLeft="@dimen/common_twelve_margin"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/nearby_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,13 +47,24 @@
             android:orientation="horizontal"
             app:layoutManager="@string/layoutManager_LinearLayout" />
 
+        <View style="@style/all_line_style" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/nearby_item_ry"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            app:layoutManager="@string/layoutManager_LinearLayout"
+            android:layout_height="@dimen/common_thirty_margin"
             android:layout_marginLeft="@dimen/common_margin_left_right"
-            android:layout_marginRight="@dimen/common_margin_left_right"/>
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:layout_marginTop="@dimen/common_seven_margin"
+            android:orientation="horizontal"
+            app:layoutManager="@string/layoutManager_LinearLayout" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/map_store_rv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            app:layoutManager="@string/layoutManager_LinearLayout" />
     </LinearLayout>
 </RelativeLayout>

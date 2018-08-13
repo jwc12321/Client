@@ -7,6 +7,7 @@ package com.purchase.sls.nearbymap;
 import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.nearbymap.ui.NearbyMapFragment;
+import com.purchase.sls.nearbymap.ui.SearchAddressActivity;
 
 import dagger.Component;
 
@@ -14,4 +15,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {NearbyMapModule.class})
 public interface NearbyMapComponent {
     void inject(NearbyMapFragment nearbyMapFragment);
+    void inject(SearchAddressActivity searchAddressActivity);
 }

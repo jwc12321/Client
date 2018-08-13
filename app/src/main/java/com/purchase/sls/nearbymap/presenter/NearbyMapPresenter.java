@@ -69,6 +69,7 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
 
     @Override
     public void getMapMarkerInfo(String cid, String addressXy) {
+        nearbyView.showLoading();
         MapMarkerRequest mapMarkerRequest = new MapMarkerRequest(cid, addressXy);
         Disposable disposable = restApiService.getMapMarkerInfo(mapMarkerRequest)
                 .flatMap(new RxRemoteDataParse<List<MapMarkerInfo>>())
@@ -76,11 +77,13 @@ public class NearbyMapPresenter implements NearbyMapContract.NearbyPresenter {
                 .subscribe(new Consumer<List<MapMarkerInfo>>() {
                     @Override
                     public void accept(List<MapMarkerInfo> mapMarkerInfos) throws Exception {
+                        nearbyView.dismissLoading();
                         nearbyView.renderapMarkers(mapMarkerInfos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        nearbyView.dismissLoading();
                         nearbyView.showError(throwable);
                     }
                 });

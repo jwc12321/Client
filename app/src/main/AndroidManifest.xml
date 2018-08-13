@@ -337,6 +337,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".homepage.ui.AllCategoriesActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".nearbymap.ui.SearchAddressActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

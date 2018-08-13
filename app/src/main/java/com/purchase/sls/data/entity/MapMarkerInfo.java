@@ -23,6 +23,28 @@ public class MapMarkerInfo {
     private String average;
     @SerializedName("cid")
     private String cid;
+    @SerializedName("poiname")
+    private String poiname;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("distance_um")
+    private String distanceUm;
+
+    public String getDistanceUm() {
+        return distanceUm;
+    }
+
+    public void setDistanceUm(String distanceUm) {
+        this.distanceUm = distanceUm;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -86,5 +108,13 @@ public class MapMarkerInfo {
 
     public void setCid(String cid) {
         this.cid = cid;
+    }
+
+    public String getPoiname() {
+        return poiname;
+    }
+
+    public void setPoiname(String poiname) {
+        this.poiname = poiname;
     }
 }

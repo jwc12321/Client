@@ -1,4 +1,4 @@
-package com.purchase.sls.homepage.adapter;
+package com.purchase.sls.nearbymap.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.unit.DistanceUnits;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
+import com.purchase.sls.data.entity.MapMarkerInfo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,41 +28,32 @@ import butterknife.ButterKnife;
  * Created by JWC on 2018/4/21.
  */
 
-public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.LikeStoreView> {
+public class MapMarkerStoreAdapter extends RecyclerView.Adapter<MapMarkerStoreAdapter.LikeStoreView> {
     private LayoutInflater layoutInflater;
-    private List<CollectionStoreInfo> collectionStoreInfos;
+    private List<MapMarkerInfo> mapMarkerInfos;
     private Context context;
     private String longitude;
     private String latitude;
-    private String city;
     BigDecimal kmdistanceBd = new BigDecimal(1000).setScale(0, RoundingMode.HALF_UP);
 
-    public LikeStoreAdapter(Context context) {
+    public MapMarkerStoreAdapter(Context context) {
         this.context = context;
     }
 
-    public LikeStoreAdapter(Context context, String city, String longitude, String latitude) {
+    public MapMarkerStoreAdapter(Context context, String longitude, String latitude) {
         this.context = context;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.city = city;
-    }
-
-    public void setCity(String city, String longitude, String latitude) {
-        this.city = city;
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
-    public void setLikeInfos(List<CollectionStoreInfo> collectionStoreInfos) {
-        this.collectionStoreInfos = collectionStoreInfos;
+    public void setCity(String longitude, String latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public void setData(List<MapMarkerInfo> mapMarkerInfos) {
+        this.mapMarkerInfos = mapMarkerInfos;
         notifyDataSetChanged();
-    }
-
-    public void addMore(List<CollectionStoreInfo> moreList) {
-        int pos = collectionStoreInfos.size();
-        collectionStoreInfos.addAll(moreList);
-        notifyItemRangeInserted(pos, moreList.size());
     }
 
     @Override
@@ -75,13 +67,13 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
 
     @Override
     public void onBindViewHolder(LikeStoreView holder, int position) {
-        final CollectionStoreInfo collectionStoreInfo = collectionStoreInfos.get(holder.getAdapterPosition());
-        holder.bindData(collectionStoreInfo);
+        final MapMarkerInfo mapMarkerInfo = mapMarkerInfos.get(holder.getAdapterPosition());
+        holder.bindData(mapMarkerInfo);
         holder.likestoreRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onLikeStoreClickListener != null) {
-                    onLikeStoreClickListener.likeStoreClickListener(collectionStoreInfo.getId());
+                if (onMapMarkerClickListener != null) {
+                    onMapMarkerClickListener.mapMarkerClickListener(mapMarkerInfo.getId());
                 }
             }
         });
@@ -90,7 +82,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
 
     @Override
     public int getItemCount() {
-        return collectionStoreInfos == null ? 0 : collectionStoreInfos.size();
+        return mapMarkerInfos == null ? 0 : mapMarkerInfos.size();
     }
 
     public class LikeStoreView extends RecyclerView.ViewHolder {
@@ -116,16 +108,16 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData(CollectionStoreInfo collectionStoreInfo) {
-            GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
-            storeName.setText(collectionStoreInfo.getTitle());
-            popularityNumber.setText("月均人气" + collectionStoreInfo.getBuzz());
-            shopName.setText(collectionStoreInfo.getName());
-            shopCity.setText(collectionStoreInfo.getPoiname());
-            String addressXy = collectionStoreInfo.getAddressXy();
-            if (!TextUtils.isEmpty(collectionStoreInfo.getDistanceUm()) && !TextUtils.equals("0", collectionStoreInfo.getDistanceUm())) {
+        public void bindData(MapMarkerInfo mapMarkerInfo) {
+            GlideHelper.load((Activity) context, mapMarkerInfo.getzPics(), R.mipmap.app_icon, shopIcon);
+            storeName.setText(mapMarkerInfo.getTitle());
+            popularityNumber.setText("月均人气" + mapMarkerInfo.getBuzz());
+            shopName.setText(mapMarkerInfo.getName());
+            shopCity.setText(mapMarkerInfo.getPoiname());
+            String addressXy = mapMarkerInfo.getAddressXy();
+            if (!TextUtils.isEmpty(mapMarkerInfo.getDistanceUm()) && !TextUtils.equals("0", mapMarkerInfo.getDistanceUm())) {
                 shopDistance.setVisibility(View.VISIBLE);
-                shopDistance.setText(collectionStoreInfo.getDistanceUm() + "KM");
+                shopDistance.setText(mapMarkerInfo.getDistanceUm() + "KM");
             } else {
                 if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     shopDistance.setVisibility(View.GONE);
@@ -142,23 +134,23 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
                     shopDistance.setVisibility(View.VISIBLE);
                 }
             }
-            if (TextUtils.isEmpty(collectionStoreInfo.getRebate()) || TextUtils.equals("0", collectionStoreInfo.getRebate())) {
+            if (TextUtils.isEmpty(mapMarkerInfo.getRebate()) || TextUtils.equals("0", mapMarkerInfo.getRebate())) {
                 returnEnergy.setVisibility(View.INVISIBLE);
                 returnEnergy.setText("");
             } else {
                 returnEnergy.setVisibility(View.VISIBLE);
-                returnEnergy.setText("补贴"+collectionStoreInfo.getRebate() + "%的能量");
+                returnEnergy.setText("补贴"+mapMarkerInfo.getRebate() + "%的能量");
             }
         }
     }
 
-    public interface OnLikeStoreClickListener {
-        void likeStoreClickListener(String storeid);
+    public interface OnMapMarkerClickListener {
+        void mapMarkerClickListener(String storeid);
     }
 
-    private OnLikeStoreClickListener onLikeStoreClickListener;
+    private OnMapMarkerClickListener onMapMarkerClickListener;
 
-    public void setOnLikeStoreClickListener(OnLikeStoreClickListener onLikeStoreClickListener) {
-        this.onLikeStoreClickListener = onLikeStoreClickListener;
+    public void setOnMapMarkerClickListener(OnMapMarkerClickListener onMapMarkerClickListener) {
+        this.onMapMarkerClickListener = onMapMarkerClickListener;
     }
 }

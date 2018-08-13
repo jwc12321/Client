@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -129,26 +127,25 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
     }
 
     public class BrowseRecordsView extends RecyclerView.ViewHolder {
+
         @BindView(R.id.choice_item)
         CheckBox choiceItem;
         @BindView(R.id.shop_icon)
         ImageView shopIcon;
         @BindView(R.id.store_name)
         TextView storeName;
-        @BindView(R.id.popularity_number)
-        TextView popularityNumber;
-        @BindView(R.id.per_capita)
-        TextView perCapita;
-        @BindView(R.id.shop_name)
-        TextView shopName;
         @BindView(R.id.shop_city)
         TextView shopCity;
-        @BindView(R.id.shop_distance)
-        TextView shopDistance;
         @BindView(R.id.return_energy)
         TextView returnEnergy;
-        @BindView(R.id.return_ll)
-        LinearLayout returnLl;
+        @BindView(R.id.shop_name)
+        TextView shopName;
+        @BindView(R.id.shop_distance)
+        TextView shopDistance;
+        @BindView(R.id.popularity_number)
+        TextView popularityNumber;
+        @BindView(R.id.likestore_rl)
+        RelativeLayout likestoreRl;
         @BindView(R.id.collection_item_ll)
         RelativeLayout collectionItemLl;
 
@@ -165,9 +162,8 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
                 GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.app_icon, shopIcon);
                 storeName.setText(store.getTitle());
                 popularityNumber.setText("月均人气" + store.getBuzz());
-                perCapita.setText("人均" + store.getAverage() + "元");
                 shopName.setText(store.getName());
-                shopCity.setText(city);
+                shopCity.setText(store.getPoiname());
                 String addressXy = store.getAddressXy();
                 if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     shopDistance.setVisibility(View.GONE);

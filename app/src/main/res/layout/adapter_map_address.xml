@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/address_ll">
+    <TextView
+        android:id="@+id/title"
+        style="@style/fifteen_apptext5_text_style"
+        android:paddingLeft="@dimen/common_twelve_margin"
+        android:paddingRight="@dimen/common_twelve_margin"
+        android:paddingTop="@dimen/common_eight_margin"
+        android:paddingBottom="@dimen/common_eight_margin"
+        tools:text="浙江杭州" />
+    <TextView
+        android:id="@+id/address"
+        style="@style/fifteen_apptext5_text_style"
+        android:paddingLeft="@dimen/common_twelve_margin"
+        android:paddingRight="@dimen/common_twelve_margin"
+        android:paddingBottom="@dimen/common_eight_margin"
+        tools:text="浙江杭州" />
+
+    <View style="@style/all_line_style" />
+</LinearLayout>

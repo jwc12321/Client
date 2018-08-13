@@ -128,4 +128,9 @@ public class StaticData {
     //历史搜索
     public static final String SHOP_HISTORY_SEARCH="shopHistorySearch";
 
+    //地址搜索
+    public static final String ADDRESS_HISTORY_SEARCH="addressHistorySearch";
+    //城区  比如杭州下城区
+    public static final String DISTRICT="district";
+
 }

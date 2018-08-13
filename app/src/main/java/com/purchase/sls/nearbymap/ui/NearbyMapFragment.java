@@ -44,6 +44,7 @@ import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.nearbymap.DaggerNearbyMapComponent;
 import com.purchase.sls.nearbymap.NearbyMapContract;
 import com.purchase.sls.nearbymap.NearbyMapModule;
+import com.purchase.sls.nearbymap.adapter.MapMarkerStoreAdapter;
 import com.purchase.sls.nearbymap.adapter.NearbyItemAdapter;
 import com.purchase.sls.nearbymap.adapter.NearbyMunuAdapter;
 import com.purchase.sls.nearbymap.presenter.NearbyMapPresenter;
@@ -55,13 +56,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by JWC on 2018/4/19.
  */
 
-public class NearbyMapFragment extends BaseFragment implements NearbyMapContract.NearbyView, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener, LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter, AMap.OnInfoWindowClickListener {
+public class NearbyMapFragment extends BaseFragment implements NearbyMapContract.NearbyView, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener, LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter, AMap.OnInfoWindowClickListener, MapMarkerStoreAdapter.OnMapMarkerClickListener {
 
     @BindView(R.id.map)
     MapView mapView;
@@ -71,6 +73,10 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     RecyclerView nearbyItemRy;
     @BindView(R.id.nearby_ll)
     LinearLayout nearbyLl;
+    @BindView(R.id.map_store_rv)
+    RecyclerView mapStoreRv;
+    @BindView(R.id.search_address_ll)
+    LinearLayout searchAddressLl;
 
     //地图
     private AMap aMap;
@@ -93,8 +99,11 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
 
     private String latitude;
     private String longitude;
+    private String district;
 
     private MapMarkerInfo mapMarkerInfo;
+    private MapMarkerStoreAdapter mapMarkerStoreAdapter;
+
 
     public NearbyMapFragment() {
     }
@@ -148,6 +157,9 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         nearbyItemAdapter = new NearbyItemAdapter();
         nearbyItemAdapter.setOnItemClickListener(this);
         nearbyItemRy.setAdapter(nearbyItemAdapter);
+        mapMarkerStoreAdapter = new MapMarkerStoreAdapter(getActivity());
+        mapMarkerStoreAdapter.setOnMapMarkerClickListener(this);
+        mapStoreRv.setAdapter(mapMarkerStoreAdapter);
     }
 
     private void initMap() {
@@ -245,6 +257,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
 
     @Override
     public void renderapMarkers(List<MapMarkerInfo> mapMarkerInfos) {
+        mapMarkerStoreAdapter.setData(mapMarkerInfos);
         removeMarker();
         for (int i = 0; i < mapMarkerInfos.size(); i++) {
             addCustomMarker(mapMarkerInfos.get(i));
@@ -302,8 +315,9 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null
                     && amapLocation.getErrorCode() == 0) {
-                if (!TextUtils.isEmpty(amapLocation.getCity())) {
-                    nearbyMapPresenter.getNearbyInfo(amapLocation.getCity());
+                district=amapLocation.getDistrict();
+                if (!TextUtils.isEmpty(district)) {
+                    nearbyMapPresenter.getNearbyInfo(district);
                 }
                 if (!TextUtils.isEmpty(TokenManager.getToken()) && !TextUtils.isEmpty(amapLocation.getLatitude() + "") && !TextUtils.isEmpty(amapLocation.getLongitude() + "")) {
                     nearbyMapPresenter.uploadXy(String.valueOf(amapLocation.getLongitude()), String.valueOf(amapLocation.getLatitude()));
@@ -311,6 +325,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
                 Log.d("nearbyFragment", "精度和纬度" + amapLocation.getLatitude() + "=====" + amapLocation.getLongitude());
                 latitude = amapLocation.getLatitude() + "";
                 longitude = amapLocation.getLongitude() + "";
+                mapMarkerStoreAdapter.setCity(longitude, latitude);
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
                 aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
             } else {
@@ -443,11 +458,27 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
         ShopDetailActivity.start(getActivity(), mapMarkerInfo.getId());
     }
 
+    @Override
+    public void mapMarkerClickListener(String storeid) {
+        ShopDetailActivity.start(getActivity(),storeid);
+    }
+
     /**
      * by moos on 2018/01/12
      * func:自定义监听接口,用来marker的icon加载完毕后回调添加marker属性
      */
     public interface OnMarkerIconLoadListener {
         void markerIconLoadingFinished(View view);
+    }
+
+
+    @OnClick({R.id.search_address_ll})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.search_address_ll:
+                SearchAddressActivity.start(getActivity(),district);
+                break;
+            default:
+        }
     }
 }

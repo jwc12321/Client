@@ -111,4 +111,18 @@ public class CommonAppPreferences {
         return sharedPreferences.getString(StaticData.SHOP_HISTORY_SEARCH,"");
     }
 
+
+    /**
+     * 历史记录
+     */
+    public void setAddressHistorySearch(String historySearch) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(StaticData.ADDRESS_HISTORY_SEARCH,historySearch);
+        editor.commit();
+    }
+
+    public String getAddressHistorySearch(){
+        return sharedPreferences.getString(StaticData.ADDRESS_HISTORY_SEARCH,"");
+    }
+
 }

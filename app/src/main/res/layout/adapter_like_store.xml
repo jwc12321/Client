@@ -12,7 +12,7 @@
         android:layout_width="@dimen/like_adapter_icon"
         android:layout_height="@dimen/like_adapter_icon"
         android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
-        android:layout_marginLeft="@dimen/common_text_left"
+        android:layout_marginLeft="@dimen/common_twelve_margin"
         android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
         android:scaleType="fitXY"
         tools:src="@mipmap/app_icon" />

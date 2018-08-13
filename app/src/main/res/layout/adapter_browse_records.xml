@@ -27,109 +27,84 @@
             android:layout_width="@dimen/like_adapter_icon"
             android:layout_height="@dimen/like_adapter_icon"
             android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
-            android:layout_marginLeft="@dimen/common_twenty_four_margin"
+            android:layout_marginLeft="@dimen/common_text_left"
             android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
             android:scaleType="fitXY"
             tools:src="@mipmap/app_icon" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
             android:layout_marginLeft="@dimen/common_text_left_second"
-            android:layout_toRightOf="@id/shop_icon"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
+            android:layout_toRightOf="@id/shop_icon">
 
             <TextView
                 android:id="@+id/store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
                 android:textColor="@color/appText4"
                 android:textSize="15sp"
                 tools:text="1111" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/shop_city"
+                style="@style/like_adapter_text_style"
+                android:layout_below="@id/store_name"
+                android:layout_marginTop="@dimen/common_eight_margin"
+                tools:text="丽水市" />
+
+
+            <TextView
+                android:id="@+id/return_energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/common_eight_margin"
+                android:background="@drawable/eneryg_like_bg"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/common_five_margin"
+                android:paddingRight="@dimen/common_five_margin"
+                android:textColor="@color/appText3"
+                android:textSize="12sp"
+                tools:text="哈哈"
+                android:visibility="invisible"/>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/popularity_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/appText3"
-                    android:textSize="13sp"
-                    tools:text="1111" />
-
-                <ImageView
-                    android:layout_width="11dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/fire" />
-
-                <TextView
-                    android:id="@+id/per_capita"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="9dp"
-                    android:textColor="@color/appText6"
-                    android:textSize="13sp"
-                    tools:text="1111"
-                    android:visibility="gone"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_above="@id/return_energy"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/shop_name"
                     style="@style/like_adapter_text_style"
-                    tools:text="1111" />
-
-                <TextView
-                    android:id="@+id/shop_city"
-                    style="@style/like_adapter_text_style"
-                    android:layout_marginLeft="7dp" />
+                    android:ellipsize="end"
+                    android:maxEms="10"
+                    android:maxLines="1"
+                    tools:text="我们都是一" />
 
                 <TextView
                     android:id="@+id/shop_distance"
                     style="@style/like_adapter_text_style"
-                    android:layout_marginLeft="7dp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/return_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/common_text_left"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/return_energy" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_toRightOf="@id/shop_name"
+                    tools:text="20.5km" />
 
                 <TextView
-                    android:id="@+id/return_energy"
+                    android:id="@+id/popularity_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="9dp"
-                    android:textColor="@color/appText7"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:textColor="@color/appText20"
+                    android:textSize="13sp"
+                    tools:text="月均人气" />
+
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
     <View

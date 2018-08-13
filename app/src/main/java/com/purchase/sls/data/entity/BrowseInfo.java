@@ -118,6 +118,9 @@ public class BrowseInfo {
             @SerializedName("average")
             private String average;
 
+            @SerializedName("poiname")
+            private String poiname;
+
             public String getId() {
                 return id;
             }
@@ -172,6 +175,14 @@ public class BrowseInfo {
 
             public void setAverage(String average) {
                 this.average = average;
+            }
+
+            public String getPoiname() {
+                return poiname;
+            }
+
+            public void setPoiname(String poiname) {
+                this.poiname = poiname;
             }
         }
 
