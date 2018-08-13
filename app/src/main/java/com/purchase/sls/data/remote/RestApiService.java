@@ -9,6 +9,7 @@ import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.entity.ActivityOrderListResponse;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
+import com.purchase.sls.data.entity.AllCategoriesInfo;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.BrowseInfo;
@@ -25,6 +26,8 @@ import com.purchase.sls.data.entity.GoodsOrderDetailInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsOrderManage;
 import com.purchase.sls.data.entity.GoodsParentInfo;
+import com.purchase.sls.data.entity.HNearbyShopsInfo;
+import com.purchase.sls.data.entity.HotSearchInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
@@ -56,6 +59,7 @@ import com.purchase.sls.data.request.CheckCodeRequest;
 import com.purchase.sls.data.request.BannerHotRequest;
 import com.purchase.sls.data.request.CheckNewCodeRequest;
 import com.purchase.sls.data.request.CollectionListRequest;
+import com.purchase.sls.data.request.CoordinateCityRequest;
 import com.purchase.sls.data.request.CouponListRequest;
 import com.purchase.sls.data.request.CreateOrderRequest;
 import com.purchase.sls.data.request.DetectionVersionRequest;
@@ -412,4 +416,17 @@ public interface RestApiService {
     //兑换券列表
     @POST("home/actorder/duihuan")
     Flowable<RemoteDataWrapper<EcVoucherInfo>> getEcVoucherInfo(@Body PageRequest pageRequest);
+
+
+    //获取附近店铺
+    @POST("home/index/nearbystore")
+    Flowable<RemoteDataWrapper<List<HNearbyShopsInfo>>> getHNearbyShopsInfos(@Body CoordinateCityRequest coordinateCityRequest);
+
+    //获取全部分类
+    @POST("home/index/getcateall")
+    Flowable<RemoteDataWrapper<List<AllCategoriesInfo>>> getAllCategoriesInfos(@Body TokenRequest tokenRequest);
+
+    //获取热门搜索
+    @POST("home/index/hotkeywords")
+    Flowable<RemoteDataWrapper<List<HotSearchInfo>>> getHotSearchs(@Body TokenRequest tokenRequest);
 }

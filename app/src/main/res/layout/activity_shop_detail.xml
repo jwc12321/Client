@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shop_detail_rl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/shop_detail_rl">
+    android:layout_height="match_parent">
 
 
     <com.purchase.sls.common.widget.GradationScrollView
@@ -34,10 +34,12 @@
                     app:indicator_drawable_selected="@drawable/selected_radius"
                     app:indicator_drawable_unselected="@drawable/unselected_radius" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/shop_info_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/common_fifteen_margin">
 
                     <LinearLayout
                         android:id="@+id/popularity_ll"
@@ -48,7 +50,8 @@
                         android:layout_marginRight="@dimen/common_margin_left_right"
                         android:background="@color/appText3"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -73,34 +76,53 @@
                             tools:text="60" />
                     </LinearLayout>
 
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/popularity_ll"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/popularity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/common_twelve_margin"
+                            android:textColor="@color/appText20"
+                            android:textSize="13sp"
+                            tools:text="闪点" />
 
                         <TextView
                             android:id="@+id/shop_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/common_eleven_margin"
+                            android:layout_marginLeft="@dimen/common_twelve_margin"
                             android:textColor="@color/appText4"
                             android:textSize="20sp"
                             tools:text="闪点" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/shop_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/common_eleven_margin"
-                            android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
+                            android:layout_marginLeft="@dimen/common_twelve_margin"
+                            android:layout_marginRight="@dimen/common_twelve_margin"
+                            android:layout_marginTop="8dp"
                             android:textColor="@color/appText6"
                             android:textSize="12sp"
                             tools:text="哈哈" />
-                    </LinearLayout>
-                </RelativeLayout>
+
+                        <ImageView
+                            style="@style/go_arrow"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+                </LinearLayout>
 
                 <View style="@style/fengexian_style" />
 
@@ -160,8 +182,6 @@
                             android:layout_marginLeft="@dimen/common_fourteen_margin"
                             android:layout_marginRight="@dimen/common_text_left"
                             android:layout_toRightOf="@id/local_iv"
-                            android:ellipsize="end"
-                            android:maxLines="1"
                             android:textColor="@color/appText6"
                             android:textSize="12sp" />
                     </RelativeLayout>
@@ -200,23 +220,62 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_forty_four_margin"
+                android:layout_marginTop="@dimen/common_ten_margin"
+                android:background="@color/appText1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/usr_evaluate_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/fifteen_apptext5_text_style"
+                        android:text="用户评价" />
+
+                    <View
+                        android:id="@+id/evaluate_view"
+                        android:layout_width="@dimen/common_eighteen_margin"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/common_ten_margin"
+                        android:background="@color/appText3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/more_shop_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/fifteen_apptext5_text_style"
+                        android:text="更多商家" />
+
+                    <View
+                        android:id="@+id/more_shop_view"
+                        android:layout_width="@dimen/common_eighteen_margin"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/common_ten_margin"
+                        android:background="@color/appText3"
+                        android:visibility="invisible" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/all_line_style" />
+
+            <LinearLayout
                 android:id="@+id/evaluate_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:background="@color/appText1"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/evaluate_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/common_text_left"
-                    android:layout_marginLeft="@dimen/common_eleven_margin"
-                    android:layout_marginTop="@dimen/common_text_left"
-                    android:textColor="@color/appText4"
-                    android:textSize="14dp"
-                    android:text="网友评论"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/evaluate_rv"
@@ -251,31 +310,31 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/more_shop_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/common_ten_margin"
                 android:background="@color/appText1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_eleven_margin"
-                    android:layout_marginTop="@dimen/common_fourteen_margin"
-                    android:text="@string/more_shop"
-                    android:textColor="@color/appText4"
-                    android:textSize="15dp" />
+                    style="@style/fifteen_apptext5_text_style"
+                    android:layout_marginBottom="@dimen/common_twenty_margin"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_twenty_margin"
+                    android:text="更多商家" />
+
+                <View style="@style/all_line_style" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/more_shop_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_fifty_margin"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
-                    app:layoutManager="@string/layoutManager_LinearLayout"
-                    android:layout_marginBottom="@dimen/common_fifty_margin"/>
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
             </LinearLayout>
+
         </LinearLayout>
     </com.purchase.sls.common.widget.GradationScrollView>
 
@@ -314,6 +373,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/black_background"
             android:layout_width="match_parent"
@@ -321,29 +381,83 @@
             android:layout_above="@id/map_ll"
             android:background="@color/appText4"
             android:orientation="horizontal" />
+
         <LinearLayout
             android:id="@+id/map_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/appText1"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:orientation="vertical">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/map_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="@string/layoutManager_LinearLayout"
                 android:layout_above="@id/cancel"
-                android:background="@color/appText1"/>
+                android:background="@color/appText1"
+                android:orientation="vertical"
+                app:layoutManager="@string/layoutManager_LinearLayout" />
+
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_eleven_margin"
                 android:background="@drawable/common_text_bg"
                 android:text="取消"
-                android:textColor="@color/appText3"
-                android:layout_margin="@dimen/common_eleven_margin"/>
+                android:textColor="@color/appText3" />
         </LinearLayout>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/float_choice_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_four_margin"
+        android:layout_below="@id/title_rel"
+        android:background="@color/appText1"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/float_usr_evaluate_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/fifteen_apptext5_text_style"
+                android:text="用户评价" />
+
+            <View
+                android:id="@+id/float_evaluate_view"
+                android:layout_width="@dimen/common_eighteen_margin"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/common_ten_margin"
+                android:background="@color/appText3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/float_more_shop_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/fifteen_apptext5_text_style"
+                android:text="更多商家" />
+
+            <View
+                android:id="@+id/float_more_shop_view"
+                android:layout_width="@dimen/common_eighteen_margin"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/common_ten_margin"
+                android:background="@color/appText3"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

@@ -98,4 +98,17 @@ public class CommonAppPreferences {
         return sharedPreferences.getString(StaticData.HISTORY_SEARCH,"");
     }
 
+    /**
+     * 历史记录
+     */
+    public void setShopHistorySearch(String historySearch) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(StaticData.SHOP_HISTORY_SEARCH,historySearch);
+        editor.commit();
+    }
+
+    public String getShopHistorySearch(){
+        return sharedPreferences.getString(StaticData.SHOP_HISTORY_SEARCH,"");
+    }
+
 }

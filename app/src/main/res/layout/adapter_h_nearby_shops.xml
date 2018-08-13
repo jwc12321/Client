@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nearby_shop_item"
+    android:layout_width="@dimen/common_one_hundred_and_thirty_one_margin"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="@dimen/common_one_hundred_and_fifteen_margin"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/appText1">
+
+        <ImageView
+            android:id="@+id/shop_icon"
+            android:layout_width="@dimen/common_one_hundred_and_fifteen_margin"
+            android:layout_height="@dimen/common_ninety_margin"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/app_icon" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_seven_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/appText19"
+            android:textSize="12sp"
+            tools:text="小鱼"
+            android:layout_marginLeft="@dimen/common_five_margin"
+            android:layout_marginRight="@dimen/common_five_margin"/>
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_five_margin"
+            android:layout_marginTop="@dimen/common_seven_margin"
+            android:textColor="@color/appText5"
+            android:textSize="10sp"
+            tools:text="1.6km"
+            android:layout_marginLeft="@dimen/common_five_margin"/>
+    </LinearLayout>
+</LinearLayout>

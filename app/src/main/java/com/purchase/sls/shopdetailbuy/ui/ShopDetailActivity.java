@@ -25,6 +25,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.CommonAppPreferences;
+import com.purchase.sls.common.unit.ConvertDpAndPx;
 import com.purchase.sls.common.unit.OpenLocalMapUtil;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
@@ -61,7 +62,7 @@ import butterknife.OnClick;
  * 商品详情页面
  */
 
-public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener, ChoiceMapAdapter.OnMapItemClick,AllEvaluateAdapter.OnPictureOnClickListener {
+public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyContract.ShopDetailView, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener, ChoiceMapAdapter.OnMapItemClick, AllEvaluateAdapter.OnPictureOnClickListener {
 
     @BindView(R.id.banner)
     Banner banner;
@@ -69,12 +70,16 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     TextView popularityNumber;
     @BindView(R.id.popularity_ll)
     LinearLayout popularityLl;
+    @BindView(R.id.popularity)
+    TextView popularity;
     @BindView(R.id.shop_name)
     TextView shopName;
     @BindView(R.id.shop_description)
     TextView shopDescription;
     @BindView(R.id.shop_info_rl)
-    RelativeLayout shopInfoRl;
+    LinearLayout shopInfoRl;
+    @BindView(R.id.back_energy_tt)
+    ImageView backEnergyTt;
     @BindView(R.id.back_energy_number)
     TextView backEnergyNumber;
     @BindView(R.id.back_energy_rl)
@@ -83,6 +88,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     ImageView localIv;
     @BindView(R.id.address)
     TextView address;
+    @BindView(R.id.address_rl)
+    RelativeLayout addressRl;
     @BindView(R.id.call_ll)
     LinearLayout callLl;
     @BindView(R.id.fenge_vi)
@@ -91,6 +98,14 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     RelativeLayout localRl;
     @BindView(R.id.shop_detail_ll)
     LinearLayout shopDetailLl;
+    @BindView(R.id.evaluate_view)
+    View evaluateView;
+    @BindView(R.id.usr_evaluate_ll)
+    LinearLayout usrEvaluateLl;
+    @BindView(R.id.more_shop_view)
+    View moreShopView;
+    @BindView(R.id.more_shop_ll)
+    LinearLayout moreShopLl;
     @BindView(R.id.evaluate_rv)
     RecyclerView evaluateRv;
     @BindView(R.id.look_all_comment_rl)
@@ -99,8 +114,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     LinearLayout evaluateLl;
     @BindView(R.id.more_shop_rv)
     RecyclerView moreShopRv;
-    @BindView(R.id.more_shop_ll)
-    LinearLayout moreShopLl;
+    @BindView(R.id.scrollview)
+    GradationScrollView scrollview;
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -109,26 +124,28 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     ImageView collection;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
-    @BindView(R.id.address_rl)
-    RelativeLayout addressRl;
     @BindView(R.id.check_bg)
     Button checkBg;
-    @BindView(R.id.scrollview)
-    GradationScrollView scrollview;
-    @BindView(R.id.back_energy_tt)
-    ImageView backEnergyTt;
-    @BindView(R.id.evaluate_number)
-    TextView evaluateNumber;
-    @BindView(R.id.cancel)
-    Button cancel;
-    @BindView(R.id.map_rv)
-    RecyclerView mapRv;
-    @BindView(R.id.choice_map_rl)
-    RelativeLayout choiceMapRl;
     @BindView(R.id.black_background)
     LinearLayout blackBackground;
+    @BindView(R.id.map_rv)
+    RecyclerView mapRv;
+    @BindView(R.id.cancel)
+    Button cancel;
     @BindView(R.id.map_ll)
     LinearLayout mapLl;
+    @BindView(R.id.choice_map_rl)
+    RelativeLayout choiceMapRl;
+    @BindView(R.id.float_evaluate_view)
+    View floatEvaluateView;
+    @BindView(R.id.float_usr_evaluate_ll)
+    LinearLayout floatUsrEvaluateLl;
+    @BindView(R.id.float_more_shop_view)
+    View floatMoreShopView;
+    @BindView(R.id.float_more_shop_ll)
+    LinearLayout floatMoreShopLl;
+    @BindView(R.id.float_choice_ll)
+    LinearLayout floatChoiceLl;
     @BindView(R.id.shop_detail_rl)
     RelativeLayout shopDetailRl;
     private String storeid;
@@ -172,10 +189,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     private void initView() {
         commonAppPreferences = new CommonAppPreferences(this);
-        if(commonAppPreferences!=null){
-            cityName=commonAppPreferences.getCity();
-            currX=commonAppPreferences.getCurrLongitude();
-            currY=commonAppPreferences.getCurrLatitude();
+        if (commonAppPreferences != null) {
+            cityName = commonAppPreferences.getCity();
+            currX = commonAppPreferences.getCurrLongitude();
+            currY = commonAppPreferences.getCurrLatitude();
         }
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         scrollview.setScrollViewListener(this);
@@ -218,7 +235,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     private void moreStore() {
         likeStoreAdapter = new LikeStoreAdapter(this);
         likeStoreAdapter.setOnLikeStoreClickListener(this);
-        likeStoreAdapter.setCity(cityName,currX,currY);
+        likeStoreAdapter.setCity(cityName, currX, currY);
         moreShopRv.setAdapter(likeStoreAdapter);
     }
 
@@ -258,6 +275,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 shopName.setText(storeInfo.getTitle());
                 shopDescription.setText(storeInfo.getDescription());
                 popularityNumber.setText(storeInfo.getBuzz());
+                popularity.setText("月均人气" + storeInfo.getBuzz());
                 addressStr = storeInfo.getAddress();
                 cityName = storeInfo.getCityname();
                 address.setText(storeInfo.getAddress());
@@ -319,7 +337,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         this.finish();
     }
 
-    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl, R.id.check_bg, R.id.look_all_comment_rl, R.id.cancel, R.id.choice_map_rl, R.id.black_background})
+    @OnClick({R.id.back, R.id.collection, R.id.call_ll, R.id.shop_info_rl, R.id.address_rl, R.id.check_bg, R.id.look_all_comment_rl, R.id.cancel, R.id.choice_map_rl, R.id.black_background, R.id.usr_evaluate_ll, R.id.more_shop_ll, R.id.float_more_shop_ll, R.id.float_usr_evaluate_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -353,8 +371,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 break;
             case R.id.address_rl:
                 if (choiceMapInfos.isEmpty()) {
-                    if (!TextUtils.isEmpty(addressX)&&!TextUtils.isEmpty(addressY)
-                            &&!TextUtils.isEmpty(currX)&&!TextUtils.isEmpty(currY)) {
+                    if (!TextUtils.isEmpty(addressX) && !TextUtils.isEmpty(addressY)
+                            && !TextUtils.isEmpty(currX) && !TextUtils.isEmpty(currY)) {
                         url = "http://uri.amap.com/navigation?from=" + currX + "," + currY + ",start&to=" + addressX + "," + addressY + ",end&mode=car&policy=1&callnative=1";
                         webViewDetailInfo = new WebViewDetailInfo();
                         webViewDetailInfo.setTitle("地图");
@@ -385,8 +403,29 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 choiceMapRl.setVisibility(View.GONE);
                 checkBg.setVisibility(View.VISIBLE);
                 break;
+            case R.id.usr_evaluate_ll:
+            case R.id.float_usr_evaluate_ll:
+                choiceWhat("1");
+                int eScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 10);
+                scrollview.scrollTo(0, eScrollY);
+                floatChoiceLl.setVisibility(View.VISIBLE);
+                break;
+            case R.id.more_shop_ll:
+            case R.id.float_more_shop_ll:
+                choiceWhat("2");
+                int mScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 20) + evaluateLl.getHeight();
+                scrollview.scrollTo(0, mScrollY);
+                floatChoiceLl.setVisibility(View.VISIBLE);
+                break;
             default:
         }
+    }
+
+    private void choiceWhat(String what) {
+        evaluateView.setVisibility(TextUtils.equals("1", what) ? View.VISIBLE : View.INVISIBLE);
+        moreShopView.setVisibility(TextUtils.equals("2", what) ? View.VISIBLE : View.INVISIBLE);
+        floatEvaluateView.setVisibility(TextUtils.equals("1", what) ? View.VISIBLE : View.INVISIBLE);
+        floatMoreShopView.setVisibility(TextUtils.equals("2", what) ? View.VISIBLE : View.INVISIBLE);
     }
 
     private static final int REQUEST_PERMISSION_CALL_AND_CALL_LOG = 3;
@@ -431,6 +470,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             titleRel.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
         } else {    //滑动到banner下面设置普通颜色
             titleRel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+        }
+        if (y < shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 10)) {
+            floatChoiceLl.setVisibility(View.GONE);
+        } else {
+            floatChoiceLl.setVisibility(View.VISIBLE);
         }
     }
 
@@ -620,6 +664,6 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
 
     @Override
     public void goAllEvalute() {
-        AllEvaluationActivity.start(this,storeid);
+        AllEvaluationActivity.start(this, storeid);
     }
 }

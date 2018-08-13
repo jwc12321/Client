@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGround1"
+    android:background="@color/appText1"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -18,11 +19,11 @@
             android:id="@+id/search_ll"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toLeftOf="@id/cancel"
+            android:layout_toRightOf="@id/back"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/common_seven_margin"
-            android:paddingTop="@dimen/common_seven_margin"
-            android:layout_toLeftOf="@id/cancel"
-            android:layout_toRightOf="@id/back">
+            android:paddingTop="@dimen/common_seven_margin">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,5 +58,94 @@
             android:id="@+id/cancel"
             style="@style/title_text_right_style"
             android:text="@string/cancel" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/history_search_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_rel"
+        android:layout_marginTop="@dimen/common_twelve_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:text="@string/history_records"
+            android:textColor="@color/appText5"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/delete_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/delete_text"
+            android:src="@mipmap/delete_search_icon"
+            android:layout_marginRight="@dimen/common_five_margin"/>
+
+        <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:text="删除记录"
+            android:textColor="@color/appText21"
+            android:textSize="15sp" />
+
+        <com.purchase.sls.common.widget.tag.TagLayout
+            android:id="@+id/tagview_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/delete_history"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_seventeen_margin"
+            app:lineSpacing="5dp"
+            app:tagSpacing="5dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/hot_search_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_rel"
+        android:layout_marginTop="@dimen/common_twelve_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:text="热门搜索"
+            android:textColor="@color/appText5"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/reflash_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/reflash_text"
+            android:src="@mipmap/refresh_icon"
+            android:layout_marginRight="@dimen/common_five_margin"/>
+
+        <TextView
+            android:id="@+id/reflash_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:text="换一换"
+            android:textColor="@color/appText21"
+            android:textSize="15sp" />
+
+        <com.purchase.sls.common.widget.tag.TagLayout
+            android:id="@+id/tagview_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reflash_iv"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginRight="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_seventeen_margin"
+            app:lineSpacing="5dp"
+            app:tagSpacing="5dp" />
     </RelativeLayout>
 </LinearLayout>

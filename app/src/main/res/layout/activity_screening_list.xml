@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appText1"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -17,21 +18,46 @@
         <TextView
             android:id="@+id/title"
             style="@style/title_text_style"
-            android:text="@string/choice_city" />
+            tools:text="@string/choice_city" />
 
         <ImageView
             android:id="@+id/search"
             style="@style/title_right_back_style"
             android:src="@mipmap/search"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/topcate_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View style="@style/all_line_style" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/topcate_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/common_twenty_two_margin"
+            android:layout_marginRight="@dimen/common_twenty_two_margin"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="@string/layoutManager_Gridlayout"
+            android:layout_marginTop="@dimen/common_ten_margin"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_ten_margin"
+            android:background="@color/backGround21"
+            android:layout_marginTop="@dimen/common_fifteen_margin"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/choose_attribute"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:layout_marginTop="1dp"
-        android:background="@color/appText1"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -183,6 +209,7 @@
                 android:background="@color/appText4"
                 android:orientation="horizontal" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/choose_type_second_ll"
             android:layout_width="match_parent"
@@ -204,52 +231,59 @@
                 android:background="@color/appText4"
                 android:orientation="horizontal" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/choose_type_third_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/appText1">
+
                 <TextView
                     android:id="@+id/first_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_text_left"
                     android:text="平均消费"
-                    android:textColor="@color/backGround2"
-                    android:layout_marginLeft="@dimen/common_text_left"/>
+                    android:textColor="@color/backGround2" />
+
                 <android.support.v7.widget.RecyclerView
-                    android:layout_below="@id/first_title"
                     android:id="@+id/type_third_ry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/first_title"
                     android:layout_gravity="center"
                     android:nestedScrollingEnabled="false"
                     android:padding="25dp"
                     app:layoutManager="@string/layoutManager_Gridlayout" />
+
                 <View
                     android:id="@+id/view"
-                    android:layout_below="@id/type_third_ry"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/backGround2"
-                    android:layout_marginTop="@dimen/common_margin_left_right"/>
+                    android:layout_below="@id/type_third_ry"
+                    android:layout_marginTop="@dimen/common_margin_left_right"
+                    android:background="@color/backGround2" />
+
                 <Button
-                    android:layout_below="@id/view"
                     android:id="@+id/ok_bg"
                     android:layout_width="58dp"
                     android:layout_height="38dp"
-                    android:background="@drawable/ok_bg"
-                    android:textColor="@color/appText1"
-                    android:text="完成"
                     android:layout_alignParentRight="true"
+                    android:layout_below="@id/view"
+                    android:layout_marginBottom="@dimen/common_text_left"
                     android:layout_marginRight="@dimen/common_text_left"
                     android:layout_marginTop="@dimen/common_text_left"
-                    android:layout_marginBottom="@dimen/common_text_left"/>
+                    android:background="@drawable/ok_bg"
+                    android:text="完成"
+                    android:textColor="@color/appText1" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/third_black_background"
                 android:layout_width="match_parent"

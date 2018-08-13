@@ -9,8 +9,8 @@ android {
         applicationId "com.purchase.sls"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 65
-        versionName "5.5.8"
+        versionCode 66
+        versionName "5.5.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "long", "DEFAULT_CONNECTION_TIMEOUT_SEC", "30"
@@ -66,8 +66,8 @@ android {
             zipAlignEnabled true
         }
         debug {
-            buildConfigField "String", "API_BASE_URL", "\"http://192.168.100.150/test365neng/public/api/\""
-//            buildConfigField "String", "API_BASE_URL", "\"http://test.365neng.com/api/\""
+//            buildConfigField "String", "API_BASE_URL", "\"http://192.168.100.150/test365neng/public/api/\""
+            buildConfigField "String", "API_BASE_URL", "\"http://www.xiaoqidian.top/api/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug

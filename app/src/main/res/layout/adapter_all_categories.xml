@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backGround21"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_forty_six_margin"
+        android:layout_marginLeft="@dimen/common_twelve_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/common_two_margin"
+            android:layout_height="@dimen/common_sixteen_margin"
+            android:background="@color/appText3" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/fifteen_apptext5_text_style"
+            android:layout_marginLeft="@dimen/common_eight_margin"
+            tools:text="小鱼" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/categories_item_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:nestedScrollingEnabled="false"
+        app:layoutManager="@string/layoutManager_Gridlayout"
+        android:layout_marginLeft="@dimen/common_twelve_margin"
+        android:layout_marginRight="@dimen/common_twelve_margin"/>
+</LinearLayout>

@@ -2,11 +2,8 @@ package com.purchase.sls.homepage.ui;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +23,11 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.amap.api.location.AMapLocation;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.purchase.sls.BaseFragment;
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
+import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
@@ -41,8 +41,6 @@ import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
-import com.purchase.sls.common.widget.GridSpacesItemDecoration;
-import com.purchase.sls.common.widget.LimitScrollerView;
 import com.purchase.sls.common.widget.dialog.CommonDialog;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.BannerHotResponse;
@@ -52,7 +50,8 @@ import com.purchase.sls.data.entity.HNearbyShopsInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
 import com.purchase.sls.homepage.HomePageContract;
 import com.purchase.sls.homepage.HomePageModule;
-import com.purchase.sls.homepage.adapter.HotServiceAdapter;
+import com.purchase.sls.homepage.adapter.HNearbyShopsAdapter;
+import com.purchase.sls.homepage.adapter.HotServicesAdapter;
 import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.homepage.presenter.HomePagePresenter;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
@@ -71,14 +70,12 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.HomepageView, HotServiceAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener, GradationScrollView.ScrollViewListener {
+public class HomePageSFragment extends BaseFragment implements HomePageContract.HomepageView, HotServicesAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener,HNearbyShopsAdapter.OnNearbyShopClickListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
     @BindView(R.id.banner)
     Banner banner;
-    @BindView(R.id.hot_search_link)
-    RecyclerView hotSearchLink;
     @BindView(R.id.scan)
     ImageView scan;
     @BindView(R.id.search_tt)
@@ -87,23 +84,38 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     TextView choiceCity;
     @BindView(R.id.like_store_rv)
     RecyclerView likeStoreRv;
-    @BindView(R.id.limitScroll)
-    LimitScrollerView limitScroll;
     @BindView(R.id.search_ll)
     LinearLayout searchLl;
     @BindView(R.id.scrollview)
     GradationScrollView scrollview;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
+    @BindView(R.id.all_cf_ll)
+    LinearLayout allCfLl;
+    @BindView(R.id.hot_search_rv)
+    RecyclerView hotSearchRv;
+    @BindView(R.id.ten_hot_icon)
+    RoundedImageView tenHotIcon;
+    @BindView(R.id.ten_hot_tv)
+    TextView tenHotTv;
+    @BindView(R.id.nearby_shops_rv)
+    RecyclerView nearbyShopsRv;
+    @BindView(R.id.nearby_shop_ll)
+    LinearLayout nearbyShopLl;
+    @BindView(R.id.ten_hot_service_ll)
+    LinearLayout tenHotServiceLl;
 
 
     private LocationHelper mLocationHelper;
     private String city;
     private List<BannerHotResponse.BannerInfo> bannerInfos;
     private List<String> bannerImages;
-    private HotServiceAdapter hotServiceAdapter;
+    private HotServicesAdapter hotServicesAdapter;
+    private List<BannerHotResponse.StorecateInfo> storecateInfos;
     private LikeStoreAdapter likeStoreAdapter;
-    private MyLimitScrollAdapter myLimitScrollAdapter;
+    private HNearbyShopsAdapter hNearbyShopsAdapter;
+    private List<BannerHotResponse.StorecateInfo> allStorecateInfos;
+    private BannerHotResponse.StorecateInfo tenStorecateInfo;
 
     private static final int REQUEST_PERMISSION_LOCATION = 1;
     private static final int REFRESS_LOCATION_SCAN = 2;
@@ -111,12 +123,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     private static final int REQUEST_CODE_CAMERA = 4;
     private static final int REQUEST_PERMISSION_WRITE = 5;
 
+
     private String longitude;
     private String latitude;
+    private String coordinate;
     private ChangeAppInfo changeAppInfo;
     private CommonDialog dialogUpdate;
     private CommonDialog dialogmustUpdate;
-    private CommonDialog testingDialog;
     private String appStatus;//1：更新可忽略2：更新不能忽略
     private String isFirst = "1";
 
@@ -125,11 +138,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
     private CommonAppPreferences commonAppPreferences;
 
-    public HomePageFragment() {
+    public HomePageSFragment() {
     }
 
-    public static HomePageFragment newInstance() {
-        HomePageFragment homePageFragment = new HomePageFragment();
+    public static HomePageSFragment newInstance() {
+        HomePageSFragment homePageFragment = new HomePageSFragment();
         return homePageFragment;
     }
 
@@ -141,7 +154,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.fragment_homepage, container, false);
+        View rootview = inflater.inflate(R.layout.fragment_homepages, container, false);
         ButterKnife.bind(this, rootview);
         return rootview;
     }
@@ -156,64 +169,29 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
     private void initView() {
         commonAppPreferences = new CommonAppPreferences(getActivity());
-        scrollview.setScrollViewListener(this);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         bannerInitialization();
         hotService();
-        scrollerUpDown();
+        nearbyShops();
         likeStore();
         homePagePresenter.getBannerHotInfo("1", "");//防止定位慢不去请求数据就空白，后台默认衢州
         mapLocal();
-//        if (testOldVersion("com.nenggou.syn")) {
-//            textDialog();
-//        }
         refreshLayout.setCanLoadMore(false);
-    }
-
-    private void textDialog() {
-        if (testingDialog == null)
-            testingDialog = new CommonDialog.Builder()
-                    .showTitle(false)
-                    .setContent("检测到您当前手机含有旧能购APP，为了不影响您的使用，请先删除旧版本的APP")
-                    .setContentGravity(Gravity.CENTER)
-                    .showButton(false)
-                    .setConfirmButton("确定", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            testingDialog.dismiss();
-                        }
-                    }).create();
-        testingDialog.show(getFragmentManager(), "");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        limitScroll.startScroll();
-        if (!isFirstLoad&&getUserVisibleHint() && TextUtils.equals("0", isFirst)) {
-            isFirst="1";
+        if (!isFirstLoad && getUserVisibleHint() && TextUtils.equals("0", isFirst)) {
+            isFirst = "1";
             if (TextUtils.isEmpty(choiceCity.getText().toString())) {
 
             } else {
                 homePagePresenter.getBannerHotInfo("1", city);
+                homePagePresenter.getHNearbyShopsInfos(coordinate, city);
                 homePagePresenter.getLikeStore(city);
             }
         }
-    }
-
-    private boolean testOldVersion(String packageName) {
-        PackageManager packageManager = getActivity().getPackageManager();
-
-        //获取手机系统的所有APP包名，然后进行一一比较
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                if (((PackageInfo) pinfo.get(i)).packageName
-                        .equalsIgnoreCase(packageName))
-                    return true;
-            }
-        }
-        return false;
     }
 
     //首页token失效
@@ -227,12 +205,18 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
     //设置热门
     private void hotService() {
-        hotSearchLink.setLayoutManager(new GridLayoutManager(getContext(), 5));
-        int space = 41;
-        hotSearchLink.addItemDecoration(new GridSpacesItemDecoration(space, false));
-        hotServiceAdapter = new HotServiceAdapter(getActivity());
-        hotServiceAdapter.setOnHotItemClickListener(this);
-        hotSearchLink.setAdapter(hotServiceAdapter);
+        storecateInfos = new ArrayList<>();
+        hotSearchRv.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        hotServicesAdapter = new HotServicesAdapter(getActivity());
+        hotServicesAdapter.setOnHotItemClickListener(this);
+        hotSearchRv.setAdapter(hotServicesAdapter);
+    }
+
+    //附近好店
+    private void nearbyShops() {
+        hNearbyShopsAdapter = new HNearbyShopsAdapter(getActivity());
+        hNearbyShopsAdapter.setOnNearbyShopClickListener(this);
+        nearbyShopsRv.setAdapter(hNearbyShopsAdapter);
     }
 
     //添加猜你喜欢列表
@@ -261,7 +245,14 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 }
                 CityManager.saveCity(city);
                 likeStoreAdapter.setCity(city, longitude, latitude);
+                hNearbyShopsAdapter.setCoordinate(longitude, latitude);
                 homePagePresenter.getBannerHotInfo("0", city);
+                if(!TextUtils.isEmpty(longitude)&&!TextUtils.isEmpty(latitude)) {
+                    coordinate = longitude + "," + latitude;
+                }else {
+                    coordinate=""  ;
+                }
+                homePagePresenter.getHNearbyShopsInfos(coordinate, city);
                 homePagePresenter.getLikeStore(city);
                 commonAppPreferences.setCity(city);
                 commonAppPreferences.setLocal(longitude, latitude);
@@ -297,24 +288,11 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         });
     }
 
-    //设置上下轮播图
-    private void scrollerUpDown() {
-        //API:1、设置数据适配器
-        myLimitScrollAdapter = new MyLimitScrollAdapter(getActivity());
-        limitScroll.setDataAdapter(myLimitScrollAdapter);
-        //API：4、设置条目点击事件
-        limitScroll.setOnItemClickListener(new LimitScrollerView.OnItemClickListener() {
-            @Override
-            public void onItemClick(Object obj) {
-                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_Toutiao);
-            }
-        });
-    }
-
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             homePagePresenter.getBannerHotInfo("0", city);
+            homePagePresenter.getHNearbyShopsInfos(coordinate, city);
             homePagePresenter.getLikeStore(city);
         }
 
@@ -369,8 +347,18 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
             bannerImages.add(bannerInfo.getBanner());
         }
         banner.setImages(bannerImages);
-        myLimitScrollAdapter.setDatas(bannerHotResponse.getArticleInfo().getDatainfos());
-        hotServiceAdapter.setData(bannerHotResponse.getStorecateInfos());
+        allStorecateInfos = bannerHotResponse.getStorecateInfos();
+        if (allStorecateInfos != null && allStorecateInfos.size() >= 10) {
+            storecateInfos.clear();
+            for (int i = 0; i < 9; i++) {
+                storecateInfos.add(allStorecateInfos.get(i));
+            }
+            hotServicesAdapter.setData(storecateInfos);
+            tenStorecateInfo=allStorecateInfos.get(9);
+            GlideHelper.load(getActivity(), tenStorecateInfo.getPic(), R.mipmap.app_icon, tenHotIcon);
+            tenHotTv.setText(tenStorecateInfo.getName());
+        }
+
     }
 
     @Override
@@ -414,10 +402,15 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
 
     @Override
     public void renderHNearbyShopsInfos(List<HNearbyShopsInfo> hNearbyShopsInfos) {
-
+        if (hNearbyShopsInfos != null && hNearbyShopsInfos.size() > 0) {
+            nearbyShopLl.setVisibility(View.VISIBLE);
+        } else {
+            nearbyShopLl.setVisibility(View.GONE);
+        }
+        hNearbyShopsAdapter.setData(hNearbyShopsInfos);
     }
 
-    @OnClick({R.id.choice_city, R.id.scan, R.id.search_ll})
+    @OnClick({R.id.choice_city, R.id.scan, R.id.search_ll,R.id.ten_hot_service_ll,R.id.all_cf_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choice_city:
@@ -430,6 +423,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                 break;
             case R.id.search_ll:
                 SearchShopActivity.start(getActivity());
+                break;
+            case R.id.ten_hot_service_ll:
+                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, tenStorecateInfo.getName(), UMStaticData.SELECT_TYPE);
+                ScreeningListActivity.start(getActivity(), tenStorecateInfo.getId(), tenStorecateInfo.getName(), tenStorecateInfo.getSum(), "");
+                break;
+            case R.id.all_cf_ll:
+                AllCategoriesActivity.start(getActivity());
                 break;
             default:
         }
@@ -453,7 +453,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
                         longitude = commonAppPreferences.getLongitude();
                         latitude = commonAppPreferences.getLatitude();
                         likeStoreAdapter.setCity(city, longitude, latitude);
+                        if(!TextUtils.isEmpty(longitude)&&!TextUtils.isEmpty(latitude)) {
+                            coordinate = longitude + "," + latitude;
+                        }else {
+                            coordinate=""  ;
+                        }
                         homePagePresenter.getBannerHotInfo("1", city);
+                        homePagePresenter.getHNearbyShopsInfos(coordinate, city);
                         homePagePresenter.getLikeStore(city);
                         choiceCity.setText(city);
                     }
@@ -535,58 +541,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     }
 
     @Override
-    public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
-        // TODO Auto-generated method stub
-        if (y <= 0) {   //设置标题的背景颜色
-            titleRel.setBackgroundColor(Color.argb((int) 0, 144, 151, 166));
-        } else if (y > 0 && y <= 180) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
-            float scale = (float) y / 180;
-            float alpha = (255 * scale);
-            titleRel.setBackgroundColor(Color.argb((int) alpha, 255, 101, 40));
-        } else {    //滑动到banner下面设置普通颜色
-            titleRel.setBackgroundColor(Color.argb((int) 255, 255, 101, 40));
-        }
-    }
-
-    //TODO 修改适配器绑定数据
-    class MyLimitScrollAdapter implements LimitScrollerView.LimitScrollAdapter {
-
-        private Context context;
-        private List<BannerHotResponse.ArticleInfo.Datainfo> datas;
-
-        public MyLimitScrollAdapter(Context context) {
-            this.context = context;
-        }
-
-        public void setDatas(List<BannerHotResponse.ArticleInfo.Datainfo> datas) {
-            this.datas = datas;
-            //API:2、开始滚动
-            limitScroll.startScroll();
-        }
-
-        @Override
-        public int getCount() {
-            return datas == null ? 0 : datas.size();
-        }
-
-        @Override
-        public View getView(int index) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.limit_scroller_item, null, false);
-            ImageView iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
-            TextView tv_text = (TextView) itemView.findViewById(R.id.tv_text);
-
-            //绑定数据
-            BannerHotResponse.ArticleInfo.Datainfo data = datas.get(index);
-            itemView.setTag(data);
-            tv_text.setText(data.getTitle());
-            return itemView;
-        }
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
-        limitScroll.cancel();
     }
 
     @Override
@@ -658,4 +614,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
         DownloadService.start(getActivity(), downUrl, "6F7FBCECD46341DF08BE8B11A09E6925");
     }
 
+    @Override
+    public void nearbyShopClickListener(String storeid) {
+        ShopDetailActivity.start(getActivity(), storeid);
+    }
 }

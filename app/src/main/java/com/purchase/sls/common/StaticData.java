@@ -125,4 +125,7 @@ public class StaticData {
     //
     public static final String TRANSMIT_CITY="transmitCity";
 
+    //历史搜索
+    public static final String SHOP_HISTORY_SEARCH="shopHistorySearch";
+
 }

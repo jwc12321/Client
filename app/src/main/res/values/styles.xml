@@ -263,6 +263,12 @@
         <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
     </style>
 
+    <style name="all_line_style">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/backGround2</item>
+    </style>
+
     <style name="SlsStyleDialog" parent="android:Theme.Holo.Light.Dialog">
         <!--<item name="android:windowContentOverlay">@null</item>-->
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
@@ -509,4 +515,12 @@
         <item name="android:layout_marginTop">@dimen/common_six_margin</item>
         <item name="android:layout_marginBottom">@dimen/common_six_margin</item>
     </style>
+
+    <style name="fifteen_apptext5_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/appText5</item>
+    </style>
+
 </resources>

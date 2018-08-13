@@ -19,6 +19,7 @@ import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.widget.ViewPagerSlide;
 import com.purchase.sls.energy.ui.EnergyFragment;
 import com.purchase.sls.homepage.ui.HomePageFragment;
+import com.purchase.sls.homepage.ui.HomePageSFragment;
 import com.purchase.sls.mainframe.adapter.MainPagerAdapter;
 import com.purchase.sls.mine.ui.PersonalCenterFragment;
 import com.purchase.sls.nearbymap.ui.NearbyMapFragment;
@@ -97,7 +98,7 @@ public class MainFrameActivity extends BaseActivity {
 
     private void initView() {
         fragments = new BaseFragment[5];
-        fragments[0] = HomePageFragment.newInstance();
+        fragments[0] = HomePageSFragment.newInstance();
         fragments[1] = NearbyMapFragment.newInstance();
         fragments[2] = EnergyFragment.newInstance();
         fragments[3] = ShoppingMallFragment.newInstance();

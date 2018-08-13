@@ -25,6 +25,7 @@ import com.purchase.sls.data.entity.CateInfo;
 import com.purchase.sls.data.entity.ClassifyInfo;
 import com.purchase.sls.data.entity.CollectionStoreInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
+import com.purchase.sls.data.entity.TopCateInfo;
 import com.purchase.sls.homepage.DaggerHomePageComponent;
 import com.purchase.sls.homepage.HomePageContract;
 import com.purchase.sls.homepage.HomePageModule;
@@ -32,6 +33,7 @@ import com.purchase.sls.homepage.adapter.LikeStoreAdapter;
 import com.purchase.sls.homepage.adapter.ScreeningFirstAdapter;
 import com.purchase.sls.homepage.adapter.ScreeningSecondAdapter;
 import com.purchase.sls.homepage.adapter.ScreeningThirdAdapter;
+import com.purchase.sls.homepage.adapter.TopCateAdapter;
 import com.purchase.sls.homepage.presenter.ScreeningListPresenter;
 import com.purchase.sls.shopdetailbuy.ui.ShopDetailActivity;
 
@@ -43,12 +45,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.umeng.socialize.utils.ContextUtil.getContext;
+
 /**
  * Created by JWC on 2018/4/23.
  * 首页筛选列表
  */
 
-public class ScreeningListActivity extends BaseActivity implements HomePageContract.ScreeningListView, ScreeningFirstAdapter.OnFirstItemOnClickListener, ScreeningSecondAdapter.OnSecondItemOnClickListener, ScreeningThirdAdapter.OnThirdItemOnClickListener, LikeStoreAdapter.OnLikeStoreClickListener {
+public class ScreeningListActivity extends BaseActivity implements HomePageContract.ScreeningListView, ScreeningFirstAdapter.OnFirstItemOnClickListener, ScreeningSecondAdapter.OnSecondItemOnClickListener, ScreeningThirdAdapter.OnThirdItemOnClickListener, LikeStoreAdapter.OnLikeStoreClickListener, TopCateAdapter.OnTopCateItemClickListener {
 
 
     @BindView(R.id.back)
@@ -107,11 +111,19 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     LinearLayout chooseTypeThirdLl;
     @BindView(R.id.third_black_background)
     LinearLayout thirdBlackBackground;
+    @BindView(R.id.topcate_rv)
+    RecyclerView topcateRv;
+    @BindView(R.id.first_title)
+    TextView firstTitle;
+    @BindView(R.id.view)
+    View view;
+    @BindView(R.id.topcate_ll)
+    LinearLayout topcateLl;
 
     private String bussinessCid;
     private String bussinessName;
-    private String businessSort="0";
-    private String businessScreen="0";
+    private String businessSort = "0";
+    private String businessScreen = "0";
     private String storename;
     private String longitude;
     private String latitude;
@@ -134,6 +146,8 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
 
     private CommonAppPreferences commonAppPreferences;
     private String location;
+
+    private TopCateAdapter topCateAdapter;
 
 
     @Inject
@@ -163,7 +177,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         city = commonAppPreferences.getCity();
         longitude = commonAppPreferences.getLongitude();
         latitude = commonAppPreferences.getLatitude();
-        location=longitude+","+latitude;
+        location = longitude + "," + latitude;
         bussinessCid = getIntent().getStringExtra(StaticData.BUSINESS_CID);
         bussinessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         storename = getIntent().getStringExtra(StaticData.STORE_NAME);
@@ -175,11 +189,12 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         }
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         likeStore();
+        addTopCateAdapter();
         screenFirst();
         screenSecond();
         screenThird();
         screeningListPresenter.getClassifyInfo(bussinessCid);
-        screeningListPresenter.getScreeningList("1", city, bussinessCid, "0", "0", storename,location);
+        screeningListPresenter.getScreeningList("1", city, bussinessCid, "0", "0", storename, location);
     }
 
     private void likeStore() {
@@ -187,6 +202,17 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         likeStoreAdapter.setOnLikeStoreClickListener(this);
         choiceShopRv.setAdapter(likeStoreAdapter);
     }
+
+    //增加二级分类上面部分
+    private void addTopCateAdapter() {
+        topcateRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        int space = 41;
+        topcateRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
+        topCateAdapter = new TopCateAdapter(this);
+        topCateAdapter.setOnTopCateItemClickListener(this);
+        topcateRv.setAdapter(topCateAdapter);
+    }
+
 
     private void screenFirst() {
         screeningFirstAdapter = new ScreeningFirstAdapter();
@@ -215,14 +241,16 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            screeningListPresenter.getScreeningList("0", city, bussinessCid, businessSort, businessScreen, storename,location);
+            screeningListPresenter.getScreeningList("0", city, bussinessCid, businessSort, businessScreen, storename, location);
         }
 
         @Override
         public void onLoadMore() {
-            screeningListPresenter.getMoreScreeningList(city, bussinessCid, businessSort, businessScreen, storename,location);
+            screeningListPresenter.getMoreScreeningList(city, bussinessCid, businessSort, businessScreen, storename, location);
         }
-;
+
+        ;
+
         @Override
         public void onModeChanged(@HeaderViewLayout.Mode int mode) {
         }
@@ -284,10 +312,18 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
                 choiceShopRv.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
             }
+            if (screeningListResponse.getTopCateInfos() != null && screeningListResponse.getTopCateInfos().size() > 0) {
+                topcateLl.setVisibility(View.VISIBLE);
+            } else {
+                topcateLl.setVisibility(View.GONE);
+            }
+            topCateAdapter.setData(screeningListResponse.getTopCateInfos());
         } else {
             refreshLayout.setCanLoadMore(false);
             choiceShopRv.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
+            topcateLl.setVisibility(View.GONE);
+            topCateAdapter.setData(null);
         }
     }
 
@@ -366,7 +402,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
                 break;
             case R.id.ok_bg:
                 chooseTypeThirdLl.setVisibility(View.GONE);
-                screeningListPresenter.getScreeningList("1", city, bussinessCid, businessSort, businessScreen, storename,location);
+                screeningListPresenter.getScreeningList("1", city, bussinessCid, businessSort, businessScreen, storename, location);
                 break;
             default:
         }
@@ -392,7 +428,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         chooseTypeFirstLl.setVisibility(View.GONE);
         choiceFirstInt = position;
         screeningListPresenter.getClassifyInfo(bussinessCid);
-        screeningListPresenter.getScreeningList("1", city, bussinessCid, businessSort, businessScreen, storename,location);
+        screeningListPresenter.getScreeningList("1", city, bussinessCid, businessSort, businessScreen, storename, location);
     }
 
     @Override
@@ -400,7 +436,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         businessSort = sort;
         chooseTypeSecondLl.setVisibility(View.GONE);
         choiceSecondInt = position;
-        screeningListPresenter.getScreeningList("1", city, bussinessCid, businessSort, businessScreen, storename,location);
+        screeningListPresenter.getScreeningList("1", city, bussinessCid, businessSort, businessScreen, storename, location);
     }
 
     @Override
@@ -414,5 +450,11 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     @Override
     public void likeStoreClickListener(String storeid) {
         ShopDetailActivity.start(this, storeid);
+    }
+
+    @Override
+    public void topCateItemClickListener(TopCateInfo topCateInfo) {
+        ScreeningListActivity.start(this, topCateInfo.getId(), topCateInfo.getName(), "0", "");
+        this.finish();
     }
 }

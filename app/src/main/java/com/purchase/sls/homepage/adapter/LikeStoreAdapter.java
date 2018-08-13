@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,20 +28,19 @@ import butterknife.ButterKnife;
  */
 
 public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.LikeStoreView> {
-
     private LayoutInflater layoutInflater;
     private List<CollectionStoreInfo> collectionStoreInfos;
     private Context context;
     private String longitude;
     private String latitude;
     private String city;
-    BigDecimal kmdistanceBd= new BigDecimal(1000).setScale(0, RoundingMode.HALF_UP);
+    BigDecimal kmdistanceBd = new BigDecimal(1000).setScale(0, RoundingMode.HALF_UP);
 
     public LikeStoreAdapter(Context context) {
         this.context = context;
     }
 
-    public LikeStoreAdapter(Context context, String city,String longitude, String latitude) {
+    public LikeStoreAdapter(Context context, String city, String longitude, String latitude) {
         this.context = context;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -96,26 +94,23 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
     }
 
     public class LikeStoreView extends RecyclerView.ViewHolder {
+
         @BindView(R.id.shop_icon)
         ImageView shopIcon;
         @BindView(R.id.store_name)
         TextView storeName;
-        @BindView(R.id.popularity_number)
-        TextView popularityNumber;
-        @BindView(R.id.per_capita)
-        TextView perCapita;
-        @BindView(R.id.shop_name)
-        TextView shopName;
         @BindView(R.id.shop_city)
         TextView shopCity;
         @BindView(R.id.shop_distance)
         TextView shopDistance;
+        @BindView(R.id.shop_name)
+        TextView shopName;
+        @BindView(R.id.popularity_number)
+        TextView popularityNumber;
         @BindView(R.id.return_energy)
         TextView returnEnergy;
         @BindView(R.id.likestore_rl)
         RelativeLayout likestoreRl;
-        @BindView(R.id.return_ll)
-        LinearLayout returnLl;
         public LikeStoreView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -125,34 +120,32 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
             GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
             storeName.setText(collectionStoreInfo.getTitle());
             popularityNumber.setText("月均人气" + collectionStoreInfo.getBuzz());
-            perCapita.setText("人均" + collectionStoreInfo.getAverage() + "元");
             shopName.setText(collectionStoreInfo.getName());
-            shopCity.setText(city);
+            shopCity.setText(collectionStoreInfo.getPoiname());
             String addressXy = collectionStoreInfo.getAddressXy();
-            if(!TextUtils.isEmpty(collectionStoreInfo.getDistanceUm())&&!TextUtils.equals("0",collectionStoreInfo.getDistanceUm())){
+            if (!TextUtils.isEmpty(collectionStoreInfo.getDistanceUm()) && !TextUtils.equals("0", collectionStoreInfo.getDistanceUm())) {
                 shopDistance.setVisibility(View.VISIBLE);
-                shopDistance.setText(collectionStoreInfo.getDistanceUm()+"KM");
-            }else {
+                shopDistance.setText(collectionStoreInfo.getDistanceUm() + "KM");
+            } else {
                 if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     shopDistance.setVisibility(View.GONE);
                 } else {
                     String[] addressXys = addressXy.split(",");
                     if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
                         shopDistance.setVisibility(View.VISIBLE);
-                        String mdistance=String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])));
-                        BigDecimal mdistanceBd= new BigDecimal(mdistance).setScale(2, RoundingMode.HALF_UP);
-                        shopDistance.setText( mdistanceBd.divide(kmdistanceBd,2,BigDecimal.ROUND_DOWN)+ "KM");
+                        String mdistance = String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])));
+                        BigDecimal mdistanceBd = new BigDecimal(mdistance).setScale(2, RoundingMode.HALF_UP);
+                        shopDistance.setText(mdistanceBd.divide(kmdistanceBd, 2, BigDecimal.ROUND_DOWN) + "KM");
                     } else {
                         shopDistance.setVisibility(View.GONE);
                     }
                     shopDistance.setVisibility(View.VISIBLE);
                 }
             }
-            if (TextUtils.isEmpty(collectionStoreInfo.getRebate())||TextUtils.equals("0", collectionStoreInfo.getRebate())) {
-                returnLl.setVisibility(View.GONE);
-            }else {
-                returnEnergy.setText(collectionStoreInfo.getRebate()+"%");
-                returnLl.setVisibility(View.VISIBLE);
+            if (TextUtils.isEmpty(collectionStoreInfo.getRebate()) || TextUtils.equals("0", collectionStoreInfo.getRebate())) {
+                returnEnergy.setText("");
+            } else {
+                returnEnergy.setText("补贴"+collectionStoreInfo.getRebate() + "%的能量");
             }
         }
     }

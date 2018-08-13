@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/categories_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_thirty_five_margin"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="@color/appText1">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/appText19"
+        android:textSize="13sp"
+        tools:text="水果"
+        android:layout_marginLeft="@dimen/common_two_margin"
+        android:layout_marginRight="@dimen/common_two_margin"/>
+</LinearLayout>

@@ -161,4 +161,6 @@
     <string name="choice_order_pay">选择付款方式</string>
 
     <string name="ecvocher">兑换券</string>
+
+    <string name="all_categories">全部分类</string>
 </resources>

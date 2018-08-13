@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appText1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/choice_city"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:drawableEnd="@mipmap/black_down"
+            android:drawablePadding="4dp"
+            android:drawableRight="@mipmap/black_down"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/common_margin_left_right"
+            android:paddingRight="@dimen/common_text_left"
+            android:textColor="@color/appText5" />
+
+        <ImageView
+            android:id="@+id/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/common_fifteen_margin"
+            android:paddingRight="@dimen/common_fifteen_margin"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/saoyisao_icon" />
+
+        <LinearLayout
+            android:id="@+id/search_ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toLeftOf="@id/scan"
+            android:layout_toRightOf="@id/choice_city"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/common_seven_margin"
+            android:paddingTop="@dimen/common_seven_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/h_search_edittext_bg">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_eleven_margin"
+                    android:src="@mipmap/search" />
+
+                <TextView
+                    android:id="@+id/search_tt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_ten_margin"
+                    android:text="@string/choice_shop"
+                    android:textColor="@color/appText18"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.purchase.sls.common.refreshview.HeaderViewLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refreshMode="LIST_LOAD">
+
+        <com.purchase.sls.common.widget.GradationScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <com.purchase.sls.common.widget.Banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:indicator_drawable_selected="@drawable/selected_radius"
+                    app:indicator_drawable_unselected="@drawable/unselected_radius" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_nineteen_margin"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_nineteen_margin"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/hot_search_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="@string/layoutManager_Gridlayout" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/all_cf_ll"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/common_seventy_two_margin"
+                            android:layout_marginLeft="@dimen/common_six_margin"
+                            android:layout_marginTop="@dimen/common_six_margin"
+                            android:background="@mipmap/all_cf_icon"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="全部"
+                                android:textColor="@color/appText1"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/common_six_margin"
+                                android:text="分类"
+                                android:textColor="@color/appText1"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ten_hot_service_ll"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/common_thirty_margin"
+                            android:layout_marginLeft="@dimen/common_six_margin"
+                            android:layout_marginTop="@dimen/common_twelve_margin"
+                            android:background="@drawable/hot_service_bg"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/ten_hot_icon"
+                                android:layout_width="@dimen/common_thirteen_margin"
+                                android:layout_height="@dimen/common_thirteen_margin"
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/client_v330_ic_homepage_more_white" />
+
+
+                            <TextView
+                                android:id="@+id/ten_hot_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common_five_margin"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/appText19"
+                                android:textSize="12sp"
+                                tools:text="水果" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/nearby_shop_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/nearby_shops_icon"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_twelve_margin"
+                        android:layout_marginBottom="@dimen/common_twelve_margin">
+                        <View
+                            android:layout_width="@dimen/common_twenty_margin"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/common_five_margin"
+                            android:layout_toLeftOf="@id/near_shop"
+                            android:background="@color/backGround25" />
+                        <TextView
+                            android:id="@+id/near_shop"
+                            style="@style/fifteen_apptext5_text_style"
+                            android:text="附近好店"
+                            android:layout_centerHorizontal="true"/>
+
+                        <View
+                            android:layout_width="@dimen/common_twenty_margin"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/common_five_margin"
+                            android:layout_toRightOf="@id/near_shop"
+                            android:background="@color/backGround25" />
+                    </RelativeLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/nearby_shops_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="horizontal"
+                        app:layoutManager="@string/layoutManager_LinearLayout" />
+                </LinearLayout>
+
+                <View style="@style/fengexian_style" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_margin_left_right">
+
+                    <View
+                        android:layout_width="@dimen/common_twenty_margin"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_five_margin"
+                        android:layout_toLeftOf="@id/tuiian"
+                        android:background="@color/appText17" />
+
+                    <TextView
+                        android:id="@+id/tuiian"
+                        style="@style/fifteen_apptext5_text_style"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:text="为你推荐" />
+
+                    <View
+                        android:layout_width="@dimen/common_twenty_margin"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_five_margin"
+                        android:layout_toRightOf="@id/tuiian"
+                        android:background="@color/appText17" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/like_store_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="@string/layoutManager_LinearLayout" />
+            </LinearLayout>
+        </com.purchase.sls.common.widget.GradationScrollView>
+    </com.purchase.sls.common.refreshview.HeaderViewLayout>
+</LinearLayout>

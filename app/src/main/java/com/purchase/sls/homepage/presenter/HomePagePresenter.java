@@ -6,10 +6,12 @@ import android.util.Log;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.ChangeAppInfo;
+import com.purchase.sls.data.entity.HNearbyShopsInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.BannerHotRequest;
+import com.purchase.sls.data.request.CoordinateCityRequest;
 import com.purchase.sls.data.request.DetectionVersionRequest;
 import com.purchase.sls.data.request.LikeStoreRequest;
 import com.purchase.sls.homepage.HomePageContract;
@@ -158,5 +160,24 @@ public class HomePagePresenter implements HomePageContract.HomepagePresenter {
                 disposable.dispose();
             }
         }
+    }
+
+    @Override
+    public void getHNearbyShopsInfos(String coordinate, String city) {
+        CoordinateCityRequest coordinateCityRequest=new CoordinateCityRequest(coordinate,city);
+        Disposable disposable=restApiService.getHNearbyShopsInfos(coordinateCityRequest)
+                .flatMap(new RxRemoteDataParse<List<HNearbyShopsInfo>>())
+                .compose(new RxSchedulerTransformer<List<HNearbyShopsInfo>>())
+                .subscribe(new Consumer<List<HNearbyShopsInfo>>() {
+                    @Override
+                    public void accept(List<HNearbyShopsInfo> hNearbyShopsInfos) throws Exception {
+                        homepageView.renderHNearbyShopsInfos(hNearbyShopsInfos);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                    }
+                });
+        mDisposableList.add(disposable);
     }
 }

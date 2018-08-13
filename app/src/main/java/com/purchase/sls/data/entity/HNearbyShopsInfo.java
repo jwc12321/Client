@@ -2,58 +2,29 @@ package com.purchase.sls.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by JWC on 2018/4/27.
- */
-
-public class CollectionStoreInfo {
+public class HNearbyShopsInfo {
     @SerializedName("id")
     private String id;
     @SerializedName("title")
     private String title;
-    @SerializedName("buzz")
-    private String buzz;
     @SerializedName("z_pics")
     private String zPics;
+    @SerializedName("buzz")
+    private String buzz;
     @SerializedName("address_xy")
     private String addressXy;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("average")
-    private String average;
     @SerializedName("rebate")
     private String rebate;
+    @SerializedName("average")
+    private String average;
     @SerializedName("cid")
     private String cid;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("renergy")
+    private String renergy;
     @SerializedName("distance_um")
-    private String distanceUm;
-
-    @SerializedName("poiname")
-    private String poiname;
-
-    public String getAverage() {
-        return average;
-    }
-
-    public void setAverage(String average) {
-        this.average = average;
-    }
-
-    public String getRebate() {
-        return rebate;
-    }
-
-    public void setRebate(String rebate) {
-        this.rebate = rebate;
-    }
-
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
+    private String distance_um;
 
     public String getId() {
         return id;
@@ -71,20 +42,20 @@ public class CollectionStoreInfo {
         this.title = title;
     }
 
-    public String getBuzz() {
-        return buzz;
-    }
-
-    public void setBuzz(String buzz) {
-        this.buzz = buzz;
-    }
-
     public String getzPics() {
         return zPics;
     }
 
     public void setzPics(String zPics) {
         this.zPics = zPics;
+    }
+
+    public String getBuzz() {
+        return buzz;
+    }
+
+    public void setBuzz(String buzz) {
+        this.buzz = buzz;
     }
 
     public String getAddressXy() {
@@ -95,6 +66,30 @@ public class CollectionStoreInfo {
         this.addressXy = addressXy;
     }
 
+    public String getRebate() {
+        return rebate;
+    }
+
+    public void setRebate(String rebate) {
+        this.rebate = rebate;
+    }
+
+    public String getAverage() {
+        return average;
+    }
+
+    public void setAverage(String average) {
+        this.average = average;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
     public String getName() {
         return name;
     }
@@ -103,19 +98,19 @@ public class CollectionStoreInfo {
         this.name = name;
     }
 
-    public String getDistanceUm() {
-        return distanceUm;
+    public String getRenergy() {
+        return renergy;
     }
 
-    public void setDistanceUm(String distanceUm) {
-        this.distanceUm = distanceUm;
+    public void setRenergy(String renergy) {
+        this.renergy = renergy;
     }
 
-    public String getPoiname() {
-        return poiname;
+    public String getDistance_um() {
+        return distance_um;
     }
 
-    public void setPoiname(String poiname) {
-        this.poiname = poiname;
+    public void setDistance_um(String distance_um) {
+        this.distance_um = distance_um;
     }
 }
