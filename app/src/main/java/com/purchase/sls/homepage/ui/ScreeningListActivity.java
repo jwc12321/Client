@@ -457,7 +457,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
 
     @Override
     public void topCateItemClickListener(TopCateInfo topCateInfo) {
-        ScreeningListActivity.start(this, topCateInfo.getId(), topCateInfo.getName(), "0", "","1");
+        ScreeningListActivity.start(this, topCateInfo.getId(), topCateInfo.getName(), "0", "","2");
         this.finish();
     }
 }

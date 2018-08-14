@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -77,6 +78,8 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     RecyclerView mapStoreRv;
     @BindView(R.id.search_address_ll)
     LinearLayout searchAddressLl;
+    @BindView(R.id.home_location)
+    ImageView homeLocation;
 
     //地图
     private AMap aMap;
@@ -476,7 +479,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_address_ll:
-                SearchAddressActivity.start(getActivity(),district);
+                SearchAddressActivity.start(getActivity(), district, longitude, latitude);
                 break;
             default:
         }

@@ -66,9 +66,9 @@
                 android:id="@+id/shop_name"
                 style="@style/like_adapter_text_style"
                 android:ellipsize="end"
-                android:maxEms="10"
+                android:maxEms="8"
                 android:maxLines="1"
-                tools:text="我们都是一" />
+                tools:text="我们都是一放得开放大鼓风机阿卡" />
 
             <TextView
                 android:id="@+id/shop_distance"
@@ -85,7 +85,7 @@
                 android:layout_marginRight="@dimen/common_twelve_margin"
                 android:textColor="@color/appText20"
                 android:textSize="13sp"
-                tools:text="月均人气" />
+                tools:text="月均人气444" />
 
         </RelativeLayout>
     </RelativeLayout>

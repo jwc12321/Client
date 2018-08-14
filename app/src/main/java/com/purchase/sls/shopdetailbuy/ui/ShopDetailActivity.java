@@ -148,8 +148,6 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     LinearLayout floatChoiceLl;
     @BindView(R.id.shop_detail_rl)
     RelativeLayout shopDetailRl;
-    @BindView(R.id.user_evaluate)
-    TextView userEvaluate;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -310,10 +308,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                     && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() > 0) {
                 allEvaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
                 lookAllCommentRl.setVisibility(View.VISIBLE);
-                userEvaluate.setVisibility(View.GONE);
             } else {
                 lookAllCommentRl.setVisibility(View.GONE);
-                userEvaluate.setVisibility(View.VISIBLE);
             }
             if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos() != null) {
                 likeStoreAdapter.setLikeInfos(shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos());
@@ -408,14 +404,14 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             case R.id.usr_evaluate_ll:
             case R.id.float_usr_evaluate_ll:
                 choiceWhat("1");
-                int eScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 10);
-                scrollview.scrollTo(0, eScrollY);
+//                int eScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 10);
+//                scrollview.scrollTo(0, eScrollY);
                 break;
             case R.id.more_shop_ll:
             case R.id.float_more_shop_ll:
                 choiceWhat("2");
-                int mScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 20) + evaluateLl.getHeight();
-                scrollview.scrollTo(0, mScrollY);
+//                int mScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 10);
+//                scrollview.scrollTo(0, mScrollY);
                 break;
             default:
         }
@@ -426,6 +422,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         moreShopView.setVisibility(TextUtils.equals("2", what) ? View.VISIBLE : View.INVISIBLE);
         floatEvaluateView.setVisibility(TextUtils.equals("1", what) ? View.VISIBLE : View.INVISIBLE);
         floatMoreShopView.setVisibility(TextUtils.equals("2", what) ? View.VISIBLE : View.INVISIBLE);
+        evaluateLl.setVisibility(TextUtils.equals("1", what) ? View.VISIBLE : View.GONE);
+        moreShopRv.setVisibility(TextUtils.equals("2", what) ? View.VISIBLE : View.GONE);
     }
 
     private static final int REQUEST_PERMISSION_CALL_AND_CALL_LOG = 3;

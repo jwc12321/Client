@@ -111,6 +111,8 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
     private String latitude;
     private String longitude;
     private String district;
+    private String currLatitude;
+    private String currLongitude;
     private List<NearbyInfoResponse> nearbyInfoResponses;
     private int munuLastPosition = 0;
     private int itemLastPosition = 0;
@@ -120,9 +122,11 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
     @Inject
     NearbyMapPresenter nearbyMapPresenter;
 
-    public static void start(Context context, String district) {
+    public static void start(Context context, String district, String latitude,String longitude) {
         Intent intent = new Intent(context, SearchAddressActivity.class);
         intent.putExtra(StaticData.DISTRICT, district);
+        intent.putExtra(StaticData.LATITUDE,latitude);
+        intent.putExtra(StaticData.LONGITUDE,longitude);
         context.startActivity(intent);
     }
 
@@ -132,8 +136,8 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
         setContentView(R.layout.activity_search_address);
         ButterKnife.bind(this);
         setHeight(back, searchLl, cancel);
-        addAdapter();
         initView();
+        addAdapter();
         setTagview();
         showHistorySearch();
     }
@@ -148,13 +152,15 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
         nearbyItemAdapter = new NearbyItemAdapter();
         nearbyItemAdapter.setOnItemClickListener(this);
         nearbyItemRy.setAdapter(nearbyItemAdapter);
-        mapMarkerStoreAdapter = new MapMarkerStoreAdapter(this);
+        mapMarkerStoreAdapter = new MapMarkerStoreAdapter(this,currLongitude,currLatitude);
         mapMarkerStoreAdapter.setOnMapMarkerClickListener(this);
         mapStoreRv.setAdapter(mapMarkerStoreAdapter);
     }
 
     private void initView() {
         district = getIntent().getStringExtra(StaticData.DISTRICT);
+        currLatitude=getIntent().getStringExtra(StaticData.LATITUDE);
+        currLongitude=getIntent().getStringExtra(StaticData.LONGITUDE);
         mapAddressInfos = new ArrayList<>();
         commonAppPreferences = new CommonAppPreferences(this);
         //监听edittext变化
@@ -212,7 +218,6 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
         addressRv.setVisibility(View.GONE);
         latitude = mapAddressInfo.getLat();
         longitude = mapAddressInfo.getLon();
-        mapMarkerStoreAdapter.setCity(longitude, latitude);
         nearbyMapPresenter.getNearbyInfo(district);
     }
 
@@ -381,6 +386,7 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
             @Override
             public void itemClick(int position) {
                 if (position < historySearchList.size()) {
+                    setHistory(historySearchList.get(position));
                     searchEt.setText(historySearchList.get(position));
                 }
             }

@@ -90,7 +90,7 @@ public class HNearbyShopsAdapter extends RecyclerView.Adapter<HNearbyShopsAdapte
 
         public void bindData(HNearbyShopsInfo hNearbyShopsInfo) {
             GlideHelper.load((Activity) context, hNearbyShopsInfo.getzPics(), R.mipmap.app_icon, shopIcon);
-            name.setText(hNearbyShopsInfo.getName());
+            name.setText(hNearbyShopsInfo.getTitle());
             String addressXy = hNearbyShopsInfo.getAddressXy();
             if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                 distance.setText("");

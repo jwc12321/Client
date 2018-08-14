@@ -117,7 +117,7 @@ public class SearchShopActivity extends BaseActivity implements HomePageContract
                     if (!TextUtils.isEmpty(searchEt.getText().toString())) {
                         setHistory(searchEt.getText().toString());
                         UmengEventUtils.statisticsClick(SearchShopActivity.this, UMStaticData.KEY, searchEt.getText().toString(), UMStaticData.SEARCH_STORE);
-                        ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", searchEt.getText().toString(),"1");
+                        ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", searchEt.getText().toString(), "2");
                         return true;
                     }
                 }
@@ -144,7 +144,7 @@ public class SearchShopActivity extends BaseActivity implements HomePageContract
         return null;
     }
 
-    @OnClick({R.id.back, R.id.cancel, R.id.delete_history, R.id.reflash_iv})
+    @OnClick({R.id.back, R.id.cancel, R.id.delete_history, R.id.reflash_iv, R.id.delete_text, R.id.reflash_text})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -154,10 +154,12 @@ public class SearchShopActivity extends BaseActivity implements HomePageContract
                 finish();
                 break;
             case R.id.delete_history:
+            case R.id.delete_text:
                 commonAppPreferences.setShopHistorySearch("");
                 tagviewHistory.removeAllViews();
                 break;
             case R.id.reflash_iv:
+            case R.id.reflash_text:
                 hotSearchPresenter.getHotSearchs();
                 break;
             default:
@@ -206,8 +208,9 @@ public class SearchShopActivity extends BaseActivity implements HomePageContract
             @Override
             public void itemClick(int position) {
                 if (position < historySearchList.size()) {
+                    setHistory(historySearchList.get(position));
                     UmengEventUtils.statisticsClick(SearchShopActivity.this, UMStaticData.KEY, historySearchList.get(position), UMStaticData.SEARCH_STORE);
-                    ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", historySearchList.get(position),"1");
+                    ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", historySearchList.get(position), "2");
                 }
             }
         });
@@ -225,7 +228,7 @@ public class SearchShopActivity extends BaseActivity implements HomePageContract
                 if (position < hotSearchList.size()) {
                     setHistory(hotSearchList.get(position));
                     UmengEventUtils.statisticsClick(SearchShopActivity.this, UMStaticData.KEY, hotSearchList.get(position), UMStaticData.SEARCH_STORE);
-                    ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", hotSearchList.get(position),"1");
+                    ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", hotSearchList.get(position), "2");
                 }
             }
         });
