@@ -98,8 +98,8 @@ public class GoodsSearchActivity extends BaseActivity {
         tagviewHistory.setItemClickListener(new TagLayout.TagItemClickListener() {
             @Override
             public void itemClick(int position) {
-                if(position<historySearchList.size()){
-                    GoodsSearchItemActivity.start(GoodsSearchActivity.this,historySearchList.get(position));
+                if (position < historySearchList.size()) {
+                    GoodsSearchItemActivity.start(GoodsSearchActivity.this, historySearchList.get(position));
                 }
             }
         });
@@ -162,13 +162,7 @@ public class GoodsSearchActivity extends BaseActivity {
                     historySearchStr = tag + SPLIT + historySearchStr;
                 }
             } else {
-                if (tags.length > 9) {
-                    historySearchStr = tag;
-                    for (int i = 0; i < 9; i++) {
-                        historySearchStr = historySearchStr + SPLIT + tags[i];
-                    }
-                } else
-                    historySearchStr = tag + SPLIT + historySearchStr;
+                historySearchStr = tag + SPLIT + historySearchStr;
             }
             commonAppPreferences.setHistorySearch(historySearchStr);
         } else {

@@ -276,7 +276,14 @@
                 android:layout_height="wrap_content"
                 android:background="@color/appText1"
                 android:orientation="vertical">
-
+                <TextView
+                    android:id="@+id/user_evaluate"
+                    style="@style/fifteen_apptext5_text_style"
+                    android:layout_marginBottom="@dimen/common_twenty_margin"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginTop="@dimen/common_twenty_margin"
+                    android:text="用户评价(0)"
+                    android:visibility="gone"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/evaluate_rv"
                     android:layout_width="match_parent"

@@ -61,7 +61,7 @@ import butterknife.OnClick;
  * Created by JWC on 2018/5/7.
  */
 
-public class SearchAddressActivity extends BaseActivity implements NearbyMapContract.NearbyView,PoiSearch.OnPoiSearchListener,MapAddressAdapter.OnEventClickListener,NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener,MapMarkerStoreAdapter.OnMapMarkerClickListener {
+public class SearchAddressActivity extends BaseActivity implements NearbyMapContract.NearbyView, PoiSearch.OnPoiSearchListener, MapAddressAdapter.OnEventClickListener, NearbyMunuAdapter.OnMenuItemClickListener, NearbyItemAdapter.OnItemClickListener, MapMarkerStoreAdapter.OnMapMarkerClickListener {
 
 
     @BindView(R.id.back)
@@ -115,12 +115,14 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
     private int munuLastPosition = 0;
     private int itemLastPosition = 0;
 
+    private boolean canSearch = true;
+
     @Inject
     NearbyMapPresenter nearbyMapPresenter;
 
-    public static void start(Context context,String district) {
+    public static void start(Context context, String district) {
         Intent intent = new Intent(context, SearchAddressActivity.class);
-        intent.putExtra(StaticData.DISTRICT,district);
+        intent.putExtra(StaticData.DISTRICT, district);
         context.startActivity(intent);
     }
 
@@ -152,7 +154,7 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
     }
 
     private void initView() {
-        district=getIntent().getStringExtra(StaticData.DISTRICT);
+        district = getIntent().getStringExtra(StaticData.DISTRICT);
         mapAddressInfos = new ArrayList<>();
         commonAppPreferences = new CommonAppPreferences(this);
         //监听edittext变化
@@ -189,7 +191,7 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
                     mapAddressInfo.setLon(latLonPoint.getLongitude() + "");
                     mapAddressInfos.add(mapAddressInfo);
                 }
-                if(mapAddressInfos.size()>0){
+                if (mapAddressInfos.size() > 0) {
                     addressRv.setVisibility(View.VISIBLE);
                 }
                 mapAddressAdapter.setData(mapAddressInfos);
@@ -204,11 +206,13 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
 
     @Override
     public void backAddress(MapAddressInfo mapAddressInfo) {
-        setHistory(searchEt.getText().toString());
+        canSearch = false;
+        setHistory(mapAddressInfo.getTitle());
+        searchEt.setText(mapAddressInfo.getTitle());
         addressRv.setVisibility(View.GONE);
-        latitude=mapAddressInfo.getLat();
-        longitude=mapAddressInfo.getLon();
-        mapMarkerStoreAdapter.setCity(longitude,latitude);
+        latitude = mapAddressInfo.getLat();
+        longitude = mapAddressInfo.getLon();
+        mapMarkerStoreAdapter.setCity(longitude, latitude);
         nearbyMapPresenter.getNearbyInfo(district);
     }
 
@@ -232,7 +236,7 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
 
     @Override
     public void mapMarkerClickListener(String storeid) {
-        ShopDetailActivity.start(this,storeid);
+        ShopDetailActivity.start(this, storeid);
     }
 
     @Override
@@ -286,12 +290,16 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
     private Handler mHandler = new MyHandler(this);
 
     public void searchAddress() {
-        query = new PoiSearch.Query(searchEt.getText().toString(), "", district);
+        if (canSearch) {
+            query = new PoiSearch.Query(searchEt.getText().toString(), "", district);
 //        query.setPageSize(30);// 设置每页最多返回多少条poiitem
 //        query.setPageNum(0);// 设置查第一页
-        poiSearch = new PoiSearch(this, query);
-        poiSearch.setOnPoiSearchListener(this);
-        poiSearch.searchPOIAsyn();
+            poiSearch = new PoiSearch(this, query);
+            poiSearch.setOnPoiSearchListener(this);
+            poiSearch.searchPOIAsyn();
+        } else {
+            canSearch = true;
+        }
     }
 
 
@@ -409,13 +417,7 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
                     historySearchStr = tag + SPLIT + historySearchStr;
                 }
             } else {
-                if (tags.length > 9) {
-                    historySearchStr = tag;
-                    for (int i = 0; i < 9; i++) {
-                        historySearchStr = historySearchStr + SPLIT + tags[i];
-                    }
-                } else
-                    historySearchStr = tag + SPLIT + historySearchStr;
+                historySearchStr = tag + SPLIT + historySearchStr;
             }
             commonAppPreferences.setAddressHistorySearch(historySearchStr);
         } else {

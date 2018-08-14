@@ -525,7 +525,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.H
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, storecateInfo.getName(), UMStaticData.SELECT_TYPE);
-        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
+        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "","1");
     }
 
     @Override

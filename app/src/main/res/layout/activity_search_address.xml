@@ -135,7 +135,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/map_store_rv"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="2dp"
             android:orientation="vertical"
             app:layoutManager="@string/layoutManager_LinearLayout" />

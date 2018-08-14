@@ -426,7 +426,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 break;
             case R.id.ten_hot_service_ll:
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, tenStorecateInfo.getName(), UMStaticData.SELECT_TYPE);
-                ScreeningListActivity.start(getActivity(), tenStorecateInfo.getId(), tenStorecateInfo.getName(), tenStorecateInfo.getSum(), "");
+                ScreeningListActivity.start(getActivity(), tenStorecateInfo.getId(), tenStorecateInfo.getName(), tenStorecateInfo.getSum(), "","1");
                 break;
             case R.id.all_cf_ll:
                 AllCategoriesActivity.start(getActivity());
@@ -531,7 +531,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, storecateInfo.getName(), UMStaticData.SELECT_TYPE);
-        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "");
+        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "","1");
     }
 
     @Override

@@ -128,6 +128,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     private String longitude;
     private String latitude;
     private String city;
+    private String whereGo;//1：写名字 2：写分类
 
     private String choiceType = "0";
     private LikeStoreAdapter likeStoreAdapter;
@@ -153,12 +154,13 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
     @Inject
     ScreeningListPresenter screeningListPresenter;
 
-    public static void start(Context context, String cid, String name, String sum, String storename) {
+    public static void start(Context context, String cid, String name, String sum, String storename,String whereGo) {
         Intent intent = new Intent(context, ScreeningListActivity.class);
         intent.putExtra(StaticData.BUSINESS_CID, cid);
         intent.putExtra(StaticData.BUSINESS_NAME, name);
         intent.putExtra(StaticData.BUSINESS_SUM, sum);
         intent.putExtra(StaticData.STORE_NAME, storename);
+        intent.putExtra(StaticData.WHERE_GO,whereGo);
         context.startActivity(intent);
     }
 
@@ -181,8 +183,9 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
         bussinessCid = getIntent().getStringExtra(StaticData.BUSINESS_CID);
         bussinessName = getIntent().getStringExtra(StaticData.BUSINESS_NAME);
         storename = getIntent().getStringExtra(StaticData.STORE_NAME);
+        whereGo=getIntent().getStringExtra(StaticData.WHERE_GO);
         title.setText(bussinessName);
-        if (TextUtils.equals("搜索结果", bussinessName)) {
+        if (TextUtils.equals("搜索结果", bussinessName)||TextUtils.equals("2",whereGo)) {
             choiceFirstTt.setText("分类");
         } else {
             choiceFirstTt.setText(bussinessName);
@@ -454,7 +457,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
 
     @Override
     public void topCateItemClickListener(TopCateInfo topCateInfo) {
-        ScreeningListActivity.start(this, topCateInfo.getId(), topCateInfo.getName(), "0", "");
+        ScreeningListActivity.start(this, topCateInfo.getId(), topCateInfo.getName(), "0", "","1");
         this.finish();
     }
 }

@@ -18,7 +18,7 @@
         android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/common_twelve_margin"
         android:layout_marginRight="@dimen/common_twelve_margin"
-        android:layout_marginTop="@dimen/common_forty_margin"
+        android:layout_marginTop="@dimen/common_fifty_margin"
         android:background="@color/appText1">
     <ImageView
         android:layout_width="wrap_content"

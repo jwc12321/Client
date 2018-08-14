@@ -132,5 +132,7 @@ public class StaticData {
     public static final String ADDRESS_HISTORY_SEARCH="addressHistorySearch";
     //城区  比如杭州下城区
     public static final String DISTRICT="district";
+    //从哪里进入
+    public static final String WHERE_GO="whereGo";
 
 }

@@ -148,6 +148,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
     LinearLayout floatChoiceLl;
     @BindView(R.id.shop_detail_rl)
     RelativeLayout shopDetailRl;
+    @BindView(R.id.user_evaluate)
+    TextView userEvaluate;
     private String storeid;
     @Inject
     ShopDetailPresenter shopDetailPresenter;
@@ -306,12 +308,12 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
             }
             if (shopDetailsInfo.getEvaluateResult() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo() != null
                     && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos() != null && shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() > 0) {
-//                evaluateNumber.setText("网友评论(" + shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos().size() + ")");
                 allEvaluateAdapter.setData(shopDetailsInfo.getEvaluateResult().getEvaluateInfo().getEvaluateItemInfos());
                 lookAllCommentRl.setVisibility(View.VISIBLE);
+                userEvaluate.setVisibility(View.GONE);
             } else {
-//                evaluateNumber.setText("网友评论(0)");
                 lookAllCommentRl.setVisibility(View.GONE);
+                userEvaluate.setVisibility(View.VISIBLE);
             }
             if (shopDetailsInfo.getLikeStoreResponse() != null && shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos() != null) {
                 likeStoreAdapter.setLikeInfos(shopDetailsInfo.getLikeStoreResponse().getCollectionStoreInfos());
@@ -408,14 +410,12 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
                 choiceWhat("1");
                 int eScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 10);
                 scrollview.scrollTo(0, eScrollY);
-                floatChoiceLl.setVisibility(View.VISIBLE);
                 break;
             case R.id.more_shop_ll:
             case R.id.float_more_shop_ll:
                 choiceWhat("2");
                 int mScrollY = shopDetailLl.getHeight() - titleRel.getHeight() + ConvertDpAndPx.Dp2Px(this, 20) + evaluateLl.getHeight();
                 scrollview.scrollTo(0, mScrollY);
-                floatChoiceLl.setVisibility(View.VISIBLE);
                 break;
             default:
         }

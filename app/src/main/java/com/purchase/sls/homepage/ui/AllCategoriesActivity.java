@@ -108,6 +108,6 @@ public class AllCategoriesActivity extends BaseActivity implements HomePageContr
 
     @Override
     public void returnId(String id, String name) {
-        ScreeningListActivity.start(this, id,name, "0", "");
+        ScreeningListActivity.start(this, id,name, "0", "","2");
     }
 }
