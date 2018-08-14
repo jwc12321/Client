@@ -479,7 +479,7 @@ public class NearbyMapFragment extends BaseFragment implements NearbyMapContract
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_address_ll:
-                SearchAddressActivity.start(getActivity(), district, longitude, latitude);
+                SearchAddressActivity.start(getActivity(), district, latitude, longitude);
                 break;
             default:
         }

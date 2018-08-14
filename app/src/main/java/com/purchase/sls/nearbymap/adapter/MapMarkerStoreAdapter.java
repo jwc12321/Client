@@ -103,6 +103,7 @@ public class MapMarkerStoreAdapter extends RecyclerView.Adapter<MapMarkerStoreAd
         TextView returnEnergy;
         @BindView(R.id.likestore_rl)
         RelativeLayout likestoreRl;
+
         public LikeStoreView(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -131,7 +132,6 @@ public class MapMarkerStoreAdapter extends RecyclerView.Adapter<MapMarkerStoreAd
                     } else {
                         shopDistance.setVisibility(View.GONE);
                     }
-                    shopDistance.setVisibility(View.VISIBLE);
                 }
             }
             if (TextUtils.isEmpty(mapMarkerInfo.getRebate()) || TextUtils.equals("0", mapMarkerInfo.getRebate())) {
@@ -139,7 +139,7 @@ public class MapMarkerStoreAdapter extends RecyclerView.Adapter<MapMarkerStoreAd
                 returnEnergy.setText("");
             } else {
                 returnEnergy.setVisibility(View.VISIBLE);
-                returnEnergy.setText("补贴"+mapMarkerInfo.getRebate() + "%的能量");
+                returnEnergy.setText("补贴" + mapMarkerInfo.getRebate() + "%的能量");
             }
         }
     }

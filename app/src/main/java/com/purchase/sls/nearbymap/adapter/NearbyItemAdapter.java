@@ -55,7 +55,9 @@ public class NearbyItemAdapter extends RecyclerView.Adapter<NearbyItemAdapter.Ne
         holder.itemLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.itemClickListener(cateInfo,holder.getAdapterPosition());
+                if(onItemClickListener!=null) {
+                    onItemClickListener.itemClickListener(cateInfo, holder.getAdapterPosition());
+                }
             }
         });
 
@@ -83,7 +85,7 @@ public class NearbyItemAdapter extends RecyclerView.Adapter<NearbyItemAdapter.Ne
         void itemClickListener(NearbyInfoResponse.CateInfo cateInfo,int itemPosition);
     }
 
-    private static OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
