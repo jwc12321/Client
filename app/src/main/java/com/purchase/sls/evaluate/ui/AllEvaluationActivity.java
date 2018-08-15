@@ -123,7 +123,7 @@ public class AllEvaluationActivity extends BaseActivity implements EvaluateContr
     public void renderAllEvaluation(AllEvaluationInfo allEvaluationInfo) {
         refreshLayout.stopRefresh();
         if (allEvaluationInfo != null) {
-            evaluationTotal.setText("网友评价(" + allEvaluationInfo.getTotal() + ")");
+            evaluationTotal.setText("用户评价(" + allEvaluationInfo.getTotal() + ")");
             if (allEvaluationInfo.getEvaluateInfo() != null && allEvaluationInfo.getEvaluateInfo().getEvaluateItemInfos() != null
                     && allEvaluationInfo.getEvaluateInfo().getEvaluateItemInfos().size() > 0) {
                 evaluationRv.setVisibility(View.VISIBLE);
