@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -39,21 +40,24 @@ public class GlideHelper {
                 Glide.with(activity)
                         .load(url)
                         .placeholder(placeHolder)
-                        .skipMemoryCache(true)
-                        .into(new ImageTarget(target));
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .dontAnimate()
+                        .into(target);
             } else {
                 if (url.startsWith("https") || url.startsWith("http")) {
                     Glide.with(activity)
                             .load(url)
                             .placeholder(placeHolder)
-                            .skipMemoryCache(true)
-                            .into(new ImageTarget(target));
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .dontAnimate()
+                            .into(target);
                 } else {
                     Glide.with(activity)
                             .load("https:" + url)
                             .placeholder(placeHolder)
-                            .skipMemoryCache(true)
-                            .into(new ImageTarget(target));
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .dontAnimate()
+                            .into(target);
                 }
             }
         }
@@ -64,8 +68,9 @@ public class GlideHelper {
             Glide.with(fragment)
                     .load(url)
                     .placeholder(placeHolder)
-                    .skipMemoryCache(true)
-                    .into(new ImageTarget(target));
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .dontAnimate()
+                    .into(target);
         }
     }
 

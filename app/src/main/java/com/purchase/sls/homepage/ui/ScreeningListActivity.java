@@ -208,7 +208,7 @@ public class ScreeningListActivity extends BaseActivity implements HomePageContr
 
     //增加二级分类上面部分
     private void addTopCateAdapter() {
-        topcateRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        topcateRv.setLayoutManager(new GridLayoutManager(this, 4));
         int space = 41;
         topcateRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
         topCateAdapter = new TopCateAdapter(this);

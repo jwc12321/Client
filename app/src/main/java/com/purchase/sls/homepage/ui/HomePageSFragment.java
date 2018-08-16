@@ -206,7 +206,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     //设置热门
     private void hotService() {
         storecateInfos = new ArrayList<>();
-        hotSearchRv.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        hotSearchRv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         hotServicesAdapter = new HotServicesAdapter(getActivity());
         hotServicesAdapter.setOnHotItemClickListener(this);
         hotSearchRv.setAdapter(hotServicesAdapter);

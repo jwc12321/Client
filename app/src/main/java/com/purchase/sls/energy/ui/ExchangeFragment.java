@@ -172,7 +172,7 @@ public class ExchangeFragment extends BaseFragment implements EnergyContract.Act
     }
 
     private void addAdapter() {
-        exchangeRv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        exchangeRv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         int space = 20;
         exchangeRv.addItemDecoration(new GridSpacesItemDecoration(space, false));
         exchangeAdapter = new ExchangeAdapter(getActivity());
