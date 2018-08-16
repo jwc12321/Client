@@ -11,6 +11,6 @@
         android:layout_width="@dimen/common_seventy_margin"
         android:layout_height="@dimen/common_seventy_margin"
         tools:src="@mipmap/app_icon"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:padding="@dimen/common_five_margin"/>
 </LinearLayout>

@@ -11,7 +11,7 @@
         android:layout_height="@dimen/common_two_hundred_margin"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@mipmap/energy_fr" />
 
     <TextView

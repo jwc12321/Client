@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/common_eleven_margin"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/return_energy" />
 
                     <TextView
@@ -197,9 +197,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="20dp"
+                            android:layout_width="17dp"
                             android:layout_height="20dp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@mipmap/phone" />
 
                         <TextView
@@ -309,7 +309,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/common_margin_left_right"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/arrow_indicator" />
                 </RelativeLayout>
             </LinearLayout>

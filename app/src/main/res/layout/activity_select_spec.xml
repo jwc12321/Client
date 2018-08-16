@@ -113,7 +113,7 @@
         android:layout_height="@dimen/common_one_hundred_and_ten_margin"
         android:layout_marginLeft="@dimen/common_twelve_margin"
         android:layout_marginTop="@dimen/common_two_hundred_twenty_five_margin"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:riv_corner_radius="5dp"
         app:riv_oval="false"
         tools:background="@null"

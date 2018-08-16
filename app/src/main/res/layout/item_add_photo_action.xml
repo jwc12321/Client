@@ -7,7 +7,7 @@
         android:id="@+id/add_photo_action"
         android:src="@mipmap/add_phone"
         android:layout_gravity="center"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:layout_width="@dimen/common_ninety_four_margin"
         android:layout_height="@dimen/common_ninety_four_margin" />
 </FrameLayout>

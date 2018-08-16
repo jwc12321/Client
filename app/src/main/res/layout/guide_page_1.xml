@@ -7,5 +7,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/guide_1"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
 </LinearLayout>

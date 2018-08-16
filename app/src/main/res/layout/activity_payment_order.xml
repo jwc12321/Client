@@ -207,7 +207,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/energy" />
 
                 <EditText
@@ -240,7 +240,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/common_text_left"
                     android:background="@null"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
 
@@ -268,7 +268,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/common_text_left"
                     android:background="@null"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/pay_select" />
             </RelativeLayout>
             <View

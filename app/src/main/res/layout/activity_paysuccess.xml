@@ -53,7 +53,7 @@
                     <ImageView
                         android:layout_width="@dimen/common_thirty_margin"
                         android:layout_height="@dimen/common_thirty_margin"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/hook_icon" />
 
                     <TextView

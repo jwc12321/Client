@@ -28,7 +28,7 @@
             android:layout_marginBottom="@dimen/like_adapter_icon_margin_top"
             android:layout_marginLeft="@dimen/common_text_left"
             android:layout_marginTop="@dimen/like_adapter_icon_margin_top"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             tools:src="@mipmap/app_icon" />
 
         <RelativeLayout

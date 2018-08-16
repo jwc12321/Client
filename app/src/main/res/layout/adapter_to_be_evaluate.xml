@@ -13,7 +13,7 @@
         android:layout_height="@dimen/common_eighty_five_margin"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/common_text_left"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         tools:src="@mipmap/app_icon"/>
 
     <TextView

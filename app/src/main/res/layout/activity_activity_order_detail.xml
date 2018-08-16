@@ -160,7 +160,7 @@
                         android:id="@+id/shop_iv"
                         android:layout_width="@dimen/common_seventy_five_margin"
                         android:layout_height="@dimen/common_seventy_five_margin"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         tools:src="@mipmap/app_icon" />
 
                     <ImageView
@@ -168,7 +168,7 @@
                         android:layout_width="@dimen/common_thirty_seven_margin"
                         android:layout_height="@dimen/common_thirty_seven_margin"
                         android:layout_marginLeft="@dimen/common_thirty_eight_margin"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         tools:src="@mipmap/spike" />
 
                     <TextView

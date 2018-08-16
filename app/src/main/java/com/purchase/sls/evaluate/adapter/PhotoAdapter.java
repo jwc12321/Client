@@ -55,6 +55,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoView> {
                 .placeholder(R.mipmap.app_icon)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .override(70,70)
+                .skipMemoryCache(true)
                 .into(holder.photo);
         if (onPictureOnClickListener != null) {
             holder.photo.setOnClickListener(new View.OnClickListener() {

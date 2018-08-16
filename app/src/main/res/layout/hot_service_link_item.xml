@@ -14,7 +14,7 @@
         android:id="@+id/icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:src="@mipmap/client_v330_ic_homepage_more_white" />
 

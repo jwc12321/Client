@@ -188,7 +188,7 @@
     </style>
 
     <style name="PhotoStyle">
-        <item name="android:scaleType">fitXY</item>
+        <item name="android:scaleType">centerCrop</item>
         <item name="riv_border_width">1dp</item>
         <item name="riv_border_color">@color/appText3</item>
         <item name="riv_corner_radius">1dp</item>
@@ -197,7 +197,7 @@
     <style name="persion_image_account_style">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:scaleType">fitXY</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="persion_text_account_style">
@@ -236,7 +236,7 @@
     <style name="adapter_screen_choice_iv">
         <item name="android:layout_width">22dp</item>
         <item name="android:layout_height">22dp</item>
-        <item name="android:scaleType">fitXY</item>
+        <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_marginLeft">@dimen/common_text_left</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
@@ -302,7 +302,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:src">@mipmap/arrow_indicator</item>
-        <item name="android:scaleType">fitXY</item>
+        <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
         <item name="android:layout_alignParentRight">true</item>
@@ -469,7 +469,7 @@
     <style name="sort_iv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:scaleType">fitXY</item>
+        <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_marginLeft">@dimen/common_six_margin</item>
     </style>
 

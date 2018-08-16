@@ -23,42 +23,48 @@ public class GlideHelper {
         }
     }
 
-    public static void load(String url, int placeHolder, ImageView target){
-        if(target!=null&&target.getContext()!=null) {
+    public static void load(String url, int placeHolder, ImageView target) {
+        if (target != null && target.getContext() != null) {
             Glide.with(target.getContext())
                     .load(url)
                     .placeholder(placeHolder)
                     .into(new ImageTarget(target));
         }
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static void load(Activity activity, String url, int placeHolder, ImageView target){
-        if(activity!=null&&!activity.isDestroyed()) {
+    public static void load(Activity activity, String url, int placeHolder, ImageView target) {
+        if (activity != null && !activity.isDestroyed()) {
             if (TextUtils.isEmpty(url)) {
                 Glide.with(activity)
                         .load(url)
                         .placeholder(placeHolder)
+                        .skipMemoryCache(true)
                         .into(new ImageTarget(target));
             } else {
                 if (url.startsWith("https") || url.startsWith("http")) {
                     Glide.with(activity)
                             .load(url)
                             .placeholder(placeHolder)
+                            .skipMemoryCache(true)
                             .into(new ImageTarget(target));
                 } else {
                     Glide.with(activity)
                             .load("https:" + url)
                             .placeholder(placeHolder)
+                            .skipMemoryCache(true)
                             .into(new ImageTarget(target));
                 }
             }
         }
     }
-    public static void load(Fragment fragment, String url, int placeHolder, ImageView target){
-        if(fragment != null && fragment.getActivity() != null) {
+
+    public static void load(Fragment fragment, String url, int placeHolder, ImageView target) {
+        if (fragment != null && fragment.getActivity() != null) {
             Glide.with(fragment)
                     .load(url)
                     .placeholder(placeHolder)
+                    .skipMemoryCache(true)
                     .into(new ImageTarget(target));
         }
     }
@@ -69,11 +75,12 @@ public class GlideHelper {
                     ().into(imageView);
         }
     }
-    private static class ImageTarget extends SimpleTarget<GlideDrawable>{
+
+    private static class ImageTarget extends SimpleTarget<GlideDrawable> {
 
         private final ImageView mImageView;
 
-        public ImageTarget(ImageView imageView){
+        public ImageTarget(ImageView imageView) {
             mImageView = imageView;
         }
 

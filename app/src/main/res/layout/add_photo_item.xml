@@ -10,7 +10,7 @@
         android:layout_height="@dimen/common_ninety_four_margin"
         android:layout_gravity="center"
         tools:src="@mipmap/portrait_default"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
     <ImageView
         android:id="@+id/delete"
         android:layout_gravity="end"

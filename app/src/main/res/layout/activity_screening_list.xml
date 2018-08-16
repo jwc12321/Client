@@ -82,7 +82,7 @@
                 android:layout_width="6dp"
                 android:layout_height="4dp"
                 android:layout_marginLeft="5dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/arrow_select" />
         </LinearLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_width="6dp"
                 android:layout_height="4dp"
                 android:layout_marginLeft="5dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/arrow_select" />
         </LinearLayout>
 
@@ -132,7 +132,7 @@
                 android:layout_width="6dp"
                 android:layout_height="4dp"
                 android:layout_marginLeft="5dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/arrow_select" />
         </LinearLayout>
     </LinearLayout>

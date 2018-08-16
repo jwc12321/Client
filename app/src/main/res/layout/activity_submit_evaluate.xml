@@ -134,7 +134,7 @@
                     android:layout_height="@dimen/common_nineteen_margin"
                     android:layout_gravity="right|center_vertical"
                     android:layout_marginRight="@dimen/common_twelve_margin"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/app_icon"
                     android:visibility="gone" />
             </FrameLayout>
