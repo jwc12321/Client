@@ -386,8 +386,8 @@ public class SearchAddressActivity extends BaseActivity implements NearbyMapCont
             @Override
             public void itemClick(int position) {
                 if (position < historySearchList.size()) {
-                    setHistory(historySearchList.get(position));
                     searchEt.setText(historySearchList.get(position));
+                    setHistory(historySearchList.get(position));
                 }
             }
         });

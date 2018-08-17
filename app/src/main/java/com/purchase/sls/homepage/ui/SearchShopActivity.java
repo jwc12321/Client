@@ -208,9 +208,9 @@ public class SearchShopActivity extends BaseActivity implements HomePageContract
             @Override
             public void itemClick(int position) {
                 if (position < historySearchList.size()) {
-                    setHistory(historySearchList.get(position));
                     UmengEventUtils.statisticsClick(SearchShopActivity.this, UMStaticData.KEY, historySearchList.get(position), UMStaticData.SEARCH_STORE);
                     ScreeningListActivity.start(SearchShopActivity.this, "", "搜索结果", "", historySearchList.get(position), "2");
+                    setHistory(historySearchList.get(position));
                 }
             }
         });

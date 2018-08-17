@@ -100,6 +100,7 @@ public class GoodsSearchActivity extends BaseActivity {
             public void itemClick(int position) {
                 if (position < historySearchList.size()) {
                     GoodsSearchItemActivity.start(GoodsSearchActivity.this, historySearchList.get(position));
+                    setHistory(historySearchList.get(position));
                 }
             }
         });
