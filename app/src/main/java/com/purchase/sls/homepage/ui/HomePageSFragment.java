@@ -256,7 +256,6 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 homePagePresenter.getLikeStore(city);
                 commonAppPreferences.setCity(city);
                 commonAppPreferences.setLocal(longitude, latitude);
-                commonAppPreferences.setCurrLocalAddress(longitude, latitude);
                 homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
             }
         });
@@ -453,10 +452,14 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                         longitude = commonAppPreferences.getLongitude();
                         latitude = commonAppPreferences.getLatitude();
                         likeStoreAdapter.setCity(city, longitude, latitude);
-                        if(!TextUtils.isEmpty(longitude)&&!TextUtils.isEmpty(latitude)) {
-                            coordinate = longitude + "," + latitude;
+                        if(TextUtils.equals("1",cityInfoBean.getWhat())){
+                            if(!TextUtils.isEmpty(longitude)&&!TextUtils.isEmpty(latitude)) {
+                                coordinate = longitude + "," + latitude;
+                            }else {
+                                coordinate=""  ;
+                            }
                         }else {
-                            coordinate=""  ;
+                            coordinate="";
                         }
                         homePagePresenter.getBannerHotInfo("1", city);
                         homePagePresenter.getHNearbyShopsInfos(coordinate, city);

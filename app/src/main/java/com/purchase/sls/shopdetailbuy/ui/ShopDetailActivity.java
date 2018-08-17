@@ -191,8 +191,8 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailBuyCon
         commonAppPreferences = new CommonAppPreferences(this);
         if (commonAppPreferences != null) {
             cityName = commonAppPreferences.getCity();
-            currX = commonAppPreferences.getCurrLongitude();
-            currY = commonAppPreferences.getCurrLatitude();
+            currX = commonAppPreferences.getLongitude();
+            currY = commonAppPreferences.getLatitude();
         }
         storeid = getIntent().getStringExtra(StaticData.BUSINESS_STOREID);
         scrollview.setScrollViewListener(this);

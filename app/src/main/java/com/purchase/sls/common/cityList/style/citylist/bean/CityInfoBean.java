@@ -16,6 +16,8 @@ public class CityInfoBean implements Parcelable {
     private String name; /*东城区*/
     
     private ArrayList<CityInfoBean> cityList;
+
+    private String what;
     
     public ArrayList<CityInfoBean> getCityList() {
         return cityList;
@@ -28,10 +30,11 @@ public class CityInfoBean implements Parcelable {
     public CityInfoBean() {
     }
 
-    public CityInfoBean(String id, String name, ArrayList<CityInfoBean> cityList) {
+    public CityInfoBean(String id, String name, ArrayList<CityInfoBean> cityList, String what) {
         this.id = id;
         this.name = name;
         this.cityList = cityList;
+        this.what = what;
     }
 
     public static CityInfoBean findCity(List<CityInfoBean> list, String cityName) {
@@ -67,6 +70,13 @@ public class CityInfoBean implements Parcelable {
         this.name = name;
     }
 
+    public String getWhat() {
+        return what;
+    }
+
+    public void setWhat(String what) {
+        this.what = what;
+    }
 
     @Override
     public int describeContents() {

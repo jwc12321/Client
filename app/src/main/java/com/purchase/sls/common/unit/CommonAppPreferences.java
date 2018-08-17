@@ -34,15 +34,6 @@ public class CommonAppPreferences {
         editor.commit();
     }
 
-    /**
-     * 当前位置
-     */
-    public void setCurrLocalAddress(String longtitude, String latitude) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(StaticData.CURR_X, longtitude);
-        editor.putString(StaticData.CURR_Y, latitude);
-        editor.commit();
-    }
 
     public String getCity(){
         return sharedPreferences.getString(StaticData.CHOICE_CITY,"");
@@ -54,14 +45,6 @@ public class CommonAppPreferences {
 
     public String getLatitude() {
         return sharedPreferences.getString(StaticData.LATITUDE, "");
-    }
-    //获取经度
-    public String getCurrLongitude() {
-        return sharedPreferences.getString(StaticData.CURR_X, "");
-    }
-
-    public String getCurrLatitude() {
-        return sharedPreferences.getString(StaticData.CURR_Y, "");
     }
 
     public void setMianGoWhere(String mainGo){

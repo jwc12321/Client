@@ -270,12 +270,12 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
         hotAreaAdapter = new AreaAdapter();
         hotAreaAdapter.setItemClickListener(this);
         hotCityRv.setAdapter(hotAreaAdapter);
-        CityInfoBean cityInfoBean1 = new CityInfoBean("330800", "衢州市", null);
-        CityInfoBean cityInfoBean2 = new CityInfoBean("331100", "丽水市", null);
-        CityInfoBean cityInfoBean3 = new CityInfoBean("110100", "北京市", null);
-        CityInfoBean cityInfoBean4 = new CityInfoBean("310100", "上海市", null);
-        CityInfoBean cityInfoBean5 = new CityInfoBean("440100", "广州市", null);
-        CityInfoBean cityInfoBean6 = new CityInfoBean("330100", "杭州市", null);
+        CityInfoBean cityInfoBean1 = new CityInfoBean("330800", "衢州市", null,"0");
+        CityInfoBean cityInfoBean2 = new CityInfoBean("331100", "丽水市", null,"0");
+        CityInfoBean cityInfoBean3 = new CityInfoBean("110100", "北京市", null,"0");
+        CityInfoBean cityInfoBean4 = new CityInfoBean("310100", "上海市", null,"0");
+        CityInfoBean cityInfoBean5 = new CityInfoBean("440100", "广州市", null,"0");
+        CityInfoBean cityInfoBean6 = new CityInfoBean("330100", "杭州市", null,"0");
         hotCityInfoBeans = new ArrayList<>();
         hotCityInfoBeans.add(cityInfoBean1);
         hotCityInfoBeans.add(cityInfoBean2);
@@ -419,7 +419,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
                 mLocationHelper.start();
                 break;
             case R.id.currentCity:
-                cityInfoBean =  new CityInfoBean("", city, null);
+                cityInfoBean =  new CityInfoBean("", city, null,"1");
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
@@ -505,7 +505,7 @@ public class ChoiceCityActivity extends BaseActivity implements AreaAdapter.Item
 
     @Override
     public void returnArea(SortModel sortModel) {
-        cityInfoBean = new CityInfoBean("", sortModel.getName(), null);
+        cityInfoBean = new CityInfoBean("", sortModel.getName(), null,"0");
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(StaticData.CHOICE_CITY, cityInfoBean);
