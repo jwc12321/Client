@@ -93,7 +93,7 @@ public class HNearbyShopsAdapter extends RecyclerView.Adapter<HNearbyShopsAdapte
             name.setText(hNearbyShopsInfo.getTitle());
             String addressXy = hNearbyShopsInfo.getAddressXy();
             if (!TextUtils.isEmpty(hNearbyShopsInfo.getDistanceUm()) && !TextUtils.equals("0", hNearbyShopsInfo.getDistanceUm())) {
-                distance.setText(hNearbyShopsInfo.getDistanceUm());
+                distance.setText(hNearbyShopsInfo.getDistanceUm()+ "KM");
             }else {
                 if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     distance.setText("");
