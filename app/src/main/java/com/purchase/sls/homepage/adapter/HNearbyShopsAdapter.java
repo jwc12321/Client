@@ -92,16 +92,20 @@ public class HNearbyShopsAdapter extends RecyclerView.Adapter<HNearbyShopsAdapte
             GlideHelper.load((Activity) context, hNearbyShopsInfo.getzPics(), R.mipmap.app_icon, shopIcon);
             name.setText(hNearbyShopsInfo.getTitle());
             String addressXy = hNearbyShopsInfo.getAddressXy();
-            if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
-                distance.setText("");
-            } else {
-                String[] addressXys = addressXy.split(",");
-                if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
-                    String mdistance = String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])));
-                    BigDecimal mdistanceBd = new BigDecimal(mdistance).setScale(2, RoundingMode.HALF_UP);
-                    distance.setText(mdistanceBd.divide(kmdistanceBd, 2, BigDecimal.ROUND_DOWN) + "KM");
-                } else {
+            if (!TextUtils.isEmpty(hNearbyShopsInfo.getDistanceUm()) && !TextUtils.equals("0", hNearbyShopsInfo.getDistanceUm())) {
+                distance.setText(hNearbyShopsInfo.getDistanceUm());
+            }else {
+                if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude) || TextUtils.isEmpty(addressXy)) {
                     distance.setText("");
+                } else {
+                    String[] addressXys = addressXy.split(",");
+                    if (addressXy != null && addressXys.length > 1 && !TextUtils.isEmpty(addressXys[0]) && !TextUtils.isEmpty(addressXys[1])) {
+                        String mdistance = String.valueOf(DistanceUnits.getDistance(Double.parseDouble(longitude), Double.parseDouble(latitude), Double.parseDouble(addressXys[0]), Double.parseDouble(addressXys[1])));
+                        BigDecimal mdistanceBd = new BigDecimal(mdistance).setScale(2, RoundingMode.HALF_UP);
+                        distance.setText(mdistanceBd.divide(kmdistanceBd, 2, BigDecimal.ROUND_DOWN) + "KM");
+                    } else {
+                        distance.setText("");
+                    }
                 }
             }
         }

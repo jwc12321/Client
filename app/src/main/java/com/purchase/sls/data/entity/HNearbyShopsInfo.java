@@ -24,7 +24,7 @@ public class HNearbyShopsInfo {
     @SerializedName("renergy")
     private String renergy;
     @SerializedName("distance_um")
-    private String distance_um;
+    private String distanceUm;
 
     public String getId() {
         return id;
@@ -106,11 +106,11 @@ public class HNearbyShopsInfo {
         this.renergy = renergy;
     }
 
-    public String getDistance_um() {
-        return distance_um;
+    public String getDistanceUm() {
+        return distanceUm;
     }
 
-    public void setDistance_um(String distance_um) {
-        this.distance_um = distance_um;
+    public void setDistanceUm(String distanceUm) {
+        this.distanceUm = distanceUm;
     }
 }

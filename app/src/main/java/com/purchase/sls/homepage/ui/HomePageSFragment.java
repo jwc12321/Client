@@ -70,7 +70,7 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageSFragment extends BaseFragment implements HomePageContract.HomepageView, HotServicesAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener,HNearbyShopsAdapter.OnNearbyShopClickListener {
+public class HomePageSFragment extends BaseFragment implements HomePageContract.HomepageView, HotServicesAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener, HNearbyShopsAdapter.OnNearbyShopClickListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
@@ -243,14 +243,13 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                     latitude = aMapLocation.getLatitude() + "";
                     choiceCity.setText(city);
                 }
-                CityManager.saveCity(city);
                 likeStoreAdapter.setCity(city, longitude, latitude);
                 hNearbyShopsAdapter.setCoordinate(longitude, latitude);
                 homePagePresenter.getBannerHotInfo("0", city);
-                if(!TextUtils.isEmpty(longitude)&&!TextUtils.isEmpty(latitude)) {
+                if (!TextUtils.isEmpty(longitude) && !TextUtils.isEmpty(latitude)) {
                     coordinate = longitude + "," + latitude;
-                }else {
-                    coordinate=""  ;
+                } else {
+                    coordinate = "";
                 }
                 homePagePresenter.getHNearbyShopsInfos(coordinate, city);
                 homePagePresenter.getLikeStore(city);
@@ -353,7 +352,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 storecateInfos.add(allStorecateInfos.get(i));
             }
             hotServicesAdapter.setData(storecateInfos);
-            tenStorecateInfo=allStorecateInfos.get(9);
+            tenStorecateInfo = allStorecateInfos.get(9);
             GlideHelper.load(getActivity(), tenStorecateInfo.getPic(), R.mipmap.app_icon, tenHotIcon);
             tenHotTv.setText(tenStorecateInfo.getName());
         }
@@ -409,7 +408,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
         hNearbyShopsAdapter.setData(hNearbyShopsInfos);
     }
 
-    @OnClick({R.id.choice_city, R.id.scan, R.id.search_ll,R.id.ten_hot_service_ll,R.id.all_cf_ll})
+    @OnClick({R.id.choice_city, R.id.scan, R.id.search_ll, R.id.ten_hot_service_ll, R.id.all_cf_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choice_city:
@@ -425,7 +424,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 break;
             case R.id.ten_hot_service_ll:
                 UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, tenStorecateInfo.getName(), UMStaticData.SELECT_TYPE);
-                ScreeningListActivity.start(getActivity(), tenStorecateInfo.getId(), tenStorecateInfo.getName(), tenStorecateInfo.getSum(), "","1");
+                ScreeningListActivity.start(getActivity(), tenStorecateInfo.getId(), tenStorecateInfo.getName(), tenStorecateInfo.getSum(), "", "1");
                 break;
             case R.id.all_cf_ll:
                 AllCategoriesActivity.start(getActivity());
@@ -447,19 +446,14 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                             return;
                         }
                         city = cityInfoBean.getName();
-                        CityManager.saveCity(city);
                         commonAppPreferences.setCity(city);
                         longitude = commonAppPreferences.getLongitude();
                         latitude = commonAppPreferences.getLatitude();
                         likeStoreAdapter.setCity(city, longitude, latitude);
-                        if(TextUtils.equals("1",cityInfoBean.getWhat())){
-                            if(!TextUtils.isEmpty(longitude)&&!TextUtils.isEmpty(latitude)) {
-                                coordinate = longitude + "," + latitude;
-                            }else {
-                                coordinate=""  ;
-                            }
-                        }else {
-                            coordinate="";
+                        if (!TextUtils.isEmpty(longitude) && !TextUtils.isEmpty(latitude)) {
+                            coordinate = longitude + "," + latitude;
+                        } else {
+                            coordinate = "";
                         }
                         homePagePresenter.getBannerHotInfo("1", city);
                         homePagePresenter.getHNearbyShopsInfos(coordinate, city);
@@ -534,7 +528,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     @Override
     public void hotItemClickListener(BannerHotResponse.StorecateInfo storecateInfo) {
         UmengEventUtils.statisticsClick(getActivity(), UMStaticData.KEY, storecateInfo.getName(), UMStaticData.SELECT_TYPE);
-        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "","1");
+        ScreeningListActivity.start(getActivity(), storecateInfo.getId(), storecateInfo.getName(), storecateInfo.getSum(), "", "1");
     }
 
     @Override
