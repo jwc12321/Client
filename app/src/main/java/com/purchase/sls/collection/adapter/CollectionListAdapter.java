@@ -158,7 +158,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
             choiceItem.setChecked(false);
             CollectionStoreInfo collectionStoreInfo = collectionListInfo.getCollectionStoreInfo();
             if (collectionStoreInfo != null) {
-                GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
+                GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.default_store_icon, shopIcon);
                 storeName.setText(collectionStoreInfo.getTitle());
                 popularityNumber.setText("月均人气" + collectionStoreInfo.getBuzz());
                 shopName.setText(collectionStoreInfo.getName());

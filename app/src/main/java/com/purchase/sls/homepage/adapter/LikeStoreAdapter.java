@@ -117,7 +117,7 @@ public class LikeStoreAdapter extends RecyclerView.Adapter<LikeStoreAdapter.Like
         }
 
         public void bindData(CollectionStoreInfo collectionStoreInfo) {
-            GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.app_icon, shopIcon);
+            GlideHelper.load((Activity) context, collectionStoreInfo.getzPics(), R.mipmap.default_store_icon, shopIcon);
             storeName.setText(collectionStoreInfo.getTitle());
             popularityNumber.setText("月均人气" + collectionStoreInfo.getBuzz());
             shopName.setText(collectionStoreInfo.getName());

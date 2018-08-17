@@ -264,7 +264,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             title.setText(goodsDetailInfo.getGoodsName());
             taobaoid = goodsDetailInfo.getTaobaoid();
             quanPrice = goodsDetailInfo.getQuanPrice();
-            GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.app_icon, shopIv);
+            GlideHelper.load(this, goodsDetailInfo.getGoodsImg(), R.mipmap.no_url_icon, shopIv);
 //            bannerImages = new ArrayList<>();
 //            bannerImages.add(goodsDetailInfo.getGoodsImg());
 //            banner.setImages(bannerImages);

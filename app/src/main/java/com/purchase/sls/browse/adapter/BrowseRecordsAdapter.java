@@ -159,7 +159,7 @@ public class BrowseRecordsAdapter extends RecyclerView.Adapter<BrowseRecordsAdap
             choiceItem.setChecked(false);
             BrowseInfo.BrowseItemInfo.Store store = browseItemInfo.getStore();
             if (store != null) {
-                GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.app_icon, shopIcon);
+                GlideHelper.load((Activity) context, store.getzPics(), R.mipmap.default_store_icon, shopIcon);
                 storeName.setText(store.getTitle());
                 popularityNumber.setText("月均人气" + store.getBuzz());
                 shopName.setText(store.getName());
