@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            tools:text="@string/pay_password" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_two_margin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/appText1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/fifteen_apptext5_text_style"
+                    android:layout_marginTop="@dimen/common_thirty_three_margin"
+                    android:layout_marginBottom="@dimen/common_thirty_three_margin"
+                    android:text="@string/input_again" />
+            </LinearLayout>
+
+            <com.purchase.sls.common.widget.paypw.PayPwdEditText
+                android:id="@+id/pwd_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_fifty_margin"
+                android:layout_marginLeft="@dimen/common_twelve_margin"
+                android:layout_marginRight="@dimen/common_twelve_margin"
+                android:layout_marginTop="@dimen/common_thirty_four_margin"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_eighteen_margin"
+                android:text="@string/pay_password_can_not_be_repeated"
+                android:textColor="@color/appText17"
+                android:textSize="13sp"
+                android:layout_gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/confirm"
+                style="@style/next_buttton_style"
+                android:text="@string/confirm"
+                android:enabled="false"
+                android:layout_marginTop="@dimen/common_thirty_nine_margin"/>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

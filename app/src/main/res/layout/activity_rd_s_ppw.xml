@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround3"
+    android:id="@+id/item_rdsppw">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/white_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_fifteen_margin"
+            android:layout_marginRight="@dimen/common_fifteen_margin"
+            android:layout_marginTop="@dimen/common_thirty_three_margin"
+            android:text="设置支付密码才能使用能量支付哦~"
+            android:textColor="@color/appText5"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_twelve_margin"
+            android:text="去设置支付密码~"
+            android:textColor="@color/appText5"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_thirty_seven_margin"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/set_pay_password_icon" />
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_thirty_margin"
+            android:layout_marginBottom="@dimen/common_twenty_six_margin"
+            android:layout_marginTop="@dimen/common_forty_six_margin"
+            android:background="@drawable/orange_psw_bg"
+            android:text="@string/confirm_setting"
+            android:textColor="@color/appText1"
+            android:textSize="15sp" />
+    </LinearLayout>
+</RelativeLayout>

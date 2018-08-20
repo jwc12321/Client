@@ -339,6 +339,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".nearbymap.ui.SearchAddressActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".shopdetailbuy.ui.InputPayPwActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentFullScreenTheme"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

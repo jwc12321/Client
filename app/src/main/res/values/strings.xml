@@ -164,4 +164,16 @@
 
     <string name="all_categories">全部分类</string>
     <string name="search_map_address">搜索地点</string>
+
+    <!--支付密码-->
+    <string name="pay_password">支付密码</string>
+    <string name="setting_six_password">请设置6位数字支付密码</string>
+    <string name="only_to_pay_energy">此密码用于仅使用能量支付时</string>
+    <string name="pay_password_can_not_be_repeated">支付密码不能重复、连续的数字</string>
+    <string name="input_again">请再次输入确认</string>
+    <string name="input_pw_to_authentication">输入支付密码,完成身份验证</string>
+    <string name="remember">记得</string>
+    <string name="do_not_remember">不记得</string>
+    <string name="input_pay_password">请输入支付密码</string>
+    <string name="confirm_setting">确认设置</string>
 </resources>

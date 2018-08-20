@@ -76,7 +76,20 @@
                     style="@style/fengexian_style"
                     android:layout_alignParentBottom="true" />
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/item_pay_password"
+                style="@style/setting_rl_style">
 
+                <TextView
+                    style="@style/setting_text_style"
+                    android:text="@string/pay_password" />
+
+                <ImageView style="@style/go_arrow" />
+
+                <View
+                    style="@style/fengexian_style"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/item_new_version_detection"
                 style="@style/setting_rl_style">

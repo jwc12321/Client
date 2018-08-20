@@ -43,6 +43,7 @@
     <dimen name="common_thirty_one_margin">31dp</dimen>
     <dimen name="common_thirty_two_margin">32dp</dimen>
     <dimen name="common_thirty_three_margin">33dp</dimen>
+    <dimen name="common_thirty_four_margin">34dp</dimen>
     <dimen name="common_thirty_five_margin">35dp</dimen>
     <dimen name="common_thirty_seven_margin">37dp</dimen>
     <dimen name="common_thirty_eight_margin">38dp</dimen>

@@ -523,4 +523,14 @@
         <item name="android:textColor">@color/appText5</item>
     </style>
 
+    <style name="next_buttton_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_forty_nine_margin</item>
+        <item name="android:background">@drawable/login_button_background</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@drawable/next_button_text_select</item>
+        <item name="android:layout_marginLeft">@dimen/common_twelve_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
+    </style>
+
 </resources>
