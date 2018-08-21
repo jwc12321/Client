@@ -82,6 +82,7 @@ import com.purchase.sls.data.request.OrderPayRequest;
 import com.purchase.sls.data.request.OrdernoRequest;
 import com.purchase.sls.data.request.OrdernumRequest;
 import com.purchase.sls.data.request.PageRequest;
+import com.purchase.sls.data.request.PayPasswordRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.data.request.ReceiveCouponRequest;
@@ -429,4 +430,8 @@ public interface RestApiService {
     //获取热门搜索
     @POST("home/index/hotkeywords")
     Flowable<RemoteDataWrapper<List<HotSearchInfo>>> getHotSearchs(@Body TokenRequest tokenRequest);
+
+    //设置支付密码
+    @POST("home/user/setpaypassword")
+    Flowable<RemoteDataWrapper<Ignore>> setPayPassword(@Body PayPasswordRequest payPasswordRequest);
 }

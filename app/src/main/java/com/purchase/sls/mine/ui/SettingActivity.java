@@ -35,6 +35,8 @@ import com.purchase.sls.mine.DaggerPersonalCenterComponent;
 import com.purchase.sls.mine.PersonalCenterContract;
 import com.purchase.sls.mine.PersonalCenterModule;
 import com.purchase.sls.mine.presenter.SettingPresenter;
+import com.purchase.sls.paypassword.ui.FirstPayPwActivity;
+import com.purchase.sls.paypassword.ui.InputPayPwActivity;
 import com.purchase.sls.webview.ui.WebViewActivity;
 
 import javax.inject.Inject;
@@ -67,6 +69,8 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
     Button loginOut;
     @BindView(R.id.setting_item)
     LinearLayout settingItem;
+    @BindView(R.id.item_pay_password)
+    RelativeLayout itemPayPassword;
 
     private PersionAppPreferences persionAppPreferences;
     private String phoneNumber;
@@ -110,7 +114,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
         return settingItem;
     }
 
-    @OnClick({R.id.back, R.id.item_shift_handset, R.id.item_user_password, R.id.login_out, R.id.item_user_protocol, R.id.item_new_version_detection})
+    @OnClick({R.id.back, R.id.item_shift_handset, R.id.item_user_password, R.id.login_out, R.id.item_user_protocol, R.id.item_new_version_detection, R.id.item_pay_password})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -140,6 +144,11 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
                 break;
             case R.id.item_new_version_detection:
                 settingPresenter.detectionVersion(String.valueOf(APKVersionCodeUtils.getVerName(this)), "android");
+                break;
+            case R.id.item_pay_password:
+//                FirstPayPwActivity.start(this,"1");
+                Intent intent = new Intent(SettingActivity.this, InputPayPwActivity.class);
+                startActivity(intent);
                 break;
             default:
         }

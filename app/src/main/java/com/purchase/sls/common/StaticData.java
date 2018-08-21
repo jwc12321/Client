@@ -134,5 +134,7 @@ public class StaticData {
     public static final String DISTRICT="district";
     //从哪里进入
     public static final String WHERE_GO="whereGo";
+    //第一次输入的支付密码
+    public static final String FIRST_PAY_PASSWORD="firstPayPassword";
 
 }

@@ -339,10 +339,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".nearbymap.ui.SearchAddressActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".shopdetailbuy.ui.InputPayPwActivity"
+        <activity android:name=".paypassword.ui.FirstPayPwActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".paypassword.ui.SecondPayPwActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".paypassword.ui.InputPayPwActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
     </application>
 
 </manifest>
