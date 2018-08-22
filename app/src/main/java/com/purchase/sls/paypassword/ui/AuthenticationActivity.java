@@ -11,25 +11,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.address.ui.AddAddressActivity;
-import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.paypw.PayPwdEditText;
-import com.purchase.sls.ordermanage.ui.ActivityOrderActivity;
+import com.purchase.sls.paypassword.DaggerPayPasswordComponent;
+import com.purchase.sls.paypassword.PayPasswordContract;
+import com.purchase.sls.paypassword.PayPasswordModule;
+import com.purchase.sls.paypassword.presenter.AuthenticationPresenter;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by JWC on 2018/8/20.
- * 第一次设置支付密码
+ * Created by JWC on 2018/8/22.
+ * 验证身份
  */
 
-public class FirstPayPwActivity extends BaseActivity {
+public class AuthenticationActivity extends BaseActivity implements PayPasswordContract.AuthenticationView{
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -38,38 +40,27 @@ public class FirstPayPwActivity extends BaseActivity {
     RelativeLayout titleRel;
     @BindView(R.id.pwd_et)
     PayPwdEditText pwdEt;
-    @BindView(R.id.next)
-    Button next;
+    @BindView(R.id.confirm)
+    Button confirm;
     @BindView(R.id.setting_item)
     LinearLayout settingItem;
 
-    private String whereGo; //0:新密码(第一次设置支付密码)1:忘记支付密码短信修改2:记得支付密码修改
     private String password;
-    private String ppwOldData;
 
-    public static void start(Context context,String whereGo, String ppwOldData) {
-        Intent intent = new Intent(context, FirstPayPwActivity.class);
-        intent.putExtra(StaticData.WHERE_GO,whereGo);
-        intent.putExtra(StaticData.PPW_OLD_DATA,ppwOldData);
+    @Inject
+    AuthenticationPresenter authenticationPresenter;
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, AuthenticationActivity.class);
         context.startActivity(intent);
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_pay_pw);
+        setContentView(R.layout.activity_authentication);
         ButterKnife.bind(this);
         setHeight(back,title,null);
-        initView();
-    }
-
-    private void initView(){
-        whereGo=getIntent().getStringExtra(StaticData.WHERE_GO);
-        ppwOldData=getIntent().getStringExtra(StaticData.PPW_OLD_DATA);
-        if(TextUtils.equals("0",whereGo)){
-            title.setText("支付密码");
-        }else {
-            title.setText("修改支付密码");
-        }
         initEt();
     }
 
@@ -79,22 +70,22 @@ public class FirstPayPwActivity extends BaseActivity {
             @Override
             public void onFinish(String str) {//密码输入完后的回调
                 password=str;
-                next.setEnabled(true);
+                confirm.setEnabled(true);
             }
         });
 
     }
 
-
-    @OnClick({R.id.back, R.id.next})
+    @OnClick({R.id.back, R.id.confirm})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-            case R.id.next:
-                SecondPayPwActivity.start(this,whereGo,password,ppwOldData);
-                this.finish();
+            case R.id.confirm:
+                if(!TextUtils.isEmpty(password)){
+                    authenticationPresenter.verifyPayPassword(password);
+                }
                 break;
             default:
         }
@@ -103,5 +94,25 @@ public class FirstPayPwActivity extends BaseActivity {
     @Override
     public View getSnackBarHolderView() {
         return null;
+    }
+
+    @Override
+    public void setPresenter(PayPasswordContract.AuthenticationPresenter presenter) {
+
+    }
+
+    @Override
+    protected void initializeInjector() {
+        DaggerPayPasswordComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .payPasswordModule(new PayPasswordModule(this))
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    public void verifySuccess() {
+        FirstPayPwActivity.start(this,"2",password);
+        this.finish();
     }
 }

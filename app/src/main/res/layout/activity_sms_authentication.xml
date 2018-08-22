@@ -44,7 +44,7 @@
                     style="@style/fifteen_apptext5_text_style"
                     android:layout_marginTop="@dimen/common_thirty_three_margin"
                     android:layout_marginBottom="@dimen/common_thirty_three_margin"
-                    android:text="@string/input_pw_to_authentication" />
+                    android:text="@string/send_sms_to_authentication" />
             </LinearLayout>
 
             <com.purchase.sls.common.widget.paypw.PayPwdEditText
@@ -54,12 +54,19 @@
                 android:layout_marginLeft="@dimen/common_twelve_margin"
                 android:layout_marginRight="@dimen/common_twelve_margin"
                 android:layout_marginTop="@dimen/common_thirty_four_margin"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/appText17"
+                android:text="请输入六位数验证码"
+                android:layout_marginTop="@dimen/common_fourteen_margin"
+                android:layout_marginLeft="@dimen/common_twelve_margin"/>
             <Button
                 android:id="@+id/confirm"
                 style="@style/next_buttton_style"
-                android:text="@string/confirm"
-                android:enabled="false"
-                android:layout_marginTop="@dimen/common_seventy_margin"/>
+                android:text="获取验证码"
+                android:layout_marginTop="@dimen/common_forty_four_margin"/>
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
 </LinearLayout>

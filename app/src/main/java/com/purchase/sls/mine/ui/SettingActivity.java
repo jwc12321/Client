@@ -36,7 +36,7 @@ import com.purchase.sls.mine.PersonalCenterContract;
 import com.purchase.sls.mine.PersonalCenterModule;
 import com.purchase.sls.mine.presenter.SettingPresenter;
 import com.purchase.sls.paypassword.ui.FirstPayPwActivity;
-import com.purchase.sls.paypassword.ui.InputPayPwActivity;
+import com.purchase.sls.paypassword.ui.RememberPswActivity;
 import com.purchase.sls.webview.ui.WebViewActivity;
 
 import javax.inject.Inject;
@@ -146,9 +146,7 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
                 settingPresenter.detectionVersion(String.valueOf(APKVersionCodeUtils.getVerName(this)), "android");
                 break;
             case R.id.item_pay_password:
-//                FirstPayPwActivity.start(this,"1");
-                Intent intent = new Intent(SettingActivity.this, InputPayPwActivity.class);
-                startActivity(intent);
+                settingPresenter.isSetUpPayPw();
                 break;
             default:
         }
@@ -167,6 +165,15 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
         this.changeAppInfo = changeAppInfo;
         if (requestRuntimePermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
             showUpdate(changeAppInfo);
+        }
+    }
+
+    @Override
+    public void renderIsSetUpPayPw(String what) {
+        if(TextUtils.equals("true",what)){
+            RememberPswActivity.start(this,phoneNumber);
+        }else {
+            FirstPayPwActivity.start(this,"0","");
         }
     }
 

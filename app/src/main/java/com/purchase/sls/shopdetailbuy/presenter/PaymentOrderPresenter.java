@@ -18,6 +18,7 @@ import com.purchase.sls.data.entity.WXPaySignResponse;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
+import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.data.request.UserpowerRequest;
 import com.purchase.sls.shopdetailbuy.ShopDetailBuyContract;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -90,6 +91,30 @@ public class PaymentOrderPresenter implements ShopDetailBuyContract.PaymentOrder
                 });
         mDisposableList.add(disposable);
 
+    }
+
+    //是否设置了支付密码
+    @Override
+    public void isSetUpPayPw() {
+        paymentOrderView.showLoading();
+        TokenRequest tokenRequest=new TokenRequest();
+        Disposable disposable=restApiService.isSetUpPayPw(tokenRequest)
+                .flatMap(new RxRemoteDataParse<String>())
+                .compose(new RxSchedulerTransformer<String>())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) throws Exception {
+                        paymentOrderView.dismissLoading();
+                        paymentOrderView.renderIsSetUpPayPw(string);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        paymentOrderView.dismissLoading();
+                        paymentOrderView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
     }
 
     /**

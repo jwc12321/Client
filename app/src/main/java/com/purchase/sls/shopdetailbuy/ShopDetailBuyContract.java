@@ -27,6 +27,7 @@ public interface ShopDetailBuyContract {
         void setGeneratingOrder(String allprice, String storeid, String coupon, String power, String paytype, String notes);
         void getAlipaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes);
         void getWXPaySign(String allprice, String storeid, String coupon, String power, String paytype, String notes);
+        void isSetUpPayPw();
     }
     interface PaymentOrderView extends BaseView<PaymentOrderPresenter>{
         void userpowerInfo(UserpowerInfo userpowerInfo);
@@ -39,6 +40,7 @@ public interface ShopDetailBuyContract {
         void onRechargeCancel();
         void onAppIdReceive(String appId);
         void renderOrderno(String orderno);
+        void renderIsSetUpPayPw(String what);
     }
 
     interface OrderDetailPresenter extends BasePresenter{

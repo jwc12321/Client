@@ -4,7 +4,7 @@ import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
-import com.purchase.sls.data.request.SetPayPwRequest;
+import com.purchase.sls.data.request.PayPasswordRequest;
 import com.purchase.sls.paypassword.PayPasswordContract;
 
 import java.util.ArrayList;
@@ -16,23 +16,23 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by JWC on 2018/8/21.
+ * Created by JWC on 2018/8/22.
  */
 
-public class PayPasswordPresenter implements PayPasswordContract.PayPasswordPresenter {
+public class AuthenticationPresenter implements PayPasswordContract.AuthenticationPresenter {
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
-    private PayPasswordContract.PayPasswordView payPasswordView;
+    private PayPasswordContract.AuthenticationView authenticationView;
 
     @Inject
-    public PayPasswordPresenter(RestApiService restApiService, PayPasswordContract.PayPasswordView payPasswordView) {
+    public AuthenticationPresenter(RestApiService restApiService, PayPasswordContract.AuthenticationView authenticationView) {
         this.restApiService = restApiService;
-        this.payPasswordView = payPasswordView;
+        this.authenticationView = authenticationView;
     }
 
     @Inject
     public void setupListener() {
-        payPasswordView.setPresenter(this);
+        authenticationView.setPresenter(this);
     }
 
     @Override
@@ -55,23 +55,23 @@ public class PayPasswordPresenter implements PayPasswordContract.PayPasswordPres
     }
 
     @Override
-    public void setPayPassword(String payPassword, String type, String details) {
-        payPasswordView.showLoading();
-        SetPayPwRequest setPayPwRequest=new SetPayPwRequest(payPassword,type,details);
-        Disposable disposable = restApiService.setPayPassword(setPayPwRequest)
+    public void verifyPayPassword(String payPassword) {
+        authenticationView.showLoading();
+        PayPasswordRequest payPasswordRequest=new PayPasswordRequest(payPassword);
+        Disposable disposable = restApiService.verifyPayPassword(payPasswordRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
                 .compose(new RxSchedulerTransformer<Ignore>())
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
-                        payPasswordView.dismissLoading();
-                        payPasswordView.renderSuccess();
+                        authenticationView.dismissLoading();
+                        authenticationView.verifySuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        payPasswordView.dismissLoading();
-                        payPasswordView.showError(throwable);
+                        authenticationView.dismissLoading();
+                        authenticationView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/title"
             style="@style/title_text_style"
-            tools:text="修改支付密码" />
+            android:text="@string/modify_pay_pw" />
     </RelativeLayout>
 
     <com.purchase.sls.common.widget.ReboundScrollView

@@ -176,4 +176,6 @@
     <string name="do_not_remember">不记得</string>
     <string name="input_pay_password">请输入支付密码</string>
     <string name="confirm_setting">确认设置</string>
+    <string name="modify_pay_pw">修改支付密码</string>
+    <string name="send_sms_to_authentication">发送短信验证码到绑定的手机,完成身份验证</string>
 </resources>

@@ -83,6 +83,8 @@ import com.purchase.sls.data.request.OrdernoRequest;
 import com.purchase.sls.data.request.OrdernumRequest;
 import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.PayPasswordRequest;
+import com.purchase.sls.data.request.PayPwPowerRequest;
+import com.purchase.sls.data.request.PaysecKillRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.data.request.ReceiveCouponRequest;
@@ -91,6 +93,7 @@ import com.purchase.sls.data.request.RemoveBrowseRequest;
 import com.purchase.sls.data.request.ScreeningListRequest;
 import com.purchase.sls.data.request.SendCodeRequest;
 import com.purchase.sls.data.request.SendNewVCodeRequest;
+import com.purchase.sls.data.request.SetPayPwRequest;
 import com.purchase.sls.data.request.ShopDetailsRequest;
 import com.purchase.sls.data.request.StoreIdPageRequest;
 import com.purchase.sls.data.request.SubmitEvaluateRequest;
@@ -433,5 +436,25 @@ public interface RestApiService {
 
     //设置支付密码
     @POST("home/user/setpaypassword")
-    Flowable<RemoteDataWrapper<Ignore>> setPayPassword(@Body PayPasswordRequest payPasswordRequest);
+    Flowable<RemoteDataWrapper<Ignore>> setPayPassword(@Body SetPayPwRequest setPayPwRequest);
+
+    //获取支付密码是否设置
+    @POST("home/user/getpaypassword")
+    Flowable<RemoteDataWrapper<String>> isSetUpPayPw(@Body TokenRequest tokenRequest);
+
+    //验证原支付密码
+    @POST("home/user/verifypaypassword")
+    Flowable<RemoteDataWrapper<Ignore>> verifyPayPassword(@Body PayPasswordRequest payPasswordRequest);
+
+    //支付密码支付
+    @POST("pay/paypower")
+    Flowable<RemoteDataWrapper<Ignore>> payPwPower(@Body PayPwPowerRequest payPwPowerRequest);
+
+    //秒杀下单
+    @POST("home/paysecKill")
+    Flowable<RemoteDataWrapper<ActivityOrderDetailInfo>> paysecKill(@Body PaysecKillRequest paysecKillRequest);
+
+    //抽奖下单
+    @POST("home/paydrawOrder")
+    Flowable<RemoteDataWrapper<ActivityOrderDetailInfo>> paydrawOrder(@Body PaysecKillRequest paysecKillRequest);
 }

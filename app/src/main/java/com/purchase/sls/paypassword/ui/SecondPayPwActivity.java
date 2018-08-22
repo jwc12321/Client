@@ -45,17 +45,19 @@ public class SecondPayPwActivity extends BaseActivity implements PayPasswordCont
     Button confirm;
     @BindView(R.id.setting_item)
     LinearLayout settingItem;
-    private String whereGo; //1:设置密码2:修改密码
+    private String whereGo; //0:新密码(第一次设置支付密码)1:忘记支付密码短信修改2:记得支付密码修改
     private String password;
     private String firstPayPw;
+    private String ppwOldData;
 
     @Inject
     PayPasswordPresenter payPasswordPresenter;
 
-    public static void start(Context context, String whereGo, String firstPayPw) {
+    public static void start(Context context, String whereGo, String firstPayPw,String ppwOldData) {
         Intent intent = new Intent(context, SecondPayPwActivity.class);
         intent.putExtra(StaticData.WHERE_GO, whereGo);
         intent.putExtra(StaticData.FIRST_PAY_PASSWORD, firstPayPw);
+        intent.putExtra(StaticData.PPW_OLD_DATA,ppwOldData);
         context.startActivity(intent);
     }
 
@@ -71,7 +73,8 @@ public class SecondPayPwActivity extends BaseActivity implements PayPasswordCont
     private void initView() {
         whereGo = getIntent().getStringExtra(StaticData.WHERE_GO);
         firstPayPw = getIntent().getStringExtra(StaticData.FIRST_PAY_PASSWORD);
-        if (TextUtils.equals("1", whereGo)) {
+        ppwOldData=getIntent().getStringExtra(StaticData.PPW_OLD_DATA);
+        if (TextUtils.equals("0", whereGo)) {
             title.setText("支付密码");
         } else {
             title.setText("修改支付密码");
@@ -118,7 +121,7 @@ public class SecondPayPwActivity extends BaseActivity implements PayPasswordCont
             showMessage("两次设置的支付密码不一样");
             return;
         }
-        payPasswordPresenter.setPayPassword(password);
+        payPasswordPresenter.setPayPassword(password,whereGo,ppwOldData);
     }
 
     @Override

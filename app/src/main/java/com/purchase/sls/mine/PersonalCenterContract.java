@@ -43,9 +43,11 @@ public interface PersonalCenterContract {
 
     interface SettingPresenter extends BasePresenter {
         void detectionVersion(String edition, String type);
+        void isSetUpPayPw();
     }
 
     interface SettingView extends BaseView<SettingPresenter> {
         void detectionSuccess(ChangeAppInfo changeAppInfo);
+        void renderIsSetUpPayPw(String what);
     }
 }

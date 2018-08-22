@@ -347,6 +347,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme"
             android:windowSoftInputMode="stateVisible|adjustPan"/>
+        <activity android:name=".paypassword.ui.RememberPswActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".paypassword.ui.AuthenticationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".paypassword.ui.SmsAuthenticationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".paypassword.ui.RdSPpwActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentFullScreenTheme"/>
+        <activity android:name=".paypassword.ui.EcInputPayPwActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentFullScreenTheme"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
     </application>
 
 </manifest>

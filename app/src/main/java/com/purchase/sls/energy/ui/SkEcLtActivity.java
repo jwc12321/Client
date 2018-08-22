@@ -37,6 +37,8 @@ import com.purchase.sls.energy.EnergyContract;
 import com.purchase.sls.energy.EnergyModule;
 import com.purchase.sls.energy.presenter.ActivityDetailPresenter;
 import com.purchase.sls.ordermanage.ui.ActivityOrderDetailActivity;
+import com.purchase.sls.paypassword.ui.EcInputPayPwActivity;
+import com.purchase.sls.paypassword.ui.RdSPpwActivity;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
 import java.util.Arrays;
@@ -95,6 +97,10 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
     private static final int REQUEST_ADDRESS = 11;
     @Inject
     ActivityDetailPresenter activityDetailPresenter;
+
+    private static final int REQUEST_ACTIVITY= 24;
+
+    private ActivityOrderDetailInfo activityOrderDetailInfo;
 
     public static void start(Context context, ActivityInfo activityInfo) {
         Intent intent = new Intent(context, SkEcLtActivity.class);
@@ -266,23 +272,7 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                 choiceAddress();
                 break;
             case R.id.spike_bt:
-                if(TextUtils.equals("1", activityInfo.getpType())){
-                    if (TextUtils.equals("3", activityInfo.getType())) {
-                        activityDetailPresenter.submitLottery(activityInfo.getId(), "0");
-                    } else {
-                        activityDetailPresenter.submitSpike(activityInfo.getId(),"0");
-                    }
-                }else {
-                    if (addressInfo == null) {
-                        choiceAddress();
-                    } else {
-                        if (TextUtils.equals("3", activityInfo.getType())) {
-                            activityDetailPresenter.submitLottery(activityInfo.getId(), addressInfo.getId());
-                        } else {
-                            activityDetailPresenter.submitSpike(activityInfo.getId(), addressInfo.getId());
-                        }
-                    }
-                }
+                activityDetailPresenter.isSetUpPayPw();
                 break;
             default:
         }
@@ -312,6 +302,15 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                         }
                     }
                     break;
+                case REQUEST_ACTIVITY:
+                    if (data != null) {
+                        Bundle bundle = data.getExtras();
+                        activityOrderDetailInfo = (ActivityOrderDetailInfo) bundle.getSerializable(StaticData.ACTIVITY_DATA);
+                        if (activityOrderDetailInfo != null) {
+                            ActivityOrderDetailActivity.start(this, activityOrderDetailInfo);
+                        }
+                    }
+                    break;
                 default:
             }
         }
@@ -338,6 +337,35 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
     @Override
     public void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo) {
         ActivityOrderDetailActivity.start(this, activityOrderDetailInfo);
+    }
+
+    @Override
+    public void renderIsSetUpPayPw(String what) {
+        if (TextUtils.equals("true", what)) {
+            goWhere();
+        } else {
+            RdSPpwActivity.start(this);
+        }
+    }
+
+    private void goWhere(){
+        if(TextUtils.equals("1", activityInfo.getpType())){
+            Intent intent = new Intent(this, EcInputPayPwActivity.class);
+            intent.putExtra(StaticData.ACTIVITY_ID,activityInfo.getId());
+            intent.putExtra(StaticData.ADDRESS_ID, "0");
+            intent.putExtra(StaticData.WHERE_GO,activityInfo.getType());
+            startActivityForResult(intent, REQUEST_ACTIVITY);
+        }else {
+            if (addressInfo == null) {
+                choiceAddress();
+            } else {
+                Intent intent = new Intent(this, EcInputPayPwActivity.class);
+                intent.putExtra(StaticData.ACTIVITY_ID,activityInfo.getId());
+                intent.putExtra(StaticData.ADDRESS_ID, addressInfo.getId());
+                intent.putExtra(StaticData.WHERE_GO,activityInfo.getType());
+                startActivityForResult(intent, REQUEST_ACTIVITY);
+            }
+        }
     }
 
     @Override

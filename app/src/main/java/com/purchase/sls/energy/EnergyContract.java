@@ -41,12 +41,16 @@ public interface EnergyContract {
         void submitSpike(String id, String aid);
 
         void submitLottery(String id, String aid);
+
+        void isSetUpPayPw();
     }
 
     interface ActivityDetailView extends BaseView<ActivityDetailPresenter> {
         void submitSpikeSuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
 
         void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
+
+        void renderIsSetUpPayPw(String what);
     }
 
     interface SignInPresenter extends BasePresenter {

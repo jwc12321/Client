@@ -5,6 +5,7 @@ import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.DetectionVersionRequest;
+import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.mine.PersonalCenterContract;
 
 import java.util.ArrayList;
@@ -66,6 +67,29 @@ public class SettingPresenter implements PersonalCenterContract.SettingPresenter
                     public void accept(ChangeAppInfo changeAppInfo) throws Exception {
                         settingView.dismissLoading();
                         settingView.detectionSuccess(changeAppInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        settingView.dismissLoading();
+                        settingView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void isSetUpPayPw() {
+        settingView.showLoading();
+        TokenRequest tokenRequest=new TokenRequest();
+        Disposable disposable=restApiService.isSetUpPayPw(tokenRequest)
+                .flatMap(new RxRemoteDataParse<String>())
+                .compose(new RxSchedulerTransformer<String>())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) throws Exception {
+                        settingView.dismissLoading();
+                        settingView.renderIsSetUpPayPw(string);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -136,5 +136,13 @@ public class StaticData {
     public static final String WHERE_GO="whereGo";
     //第一次输入的支付密码
     public static final String FIRST_PAY_PASSWORD="firstPayPassword";
+    //输入的验证码还是原支付密码数据
+    public static final String PPW_OLD_DATA= "ppwOldData";
+    //下单的活动数据
+    public static final String ACTIVITY_DATA="activityData";
+    //活动Id
+    public static final String ACTIVITY_ID="activityId";
+    //地址id
+    public static final String ADDRESS_ID="addressId";
 
 }
