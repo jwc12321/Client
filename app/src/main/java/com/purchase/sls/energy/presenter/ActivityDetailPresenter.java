@@ -4,6 +4,7 @@ import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.ActivityOrderDetailInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.PaysecKillRequest;
 import com.purchase.sls.data.request.SubmitSpikeRequest;
 import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.energy.EnergyContract;
@@ -114,6 +115,52 @@ public class ActivityDetailPresenter implements EnergyContract.ActivityDetailPre
                     public void accept(String string) throws Exception {
                         activityDetailView.dismissLoading();
                         activityDetailView.renderIsSetUpPayPw(string);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityDetailView.dismissLoading();
+                        activityDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void paysecKill(String paypassword, String id, String aid) {
+        activityDetailView.showLoading();
+        PaysecKillRequest paysecKillRequest=new PaysecKillRequest(paypassword,id,aid);
+        Disposable disposable = restApiService.paysecKill(paysecKillRequest)
+                .flatMap(new RxRemoteDataParse<ActivityOrderDetailInfo>())
+                .compose(new RxSchedulerTransformer<ActivityOrderDetailInfo>())
+                .subscribe(new Consumer<ActivityOrderDetailInfo>() {
+                    @Override
+                    public void accept(ActivityOrderDetailInfo activityOrderDetailInfo) throws Exception {
+                        activityDetailView.dismissLoading();
+                        activityDetailView.paySuccess(activityOrderDetailInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        activityDetailView.dismissLoading();
+                        activityDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void paydrawOrder(String paypassword, String id, String aid) {
+        activityDetailView.showLoading();
+        PaysecKillRequest paysecKillRequest=new PaysecKillRequest(paypassword,id,aid);
+        Disposable disposable = restApiService.paydrawOrder(paysecKillRequest)
+                .flatMap(new RxRemoteDataParse<ActivityOrderDetailInfo>())
+                .compose(new RxSchedulerTransformer<ActivityOrderDetailInfo>())
+                .subscribe(new Consumer<ActivityOrderDetailInfo>() {
+                    @Override
+                    public void accept(ActivityOrderDetailInfo activityOrderDetailInfo) throws Exception {
+                        activityDetailView.dismissLoading();
+                        activityDetailView.paySuccess(activityOrderDetailInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

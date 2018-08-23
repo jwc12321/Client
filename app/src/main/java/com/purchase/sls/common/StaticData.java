@@ -144,5 +144,7 @@ public class StaticData {
     public static final String ACTIVITY_ID="activityId";
     //地址id
     public static final String ADDRESS_ID="addressId";
+    //支付密码
+    public static final String PAY_PASSWORD="payPassword";
 
 }

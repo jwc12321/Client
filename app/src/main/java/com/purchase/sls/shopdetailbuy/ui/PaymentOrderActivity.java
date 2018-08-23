@@ -156,7 +156,7 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     boolean energyDouble = true;
 
     private static final int REQUEST_PAY_PW = 23;
-    private String orderNo;
+    private String payPassword;
 
 
     @Override
@@ -469,10 +469,8 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
 
     @Override
     public void generatingOrderSuccess(GeneratingOrderInfo generatingOrderInfo) {
-        orderNo=generatingOrderInfo.getOrderno();
-        Intent intent = new Intent(this, InputPayPwActivity.class);
-        intent.putExtra(StaticData.ORDER_NO, orderNo);
-        startActivityForResult(intent, REQUEST_PAY_PW);
+        ordreno = generatingOrderInfo.getOrderno();
+        paymentOrderPresenter.payPwPower(ordreno, payPassword);
     }
 
     @Override
@@ -509,10 +507,18 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
     @Override
     public void renderIsSetUpPayPw(String what) {
         if (TextUtils.equals("true", what)) {
-            paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+            Intent intent = new Intent(this, InputPayPwActivity.class);
+            startActivityForResult(intent, REQUEST_PAY_PW);
         } else {
             RdSPpwActivity.start(this);
         }
+    }
+
+    @Override
+    public void verifySuccess() {
+        UmengEventUtils.statisticsClick(this, UMStaticData.PAY_SUCCESS);
+        PaySuccessActivity.start(this, businessName, ordreno);
+        this.finish();
     }
 
     /*****
@@ -648,9 +654,11 @@ public class PaymentOrderActivity extends BaseActivity implements ShopDetailBuyC
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_PAY_PW:
-                    UmengEventUtils.statisticsClick(this, UMStaticData.PAY_SUCCESS);
-                    PaySuccessActivity.start(this, businessName, ordreno);
-                    this.finish();
+                    if (data != null) {
+                        Bundle bundle = data.getExtras();
+                        payPassword = (String) bundle.getSerializable(StaticData.PAY_PASSWORD);
+                        paymentOrderPresenter.setGeneratingOrder(moneyEt.getText().toString(), businessStoreId, couponId, addEnergyEt.getText().toString(), payType, addNotesEt.getText().toString());
+                    }
                     break;
                 default:
             }

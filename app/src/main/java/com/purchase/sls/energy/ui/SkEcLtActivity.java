@@ -37,7 +37,7 @@ import com.purchase.sls.energy.EnergyContract;
 import com.purchase.sls.energy.EnergyModule;
 import com.purchase.sls.energy.presenter.ActivityDetailPresenter;
 import com.purchase.sls.ordermanage.ui.ActivityOrderDetailActivity;
-import com.purchase.sls.paypassword.ui.EcInputPayPwActivity;
+import com.purchase.sls.paypassword.ui.InputPayPwActivity;
 import com.purchase.sls.paypassword.ui.RdSPpwActivity;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
@@ -98,9 +98,9 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
     @Inject
     ActivityDetailPresenter activityDetailPresenter;
 
-    private static final int REQUEST_ACTIVITY= 24;
+    private String payPassword;
 
-    private ActivityOrderDetailInfo activityOrderDetailInfo;
+    private static final int REQUEST_PAY_PW = 25;
 
     public static void start(Context context, ActivityInfo activityInfo) {
         Intent intent = new Intent(context, SkEcLtActivity.class);
@@ -272,7 +272,15 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                 choiceAddress();
                 break;
             case R.id.spike_bt:
-                activityDetailPresenter.isSetUpPayPw();
+                if(TextUtils.equals("1", activityInfo.getpType())) {
+                    activityDetailPresenter.isSetUpPayPw();
+                }else {
+                    if (addressInfo == null) {
+                        choiceAddress();
+                    } else {
+                        activityDetailPresenter.isSetUpPayPw();
+                    }
+                }
                 break;
             default:
         }
@@ -302,13 +310,11 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
                         }
                     }
                     break;
-                case REQUEST_ACTIVITY:
+                case REQUEST_PAY_PW:
                     if (data != null) {
                         Bundle bundle = data.getExtras();
-                        activityOrderDetailInfo = (ActivityOrderDetailInfo) bundle.getSerializable(StaticData.ACTIVITY_DATA);
-                        if (activityOrderDetailInfo != null) {
-                            ActivityOrderDetailActivity.start(this, activityOrderDetailInfo);
-                        }
+                        payPassword = (String) bundle.getSerializable(StaticData.PAY_PASSWORD);
+                        goWhere();
                     }
                     break;
                 default:
@@ -342,28 +348,30 @@ public class SkEcLtActivity extends BaseActivity implements EnergyContract.Activ
     @Override
     public void renderIsSetUpPayPw(String what) {
         if (TextUtils.equals("true", what)) {
-            goWhere();
+            Intent intent = new Intent(this, InputPayPwActivity.class);
+            startActivityForResult(intent, REQUEST_PAY_PW);
         } else {
             RdSPpwActivity.start(this);
         }
     }
 
+    @Override
+    public void paySuccess(ActivityOrderDetailInfo activityOrderDetailInfo) {
+        ActivityOrderDetailActivity.start(this, activityOrderDetailInfo);
+    }
+
     private void goWhere(){
         if(TextUtils.equals("1", activityInfo.getpType())){
-            Intent intent = new Intent(this, EcInputPayPwActivity.class);
-            intent.putExtra(StaticData.ACTIVITY_ID,activityInfo.getId());
-            intent.putExtra(StaticData.ADDRESS_ID, "0");
-            intent.putExtra(StaticData.WHERE_GO,activityInfo.getType());
-            startActivityForResult(intent, REQUEST_ACTIVITY);
+            if(TextUtils.equals("3",activityInfo.getType())){
+                activityDetailPresenter.paydrawOrder(payPassword,activityInfo.getId(),"0");
+            }else {
+                activityDetailPresenter.paysecKill(payPassword,activityInfo.getId(),"0");
+            }
         }else {
-            if (addressInfo == null) {
-                choiceAddress();
-            } else {
-                Intent intent = new Intent(this, EcInputPayPwActivity.class);
-                intent.putExtra(StaticData.ACTIVITY_ID,activityInfo.getId());
-                intent.putExtra(StaticData.ADDRESS_ID, addressInfo.getId());
-                intent.putExtra(StaticData.WHERE_GO,activityInfo.getType());
-                startActivityForResult(intent, REQUEST_ACTIVITY);
+            if(TextUtils.equals("3",activityInfo.getType())){
+                activityDetailPresenter.paydrawOrder(payPassword,activityInfo.getId(),addressInfo.getId());
+            }else {
+                activityDetailPresenter.paysecKill(payPassword,activityInfo.getId(),addressInfo.getId());
             }
         }
     }

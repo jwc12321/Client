@@ -43,6 +43,9 @@ public interface EnergyContract {
         void submitLottery(String id, String aid);
 
         void isSetUpPayPw();
+
+        void paysecKill(String paypassword, String id, String aid);
+        void paydrawOrder(String paypassword, String id, String aid);
     }
 
     interface ActivityDetailView extends BaseView<ActivityDetailPresenter> {
@@ -51,6 +54,8 @@ public interface EnergyContract {
         void submitLotterySuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
 
         void renderIsSetUpPayPw(String what);
+
+        void paySuccess(ActivityOrderDetailInfo activityOrderDetailInfo);
     }
 
     interface SignInPresenter extends BasePresenter {

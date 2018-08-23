@@ -1,6 +1,5 @@
 package com.purchase.sls.paypassword.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,7 +37,7 @@ public class InputPayPwActivity extends BaseActivity implements PayPasswordContr
     @Inject
     PayPwPowerPresenter payPwPowerPresenter;
 
-    private String orderno;
+    private String password;
 
 
     @Override
@@ -50,7 +49,6 @@ public class InputPayPwActivity extends BaseActivity implements PayPasswordContr
     }
 
     private void initView(){
-        orderno=getIntent().getStringExtra(StaticData.ORDER_NO);
         initEt();
     }
 
@@ -59,7 +57,8 @@ public class InputPayPwActivity extends BaseActivity implements PayPasswordContr
         pwdEt.setOnTextFinishListener(new PayPwdEditText.OnTextFinishListener() {
             @Override
             public void onFinish(String str) {//密码输入完后的回调
-                payPwPowerPresenter.payPwPower(orderno,str);
+                password=str;
+                payPwPowerPresenter.verifyPayPassword(str);
             }
         });
 
@@ -96,8 +95,11 @@ public class InputPayPwActivity extends BaseActivity implements PayPasswordContr
     }
 
     @Override
-    public void payPwPowerSuccess() {
+    public void verifySuccess() {
         Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString(StaticData.PAY_PASSWORD, password);
+        intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
     }

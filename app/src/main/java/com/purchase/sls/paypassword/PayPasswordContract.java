@@ -36,11 +36,11 @@ public interface PayPasswordContract {
     }
 
     interface PayPwPowerPresenter extends BasePresenter{
-        void payPwPower(String orderno, String paypassword);
+        void verifyPayPassword(String payPassword);
     }
 
     interface PayPwPowerView extends BaseView<PayPwPowerPresenter>{
-        void payPwPowerSuccess();
+        void verifySuccess();
     }
 
     interface EcPayPwPowerPresenter extends BasePresenter{

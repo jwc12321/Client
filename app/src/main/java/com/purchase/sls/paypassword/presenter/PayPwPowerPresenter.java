@@ -4,7 +4,7 @@ import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
-import com.purchase.sls.data.request.PayPwPowerRequest;
+import com.purchase.sls.data.request.PayPasswordRequest;
 import com.purchase.sls.paypassword.PayPasswordContract;
 
 import java.util.ArrayList;
@@ -53,19 +53,18 @@ public class PayPwPowerPresenter implements PayPasswordContract.PayPwPowerPresen
             }
         }
     }
-
     @Override
-    public void payPwPower(String orderno, String paypassword) {
+    public void verifyPayPassword(String payPassword) {
         payPwPowerView.showLoading();
-        PayPwPowerRequest payPwPowerRequest=new PayPwPowerRequest(orderno,paypassword);
-        Disposable disposable = restApiService.payPwPower(payPwPowerRequest)
+        PayPasswordRequest payPasswordRequest=new PayPasswordRequest(payPassword);
+        Disposable disposable = restApiService.verifyPayPassword(payPasswordRequest)
                 .flatMap(new RxRemoteDataParse<Ignore>())
                 .compose(new RxSchedulerTransformer<Ignore>())
                 .subscribe(new Consumer<Ignore>() {
                     @Override
                     public void accept(Ignore ignore) throws Exception {
                         payPwPowerView.dismissLoading();
-                        payPwPowerView.payPwPowerSuccess();
+                        payPwPowerView.verifySuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
