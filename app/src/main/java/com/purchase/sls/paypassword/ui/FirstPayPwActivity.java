@@ -11,14 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.R;
-import com.purchase.sls.address.ui.AddAddressActivity;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.widget.paypw.PayPwdEditText;
-import com.purchase.sls.ordermanage.ui.ActivityOrderActivity;
+
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +92,14 @@ public class FirstPayPwActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.next:
+                if(!isNumber(password)){
+                    showMessage("请输入数字支付密码");
+                    return;
+                }
+                if(repeatNumber(password)){
+                    showMessage("支付密码不能是重复、连续的数字");
+                    return;
+                }
                 SecondPayPwActivity.start(this,whereGo,password,ppwOldData);
                 this.finish();
                 break;
@@ -103,5 +110,37 @@ public class FirstPayPwActivity extends BaseActivity {
     @Override
     public View getSnackBarHolderView() {
         return null;
+    }
+
+    private boolean isNumber(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
+    }
+
+    //判断是不是重复数字
+    private boolean repeatNumber(String str){
+        if(TextUtils.equals(str,"012345")
+                ||TextUtils.equals(str,"123456")
+                ||TextUtils.equals(str,"234567")
+                ||TextUtils.equals(str,"345678")
+                ||TextUtils.equals(str,"456789")
+                ||TextUtils.equals(str,"543210")
+                ||TextUtils.equals(str,"654321")
+                ||TextUtils.equals(str,"765432")
+                ||TextUtils.equals(str,"876543")
+                ||TextUtils.equals(str,"987654")
+                ||TextUtils.equals(str,"000000")
+                ||TextUtils.equals(str,"111111")
+                ||TextUtils.equals(str,"222222")
+                ||TextUtils.equals(str,"333333")
+                ||TextUtils.equals(str,"444444")
+                ||TextUtils.equals(str,"555555")
+                ||TextUtils.equals(str,"666666")
+                ||TextUtils.equals(str,"777777")
+                ||TextUtils.equals(str,"888888")
+                ||TextUtils.equals(str,"999999")){
+            return true;
+        }
+        return false;
     }
 }
