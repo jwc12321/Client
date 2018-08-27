@@ -2,6 +2,7 @@ package com.purchase.sls;
 
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.purchase.sls.common.unit.HandleBackUtil;
-import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.WeiboDialogUtils;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.login.ui.AccountLoginActivity;
@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
         initializeInjector();
     }
 
-    public int statusBarheight(){
+    public int statusBarheight() {
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
@@ -62,25 +62,25 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
         return statusBarHeight1;
     }
 
-    public void setHeight(View view1,View view2,View view3){
-        if (view1!=null&&view1.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+    public void setHeight(View view1, View view2, View view3) {
+        if (view1 != null && view1.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view1.getLayoutParams();
             p.setMargins(0, statusBarheight(), 0, 0);
             view1.requestLayout();
         }
-        if (view2!=null&&view2.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+        if (view2 != null && view2.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view2.getLayoutParams();
             p.setMargins(0, statusBarheight(), 0, 0);
             view2.requestLayout();
         }
-        if (view3!=null&&view3.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+        if (view3 != null && view3.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view3.getLayoutParams();
             p.setMargins(0, statusBarheight(), 0, 0);
             view3.requestLayout();
         }
     }
 
-    private void changeStateBar(){
+    private void changeStateBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -222,4 +222,15 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    public android.content.res.Resources getResources()
+    {
+        android.content.res.Resources res = super.getResources();
+        Configuration config=new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config,res.getDisplayMetrics() );
+        return res;
+    }
+
 }
