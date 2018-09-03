@@ -61,7 +61,7 @@ public class EcInputPayPwActivity extends BaseActivity implements PayPasswordCon
     }
 
     private void initEt() {
-        pwdEt.initStyle(R.drawable.password_num_bg, 6, 0.33f, R.color.backGround19, R.color.backGround19, 20);
+        pwdEt.initStyle(R.drawable.password_num_bg, 6, 0.33f, R.color.backGround19, R.color.appText5, 20);
         pwdEt.setOnTextFinishListener(new PayPwdEditText.OnTextFinishListener() {
             @Override
             public void onFinish(String str) {//密码输入完后的回调
