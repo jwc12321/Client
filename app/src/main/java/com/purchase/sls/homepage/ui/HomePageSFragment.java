@@ -132,6 +132,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     private CommonDialog dialogmustUpdate;
     private String appStatus;//1：更新可忽略2：更新不能忽略
     private String isFirst = "1";
+    private String firstUdpate="1";
 
     @Inject
     HomePagePresenter homePagePresenter;
@@ -255,7 +256,6 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 homePagePresenter.getLikeStore(city);
                 commonAppPreferences.setCity(city);
                 commonAppPreferences.setLocal(longitude, latitude);
-                homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
             }
         });
 
@@ -338,6 +338,10 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
 
     @Override
     public void bannerHotInfo(BannerHotResponse bannerHotResponse) {
+        if(TextUtils.equals("1",firstUdpate)){
+            homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
+            firstUdpate="0";
+        }
         refreshLayout.stopRefresh();
         bannerInfos = bannerHotResponse.getBannerInfos();
         bannerImages = new ArrayList<>();
