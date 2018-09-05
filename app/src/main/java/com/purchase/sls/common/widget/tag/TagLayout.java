@@ -97,7 +97,7 @@ public class TagLayout extends ViewGroup {
 
             if (childLeft + childWidth + paddingRight > wantWidth) {
                 line++;
-                if (isLimit && (line  > getLimitCount())){
+                if (isLimit && (line  > getLimitCount())&&lineNumListener!=null){
                     lineNumListener.getLineNum(line);
                     break;
                 }
