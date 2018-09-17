@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,6 @@ import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.cityList.style.citylist.bean.CityInfoBean;
 import com.purchase.sls.common.location.LocationHelper;
 import com.purchase.sls.common.refreshview.HeaderViewLayout;
-import com.purchase.sls.common.unit.CityManager;
 import com.purchase.sls.common.unit.CommonAppPreferences;
 import com.purchase.sls.common.unit.DownloadService;
 import com.purchase.sls.common.unit.PermissionUtil;
@@ -132,7 +130,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     private CommonDialog dialogmustUpdate;
     private String appStatus;//1：更新可忽略2：更新不能忽略
     private String isFirst = "1";
-    private String firstUdpate="1";
+    private String firstUdpate = "0";
 
     @Inject
     HomePagePresenter homePagePresenter;
@@ -252,6 +250,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 } else {
                     coordinate = "";
                 }
+                firstUdpate = "1";
                 homePagePresenter.getHNearbyShopsInfos(coordinate, city);
                 homePagePresenter.getLikeStore(city);
                 commonAppPreferences.setCity(city);
@@ -338,9 +337,9 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
 
     @Override
     public void bannerHotInfo(BannerHotResponse bannerHotResponse) {
-        if(TextUtils.equals("1",firstUdpate)){
+        if (TextUtils.equals("1", firstUdpate)) {
             homePagePresenter.detectionVersion(BuildConfig.VERSION_NAME, "android");
-            firstUdpate="0";
+            firstUdpate = "0";
         }
         refreshLayout.stopRefresh();
         bannerInfos = bannerHotResponse.getBannerInfos();
@@ -390,12 +389,14 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
         this.changeAppInfo = changeAppInfo;
         if (changeAppInfo != null) {
             appStatus = changeAppInfo.getStatus();
+            List<String> group = new ArrayList<>();
+            group.add(Manifest.permission_group.STORAGE);
             if (TextUtils.equals("1", appStatus)) {
-                if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+                if (requestRuntimePermissions(PermissionUtil.permissionGroup(group, null), REQUEST_PERMISSION_WRITE)) {
                     showUpdate(changeAppInfo);
                 }
             } else if (TextUtils.equals("2", appStatus)) {
-                if (requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+                if (requestRuntimePermissions(PermissionUtil.permissionGroup(group, null), REQUEST_PERMISSION_WRITE)) {
                     showMustUpdate(changeAppInfo);
                 }
             }
@@ -510,9 +511,11 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                 scan();
                 break;
             case REQUEST_PERMISSION_WRITE:
-                for (int gra : grantResults) {
-                    if (gra != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                if (grantResults.length > 0) {
+                    for (int gra : grantResults) {
+                        if (gra != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
                     }
                 }
                 if (TextUtils.equals("1", appStatus)) {
@@ -541,10 +544,6 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
         ShopDetailActivity.start(getActivity(), storeid);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     @Override
     public void onDestroy() {
@@ -555,7 +554,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     }
 
     private void showUpdate(final ChangeAppInfo changeAppInfo) {
-        if (dialogUpdate == null)
+        if (dialogUpdate == null) {
             dialogUpdate = new CommonDialog.Builder()
                     .setTitle("版本更新")
                     .setContent(changeAppInfo.getTitle())
@@ -573,11 +572,12 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                             updateApk(changeAppInfo.getUrl());
                         }
                     }).create();
-        dialogUpdate.show(getFragmentManager(), "");
+            dialogUpdate.show(getFragmentManager(), "");
+        }
     }
 
     private void showMustUpdate(final ChangeAppInfo changeAppInfo) {
-        if (dialogmustUpdate == null)
+        if (dialogmustUpdate == null) {
             dialogmustUpdate = new CommonDialog.Builder()
                     .setTitle("版本更新")
                     .setContent(changeAppInfo.getTitle())
@@ -589,7 +589,8 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
                             updateApk(changeAppInfo.getUrl());
                         }
                     }).create();
-        dialogmustUpdate.show(getFragmentManager(), "");
+            dialogmustUpdate.show(getFragmentManager(), "");
+        }
     }
 
     private MaterialDialog materialDialog;
@@ -618,5 +619,17 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     @Override
     public void nearbyShopClickListener(String storeid) {
         ShopDetailActivity.start(getActivity(), storeid);
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        firstUdpate = "0";
     }
 }

@@ -24,6 +24,7 @@ import com.purchase.sls.R;
 import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.unit.APKVersionCodeUtils;
 import com.purchase.sls.common.unit.DownloadService;
+import com.purchase.sls.common.unit.PermissionUtil;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.dialog.CommonDialog;
@@ -38,6 +39,9 @@ import com.purchase.sls.mine.presenter.SettingPresenter;
 import com.purchase.sls.paypassword.ui.FirstPayPwActivity;
 import com.purchase.sls.paypassword.ui.RememberPswActivity;
 import com.purchase.sls.webview.ui.WebViewActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -163,7 +167,9 @@ public class SettingActivity extends BaseActivity implements PersonalCenterContr
     @Override
     public void detectionSuccess(ChangeAppInfo changeAppInfo) {
         this.changeAppInfo = changeAppInfo;
-        if (requestRuntimePermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,}, REQUEST_PERMISSION_WRITE)) {
+        List<String> group = new ArrayList<>();
+        group.add(Manifest.permission_group.STORAGE);
+        if (requestRuntimePermissions(PermissionUtil.permissionGroup(group, null), REQUEST_PERMISSION_WRITE)) {
             showUpdate(changeAppInfo);
         }
     }
