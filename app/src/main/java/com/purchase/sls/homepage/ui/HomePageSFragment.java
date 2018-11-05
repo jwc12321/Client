@@ -40,6 +40,8 @@ import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.dialog.CommonDialog;
+import com.purchase.sls.common.widget.newbanner.GlideImageLoader;
+import com.purchase.sls.common.widget.newbanner.listener.OnBannerListener;
 import com.purchase.sls.data.RemoteDataException;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.ChangeAppInfo;
@@ -68,12 +70,10 @@ import butterknife.OnClick;
  * 首页
  */
 
-public class HomePageSFragment extends BaseFragment implements HomePageContract.HomepageView, HotServicesAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener, HNearbyShopsAdapter.OnNearbyShopClickListener {
+public class HomePageSFragment extends BaseFragment implements HomePageContract.HomepageView, HotServicesAdapter.OnHotItemClickListener, LikeStoreAdapter.OnLikeStoreClickListener, HNearbyShopsAdapter.OnNearbyShopClickListener, OnBannerListener {
 
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
-    @BindView(R.id.banner)
-    Banner banner;
     @BindView(R.id.scan)
     ImageView scan;
     @BindView(R.id.search_tt)
@@ -102,6 +102,12 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     LinearLayout nearbyShopLl;
     @BindView(R.id.ten_hot_service_ll)
     LinearLayout tenHotServiceLl;
+    @BindView(R.id.banner)
+    com.purchase.sls.common.widget.newbanner.Banner banner;
+    @BindView(R.id.near_shop)
+    TextView nearShop;
+    @BindView(R.id.tuiian)
+    TextView tuiian;
 
 
     private LocationHelper mLocationHelper;
@@ -266,23 +272,28 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
 
     //初始化banner
     private void bannerInitialization() {
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        banner.isAutoPlay(true);
-        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
-            @Override
-            public void OnBannerClick(View view, int position) {
-//                showMessage("点击了第" + position + "张图片");
-                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
-                if (bannerInfos != null && bannerInfos.size() >= position) {
-                    BannerHotResponse.BannerInfo bannerInfo = bannerInfos.get(position - 1);
-                    if (!TextUtils.isEmpty(bannerInfo.getIds()) && !TextUtils.equals("0", bannerInfo.getIds())) {
-                        ShopDetailActivity.start(getActivity(), bannerInfo.getIds());
-                    }
-                }
+//        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+//        banner.setIndicatorGravity(BannerConfig.CENTER);
+//        banner.isAutoPlay(true);
+//        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
+//            @Override
+//            public void OnBannerClick(View view, int position) {
+////                showMessage("点击了第" + position + "张图片");
+//                UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
+//                if (bannerInfos != null && bannerInfos.size() >= position) {
+//                    BannerHotResponse.BannerInfo bannerInfo = bannerInfos.get(position - 1);
+//                    if (!TextUtils.isEmpty(bannerInfo.getIds()) && !TextUtils.equals("0", bannerInfo.getIds())) {
+//                        ShopDetailActivity.start(getActivity(), bannerInfo.getIds());
+//                    }
+//                }
+//
+//            }
+//        });
 
-            }
-        });
+        //简单使用
+        banner.setImageLoader(new GlideImageLoader())
+                .setOnBannerListener(this)
+                .start();
     }
 
     HeaderViewLayout.OnRefreshListener mOnRefreshListener = new HeaderViewLayout.OnRefreshListener() {
@@ -347,7 +358,7 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
         for (BannerHotResponse.BannerInfo bannerInfo : bannerInfos) {
             bannerImages.add(bannerInfo.getBanner());
         }
-        banner.setImages(bannerImages);
+        banner.update(bannerImages);
         allStorecateInfos = bannerHotResponse.getStorecateInfos();
         if (allStorecateInfos != null && allStorecateInfos.size() >= 10) {
             storecateInfos.clear();
@@ -631,5 +642,16 @@ public class HomePageSFragment extends BaseFragment implements HomePageContract.
     public void onPause() {
         super.onPause();
         firstUdpate = "0";
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        UmengEventUtils.statisticsClick(getActivity(), UMStaticData.CLIENT_MAIN_BANNER);
+        if (bannerInfos != null && bannerInfos.size() >= position) {
+            BannerHotResponse.BannerInfo bannerInfo = bannerInfos.get(position);
+            if (!TextUtils.isEmpty(bannerInfo.getIds()) && !TextUtils.equals("0", bannerInfo.getIds())) {
+                ShopDetailActivity.start(getActivity(), bannerInfo.getIds());
+            }
+        }
     }
 }

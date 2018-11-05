@@ -35,7 +35,7 @@ import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 
-public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Delegate,HomePageContract.QrCodeView {
+public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Delegate, HomePageContract.QrCodeView {
 
     private static final String TAG = "QrCodeScanActivity";
     private WebViewDetailInfo webViewDetailInfo;
@@ -66,7 +66,7 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code_scan);
         ButterKnife.bind(this);
-        setHeight(back,title,null);
+        setHeight(back, title, null);
         mQRCodeView.setDelegate(this);
     }
 
@@ -122,41 +122,42 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
         Log.d(TAG, "onScanQRCodeSuccess: " + result);
         UmengEventUtils.statisticsClick(this, UMStaticData.SCAN_CODE);
         if (!TextUtils.isEmpty(result)) {
-                if (result.contains("ngapp")) {
-                    String[] results = result.split("&&");
-                    if (results[0].startsWith("ngapp")) {
-                        String firstStr = results[0];
-                        String[] firstStrs = firstStr.split("::");
-                        if (firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
-                            PaymentOrderActivity.start(this, results[1], results[2], firstStrs[1]);
-                            this.finish();
-                        }
+            mQRCodeView.stopSpot();
+            if (result.contains("ngapp")) {
+                String[] results = result.split("&&");
+                if (results[0].startsWith("ngapp")) {
+                    String firstStr = results[0];
+                    String[] firstStrs = firstStr.split("::");
+                    if (firstStrs.length > 1 && !TextUtils.isEmpty(firstStrs[1])) {
+                        PaymentOrderActivity.start(this, results[1], results[2], firstStrs[1]);
+                        this.finish();
                     }
-                }else if(result.contains("home/register/adduser")){
-                    webViewDetailInfo = new WebViewDetailInfo();
-                    webViewDetailInfo.setTitle("推荐注册");
-                    webViewDetailInfo.setUrl(result);
-                    WebViewActivity.start(this, webViewDetailInfo);
-                    this.finish();
                 }
-                else {
-                    String[] results = result.split("[?]");
-                    if (results[1] != null && results[1].startsWith("storeid")) {
-                        String[] ids = results[1].split("=");
-                        if (ids[1] != null && !TextUtils.isEmpty(ids[1])) {
-                            storeId = ids[1];
-                            if(TextUtils.isEmpty(TokenManager.getToken())){
-                                AccountLoginActivity.start(this, "1",storeId);
-                                this.finish();
-                            }else {
-                                qrCodePresenter.getShopDetail(storeId);
-                            }
+            } else if (result.contains("home/register/adduser")) {
+                webViewDetailInfo = new WebViewDetailInfo();
+                webViewDetailInfo.setTitle("推荐注册");
+                webViewDetailInfo.setUrl(result);
+                WebViewActivity.start(this, webViewDetailInfo);
+                this.finish();
+            } else {
+                String[] results = result.split("[?]");
+                if (results[1] != null && results[1].startsWith("storeid")) {
+                    String[] ids = results[1].split("=");
+                    if (ids[1] != null && !TextUtils.isEmpty(ids[1])) {
+                        storeId = ids[1];
+                        if (TextUtils.isEmpty(TokenManager.getToken())) {
+                            AccountLoginActivity.start(this, "1", storeId);
+                            this.finish();
+                        } else {
+                            qrCodePresenter.getShopDetail(storeId);
                         }
                     }
+                }
             }
+        } else {
+            vibrate();
+            mQRCodeView.startSpot();
         }
-        vibrate();
-        mQRCodeView.startSpot();
     }
 
     private void vibrate() {
@@ -192,8 +193,8 @@ public class QrCodeScanActivity extends BaseActivity implements QRCodeView.Deleg
 
     @Override
     public void shopDetailInfo(ShopDetailsInfo shopDetailsInfo) {
-        if(shopDetailsInfo!=null&&shopDetailsInfo.getStoreInfo()!=null){
-            PaymentOrderActivity.start(this, shopDetailsInfo.getStoreInfo().getTitle(), shopDetailsInfo.getStoreInfo().getzPics(),storeId );
+        if (shopDetailsInfo != null && shopDetailsInfo.getStoreInfo() != null) {
+            PaymentOrderActivity.start(this, shopDetailsInfo.getStoreInfo().getTitle(), shopDetailsInfo.getStoreInfo().getzPics(), storeId);
             this.finish();
         }
     }

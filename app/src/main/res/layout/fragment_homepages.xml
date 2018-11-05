@@ -89,12 +89,10 @@
                 android:background="@color/appText1"
                 android:orientation="vertical">
 
-                <com.purchase.sls.common.widget.Banner.Banner
+                <com.purchase.sls.common.widget.newbanner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    app:indicator_drawable_selected="@drawable/selected_radius"
-                    app:indicator_drawable_unselected="@drawable/unselected_radius" />
+                    android:layout_height="180dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
