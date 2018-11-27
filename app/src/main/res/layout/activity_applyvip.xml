@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/apply_vip" />
+        <TextView
+            android:id="@+id/complete"
+            style="@style/title_text_right_style"
+            android:text="@string/complete"
+            android:textColor="@color/appText20"/>
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_twelve_margin"
+            android:layout_marginTop="@dimen/common_twenty_margin"
+            android:text="@string/input_id_number"
+            android:textColor="@color/appText6"
+            android:textSize="13sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_forty_four_margin"
+                android:layout_marginTop="@dimen/common_eleven_margin"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:text="@string/id_number"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/id_et"
+                    style="@style/input_bankcard_et_style"
+                    android:layout_marginLeft="@dimen/common_one_hundred_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入身份证号" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_twelve_margin"
+                android:layout_marginTop="@dimen/common_twenty_margin"
+                android:text="@string/input_name"
+                android:textColor="@color/appText6"
+                android:textSize="13sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_forty_four_margin"
+                android:layout_marginTop="@dimen/common_eleven_margin"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:text="@string/real_name"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/real_name_et"
+                    style="@style/input_bankcard_et_style"
+                    android:layout_marginLeft="@dimen/common_one_hundred_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入真实姓名" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

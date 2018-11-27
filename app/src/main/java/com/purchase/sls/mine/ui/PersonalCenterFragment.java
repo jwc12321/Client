@@ -1,5 +1,6 @@
 package com.purchase.sls.mine.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -18,14 +19,20 @@ import com.purchase.sls.BaseFragment;
 import com.purchase.sls.R;
 import com.purchase.sls.account.ui.AccountListActivity;
 import com.purchase.sls.address.ui.AddressListActivity;
+import com.purchase.sls.applyvip.ui.ApplyVipActivity;
+import com.purchase.sls.bankcard.ui.BankCardListActivity;
+import com.purchase.sls.bankcard.ui.PutForwardActivity;
 import com.purchase.sls.browse.ui.BrowseRecordsActivity;
 import com.purchase.sls.collection.ui.CollectionListActivity;
 import com.purchase.sls.common.GlideHelper;
+import com.purchase.sls.common.StaticData;
 import com.purchase.sls.common.UMStaticData;
 import com.purchase.sls.common.unit.PersionAppPreferences;
 import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.unit.UmengEventUtils;
 import com.purchase.sls.coupon.ui.CouponListActivity;
+import com.purchase.sls.data.entity.CmIncomeInfo;
+import com.purchase.sls.data.entity.CommissionInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.WebViewDetailInfo;
 import com.purchase.sls.ecvoucher.ui.EcVoucherActivity;
@@ -34,7 +41,14 @@ import com.purchase.sls.evaluate.ui.ToBeEvaluatedActivity;
 import com.purchase.sls.goodsordermanage.ui.GoodsOrderActivity;
 import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.messages.ui.MessageNotificationActivity;
+import com.purchase.sls.mine.DaggerPersonalCenterComponent;
+import com.purchase.sls.mine.PersonalCenterContract;
+import com.purchase.sls.mine.PersonalCenterModule;
+import com.purchase.sls.mine.presenter.PersonalCenterPresenter;
 import com.purchase.sls.webview.ui.WebViewActivity;
+import com.umeng.commonsdk.debug.E;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +59,7 @@ import butterknife.OnClick;
  * 我的
  */
 
-public class PersonalCenterFragment extends BaseFragment {
+public class PersonalCenterFragment extends BaseFragment implements PersonalCenterContract.PersonalCenterView {
 
     @BindView(R.id.setting_iv)
     ImageView settingIv;
@@ -87,6 +101,30 @@ public class PersonalCenterFragment extends BaseFragment {
     LinearLayout bgLl;
     @BindView(R.id.item_ecvoucher)
     FrameLayout itemEcvoucher;
+    @BindView(R.id.item_apply_vip)
+    FrameLayout itemApplyVip;
+    @BindView(R.id.item_bankcard)
+    FrameLayout itemBankcard;
+    @BindView(R.id.setting_rl)
+    RelativeLayout settingRl;
+    @BindView(R.id.commission_explain)
+    TextView commissionExplain;
+    @BindView(R.id.commission_number)
+    TextView commissionNumber;
+    @BindView(R.id.go_to_cash)
+    TextView goToCash;
+    @BindView(R.id.go_to_cash_rl)
+    RelativeLayout goToCashRl;
+    @BindView(R.id.daily_management)
+    TextView dailyManagement;
+    @BindView(R.id.yesterday_income)
+    TextView yesterdayIncome;
+    @BindView(R.id.month_income)
+    TextView monthIncome;
+    @BindView(R.id.cumulative_income)
+    TextView cumulativeIncome;
+    @BindView(R.id.user_commission_ll)
+    LinearLayout userCommissionLl;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -96,6 +134,12 @@ public class PersonalCenterFragment extends BaseFragment {
     private WebViewDetailInfo webViewDetailInfo;
     private String phoneNumber;
     private String qrCodeUrl;
+
+    private String firstCm = "0";
+    private String firstPutF="0";
+
+    @Inject
+    PersonalCenterPresenter personalCenterPresenter;
 
     public PersonalCenterFragment() {
     }
@@ -143,6 +187,15 @@ public class PersonalCenterFragment extends BaseFragment {
         initVeiw();
     }
 
+    @Override
+    protected void initializeInjector() {
+        DaggerPersonalCenterComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .personalCenterModule(new PersonalCenterModule(this))
+                .build()
+                .inject(this);
+    }
+
     //防止被顶替，然后换账号
     private void initVeiw() {
         if (!isFirstLoad && getUserVisibleHint()) {
@@ -169,6 +222,22 @@ public class PersonalCenterFragment extends BaseFragment {
                 }
                 phoneNumber = persionInfoResponse.getTel();
                 qrCodeUrl = persionInfoResponse.getQrcode();
+                if (TextUtils.equals("1", persionInfoResponse.getIsvip())) {
+                    goToCashRl.setVisibility(View.VISIBLE);
+                    userCommissionLl.setVisibility(View.VISIBLE);
+                } else {
+                    goToCashRl.setVisibility(View.GONE);
+                    userCommissionLl.setVisibility(View.GONE);
+                }
+                if (TextUtils.equals("0", firstCm)) {
+                    personalCenterPresenter.getCmIncomeInfo();
+                    firstCm = "1";
+                }
+
+                if(TextUtils.equals("0",firstPutF)){
+                    personalCenterPresenter.getCommissionInfo();
+                    firstPutF="1";
+                }
             } else {
                 AccountLoginActivity.start(getActivity());
             }
@@ -176,7 +245,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_ecvoucher,R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_ecvoucher, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center, R.id.item_apply_vip, R.id.item_bankcard,R.id.go_to_cash})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -240,6 +309,18 @@ public class PersonalCenterFragment extends BaseFragment {
                 webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/androidAbout");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
+            case R.id.item_apply_vip://申请vip
+                ApplyVipActivity.start(getActivity());
+                break;
+            case R.id.item_bankcard://我的银行卡
+                Intent intent = new Intent(getActivity(), BankCardListActivity.class);
+                intent.putExtra(StaticData.IS_BANK_INTO,"0");
+                startActivity(intent);
+                break;
+            case R.id.go_to_cash://申请提现
+                firstPutF="0";
+                PutForwardActivity.start(getActivity());
+                break;
             default:
         }
     }
@@ -247,5 +328,26 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void setPresenter(PersonalCenterContract.PersonalCenterPresenter presenter) {
+
+    }
+
+    @Override
+    public void renderCmIncomeInfo(CmIncomeInfo cmIncomeInfo) {
+        if (cmIncomeInfo != null) {
+            yesterdayIncome.setText("+"+cmIncomeInfo.getYesterdayMoney());
+            monthIncome.setText("+"+cmIncomeInfo.getMonthMoney());
+            cumulativeIncome.setText("+"+cmIncomeInfo.getTotalMoney());
+        }
+    }
+
+    @Override
+    public void renderCommissionInfo(CommissionInfo commissionInfo) {
+        if(commissionInfo!=null){
+            commissionNumber.setText(commissionInfo.getBalanceMoney());
+        }
     }
 }

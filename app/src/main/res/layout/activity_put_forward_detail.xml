@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/putforward_detail" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_rel"
+        android:layout_marginTop="1dp"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText5"
+                android:textSize="24sp"
+                tools:text="400"
+                android:layout_marginTop="@dimen/common_twenty_five_margin"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                style="@style/text_fifteen_appText27_style"
+                android:id="@+id/type"
+                android:layout_gravity="center_horizontal"
+                tools:text="现金提现"
+                android:layout_marginTop="@dimen/common_ten_margin"/>
+            <View
+                style="@style/all_line_style"
+                android:layout_marginTop="@dimen/common_twenty_six_margin"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_thirty_three_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                <TextView
+                    style="@style/putforward_detail_left_tv"
+                    android:text="@string/current_state" />
+
+                <TextView
+                    android:id="@+id/current_state"
+                    style="@style/account_detail_right_tv" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_thirty_three_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                <TextView
+                    style="@style/putforward_detail_left_tv"
+                    android:text="@string/putforward_type" />
+
+                <TextView
+                    android:id="@+id/putforward_type"
+                    style="@style/account_detail_right_tv" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_thirty_three_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                <TextView
+                    style="@style/putforward_detail_left_tv"
+                    android:text="@string/putforward_number" />
+
+                <TextView
+                    android:id="@+id/putforward_number"
+                    style="@style/account_detail_right_tv" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_thirty_three_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                <TextView
+                    style="@style/putforward_detail_left_tv"
+                    android:text="@string/apply_time" />
+
+                <TextView
+                    android:id="@+id/apply_time"
+                    style="@style/account_detail_right_tv" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_thirty_three_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                <TextView
+                    style="@style/putforward_detail_left_tv"
+                    android:text="@string/putforward_bank" />
+
+                <TextView
+                    android:id="@+id/purforward_bank"
+                    style="@style/account_detail_right_tv" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_thirty_three_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin">
+
+                <TextView
+                    style="@style/putforward_detail_left_tv"
+                    android:text="@string/putforward_orderno" />
+
+                <TextView
+                    android:id="@+id/putforward_orderno"
+                    style="@style/account_detail_right_tv" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+</LinearLayout>

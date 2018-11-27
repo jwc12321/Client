@@ -58,6 +58,11 @@
     <string name="want_cooperate">我要合作</string>
     <string name="about_neng">关于能购</string>
     <string name="persion_homepage">个人主页</string>
+    <string name="daily_management">日常管理</string>
+    <string name="good_management">好的管理会让收入变多哦......</string>
+    <string name="yesterday">昨日</string>
+    <string name="this_month">本月</string>
+    <string name="cumulative">累计</string>
 
     <!--商品详情-->
     <string name="back_energy">返能量</string>
@@ -178,4 +183,37 @@
     <string name="confirm_setting">确认设置</string>
     <string name="modify_pay_pw">修改支付密码</string>
     <string name="send_sms_to_authentication">发送短信验证码到绑定的手机,完成身份验证</string>
+
+    <!--添加银行卡和提现-->
+    <string name="apply_vip">申请Vip</string>
+    <string name="input_id_number">请填写身份证号</string>
+    <string name="id_number">身份证号</string>
+    <string name="input_name">请填写真实姓名</string>
+    <string name="real_name">真实姓名</string>
+    <string name="untying">解绑</string>
+    <string name="savings_deposit_card">储蓄卡</string>
+    <string name="add_bankcard">添加银行卡</string>
+    <string name="choice_bank">请选择银行卡类型</string>
+    <string name="user_im">请填写个人信息</string>
+    <string name="information_encryption">信息加密处理,仅用于银行验证</string>
+    <string name="bankcard_name">持卡人姓名</string>
+    <string name="input_cardnumber">请填写银行卡号</string>
+    <string name="card_number">银行卡号</string>
+    <string name="my_bankcard">我的银行卡</string>
+    <string name="go_to_cash">去提现</string>
+    <string name="commission">佣金</string>
+    <string name="put_forward">提现</string>
+    <string name="present_record">提现记录</string>
+
+    <string name="arrival_explain">预计次日到账，具体信息以银行提醒为准</string>
+    <string name="comfirm_putforward">确认提现</string>
+    <string name="putforward_detail">提现详情</string>
+    <string name="current_state">当前状态</string>
+    <string name="putforward_type">类型</string>
+    <string name="putforward_number">提现金额</string>
+    <string name="apply_time">提现申请时间</string>
+    <string name="reach_time">提现到账时间</string>
+    <string name="putforward_bank">提现银行</string>
+    <string name="putforward_orderno">提现单号</string>
+    
 </resources>

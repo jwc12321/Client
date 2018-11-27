@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/item_bankcard">
+
+    <RelativeLayout
+        android:id="@+id/card_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_twenty_five_margin"
+        android:layout_marginRight="@dimen/common_twenty_five_margin"
+        android:layout_marginTop="@dimen/common_twenty_margin"
+        tools:background="@mipmap/first_bankcard_icon">
+
+        <TextView
+            android:id="@+id/untying"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/common_eleven_margin"
+            android:paddingLeft="@dimen/common_fifteen_margin"
+            android:paddingRight="@dimen/common_fifteen_margin"
+            android:paddingTop="@dimen/common_eleven_margin"
+            android:text="@string/untying"
+            android:textColor="@color/appText1"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/bank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_twenty_margin"
+            android:layout_marginTop="@dimen/common_twenty_six_margin"
+            android:textColor="@color/appText1"
+            android:textSize="17sp"
+            tools:text="中国建设银行" />
+
+        <TextView
+            android:id="@+id/bank_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bank_name"
+            android:layout_marginLeft="@dimen/common_twenty_margin"
+            android:layout_marginTop="@dimen/common_thirteen_margin"
+            android:text="@string/savings_deposit_card"
+            android:textColor="@color/appText1"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_sixty_three_margin"
+            android:layout_below="@id/bank_type"
+            android:layout_marginLeft="@dimen/common_twenty_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="****   ****   ****"
+                android:textColor="@color/appText1"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/card_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_twenty_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:textColor="@color/appText1"
+                android:textSize="18sp"
+                tools:text="1234" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

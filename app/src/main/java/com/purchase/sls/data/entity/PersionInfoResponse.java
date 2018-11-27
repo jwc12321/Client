@@ -1,6 +1,7 @@
 package com.purchase.sls.data.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.purchase.sls.data.request.PageRequest;
 
 
 /**
@@ -60,6 +61,9 @@ public class PersionInfoResponse {
     private String qrcode;
     @SerializedName("token")
     private String token;
+    //是否是vip
+    @SerializedName("isvip")
+    private String isvip;
 
     public String getId() {
         return id;
@@ -269,4 +273,11 @@ public class PersionInfoResponse {
         this.token = token;
     }
 
+    public String getIsvip() {
+        return isvip;
+    }
+
+    public void setIsvip(String isvip) {
+        this.isvip = isvip;
+    }
 }

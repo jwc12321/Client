@@ -1,13 +1,13 @@
-package com.purchase.sls.mine.presenter;
+package com.purchase.sls.bankcard.presenter;
 
+import com.purchase.sls.bankcard.BankCardContract;
 import com.purchase.sls.data.RxSchedulerTransformer;
-import com.purchase.sls.data.entity.CmIncomeInfo;
 import com.purchase.sls.data.entity.CommissionInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
+import com.purchase.sls.data.request.PutForwardRequest;
 import com.purchase.sls.data.request.TokenRequest;
-import com.purchase.sls.mine.PersonalCenterContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,24 +18,25 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by JWC on 2018/4/19.
+ * Created by JWC on 2018/11/27.
  */
 
-public class PersonalCenterPresenter implements PersonalCenterContract.PersonalCenterPresenter {
+public class PutForwardPresenter implements BankCardContract.PutForwardPresenter {
     private RestApiService restApiService;
     private List<Disposable> mDisposableList = new ArrayList<>();
-    private PersonalCenterContract.PersonalCenterView personalCenterView;
+    private BankCardContract.PutForwardView putForwardView;
 
     @Inject
-    public PersonalCenterPresenter(RestApiService restApiService, PersonalCenterContract.PersonalCenterView personalCenterView) {
+    public PutForwardPresenter(RestApiService restApiService, BankCardContract.PutForwardView putForwardView) {
         this.restApiService = restApiService;
-        this.personalCenterView = personalCenterView;
+        this.putForwardView = putForwardView;
     }
 
     @Inject
     public void setupListener() {
-        personalCenterView.setPresenter(this);
+        putForwardView.setPresenter(this);
     }
+
 
     @Override
     public void start() {
@@ -57,22 +58,23 @@ public class PersonalCenterPresenter implements PersonalCenterContract.PersonalC
     }
 
     @Override
-    public void getCmIncomeInfo() {
-        TokenRequest tokenRequest=new TokenRequest();
-        Disposable disposable = restApiService.getCmIncomeInfo(tokenRequest)
-                .flatMap(new RxRemoteDataParse<CmIncomeInfo>())
-                .compose(new RxSchedulerTransformer<CmIncomeInfo>())
-                .subscribe(new Consumer<CmIncomeInfo>() {
+    public void putForward(String userBankId, String price) {
+        putForwardView.showLoading();
+        PutForwardRequest putForwardRequest=new PutForwardRequest(userBankId,price);
+        Disposable disposable = restApiService.putForward(putForwardRequest)
+                .flatMap(new RxRemoteDataParse<Ignore>())
+                .compose(new RxSchedulerTransformer<Ignore>())
+                .subscribe(new Consumer<Ignore>() {
                     @Override
-                    public void accept(CmIncomeInfo cmIncomeInfo) throws Exception {
-                        personalCenterView.dismissLoading();
-                        personalCenterView.renderCmIncomeInfo(cmIncomeInfo);
+                    public void accept(Ignore ignore) throws Exception {
+                        putForwardView.dismissLoading();
+                        putForwardView.putForwardSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        personalCenterView.dismissLoading();
-                        personalCenterView.showError(throwable);
+                        putForwardView.dismissLoading();
+                        putForwardView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);
@@ -80,6 +82,7 @@ public class PersonalCenterPresenter implements PersonalCenterContract.PersonalC
 
     @Override
     public void getCommissionInfo() {
+        putForwardView.showLoading();
         TokenRequest tokenRequest=new TokenRequest();
         Disposable disposable = restApiService.getCommissionInfo(tokenRequest)
                 .flatMap(new RxRemoteDataParse<CommissionInfo>())
@@ -87,14 +90,14 @@ public class PersonalCenterPresenter implements PersonalCenterContract.PersonalC
                 .subscribe(new Consumer<CommissionInfo>() {
                     @Override
                     public void accept(CommissionInfo commissionInfo) throws Exception {
-                        personalCenterView.dismissLoading();
-                        personalCenterView.renderCommissionInfo(commissionInfo);
+                        putForwardView.dismissLoading();
+                        putForwardView.renderCommissionInfo(commissionInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        personalCenterView.dismissLoading();
-                        personalCenterView.showError(throwable);
+                        putForwardView.dismissLoading();
+                        putForwardView.showError(throwable);
                     }
                 });
         mDisposableList.add(disposable);

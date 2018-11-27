@@ -533,4 +533,78 @@
         <item name="android:layout_marginRight">@dimen/common_twelve_margin</item>
     </style>
 
+    <style name="input_bankcard_et_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/common_thirty_margin</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/appText6</item>
+        <item name="android:textColorHint">@color/appText6</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:drawablePadding">@dimen/common_six_margin</item>
+    </style>
+
+    <style name="commission_number_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/appText24</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <style name="commission_type_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/appText25</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="text_seventeen_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/appText5</item>
+    </style>
+
+    <style name="text_fiftyteen_appText5_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/appText5</item>
+    </style>
+
+    <style name="text_seventeen_appText26_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/appText26</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="bottem_bt_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_fifty_margin</item>
+        <item name="android:background">@drawable/orange_bottom_bt_bg</item>
+        <item name="android:textColor">@color/appText1</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="text_fifteen_appText27_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/appText27</item>
+    </style>
+
+    <style name="putforward_detail_left_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/appText26</item>
+        <item name="android:layout_marginLeft">@dimen/common_sixteen_margin</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

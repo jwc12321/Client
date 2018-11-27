@@ -12,6 +12,7 @@ public class PersonalCenterModule {
     private PersonalCenterContract.PersonalImView personalImView;
     private PersonalCenterContract.ShiftHandsetView shiftHandsetView;
     private PersonalCenterContract.SettingView settingView;
+    private PersonalCenterContract.PersonalCenterView personalCenterView;
 
     public PersonalCenterModule(PersonalCenterContract.PersonalImView personalImView) {
         this.personalImView = personalImView;
@@ -25,6 +26,10 @@ public class PersonalCenterModule {
         this.settingView = settingView;
     }
 
+    public PersonalCenterModule(PersonalCenterContract.PersonalCenterView personalCenterView) {
+        this.personalCenterView = personalCenterView;
+    }
+
     @Provides
     PersonalCenterContract.PersonalImView providePersonalImView(){
         return personalImView;
@@ -36,5 +41,10 @@ public class PersonalCenterModule {
     @Provides
     PersonalCenterContract.SettingView provideSettingView(){
         return settingView;
+    }
+
+    @Provides
+    PersonalCenterContract.PersonalCenterView providePersonalCenterView(){
+        return personalCenterView;
     }
 }

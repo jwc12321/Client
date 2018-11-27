@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        style="@style/title_rl_style">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/title_left_back_style" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_text_style"
+            android:text="@string/put_forward" />
+
+        <TextView
+            android:id="@+id/present_record"
+            style="@style/title_text_right_style"
+            android:text="@string/present_record" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.widget.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_rel"
+        android:layout_marginBottom="@dimen/common_fifty_margin"
+        android:layout_marginTop="@dimen/common_fifteen_margin"
+        android:fadingEdge="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/item_bank"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_fifty_margin"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:id="@+id/bank_name"
+                    style="@style/text_seventeen_style"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:text="建设银行"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/bank_number"
+                    style="@style/text_seventeen_appText26_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_twenty_margin"
+                    android:visibility="gone"
+                    tools:text="1234" />
+
+                <TextView
+                    android:id="@+id/choice_bankcard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="请选择银行卡"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    style="@style/go_arrow"
+                    android:layout_marginRight="@dimen/common_twelve_margin" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_fifty_margin"
+                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:background="@color/appText1"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_fiftyteen_appText5_style"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:text="提现金额:" />
+
+                <EditText
+                    android:id="@+id/input_cash_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_ten_margin"
+                    android:background="@null"
+                    android:hint="请输入提现金额"
+                    android:textColor="@color/appText5"
+                    android:textColorHint="@color/appText27"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View style="@style/st_line_style" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_fifty_margin"
+                android:background="@color/appText1">
+
+                <TextView
+                    android:id="@+id/can_putword"
+                    style="@style/text_fiftyteen_appText5_style"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:text="可提现金额:" />
+
+                <TextView
+                    android:id="@+id/balance_tv"
+                    style="@style/text_fiftyteen_appText5_style"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_toRightOf="@id/can_putword"
+                    tools:text="12222" />
+
+                <TextView
+                    android:id="@+id/all_put_forward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/common_twelve_margin"
+                    android:paddingRight="@dimen/common_twelve_margin"
+                    android:text="全部提现"
+                    android:textColor="@color/appText20"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_twenty_seven_margin"
+                android:layout_marginTop="@dimen/common_twenty_margin"
+                android:text="@string/arrival_explain" />
+        </LinearLayout>
+    </com.purchase.sls.common.widget.ReboundScrollView>
+
+    <TextView
+        android:id="@+id/comfirm"
+        style="@style/bottem_bt_style"
+        android:layout_alignParentBottom="true"
+        android:text="@string/comfirm_putforward"/>
+</RelativeLayout>

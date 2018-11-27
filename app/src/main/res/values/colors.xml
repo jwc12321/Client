@@ -30,6 +30,12 @@
     <color name="appText19">#6D6D6F</color>
     <color name="appText20">#FA6627</color>
     <color name="appText21">#7C7C7C</color>
+    <color name="appText22">#646161</color>
+    <color name="appText23">#CCCCCC</color>
+    <color name="appText24">#FD5C16</color>
+    <color name="appText25">#9C9C9C</color>
+    <color name="appText26">#777777</color>
+    <color name="appText27">#AAAAAA</color>
 
     <color name="backGround1">#f4f4f4</color>
     <color name="backGround2">#dadada</color>
@@ -56,4 +62,5 @@
     <color name="backGround23">#F6F6F6</color>
     <color name="backGround24">#FDBFA5</color>
     <color name="backGround25">#A0A0A0</color>
+    <color name="backGround26">#626262</color>
 </resources>

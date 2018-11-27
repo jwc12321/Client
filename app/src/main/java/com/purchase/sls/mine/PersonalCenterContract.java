@@ -3,6 +3,8 @@ package com.purchase.sls.mine;
 import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.ChangeAppInfo;
+import com.purchase.sls.data.entity.CmIncomeInfo;
+import com.purchase.sls.data.entity.CommissionInfo;
 
 /**
  * Created by JWC on 2018/4/19.
@@ -49,5 +51,15 @@ public interface PersonalCenterContract {
     interface SettingView extends BaseView<SettingPresenter> {
         void detectionSuccess(ChangeAppInfo changeAppInfo);
         void renderIsSetUpPayPw(String what);
+    }
+
+    interface PersonalCenterPresenter extends BasePresenter{
+        void getCmIncomeInfo();
+        void getCommissionInfo();
+    }
+
+    interface PersonalCenterView extends BaseView<PersonalCenterPresenter>{
+        void renderCmIncomeInfo(CmIncomeInfo cmIncomeInfo);
+        void renderCommissionInfo(CommissionInfo commissionInfo);
     }
 }

@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:id="@+id/item_persion_im"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/common_two_hundred_nine_margin"
+                android:layout_height="@dimen/common_two_hundred_twenty_five_margin"
                 android:orientation="vertical">
 
                 <ImageView
@@ -35,9 +35,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/appText5"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical" />
 
                 <RelativeLayout
+                    android:id="@+id/setting_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -69,8 +70,8 @@
                     android:id="@+id/head_photo"
                     android:layout_width="@dimen/common_eighty_two_margin"
                     android:layout_height="@dimen/common_eighty_two_margin"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="@dimen/common_five_margin"
+                    android:layout_below="@id/setting_rl"
+                    android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop"
                     app:riv_border_color="@color/appText1"
                     app:riv_border_width="3dp"
@@ -90,6 +91,48 @@
                     android:textSize="17sp"
                     tools:text="哈哈" />
 
+                <RelativeLayout
+                    android:id="@+id/go_to_cash_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_twenty_five_margin"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/common_twelve_margin"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/commission_explain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/common_five_margin"
+                        android:text="@string/commission"
+                        android:textColor="@color/appText1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/commission_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_ten_margin"
+                        android:layout_toRightOf="@id/commission_explain"
+                        android:textColor="@color/appText1"
+                        android:textSize="17sp"
+                        tools:text="20.00" />
+
+                    <TextView
+                        android:id="@+id/go_to_cash"
+                        android:layout_width="@dimen/common_sixty_six_margin"
+                        android:layout_height="@dimen/common_twenty_five_margin"
+                        android:layout_marginLeft="@dimen/common_fourteen_margin"
+                        android:layout_toRightOf="@id/commission_number"
+                        android:background="@drawable/orange_round_bg"
+                        android:gravity="center"
+                        android:text="@string/go_to_cash"
+                        android:textColor="@color/appText1"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -152,6 +195,112 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/user_commission_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_ten_margin"
+                android:background="@color/appText1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_seventeen_margin">
+
+                    <TextView
+                        android:id="@+id/daily_management"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/daily_management"
+                        android:textColor="@color/appText22"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="39dp"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/common_ten_margin"
+                        android:layout_toLeftOf="@id/daily_management"
+                        android:background="@color/backGround26" />
+
+                    <View
+                        android:layout_width="39dp"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_ten_margin"
+                        android:layout_toRightOf="@id/daily_management"
+                        android:background="@color/backGround26" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_ten_margin"
+                    android:text="@string/good_management"
+                    android:textColor="@color/appText23"
+                    android:textSize="10sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_seventeen_margin"
+                    android:layout_marginTop="@dimen/common_nineteen_margin"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/yesterday_income"
+                            style="@style/commission_number_style"
+                            tools:text="2344" />
+
+                        <TextView
+                            style="@style/commission_type_style"
+                            android:text="@string/yesterday" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/month_income"
+                            style="@style/commission_number_style"
+                            tools:text="2344" />
+
+                        <TextView
+                            style="@style/commission_type_style"
+                            android:text="@string/this_month" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/cumulative_income"
+                            style="@style/commission_number_style"
+                            tools:text="2344" />
+
+                        <TextView
+                            style="@style/commission_type_style"
+                            android:text="@string/cumulative" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
             <FrameLayout
                 android:id="@+id/item_energy"
                 style="@style/persion_item_fl_style"
@@ -175,6 +324,7 @@
                     android:drawableStart="@mipmap/voucher"
                     android:text="@string/coupon" />
             </FrameLayout>
+
             <FrameLayout
                 android:id="@+id/item_ecvoucher"
                 style="@style/persion_item_fl_style"
@@ -186,6 +336,7 @@
                     android:drawableStart="@mipmap/ecvocher_icon"
                     android:text="@string/ecvocher" />
             </FrameLayout>
+
             <FrameLayout
                 android:id="@+id/item_address"
                 style="@style/persion_item_fl_style"
@@ -208,6 +359,18 @@
                     android:drawableLeft="@mipmap/my_records"
                     android:drawableStart="@mipmap/my_records"
                     android:text="@string/rdcode" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_apply_vip"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/my_records"
+                    android:drawableStart="@mipmap/my_records"
+                    android:text="@string/apply_vip" />
             </FrameLayout>
 
             <FrameLayout
@@ -257,6 +420,18 @@
                     android:drawableLeft="@mipmap/about_neng"
                     android:drawableStart="@mipmap/about_neng"
                     android:text="@string/about_neng" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/item_bankcard"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="@dimen/common_text_left">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/bankcard_icon"
+                    android:drawableStart="@mipmap/bankcard_icon"
+                    android:text="@string/my_bankcard" />
             </FrameLayout>
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>

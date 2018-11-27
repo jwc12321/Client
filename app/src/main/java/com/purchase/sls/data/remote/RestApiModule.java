@@ -13,6 +13,8 @@ import com.purchase.sls.data.EntitySerializer;
 import com.purchase.sls.data.GsonSerializer;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
@@ -68,11 +70,26 @@ public class RestApiModule {
         return new GsonSerializer(gson);
     }
 
+
+
+    public class HttpLogger implements HttpLoggingInterceptor.Logger {
+        @Override
+        public void log(String message) {
+            try {
+                String text = URLDecoder.decode(message, "utf-8");
+                Log.e("OKHttp-----", text);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                Log.e("OKHttp-----", message);
+            }
+        }
+    }
+
     @Singleton
     @Provides
     @Named("HttpLogging")
     Interceptor provideHttpLoggingInterceptor() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return loggingInterceptor;
     }
@@ -138,6 +155,7 @@ public class RestApiModule {
                 .readTimeout(BuildConfig.DEFAULT_READ_TIMEOUT_SEC, TimeUnit.SECONDS)
                 .addNetworkInterceptor(addFormData)
                 .addNetworkInterceptor(httpLogging)
+                .addInterceptor(httpLogging)
                 .build();
     }
 

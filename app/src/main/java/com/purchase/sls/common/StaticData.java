@@ -146,5 +146,11 @@ public class StaticData {
     public static final String ADDRESS_ID="addressId";
     //支付密码
     public static final String PAY_PASSWORD="payPassword";
+    //银行卡属性
+    public static final String BANK_INFO="bankInfo";
+    //是否要返回银行卡
+    public static final String IS_BANK_INTO="isBankInfo";
+    //记录id
+    public static final String RECORD_ID="recordId";
 
 }

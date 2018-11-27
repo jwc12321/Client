@@ -8,6 +8,7 @@ import com.purchase.sls.ActivityScope;
 import com.purchase.sls.ApplicationComponent;
 import com.purchase.sls.mine.ui.ChangeHeadPortraitActivity;
 import com.purchase.sls.mine.ui.ChangeNickNameActivity;
+import com.purchase.sls.mine.ui.PersonalCenterFragment;
 import com.purchase.sls.mine.ui.PersonalInformationActivity;
 import com.purchase.sls.mine.ui.SettingActivity;
 import com.purchase.sls.mine.ui.ShiftHandsetActivity;
@@ -22,4 +23,5 @@ public interface PersonalCenterComponent {
     void inject(ChangeNickNameActivity changeNickNameActivity);
     void inject(ShiftHandsetActivity shiftHandsetActivity);
     void inject(ChangeHeadPortraitActivity changeHeadPortraitActivity);
+    void inject(PersonalCenterFragment personalCenterFragment);
 }

@@ -11,11 +11,14 @@ import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.AliPaySignResponse;
 import com.purchase.sls.data.entity.AllCategoriesInfo;
 import com.purchase.sls.data.entity.AllEvaluationInfo;
+import com.purchase.sls.data.entity.BankCardInfo;
 import com.purchase.sls.data.entity.BannerHotResponse;
 import com.purchase.sls.data.entity.BrowseInfo;
 import com.purchase.sls.data.entity.ChangeAppInfo;
 import com.purchase.sls.data.entity.ClassifyInfo;
+import com.purchase.sls.data.entity.CmIncomeInfo;
 import com.purchase.sls.data.entity.CollectionListResponse;
+import com.purchase.sls.data.entity.CommissionInfo;
 import com.purchase.sls.data.entity.CouponListInfo;
 import com.purchase.sls.data.entity.EcVoucherInfo;
 import com.purchase.sls.data.entity.EnergyInfo;
@@ -37,6 +40,8 @@ import com.purchase.sls.data.entity.MessageListInfo;
 import com.purchase.sls.data.entity.NearbyInfoResponse;
 import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
+import com.purchase.sls.data.entity.PfRecrodDetail;
+import com.purchase.sls.data.entity.PutForwardList;
 import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
@@ -49,8 +54,10 @@ import com.purchase.sls.data.request.AccountListRequest;
 import com.purchase.sls.data.request.ActivityIdRequest;
 import com.purchase.sls.data.request.ActivityOrderListRequest;
 import com.purchase.sls.data.request.AddAddressRequest;
+import com.purchase.sls.data.request.AddBankCardRequest;
 import com.purchase.sls.data.request.AddRemoveCollectionRequest;
 import com.purchase.sls.data.request.AddToCartRequest;
+import com.purchase.sls.data.request.ApplyVipRequest;
 import com.purchase.sls.data.request.CartidRequest;
 import com.purchase.sls.data.request.CateidRequest;
 import com.purchase.sls.data.request.ChangeUserInfoRequest;
@@ -87,6 +94,7 @@ import com.purchase.sls.data.request.PayPwPowerRequest;
 import com.purchase.sls.data.request.PaysecKillRequest;
 import com.purchase.sls.data.request.PhoneLoginRequest;
 import com.purchase.sls.data.request.PurchaseGoodsRequest;
+import com.purchase.sls.data.request.PutForwardRequest;
 import com.purchase.sls.data.request.ReceiveCouponRequest;
 import com.purchase.sls.data.request.RegisterPasswordRequest;
 import com.purchase.sls.data.request.RemoveBrowseRequest;
@@ -457,4 +465,40 @@ public interface RestApiService {
     //抽奖下单
     @POST("home/paydrawOrder")
     Flowable<RemoteDataWrapper<ActivityOrderDetailInfo>> paydrawOrder(@Body PaysecKillRequest paysecKillRequest);
+
+    //申请vip
+    @POST("home/user/vipApply")
+    Flowable<RemoteDataWrapper<Ignore>> applyVip(@Body ApplyVipRequest applyVipRequest);
+
+    //银行卡列表
+    @POST("home/user/getUserBankList")
+    Flowable<RemoteDataWrapper<List<BankCardInfo>>> getBankCardInfos(@Body TokenRequest tokenRequest);
+
+    //添加银行卡
+    @POST("home/user/addUserBank")
+    Flowable<RemoteDataWrapper<Ignore>> addBankCard(@Body AddBankCardRequest addBankCardRequest);
+
+    //删除银行卡
+    @POST("home/user/deleteUserBank")
+    Flowable<RemoteDataWrapper<Ignore>> deleteBankCard(@Body IdRequest idRequest);
+
+    //获取用户收益接口
+    @POST("home/user/getUserCommission")
+    Flowable<RemoteDataWrapper<CmIncomeInfo>> getCmIncomeInfo(@Body TokenRequest tokenRequest);
+
+    //获取我的界面佣金金额
+    @POST("home/user/getUserBalanceMoney")
+    Flowable<RemoteDataWrapper<CommissionInfo>> getCommissionInfo(@Body TokenRequest tokenRequest);
+
+    //提现
+    @POST("home/user/WithdrawApplyAdd")
+    Flowable<RemoteDataWrapper<Ignore>> putForward(@Body PutForwardRequest putForwardRequest);
+
+    //提现记录
+    @POST("home/user/WithdrawApplyList")
+    Flowable<RemoteDataWrapper<PutForwardList>> getPutForwardList(@Body PageRequest pageRequest);
+
+    //提现详情
+    @POST("home/user/getWithdrawApplyDetail")
+    Flowable<RemoteDataWrapper<PfRecrodDetail>> getPfRecrodDetail(@Body IdRequest idRequest);
 }
