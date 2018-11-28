@@ -222,18 +222,10 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
                 }
                 phoneNumber = persionInfoResponse.getTel();
                 qrCodeUrl = persionInfoResponse.getQrcode();
-                if (TextUtils.equals("1", persionInfoResponse.getIsvip())) {
-                    goToCashRl.setVisibility(View.VISIBLE);
-                    userCommissionLl.setVisibility(View.VISIBLE);
-                } else {
-                    goToCashRl.setVisibility(View.GONE);
-                    userCommissionLl.setVisibility(View.GONE);
-                }
                 if (TextUtils.equals("0", firstCm)) {
                     personalCenterPresenter.getCmIncomeInfo();
                     firstCm = "1";
                 }
-
                 if(TextUtils.equals("0",firstPutF)){
                     personalCenterPresenter.getCommissionInfo();
                     firstPutF="1";
@@ -348,6 +340,13 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
     public void renderCommissionInfo(CommissionInfo commissionInfo) {
         if(commissionInfo!=null){
             commissionNumber.setText(commissionInfo.getBalanceMoney());
+            if (TextUtils.equals("1", commissionInfo.getIsvip())) {
+                goToCashRl.setVisibility(View.VISIBLE);
+                userCommissionLl.setVisibility(View.VISIBLE);
+            } else {
+                goToCashRl.setVisibility(View.GONE);
+                userCommissionLl.setVisibility(View.GONE);
+            }
         }
     }
 }

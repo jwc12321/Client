@@ -31,13 +31,11 @@ import butterknife.OnClick;
  * Created by JWC on 2018/11/27.
  */
 
-public class PutForwardRecordActivity extends BaseActivity implements BankCardContract.PutForwardRecordView{
+public class PutForwardRecordActivity extends BaseActivity implements BankCardContract.PutForwardRecordView,PutFRecordAdapter.ItemClickListener{
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.screen_date)
-    ImageView screenDate;
     @BindView(R.id.title_rel)
     RelativeLayout titleRel;
     @BindView(R.id.pf_record_rv)
@@ -64,7 +62,7 @@ public class PutForwardRecordActivity extends BaseActivity implements BankCardCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_put_forward_record);
         ButterKnife.bind(this);
-        setHeight(back,title,screenDate);
+        setHeight(back,title,null);
         initView();
     }
     private void initView(){
@@ -75,6 +73,7 @@ public class PutForwardRecordActivity extends BaseActivity implements BankCardCo
 
     private void addAdapter(){
         putFRecordAdapter=new PutFRecordAdapter();
+        putFRecordAdapter.setItemClickListener(this);
         pfRecordRv.setAdapter(putFRecordAdapter);
 
     }
@@ -140,15 +139,18 @@ public class PutForwardRecordActivity extends BaseActivity implements BankCardCo
                 .inject(this);
     }
 
-    @OnClick({R.id.back, R.id.screen_date})
+    @OnClick({R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-            case R.id.screen_date:
-                break;
             default:
         }
+    }
+
+    @Override
+    public void backRecordId(String id) {
+        PutForwardDetailActivity.start(this,id);
     }
 }

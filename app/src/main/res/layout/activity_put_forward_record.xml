@@ -19,11 +19,6 @@
             android:id="@+id/title"
             style="@style/title_text_style"
             android:text="@string/present_record" />
-
-        <ImageView
-            android:id="@+id/screen_date"
-            style="@style/title_right_back_style"
-            android:src="@mipmap/add_icon" />
     </RelativeLayout>
 
     <com.purchase.sls.common.refreshview.HeaderViewLayout

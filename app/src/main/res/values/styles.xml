@@ -603,7 +603,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/appText26</item>
-        <item name="android:layout_marginLeft">@dimen/common_sixteen_margin</item>
+        <item name="android:layout_marginLeft">@dimen/common_twelve_margin</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textSize">13sp</item>
     </style>

@@ -36,7 +36,7 @@
                 android:id="@+id/total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/appText5"
+                android:textColor="@color/appText20"
                 android:textSize="24sp"
                 tools:text="400"
                 android:layout_marginTop="@dimen/common_twenty_five_margin"
@@ -45,7 +45,7 @@
                 style="@style/text_fifteen_appText27_style"
                 android:id="@+id/type"
                 android:layout_gravity="center_horizontal"
-                tools:text="现金提现"
+                android:text="现金提现"
                 android:layout_marginTop="@dimen/common_ten_margin"/>
             <View
                 style="@style/all_line_style"
@@ -66,7 +66,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_thirty_three_margin"
-                android:layout_marginTop="@dimen/common_fifteen_margin">
+                android:layout_marginTop="@dimen/common_fifteen_margin"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/putforward_detail_left_tv"
@@ -112,7 +113,7 @@
                     android:text="@string/putforward_bank" />
 
                 <TextView
-                    android:id="@+id/purforward_bank"
+                    android:id="@+id/putforward_bank"
                     style="@style/account_detail_right_tv" />
             </RelativeLayout>
             <RelativeLayout
@@ -128,6 +129,38 @@
                     android:id="@+id/putforward_orderno"
                     style="@style/account_detail_right_tv" />
             </RelativeLayout>
+            <TextView
+                android:id="@+id/fail_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appText20"
+                android:textSize="15sp"
+                android:text="失败原因"
+                android:layout_margin="@dimen/common_twelve_margin"
+                android:visibility="gone"/>
+            <LinearLayout
+                android:id="@+id/fail_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/common_four_margin"
+                android:layout_marginLeft="@dimen/common_twelve_margin">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/five_orange_bg"
+                    android:layout_marginTop="@dimen/common_four_margin"/>
+                <TextView
+                    android:id="@+id/fail_explain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/appText20"
+                    android:textSize="12sp"
+                    android:text="失败原因"
+                    android:visibility="visible"
+                    android:layout_marginLeft="@dimen/common_eight_margin"/>
+            </LinearLayout>
+
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
 </LinearLayout>

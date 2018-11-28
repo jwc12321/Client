@@ -43,6 +43,9 @@ public class PfRecrodDetail {
     //用户账号
     @SerializedName("username")
     private String username;
+    //提现单号
+    @SerializedName("withdraw_no")
+    private String withdrawNo;
 
     public String getId() {
         return id;
@@ -138,5 +141,13 @@ public class PfRecrodDetail {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getWithdrawNo() {
+        return withdrawNo;
+    }
+
+    public void setWithdrawNo(String withdrawNo) {
+        this.withdrawNo = withdrawNo;
     }
 }

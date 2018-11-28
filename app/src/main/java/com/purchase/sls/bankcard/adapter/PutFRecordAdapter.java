@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.purchase.sls.R;
 import com.purchase.sls.common.unit.FormatUtil;
+import com.purchase.sls.data.entity.BankCardInfo;
 import com.purchase.sls.data.entity.PfRecrodInfo;
 
 import java.util.List;
@@ -48,8 +49,16 @@ public class PutFRecordAdapter extends RecyclerView.Adapter<PutFRecordAdapter.Pu
 
     @Override
     public void onBindViewHolder(PutFRecordView holder, int position) {
-        PfRecrodInfo pfRecrodInfo = pfRecrodInfos.get(holder.getAdapterPosition());
+        final PfRecrodInfo pfRecrodInfo = pfRecrodInfos.get(holder.getAdapterPosition());
         holder.bindData(pfRecrodInfo);
+        holder.itemRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(itemClickListener!=null){
+                    itemClickListener.backRecordId(pfRecrodInfo.getId());
+                }
+            }
+        });
     }
 
     @Override
@@ -100,6 +109,16 @@ public class PutFRecordAdapter extends RecyclerView.Adapter<PutFRecordAdapter.Pu
                 icon.setBackgroundResource(R.mipmap.pf_fail_icon);
             }
         }
+    }
+
+    public interface ItemClickListener {
+        void backRecordId(String id);
+    }
+
+    private ItemClickListener itemClickListener;
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
 }

@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/common_twenty_five_margin"
         android:layout_marginRight="@dimen/common_twenty_five_margin"
-        android:layout_marginTop="@dimen/common_twenty_margin"
-        tools:background="@mipmap/first_bankcard_icon">
+        android:layout_marginTop="@dimen/common_ten_margin"
+        tools:background="@mipmap/first_bankcard_icon"
+        android:layout_marginBottom="@dimen/common_ten_margin">
 
         <TextView
             android:id="@+id/untying"

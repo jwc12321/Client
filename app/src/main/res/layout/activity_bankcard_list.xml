@@ -39,7 +39,8 @@
                 android:id="@+id/bankcard_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="@string/layoutManager_LinearLayout" />
+                app:layoutManager="@string/layoutManager_LinearLayout"
+                android:layout_marginTop="@dimen/common_ten_margin"/>
 
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/empty_view"

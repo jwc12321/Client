@@ -61,9 +61,6 @@ public class PersionInfoResponse {
     private String qrcode;
     @SerializedName("token")
     private String token;
-    //是否是vip
-    @SerializedName("isvip")
-    private String isvip;
 
     public String getId() {
         return id;
@@ -273,11 +270,4 @@ public class PersionInfoResponse {
         this.token = token;
     }
 
-    public String getIsvip() {
-        return isvip;
-    }
-
-    public void setIsvip(String isvip) {
-        this.isvip = isvip;
-    }
 }

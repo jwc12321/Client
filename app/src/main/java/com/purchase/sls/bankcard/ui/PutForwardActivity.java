@@ -186,6 +186,8 @@ public class PutForwardActivity extends BaseActivity implements BankCardContract
 
     @Override
     public void putForwardSuccess() {
+        showMessage("已提交提现申请");
+        inputCashEt.setText("");
         putForwardPresenter.getCommissionInfo();
     }
 
