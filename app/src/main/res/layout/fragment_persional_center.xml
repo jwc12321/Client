@@ -364,7 +364,8 @@
             <FrameLayout
                 android:id="@+id/item_apply_vip"
                 style="@style/persion_item_fl_style"
-                android:layout_marginTop="1dp">
+                android:layout_marginTop="1dp"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/persion_item_text_style"
@@ -425,7 +426,8 @@
             <FrameLayout
                 android:id="@+id/item_bankcard"
                 style="@style/persion_item_fl_style"
-                android:layout_marginTop="@dimen/common_text_left">
+                android:layout_marginTop="@dimen/common_text_left"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/persion_item_text_style"

@@ -64,7 +64,8 @@
                     android:layout_marginLeft="@dimen/common_one_hundred_margin"
                     android:layout_marginRight="@dimen/common_twelve_margin"
                     android:gravity="center_vertical|right"
-                    android:hint="请输入银行卡号" />
+                    android:hint="请输入银行卡号"
+                    android:inputType="number"/>
 
             </RelativeLayout>
             <TextView
@@ -159,7 +160,8 @@
                     android:layout_marginLeft="@dimen/common_one_hundred_margin"
                     android:layout_marginRight="@dimen/common_twelve_margin"
                     android:gravity="center_vertical|right"
-                    android:hint="请输入银行预留手机号" />
+                    android:hint="请输入银行预留手机号"
+                    android:inputType="number"/>
 
                 <View
                     style="@style/st_line_style"

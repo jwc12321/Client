@@ -302,6 +302,7 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_apply_vip://申请vip
+                firstPutF="0";
                 ApplyVipActivity.start(getActivity());
                 break;
             case R.id.item_bankcard://我的银行卡
@@ -343,9 +344,13 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
             if (TextUtils.equals("1", commissionInfo.getIsvip())) {
                 goToCashRl.setVisibility(View.VISIBLE);
                 userCommissionLl.setVisibility(View.VISIBLE);
+                itemApplyVip.setVisibility(View.GONE);
+                itemBankcard.setVisibility(View.VISIBLE);
             } else {
                 goToCashRl.setVisibility(View.GONE);
                 userCommissionLl.setVisibility(View.GONE);
+                itemApplyVip.setVisibility(View.VISIBLE);
+                itemBankcard.setVisibility(View.GONE);
             }
         }
     }

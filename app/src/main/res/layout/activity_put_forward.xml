@@ -100,7 +100,8 @@
                     android:hint="请输入提现金额"
                     android:textColor="@color/appText5"
                     android:textColorHint="@color/appText27"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:inputType="number"/>
             </LinearLayout>
 
             <View style="@style/st_line_style" />
