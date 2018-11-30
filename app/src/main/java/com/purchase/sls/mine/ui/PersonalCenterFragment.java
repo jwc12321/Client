@@ -46,7 +46,6 @@ import com.purchase.sls.mine.PersonalCenterContract;
 import com.purchase.sls.mine.PersonalCenterModule;
 import com.purchase.sls.mine.presenter.PersonalCenterPresenter;
 import com.purchase.sls.webview.ui.WebViewActivity;
-import com.umeng.commonsdk.debug.E;
 
 import javax.inject.Inject;
 
@@ -125,6 +124,8 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
     TextView cumulativeIncome;
     @BindView(R.id.user_commission_ll)
     LinearLayout userCommissionLl;
+    @BindView(R.id.vip_ll)
+    LinearLayout vipLl;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -136,7 +137,7 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
     private String qrCodeUrl;
 
     private String firstCm = "0";
-    private String firstPutF="0";
+    private String firstPutF = "0";
 
     @Inject
     PersonalCenterPresenter personalCenterPresenter;
@@ -226,9 +227,9 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
                     personalCenterPresenter.getCmIncomeInfo();
                     firstCm = "1";
                 }
-                if(TextUtils.equals("0",firstPutF)){
+                if (TextUtils.equals("0", firstPutF)) {
                     personalCenterPresenter.getCommissionInfo();
-                    firstPutF="1";
+                    firstPutF = "1";
                 }
             } else {
                 AccountLoginActivity.start(getActivity());
@@ -237,7 +238,7 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
     }
 
 
-    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_ecvoucher, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center, R.id.item_apply_vip, R.id.item_bankcard,R.id.go_to_cash})
+    @OnClick({R.id.information_iv, R.id.setting_iv, R.id.order_ll, R.id.collection_ll, R.id.comment_ll, R.id.account_ll, R.id.item_energy, R.id.item_ecvoucher, R.id.item_voucher, R.id.item_rdcode, R.id.item_address, R.id.item_browse_records, R.id.item_want_cooperate, R.id.item_about_neng, R.id.bg_ll, R.id.item_customer_service_center, R.id.item_apply_vip, R.id.item_bankcard, R.id.go_to_cash})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_iv://设置
@@ -302,16 +303,16 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_apply_vip://申请vip
-                firstPutF="0";
+                firstPutF = "0";
                 ApplyVipActivity.start(getActivity());
                 break;
             case R.id.item_bankcard://我的银行卡
                 Intent intent = new Intent(getActivity(), BankCardListActivity.class);
-                intent.putExtra(StaticData.IS_BANK_INTO,"0");
+                intent.putExtra(StaticData.IS_BANK_INTO, "0");
                 startActivity(intent);
                 break;
             case R.id.go_to_cash://申请提现
-                firstPutF="0";
+                firstPutF = "0";
                 PutForwardActivity.start(getActivity());
                 break;
             default:
@@ -331,26 +332,28 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
     @Override
     public void renderCmIncomeInfo(CmIncomeInfo cmIncomeInfo) {
         if (cmIncomeInfo != null) {
-            yesterdayIncome.setText("+"+cmIncomeInfo.getYesterdayMoney());
-            monthIncome.setText("+"+cmIncomeInfo.getMonthMoney());
-            cumulativeIncome.setText("+"+cmIncomeInfo.getTotalMoney());
+            yesterdayIncome.setText("+" + cmIncomeInfo.getYesterdayMoney());
+            monthIncome.setText("+" + cmIncomeInfo.getMonthMoney());
+            cumulativeIncome.setText("+" + cmIncomeInfo.getTotalMoney());
         }
     }
 
     @Override
     public void renderCommissionInfo(CommissionInfo commissionInfo) {
-        if(commissionInfo!=null){
+        if (commissionInfo != null) {
             commissionNumber.setText(commissionInfo.getBalanceMoney());
             if (TextUtils.equals("1", commissionInfo.getIsvip())) {
                 goToCashRl.setVisibility(View.VISIBLE);
                 userCommissionLl.setVisibility(View.VISIBLE);
                 itemApplyVip.setVisibility(View.GONE);
                 itemBankcard.setVisibility(View.VISIBLE);
+                vipLl.setVisibility(View.VISIBLE);
             } else {
                 goToCashRl.setVisibility(View.GONE);
                 userCommissionLl.setVisibility(View.GONE);
                 itemApplyVip.setVisibility(View.VISIBLE);
                 itemBankcard.setVisibility(View.GONE);
+                vipLl.setVisibility(View.GONE);
             }
         }
     }

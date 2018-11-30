@@ -44,24 +44,18 @@
 
                     <ImageView
                         android:id="@+id/setting_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/common_text_left"
-                        android:paddingLeft="@dimen/common_margin_left_right"
-                        android:paddingRight="@dimen/common_margin_left_right"
-                        android:paddingTop="@dimen/common_text_left"
+                        android:layout_width="@dimen/common_forty_four_margin"
+                        android:layout_height="@dimen/common_forty_four_margin"
+                        android:padding="@dimen/common_twelve_margin"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/btn_setting_pressed" />
 
                     <ImageView
                         android:id="@+id/information_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/common_forty_four_margin"
+                        android:layout_height="@dimen/common_forty_four_margin"
+                        android:padding="@dimen/common_twelve_margin"
                         android:layout_alignParentRight="true"
-                        android:paddingBottom="@dimen/common_twelve_margin"
-                        android:paddingLeft="@dimen/common_margin_left_right"
-                        android:paddingRight="@dimen/common_margin_left_right"
-                        android:paddingTop="@dimen/common_twelve_margin"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/news" />
                 </RelativeLayout>
@@ -79,6 +73,40 @@
                     app:riv_oval="true"
                     tools:background="@null"
                     tools:src="@mipmap/head_photo_icon" />
+
+                <LinearLayout
+                    android:id="@+id/vip_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/setting_rl"
+                    android:layout_marginTop="@dimen/common_sixty_margin"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="@dimen/common_eleven_margin"
+                            android:background="@drawable/vip_bg"
+                            android:gravity="center"
+                            android:text="V"
+                            android:textColor="@color/appText1"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/persion_name"
