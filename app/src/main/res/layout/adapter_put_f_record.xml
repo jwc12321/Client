@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_twelve_margin"
-            android:text="佣金提现"
+            android:text="余额提现"
             android:textColor="@color/appText5"
             android:textSize="16sp" />
 

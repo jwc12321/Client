@@ -98,6 +98,11 @@ public class PutForwardActivity extends BaseActivity implements BankCardContract
 
     private void initView(){
         editListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         putForwardPresenter.getCommissionInfo();
     }
 
@@ -186,9 +191,8 @@ public class PutForwardActivity extends BaseActivity implements BankCardContract
 
     @Override
     public void putForwardSuccess() {
-        showMessage("已提交提现申请");
         inputCashEt.setText("");
-        putForwardPresenter.getCommissionInfo();
+        PutForwardRecordActivity.start(this);
     }
 
     @Override

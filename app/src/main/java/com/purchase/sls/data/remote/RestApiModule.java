@@ -89,7 +89,8 @@ public class RestApiModule {
     @Provides
     @Named("HttpLogging")
     Interceptor provideHttpLoggingInterceptor() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return loggingInterceptor;
     }
@@ -155,7 +156,7 @@ public class RestApiModule {
                 .readTimeout(BuildConfig.DEFAULT_READ_TIMEOUT_SEC, TimeUnit.SECONDS)
                 .addNetworkInterceptor(addFormData)
                 .addNetworkInterceptor(httpLogging)
-                .addInterceptor(httpLogging)
+//                .addInterceptor(httpLogging)
                 .build();
     }
 

@@ -54,8 +54,8 @@
                         android:id="@+id/information_iv"
                         android:layout_width="@dimen/common_forty_four_margin"
                         android:layout_height="@dimen/common_forty_four_margin"
-                        android:padding="@dimen/common_twelve_margin"
                         android:layout_alignParentRight="true"
+                        android:padding="@dimen/common_twelve_margin"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/news" />
                 </RelativeLayout>
@@ -78,9 +78,9 @@
                     android:id="@+id/vip_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_below="@id/setting_rl"
                     android:layout_marginTop="@dimen/common_sixty_margin"
+                    android:orientation="horizontal"
                     android:visibility="visible">
 
                     <LinearLayout
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="@dimen/common_five_margin"
-                        android:text="@string/commission"
+                        android:text="余额"
                         android:textColor="@color/appText1"
                         android:textSize="12sp" />
 
@@ -403,9 +403,28 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/item_bankcard"
+                style="@style/persion_item_fl_style"
+                android:layout_marginTop="@dimen/common_text_left"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/persion_item_text_style"
+                    android:drawableLeft="@mipmap/bankcard_icon"
+                    android:drawableStart="@mipmap/bankcard_icon"
+                    android:text="@string/my_bankcard" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/fenge_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_text_left"
+                android:background="@color/backGround1" />
+
+            <FrameLayout
                 android:id="@+id/item_browse_records"
                 style="@style/persion_item_fl_style"
-                android:layout_marginTop="@dimen/common_text_left">
+                android:layout_marginTop="1dp">
 
                 <TextView
                     style="@style/persion_item_text_style"
@@ -451,18 +470,6 @@
                     android:text="@string/about_neng" />
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/item_bankcard"
-                style="@style/persion_item_fl_style"
-                android:layout_marginTop="@dimen/common_text_left"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/persion_item_text_style"
-                    android:drawableLeft="@mipmap/bankcard_icon"
-                    android:drawableStart="@mipmap/bankcard_icon"
-                    android:text="@string/my_bankcard" />
-            </FrameLayout>
         </LinearLayout>
     </com.purchase.sls.common.widget.ReboundScrollView>
 </LinearLayout>

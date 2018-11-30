@@ -84,9 +84,7 @@ public class BankCardListActivity extends BaseActivity implements BankCardContra
 
     private void addAdapter(){
         bankCardAdapter=new BankCardAdapter();
-        if(TextUtils.equals("1",isBankInfo)) {
-            bankCardAdapter.setItemClickListener(this);
-        }
+        bankCardAdapter.setItemClickListener(this);
         bankcardRv.setAdapter(bankCardAdapter);
     }
 
@@ -157,10 +155,12 @@ public class BankCardListActivity extends BaseActivity implements BankCardContra
 
     @Override
     public void backBankInfo(BankCardInfo bankCardInfo) {
-        Intent intent = new Intent();
-        intent.putExtra(StaticData.BANK_INFO, bankCardInfo);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+        if(TextUtils.equals("1",isBankInfo)) {
+            Intent intent = new Intent();
+            intent.putExtra(StaticData.BANK_INFO, bankCardInfo);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
     }
 
     @Override

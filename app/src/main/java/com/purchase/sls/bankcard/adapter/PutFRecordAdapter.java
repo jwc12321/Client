@@ -87,7 +87,7 @@ public class PutFRecordAdapter extends RecyclerView.Adapter<PutFRecordAdapter.Pu
         }
 
         public void bindData(PfRecrodInfo pfRecrodInfo) {
-            type.setText("佣金提现");
+            type.setText("余额提现");
             price.setText(pfRecrodInfo.getPrice());
             time.setText(FormatUtil.formatDateByLine(pfRecrodInfo.getCreatedAt()));
             bankName.setText(pfRecrodInfo.getBankName());

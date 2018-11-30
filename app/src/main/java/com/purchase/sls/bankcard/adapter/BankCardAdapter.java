@@ -1,6 +1,7 @@
 package com.purchase.sls.bankcard.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,8 +95,8 @@ public class BankCardAdapter extends RecyclerView.Adapter<BankCardAdapter.BankCa
         public void bindData(BankCardInfo bankCardInfo) {
             bankName.setText(bankCardInfo.getBankName());
             String number = bankCardInfo.getBankNumber();
-            if(number.length()>13) {
-                cardNumber.setText(number.substring(13, number.length()));
+            if(!TextUtils.isEmpty(number)) {
+                cardNumber.setText(number.substring(number.length()-4, number.length()));
             }
         }
     }

@@ -126,6 +126,8 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
     LinearLayout userCommissionLl;
     @BindView(R.id.vip_ll)
     LinearLayout vipLl;
+    @BindView(R.id.fenge_view)
+    View fengeView;
     private boolean isFirstLoad = true;
 
     private PersionAppPreferences persionAppPreferences;
@@ -348,12 +350,14 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
                 itemApplyVip.setVisibility(View.GONE);
                 itemBankcard.setVisibility(View.VISIBLE);
                 vipLl.setVisibility(View.VISIBLE);
+                fengeView.setVisibility(View.GONE);
             } else {
                 goToCashRl.setVisibility(View.GONE);
                 userCommissionLl.setVisibility(View.GONE);
                 itemApplyVip.setVisibility(View.VISIBLE);
                 itemBankcard.setVisibility(View.GONE);
                 vipLl.setVisibility(View.GONE);
+                fengeView.setVisibility(View.VISIBLE);
             }
         }
     }
