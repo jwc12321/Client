@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appText1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/backGround3">
+
+        <LinearLayout
+            android:id="@+id/search_ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toLeftOf="@id/shopping_cart"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/common_eight_margin"
+            android:paddingTop="@dimen/common_eight_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_twelve_margin"
+                android:background="@drawable/search_edittext_bg">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_eleven_margin"
+                    android:src="@mipmap/search" />
+
+                <TextView
+                    android:id="@+id/search_tt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common_ten_margin"
+                    android:text="@string/search_commodity"
+                    android:textColor="@color/appText17"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/shopping_cart"
+            android:layout_width="@dimen/common_seventy_one_margin"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/common_twelve_margin"
+            android:paddingLeft="@dimen/common_thirty_nine_margin"
+            android:paddingRight="@dimen/common_twelve_margin"
+            android:paddingTop="@dimen/common_twelve_margin"
+            android:src="@mipmap/shopping_cart_icon" />
+    </RelativeLayout>
+
+    <com.purchase.sls.common.refreshview.HeaderViewLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refreshMode="LIST_LOAD">
+
+        <com.purchase.sls.common.widget.GradationScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appText1"
+                android:orientation="vertical">
+
+                <com.purchase.sls.common.widget.newbanner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mallCategory_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:nestedScrollingEnabled="false"
+                    android:padding="@dimen/common_margin_left_right"
+                    app:layoutManager="@string/layoutManager_Gridlayout" />
+                <VideoView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/backGround1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推荐"
+                    android:textColor="@color/appText5"
+                    android:textSize="15sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_ten_margin"
+                    android:layout_marginBottom="@dimen/common_ten_margin"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recommend_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="@string/layoutManager_LinearLayout"
+                    android:layout_marginLeft="@dimen/common_twelve_margin"
+                    android:layout_marginRight="@dimen/common_twelve_margin"/>
+            </LinearLayout>
+        </com.purchase.sls.common.widget.GradationScrollView>
+    </com.purchase.sls.common.refreshview.HeaderViewLayout>
+</LinearLayout>

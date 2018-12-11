@@ -99,7 +99,7 @@ public class GoodsSearchActivity extends BaseActivity {
             @Override
             public void itemClick(int position) {
                 if (position < historySearchList.size()) {
-                    GoodsSearchItemActivity.start(GoodsSearchActivity.this, historySearchList.get(position));
+                    GoodsSearchItemActivity.start(GoodsSearchActivity.this, historySearchList.get(position),"","");
                     setHistory(historySearchList.get(position));
                 }
             }
@@ -133,7 +133,7 @@ public class GoodsSearchActivity extends BaseActivity {
                     hideKeyboard();
                     if (!TextUtils.isEmpty(searchEt.getText().toString())) {
                         setHistory(searchEt.getText().toString());
-                        GoodsSearchItemActivity.start(GoodsSearchActivity.this, searchEt.getText().toString());
+                        GoodsSearchItemActivity.start(GoodsSearchActivity.this, searchEt.getText().toString(),"","");
                         return true;
                     }
                 }

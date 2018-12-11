@@ -34,6 +34,8 @@ import com.purchase.sls.data.entity.HotSearchInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.entity.IntercourseRecordInfo;
 import com.purchase.sls.data.entity.LikeStoreResponse;
+import com.purchase.sls.data.entity.MallBannerInfo;
+import com.purchase.sls.data.entity.MallCategoryInfo;
 import com.purchase.sls.data.entity.MalllogisInfo;
 import com.purchase.sls.data.entity.MapMarkerInfo;
 import com.purchase.sls.data.entity.MessageListInfo;
@@ -501,4 +503,17 @@ public interface RestApiService {
     //提现详情
     @POST("home/user/getWithdrawApplyDetail")
     Flowable<RemoteDataWrapper<PfRecrodDetail>> getPfRecrodDetail(@Body IdRequest idRequest);
+
+    //获取商城banner
+    @POST("mall/index/mallBanner")
+    Flowable<RemoteDataWrapper<List<MallBannerInfo>>> getMallBannerInfo(@Body TokenRequest tokenRequest);
+
+    //获取商城十个大分类
+    @POST("mall/index/mallCategory")
+    Flowable<RemoteDataWrapper<List<MallCategoryInfo>>> getMallCategoryInfo(@Body TokenRequest tokenRequest);
+
+    //
+    @POST("mall/index/mallIndexGoods")
+    Flowable<RemoteDataWrapper<GoodsItemList>> getRdGoodsItemInfo(@Body TokenRequest tokenRequest);
+
 }

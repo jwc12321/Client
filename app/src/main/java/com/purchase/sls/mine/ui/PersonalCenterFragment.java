@@ -289,7 +289,7 @@ public class PersonalCenterFragment extends BaseFragment implements PersonalCent
             case R.id.item_customer_service_center:
                 webViewDetailInfo = new WebViewDetailInfo();
                 webViewDetailInfo.setTitle("客服中心");
-                webViewDetailInfo.setUrl("https://open.365neng.com/api/home/index/services");
+                webViewDetailInfo.setUrl("http://test.hzywwl.com/api/home/customService");
                 WebViewActivity.start(getActivity(), webViewDetailInfo);
                 break;
             case R.id.item_want_cooperate://我要合作

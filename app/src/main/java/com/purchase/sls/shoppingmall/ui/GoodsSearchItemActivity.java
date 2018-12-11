@@ -78,14 +78,17 @@ public class GoodsSearchItemActivity extends BaseActivity implements ShoppingMal
     private String sortUd = "2";//排序规则 1小到大/ 2大到小
     private String sortId;
     private String sortKeyword;
+    private String sortName;
 
     private GoodsSearchItemAdapter goodsSearchItemAdapter;
     @Inject
     GoodsSearchPresenter goodsSearchPresenter;
 
-    public static void start(Context context,String searchGoods) {
+    public static void start(Context context,String searchGoods,String sortId,String sortName) {
         Intent intent = new Intent(context, GoodsSearchItemActivity.class);
         intent.putExtra(StaticData.SEARCH_GOODS,searchGoods);
+        intent.putExtra(StaticData.SORT_ID,sortId);
+        intent.putExtra(StaticData.SORT_NAME,sortName);
         context.startActivity(intent);
     }
 
@@ -102,7 +105,13 @@ public class GoodsSearchItemActivity extends BaseActivity implements ShoppingMal
 
     private void initView() {
         sortKeyword=getIntent().getStringExtra(StaticData.SEARCH_GOODS);
-        title.setText(sortKeyword);
+        sortId=getIntent().getStringExtra(StaticData.SORT_ID);
+        sortName=getIntent().getStringExtra(StaticData.SORT_NAME);
+        if(TextUtils.isEmpty(sortKeyword)){
+            title.setText(sortKeyword);
+        }else {
+            title.setText(sortName);
+        }
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         goodsItemRv.setLayoutManager(new GridLayoutManager(this, 2));
         int space = 20;

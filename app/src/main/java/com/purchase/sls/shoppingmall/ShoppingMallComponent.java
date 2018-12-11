@@ -13,6 +13,7 @@ import com.purchase.sls.shoppingmall.ui.GoodsSearchActivity;
 import com.purchase.sls.shoppingmall.ui.GoodsSearchItemActivity;
 import com.purchase.sls.shoppingmall.ui.ShoppingCartActivity;
 import com.purchase.sls.shoppingmall.ui.ShoppingMallFragment;
+import com.purchase.sls.shoppingmall.ui.ShoppingMallSFragment;
 
 import dagger.Component;
 
@@ -24,4 +25,5 @@ public interface ShoppingMallComponent {
     void inject(GoodsSearchItemActivity goodsSearchItemActivity);
     void inject(ShoppingCartActivity shoppingCartActivity);
     void inject(FillInOrderActivity fillInOrderActivity);
+    void inject(ShoppingMallSFragment shoppingMallSFragment);
 }

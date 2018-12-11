@@ -4,9 +4,12 @@ import com.purchase.sls.BasePresenter;
 import com.purchase.sls.BaseView;
 import com.purchase.sls.data.entity.AddressInfo;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
+import com.purchase.sls.data.entity.GoodsItemInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
+import com.purchase.sls.data.entity.MallBannerInfo;
+import com.purchase.sls.data.entity.MallCategoryInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.entity.ShoppingCartInfo;
 import com.purchase.sls.data.request.CartidRequest;
@@ -86,5 +89,19 @@ public interface ShoppingMallContract {
        void onAppIdReceive(String appId);
        void renderOrderno(String orderno);
        void subGoodsSuccess(GoodsOrderList goodsOrderList);
+   }
+
+   interface ShoppingMallSPresenter extends BasePresenter{
+        void getMallBanner();
+        void getMallCategory();
+        void getGoodsItemInfo();
+        void getMoreGoodsItemInfo();
+   }
+
+   interface ShoppingMallSView extends BaseView<ShoppingMallSPresenter>{
+        void renderMallBanner(List<MallBannerInfo> mallBannerInfos);
+        void renderMallCategory(List<MallCategoryInfo> mallCategoryInfos);
+       void renderRdGoodsItems(GoodsItemList goodsItemList);
+       void renderMoreRdGoodsItems(GoodsItemList goodsItemList);
    }
 }

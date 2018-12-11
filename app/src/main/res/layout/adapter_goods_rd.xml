@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/goods_item">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/photo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:riv_corner_radius="2dp"
+        app:riv_oval="false"
+        tools:background="@null"
+        android:src="@mipmap/no_url_icon" />
+
+    <TextView
+        android:id="@+id/goods_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_eight_margin"
+        android:layout_marginBottom="@dimen/common_eight_margin"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/appText5"
+        android:textSize="12sp"
+        tools:text="打服装店" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/appText3"
+            android:textSize="12sp"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/goods_voucher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_bg"
+            android:gravity="center"
+            android:paddingLeft="@dimen/common_two_margin"
+            android:paddingRight="@dimen/common_two_margin"
+            android:textColor="@color/appText1"
+            android:textSize="11sp"
+            tools:text="劵可减1000"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/appText5"
+            android:textSize="11sp"
+            android:text="立即购买" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_seventeen_margin"
+        android:background="@color/appText1"/>
+</LinearLayout>

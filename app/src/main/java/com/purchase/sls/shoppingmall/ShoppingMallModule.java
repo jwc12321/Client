@@ -14,6 +14,7 @@ public class ShoppingMallModule {
     private ShoppingMallContract.GoodsSearchView goodsSearchView;
     private ShoppingMallContract.ShoppingCartView shoppingCartView;
     private ShoppingMallContract.FillOrderView fillOrderView;
+    private ShoppingMallContract.ShoppingMallSView shoppingMallSView;
 
     public ShoppingMallModule(ShoppingMallContract.GoodsListView goodsListView) {
         this.goodsListView = goodsListView;
@@ -33,6 +34,10 @@ public class ShoppingMallModule {
 
     public ShoppingMallModule(ShoppingMallContract.FillOrderView fillOrderView) {
         this.fillOrderView = fillOrderView;
+    }
+
+    public ShoppingMallModule(ShoppingMallContract.ShoppingMallSView shoppingMallSView) {
+        this.shoppingMallSView = shoppingMallSView;
     }
 
     @Provides
@@ -58,5 +63,10 @@ public class ShoppingMallModule {
     @Provides
     ShoppingMallContract.FillOrderView provideFillOrderView(){
         return fillOrderView;
+    }
+
+    @Provides
+    ShoppingMallContract.ShoppingMallSView provideShoppingMallSView(){
+        return shoppingMallSView;
     }
 }

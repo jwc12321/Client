@@ -48,7 +48,7 @@ public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.Good
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
-        View view = layoutInflater.inflate(R.layout.adapter_goods_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.adapter_goods_rd, parent, false);
         return new GoodsItemView(view);
     }
 
