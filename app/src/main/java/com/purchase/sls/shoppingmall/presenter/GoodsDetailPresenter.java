@@ -3,10 +3,12 @@ package com.purchase.sls.shoppingmall.presenter;
 import com.purchase.sls.data.RxSchedulerTransformer;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
+import com.purchase.sls.data.entity.GoodsShareLinkInfo;
 import com.purchase.sls.data.entity.Ignore;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.AddToCartRequest;
+import com.purchase.sls.data.request.GoodsShareLinkRequest;
 import com.purchase.sls.data.request.GoodsidRequest;
 import com.purchase.sls.data.request.PurchaseGoodsRequest;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
@@ -120,6 +122,26 @@ public class GoodsDetailPresenter implements ShoppingMallContract.GoodsDetailPre
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         goodsDetailView.dismissLoading();
+                        goodsDetailView.showError(throwable);
+                    }
+                });
+        mDisposableList.add(disposable);
+    }
+
+    @Override
+    public void getGoodsShareLink(String userid, String goodsid) {
+        GoodsShareLinkRequest goodsShareLinkRequest=new GoodsShareLinkRequest(userid,goodsid);
+        Disposable disposable = restApiService.getGoodsShareLink(goodsShareLinkRequest)
+                .flatMap(new RxRemoteDataParse<GoodsShareLinkInfo>())
+                .compose(new RxSchedulerTransformer<GoodsShareLinkInfo>())
+                .subscribe(new Consumer<GoodsShareLinkInfo>() {
+                    @Override
+                    public void accept(GoodsShareLinkInfo goodsShareLinkInfo) throws Exception {
+                        goodsDetailView.renderGoodsShareLink(goodsShareLinkInfo);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
                         goodsDetailView.showError(throwable);
                     }
                 });

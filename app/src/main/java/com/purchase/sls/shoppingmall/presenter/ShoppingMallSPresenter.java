@@ -8,6 +8,7 @@ import com.purchase.sls.data.entity.MallCategoryInfo;
 import com.purchase.sls.data.remote.RestApiService;
 import com.purchase.sls.data.remote.RxRemoteDataParse;
 import com.purchase.sls.data.request.GoodsItemRequest;
+import com.purchase.sls.data.request.PageRequest;
 import com.purchase.sls.data.request.TokenRequest;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 
@@ -102,8 +103,8 @@ public class ShoppingMallSPresenter implements ShoppingMallContract.ShoppingMall
     @Override
     public void getGoodsItemInfo() {
         currentIndex = 1;
-        TokenRequest tokenRequest = new TokenRequest();
-        Disposable disposable = restApiService.getRdGoodsItemInfo(tokenRequest)
+        PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
+        Disposable disposable = restApiService.getRdGoodsItemInfo(pageRequest)
                 .flatMap(new RxRemoteDataParse<GoodsItemList>())
                 .compose(new RxSchedulerTransformer<GoodsItemList>())
                 .subscribe(new Consumer<GoodsItemList>() {
@@ -123,8 +124,8 @@ public class ShoppingMallSPresenter implements ShoppingMallContract.ShoppingMall
     @Override
     public void getMoreGoodsItemInfo() {
         currentIndex = currentIndex+1;
-        TokenRequest tokenRequest = new TokenRequest();
-        Disposable disposable = restApiService.getRdGoodsItemInfo(tokenRequest)
+        PageRequest pageRequest = new PageRequest(String.valueOf(currentIndex));
+        Disposable disposable = restApiService.getRdGoodsItemInfo(pageRequest)
                 .flatMap(new RxRemoteDataParse<GoodsItemList>())
                 .compose(new RxSchedulerTransformer<GoodsItemList>())
                 .subscribe(new Consumer<GoodsItemList>() {

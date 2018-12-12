@@ -70,7 +70,7 @@ public class GoodsSearchItemActivity extends BaseActivity implements ShoppingMal
     @BindView(R.id.refreshLayout)
     HeaderViewLayout refreshLayout;
 
-    private int sortSVint = 0;
+    private int sortSVint = 1;
     private int sortVint = 0;
     private int sortPint = 0;
 
@@ -107,11 +107,13 @@ public class GoodsSearchItemActivity extends BaseActivity implements ShoppingMal
         sortKeyword=getIntent().getStringExtra(StaticData.SEARCH_GOODS);
         sortId=getIntent().getStringExtra(StaticData.SORT_ID);
         sortName=getIntent().getStringExtra(StaticData.SORT_NAME);
-        if(TextUtils.isEmpty(sortKeyword)){
+        if(!TextUtils.isEmpty(sortKeyword)){
             title.setText(sortKeyword);
         }else {
             title.setText(sortName);
         }
+        changeTextColor(sortType);
+        sortSvIv.setBackgroundResource(R.mipmap.sort_down_icon);
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         goodsItemRv.setLayoutManager(new GridLayoutManager(this, 2));
         int space = 20;

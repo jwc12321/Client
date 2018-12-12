@@ -8,6 +8,7 @@ import com.purchase.sls.data.entity.GoodsItemInfo;
 import com.purchase.sls.data.entity.GoodsItemList;
 import com.purchase.sls.data.entity.GoodsOrderList;
 import com.purchase.sls.data.entity.GoodsParentInfo;
+import com.purchase.sls.data.entity.GoodsShareLinkInfo;
 import com.purchase.sls.data.entity.MallBannerInfo;
 import com.purchase.sls.data.entity.MallCategoryInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
@@ -40,12 +41,14 @@ public interface ShoppingMallContract {
         void getGoodsDetail(String goodsid);
         void addToCart(String id, String taobaoid, String sku, String num, String skuinfo, String quan, String tjprice, String quan_url);
         void purchaseGoods(PurchaseGoodsRequest purchaseGoodsRequest);
+        void getGoodsShareLink(String userid, String goodsid);
     }
 
     interface GoodsDetailView extends BaseView<GoodsDetailPresenter>{
         void renderGoodsDetail(GoodsDetailInfo goodsDetailInfo);
         void addToCartSuccess();
         void purchaseGoodsSuccess(GoodsOrderList goodsOrderList);
+        void renderGoodsShareLink(GoodsShareLinkInfo goodsShareLinkInfo);
     }
 
     interface GoodsSearchPresenter extends BasePresenter{

@@ -29,7 +29,7 @@ public class SplashActivity extends BaseActivity {
     private static final int GO_HOME = 1000;
     private static final int GO_GUIDE = 1001;
     // 延迟1.5秒
-    private static final long SPLASH_DELAY_MILLIS = 500;
+    private static final long SPLASH_DELAY_MILLIS = 400;
     private Handler mHandler = new Handler() {
 
         @Override
@@ -81,7 +81,7 @@ public class SplashActivity extends BaseActivity {
                     startActivity(intent);
                     SplashActivity.this.finish();
                 }
-            }, 1000);
+            }, 400);
 
         } else {
             mHandler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);

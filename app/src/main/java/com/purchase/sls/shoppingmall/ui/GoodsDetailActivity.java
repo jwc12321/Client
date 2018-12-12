@@ -17,26 +17,32 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.purchase.sls.BaseActivity;
 import com.purchase.sls.BuildConfig;
 import com.purchase.sls.R;
 import com.purchase.sls.common.GlideHelper;
 import com.purchase.sls.common.StaticData;
+import com.purchase.sls.common.unit.PersionAppPreferences;
+import com.purchase.sls.common.unit.TokenManager;
 import com.purchase.sls.common.widget.Banner.Banner;
 import com.purchase.sls.common.widget.Banner.BannerConfig;
 import com.purchase.sls.common.widget.GradationScrollView;
 import com.purchase.sls.common.widget.TearDownView;
+import com.purchase.sls.common.widget.dialog.ShareDialog;
 import com.purchase.sls.data.entity.GoodsDetailInfo;
 import com.purchase.sls.data.entity.GoodsOrderList;
+import com.purchase.sls.data.entity.GoodsShareLinkInfo;
 import com.purchase.sls.data.entity.GoodsUnitPrice;
+import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.request.PurchaseGoodsRequest;
+import com.purchase.sls.login.ui.AccountLoginActivity;
 import com.purchase.sls.shoppingmall.DaggerShoppingMallComponent;
 import com.purchase.sls.shoppingmall.ShoppingMallContract;
 import com.purchase.sls.shoppingmall.ShoppingMallModule;
 import com.purchase.sls.shoppingmall.presenter.GoodsDetailPresenter;
 import com.purchase.sls.webview.unit.JSBridgeWebChromeClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,7 +56,7 @@ import butterknife.OnClick;
  * 商品详情
  */
 
-public class GoodsDetailActivity extends BaseActivity implements ShoppingMallContract.GoodsDetailView, TearDownView.TimeOutListener {
+public class GoodsDetailActivity extends BaseActivity implements ShoppingMallContract.GoodsDetailView, TearDownView.TimeOutListener,ShareDialog.ShareListen {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.title)
@@ -83,6 +89,8 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     ImageView shopIv;
     @BindView(R.id.scrollview)
     GradationScrollView scrollview;
+    @BindView(R.id.share)
+    ImageView share;
 
     private String goodsid;
     private List<String> bannerImages;
@@ -92,6 +100,12 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     private String addType = "0"; //0：加入购物车 1：购买
     private String taobaoid;
     private String quanPrice;
+
+    private PersionAppPreferences persionAppPreferences;
+    private String persionInfoStr;
+    private PersionInfoResponse persionInfoResponse;
+    private Gson gson;
+    private String userId;
 
     @Inject
     GoodsDetailPresenter goodsDetailPresenter;
@@ -111,16 +125,28 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detail);
         ButterKnife.bind(this);
-        setHeight(back, title, shoppingCart);
+        setHeight(back, title, shoppingCart,share);
         initView();
     }
 
     private void initView() {
+        persionAppPreferences = new PersionAppPreferences(this);
         goodsid = getIntent().getStringExtra(StaticData.GOODS_ID);
         countDown.setTextColor("1");
 //        bannerInitialization();
         initWeb(goodsid);
         goodsDetailPresenter.getGoodsDetail(goodsid);
+
+    }
+
+    private void persion(){
+        persionInfoStr = persionAppPreferences.getPersionInfo();
+        gson = new Gson();
+        if (!TextUtils.isEmpty(persionInfoStr)) {
+            persionInfoResponse = gson.fromJson(persionInfoStr, PersionInfoResponse.class);
+            userId=persionInfoResponse.getId();
+        }
+        goodsDetailPresenter.getGoodsShareLink(userId,goodsid);
     }
 
     //初始化banner
@@ -176,7 +202,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
         webView.loadUrl(url);
     }
 
-    @OnClick({R.id.back, R.id.add_to_cart, R.id.purchase, R.id.shopping_cart})
+    @OnClick({R.id.back, R.id.add_to_cart, R.id.purchase, R.id.shopping_cart,R.id.share})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -193,8 +219,22 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
             case R.id.shopping_cart:
                 ShoppingCartActivity.start(this);
                 break;
+            case R.id.share:
+                if(TextUtils.isEmpty(TokenManager.getToken())){
+                    AccountLoginActivity.start(this);
+                }else {
+                    persion();
+                }
+                break;
             default:
         }
+    }
+
+    private void share(String url) {
+        ShareDialog shareDialog = new ShareDialog(this);
+        shareDialog.setUrl(url);
+        shareDialog.setShareListen(this);
+        shareDialog.show();
     }
 
     private void selectSpec() {
@@ -289,10 +329,22 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     }
 
     @Override
+    public void renderGoodsShareLink(GoodsShareLinkInfo goodsShareLinkInfo) {
+        if(goodsShareLinkInfo!=null) {
+            share(goodsShareLinkInfo.getQrcode());
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (countDown != null) {
             countDown.cancel();
         }
+    }
+
+    @Override
+    public void shareSuccess() {
+        showMessage("分享成功");
     }
 }

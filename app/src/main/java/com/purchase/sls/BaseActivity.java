@@ -80,6 +80,29 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadData
         }
     }
 
+    public void setHeight(View view1, View view2, View view3,View view4) {
+        if (view1 != null && view1.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view1.getLayoutParams();
+            p.setMargins(0, statusBarheight(), 0, 0);
+            view1.requestLayout();
+        }
+        if (view2 != null && view2.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view2.getLayoutParams();
+            p.setMargins(0, statusBarheight(), 0, 0);
+            view2.requestLayout();
+        }
+        if (view3 != null && view3.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view3.getLayoutParams();
+            p.setMargins(0, statusBarheight(), 0, 0);
+            view3.requestLayout();
+        }
+        if (view4 != null && view3.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view4.getLayoutParams();
+            p.setMargins(0, statusBarheight(), 0, 0);
+            view4.requestLayout();
+        }
+    }
+
     private void changeStateBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

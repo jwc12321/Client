@@ -29,8 +29,16 @@
 
         <ImageView
             android:id="@+id/shopping_cart"
-            style="@style/title_right_back_style"
+            android:layout_width="@dimen/common_forty_four_margin"
+            android:layout_height="@dimen/common_forty_four_margin"
+            android:layout_toLeftOf="@id/share"
+            android:background="@null"
+            android:padding="@dimen/common_eleven_margin"
             android:src="@mipmap/shopping_cart_icon" />
+        <ImageView
+            android:id="@+id/share"
+            style="@style/title_right_back_style"
+            android:src="@mipmap/share_icon" />
     </RelativeLayout>
 
     <com.purchase.sls.common.widget.GradationScrollView

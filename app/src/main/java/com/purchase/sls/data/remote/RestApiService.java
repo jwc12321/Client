@@ -44,6 +44,7 @@ import com.purchase.sls.data.entity.OrderDetailInfo;
 import com.purchase.sls.data.entity.PersionInfoResponse;
 import com.purchase.sls.data.entity.PfRecrodDetail;
 import com.purchase.sls.data.entity.PutForwardList;
+import com.purchase.sls.data.entity.GoodsShareLinkInfo;
 import com.purchase.sls.data.entity.SMBannerInfo;
 import com.purchase.sls.data.entity.ScreeningListResponse;
 import com.purchase.sls.data.entity.ShopDetailsInfo;
@@ -76,6 +77,7 @@ import com.purchase.sls.data.request.EnergyInfoRequest;
 import com.purchase.sls.data.request.GeneratingOrderRequest;
 import com.purchase.sls.data.request.GoodsItemRequest;
 import com.purchase.sls.data.request.GoodsOrderCodeRequest;
+import com.purchase.sls.data.request.GoodsShareLinkRequest;
 import com.purchase.sls.data.request.GoodsidRequest;
 import com.purchase.sls.data.request.IdRequest;
 import com.purchase.sls.data.request.IntercourseRecordRequest;
@@ -512,8 +514,12 @@ public interface RestApiService {
     @POST("mall/index/mallCategory")
     Flowable<RemoteDataWrapper<List<MallCategoryInfo>>> getMallCategoryInfo(@Body TokenRequest tokenRequest);
 
-    //
+    //商城推荐商品
     @POST("mall/index/mallIndexGoods")
-    Flowable<RemoteDataWrapper<GoodsItemList>> getRdGoodsItemInfo(@Body TokenRequest tokenRequest);
+    Flowable<RemoteDataWrapper<GoodsItemList>> getRdGoodsItemInfo(@Body PageRequest pageRequest);
+
+    //商城商品分享链接
+    @POST("mall/index/mallGoodsShareLink")
+    Flowable<RemoteDataWrapper<GoodsShareLinkInfo>> getGoodsShareLink(@Body GoodsShareLinkRequest goodsShareLinkRequest);
 
 }
