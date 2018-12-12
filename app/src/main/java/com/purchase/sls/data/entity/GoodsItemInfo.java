@@ -17,6 +17,9 @@ public class GoodsItemInfo {
     private String quanPrice;
     @SerializedName("goods_img")
     private String goodsImg;
+    //佣金
+    @SerializedName("goods_most_commission")
+    private String goodsMostCommission;
 
     public String getId() {
         return id;
@@ -56,5 +59,13 @@ public class GoodsItemInfo {
 
     public void setGoodsImg(String goodsImg) {
         this.goodsImg = goodsImg;
+    }
+
+    public String getGoodsMostCommission() {
+        return goodsMostCommission;
+    }
+
+    public void setGoodsMostCommission(String goodsMostCommission) {
+        this.goodsMostCommission = goodsMostCommission;
     }
 }

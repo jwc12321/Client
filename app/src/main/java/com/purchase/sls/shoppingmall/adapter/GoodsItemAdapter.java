@@ -3,6 +3,7 @@ package com.purchase.sls.shoppingmall.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.Good
         holder.goodsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onItemClickListener!=null){
+                if (onItemClickListener != null) {
                     onItemClickListener.goGoodsDetail(goodsItemInfo.getId());
                 }
             }
@@ -82,6 +83,8 @@ public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.Good
         TextView goodsPrice;
         @BindView(R.id.goods_voucher)
         TextView goodsVoucher;
+        @BindView(R.id.commission)
+        TextView commission;
 
         public GoodsItemView(View itemView) {
             super(itemView);
@@ -93,6 +96,12 @@ public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.Good
             goodsName.setText(goodsItemInfo.getGoodsName());
             goodsPrice.setText("¥" + goodsItemInfo.getPrice());
             goodsVoucher.setText("劵可减" + goodsItemInfo.getQuanPrice());
+            if (TextUtils.isEmpty(goodsItemInfo.getGoodsMostCommission())){
+                commission.setVisibility(View.INVISIBLE);
+            }else {
+                commission.setVisibility(View.VISIBLE);
+                commission.setText("最高可获得佣金"+goodsItemInfo.getGoodsMostCommission()+"元");
+            }
         }
     }
 

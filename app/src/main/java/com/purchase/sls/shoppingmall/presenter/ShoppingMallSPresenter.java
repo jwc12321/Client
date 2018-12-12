@@ -62,6 +62,7 @@ public class ShoppingMallSPresenter implements ShoppingMallContract.ShoppingMall
 
     @Override
     public void getMallBanner() {
+        shoppingMallSView.showLoading();
         TokenRequest tokenRequest=new TokenRequest();
         Disposable disposable = restApiService.getMallBannerInfo(tokenRequest)
                 .flatMap(new RxRemoteDataParse<List<MallBannerInfo>>())
@@ -69,11 +70,13 @@ public class ShoppingMallSPresenter implements ShoppingMallContract.ShoppingMall
                 .subscribe(new Consumer<List<MallBannerInfo>>() {
                     @Override
                     public void accept(List<MallBannerInfo> mallBannerInfos) throws Exception {
+                        shoppingMallSView.dismissLoading();
                         shoppingMallSView.renderMallBanner(mallBannerInfos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        shoppingMallSView.dismissLoading();
                         shoppingMallSView.showError(throwable);
                     }
                 });
