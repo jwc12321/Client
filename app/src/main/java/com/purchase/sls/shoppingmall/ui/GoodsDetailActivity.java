@@ -231,7 +231,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
     }
 
     private void share(String url) {
-        ShareDialog shareDialog = new ShareDialog(this);
+        ShareDialog shareDialog = new ShareDialog(GoodsDetailActivity.this);
         shareDialog.setUrl(url);
         shareDialog.setShareListen(this);
         shareDialog.show();
@@ -345,6 +345,5 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingMallCon
 
     @Override
     public void shareSuccess() {
-        showMessage("分享成功");
     }
 }
