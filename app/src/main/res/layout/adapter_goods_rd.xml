@@ -46,7 +46,8 @@
             android:textSize="11sp"
             tools:text="劵可减1000"
             android:layout_marginTop="@dimen/common_five_margin"
-            android:layout_marginBottom="@dimen/common_five_margin"/>
+            android:layout_marginBottom="@dimen/common_five_margin"
+            android:layout_below="@id/goods_price"/>
         <TextView
             android:id="@+id/commission"
             android:layout_width="wrap_content"
@@ -60,13 +61,13 @@
             tools:text="劵可减1000"
             android:layout_marginTop="@dimen/common_five_margin"
             android:layout_marginBottom="@dimen/common_five_margin"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/goods_price"/>
         <TextView
             android:id="@+id/goods_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/appText3"
-            android:layout_below="@id/goods_voucher"
             android:textSize="12sp"
             tools:text="100"
             android:layout_marginBottom="@dimen/common_five_margin"/>
@@ -75,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="@color/appText3"
-            android:layout_below="@id/commission"
             android:textSize="11sp"
             android:text="立即购买"
             android:layout_marginBottom="@dimen/common_five_margin"/>

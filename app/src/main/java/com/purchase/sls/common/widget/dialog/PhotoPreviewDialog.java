@@ -25,9 +25,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Sherily on 2016/9/22.
- */
 
 public class PhotoPreviewDialog extends DialogFragment implements ViewPager.OnPageChangeListener, ViewPageAdapter.OnDismissListener, View.OnClickListener {
 

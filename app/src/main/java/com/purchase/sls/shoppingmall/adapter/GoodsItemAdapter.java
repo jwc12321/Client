@@ -95,8 +95,18 @@ public class GoodsItemAdapter extends RecyclerView.Adapter<GoodsItemAdapter.Good
             GlideHelper.load((Activity) context, goodsItemInfo.getGoodsImg(), R.mipmap.no_url_icon, photo);
             goodsName.setText(goodsItemInfo.getGoodsName());
             goodsPrice.setText("¥" + goodsItemInfo.getPrice());
-            goodsVoucher.setText("劵可减" + goodsItemInfo.getQuanPrice());
-            if (TextUtils.isEmpty(goodsItemInfo.getGoodsMostCommission())){
+            if(TextUtils.isEmpty(goodsItemInfo.getQuanPrice())
+                    ||TextUtils.equals("0",goodsItemInfo.getQuanPrice())
+                    ||TextUtils.equals("0.0",goodsItemInfo.getQuanPrice())
+                    ||TextUtils.equals("0.00",goodsItemInfo.getQuanPrice())){
+                goodsVoucher.setVisibility(View.INVISIBLE);
+            }else {
+                goodsVoucher.setVisibility(View.VISIBLE);
+                goodsVoucher.setText("劵可减" + goodsItemInfo.getQuanPrice());
+            }
+            if (TextUtils.isEmpty(goodsItemInfo.getGoodsMostCommission())||TextUtils.equals("0",goodsItemInfo.getGoodsMostCommission())
+                    ||TextUtils.equals("0.0",goodsItemInfo.getGoodsMostCommission())
+                    ||TextUtils.equals("0.00",goodsItemInfo.getGoodsMostCommission())){
                 commission.setVisibility(View.INVISIBLE);
             }else {
                 commission.setVisibility(View.VISIBLE);
